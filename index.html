@@ -1,0 +1,235 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloudseeker: Venus Awaits</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #0a0a0a;
+            color: #e0e0e0;
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.9);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+        header .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #ff4d4d;
+        }
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: url('https://photojournal.jpl.nasa.gov/jpeg/PIA00104.jpg') no-repeat center/cover;
+            position: relative;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .hero-content {
+            z-index: 1;
+            max-width: 800px;
+            padding: 2rem;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #ff4d4d;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .cta-button:hover {
+            background: #cc0000;
+        }
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #ff4d4d;
+        }
+        .mission, .nonprofit, .join {
+            background: #1a1a1a;
+            margin: 2rem 0;
+            padding: 3rem;
+            border-radius: 10px;
+        }
+        .mission p, .nonprofit p, .join p {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        .mission-images {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        .mission-images img {
+            width: 48%;
+            border-radius: 10px;
+        }
+        footer {
+            background: #0a0a0a;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid #333;
+        }
+        footer p {
+            font-size: 0.9rem;
+        }
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            nav a {
+                margin-left: 1rem;
+                font-size: 0.9rem;
+            }
+            .mission-images {
+                flex-direction: column;
+            }
+            .mission-images img {
+                width: 100%;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Nephelis</div>
+        <nav>
+            <a href="#mission">Mission</a>
+            <a href="#nonprofit">Flight4Science</a>
+            <a href="#join">Join Us</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Venus Awaits</h1>
+            <p>A $500,000 dream to explore Venus’s clouds with a crowd-funded miniprobe. Join the adventure.</p>
+            <a href="#join" class="cta-button">Support Now</a>
+        </div>
+    </section>
+
+    <section id="mission" class="mission">
+        <h2>Cloudseeker Mission</h2>
+        <p>In 2027, Nephelis Industries will launch the Cloudseeker miniprobe to Venus, riding a shared SpaceX rocket. A balloon probe will float in the planet’s atmosphere for 30 days, capturing imagery and data on composition, winds, and potential biosignatures. Relayed via a CubeSat orbiter, this data will fuel humanity’s dream of Venusian exploration—all for under $500,000, powered by volunteers and donations.</p>
+        <p>The Cloudseeker probe is a 1-meter balloon with a lightweight sensor pod (camera, temperature, pressure) and a 3U CubeSat orbiter for data relay. Our goal: prove low-cost, high-impact missions can unlock the cosmos. Venus’s clouds hold secrets—let’s uncover them together.</p>
+        <div class="mission-images">
+            <img src="https://cdn.pixabay.com/photo/2020/08/25/18/36/venus-5517670_1280.jpg" alt="Venus Atmosphere">
+            <img src="https://cdn.pixabay.com/photo/2023/03/22/16/58/balloon-7869478_1280.png" alt="Cloudseeker Probe Mockup">
+        </div>
+    </section>
+
+    <section id="nonprofit" class="nonprofit">
+        <h2>Flight4Science</h2>
+        <p>Flight4Science is Nephelis Industries’ non-profit platform, democratizing space by sharing payload capacity on commercial rockets. From student experiments to micro-missions like Cloudseeker, we make space accessible. Partner with us to launch your vision.</p>
+        <p>Support Flight4Science to empower the next generation of explorers.</p>
+    </section>
+
+    <section id="join" class="join">
+        <h2>Join the Mission</h2>
+        <p>Be part of Cloudseeker. Donate to fund our miniprobe, volunteer your skills in engineering or outreach, or propose your own payload for Flight4Science. Every contribution brings Venus closer.</p>
+        <a href="https://www.gofundme.com" class="cta-button">Donate Now</a>
+    </section>
+
+    <footer>
+        <p>© 2026 Nephelis Industries | Contact: info@nephelisindustries.com</p>
+    </footer>
+</body>
+</html>
