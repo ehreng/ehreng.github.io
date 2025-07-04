@@ -180,7 +180,7 @@
             margin: 1.5rem 0 1rem;
             color: var(--cloud-purple);
         }
-        .mission, .nonprofit, .launch, .vision, .join {
+        .mission, .nonprofit, .community, .launch, .vision, .join {
             background: rgba(26, 26, 26, 0.9);
             margin: 2rem 0;
             padding: 3rem;
@@ -189,20 +189,20 @@
             grid-template-columns: 1fr 1fr;
             gap: 2rem;
         }
-        .mission p, .nonprofit p, .launch p, .vision p, .join p {
+        .mission p, .nonprofit p, .community p, .launch p, .vision p, .join p {
             font-size: 1.1rem;
             margin-bottom: 1rem;
         }
-        .mission-images, .launch-image {
+        .mission-images, .launch-image, .community-image {
             grid-column: 1 / -1;
             display: flex;
             justify-content: space-between;
             margin-top: 2rem;
         }
-        .mission-images picture, .launch-image picture {
+        .mission-images picture, .launch-image picture, .community-image picture {
             width: 48%;
         }
-        .mission-images img, .launch-image img {
+        .mission-images img, .launch-image img, .community-image img {
             width: 100%;
             border-radius: 10px;
             loading: lazy;
@@ -214,14 +214,15 @@
             border: 1px dashed var(--venus-gold);
             padding: 1rem;
             text-align: center;
+            grid-column: 1 / -1;
         }
         .timeline {
             margin-top: 2rem;
             grid-column: 1 / -1;
-        }
-        .timeline ul {
-            list-style: none;
-            padding-left: 1rem;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            color: var(--venus-gold);
+            text-transform: uppercase;
         }
         .timeline li {
             margin-bottom: 1rem;
@@ -257,10 +258,10 @@
             .hero .tagline {
                 font-size: 1.3rem;
             }
-            .mission, .nonprofit, .launch, .vision, .join {
+            .mission, .nonprofit, .community, .launch, .vision, .join {
                 grid-template-columns: 1fr;
             }
-            .mission-images picture, .launch-image picture {
+            .mission-images picture, .launch-image picture, .community-image picture {
                 width: 100%;
                 margin-bottom: 1rem;
             }
@@ -275,7 +276,7 @@
                     }
                 });
             }, { threshold: 0.1 });
-            document.querySelectorAll('h2, .timeline li').forEach(el => observer.observe(el));
+            document.querySelectorAll('h2, .timeline').forEach(el => observer.observe(el));
         });
     </script>
 </head>
@@ -284,7 +285,8 @@
         <div class="logo">Nephelis</div>
         <nav>
             <a href="#mission" aria-label="Mission Section">Mission</a>
-            <a href="#nonprofit" aria-label="Flight4Science Section">Flight4Science</a>
+            <a href="#nonprofit" aria-label="StellarSpark Section">StellarSpark</a>
+            <a href="#community" aria-label="StellarSpark Community Section">Community</a>
             <a href="#launch" aria-label="Launch and Journey Section">Launch & Journey</a>
             <a href="#vision" aria-label="Vision Section">Vision</a>
             <a href="#join" aria-label="Join Us Section">Join Us</a>
@@ -303,7 +305,7 @@
     <article id="mission" class="mission">
         <h2>Cloudseeker Mission</h2>
         <h3>The Dream</h3>
-        <p>In 2027, Nephelis Industries will hurl the Cloudseeker miniprobe to Venus, hitching a ride on a <a href="https://www.spacex.com/rideshare">SpaceX rocket</a>. A balloon probe will dance at 55 km in the planet’s clouds for 30 days, snagging imagery and data on CO2, sulfuric acid, winds, and elusive biosignatures like phosphine. A 3U CubeSat orbiter relays it all back, fueling our Venusian dreams—all for under $500,000, driven by volunteers and your donations. Dive deeper at <a href="https://science.nasa.gov/venus">NASA’s Venus portal</a> or <a href="https://www.planetary.org/space-missions/every-venus-mission">The Planetary Society</a>.</p>
+        <p>In 2027, Nephelis Industries will hurl the Cloudseeker miniprobe to Venus, hitching a ride on a <a href="https://www.spacex.com/rideshare">SpaceX rocket</a>. A balloon probe will dance at 55 km in the planet’s clouds for 30 days, snagging imagery and data on CO2, sulfuric acid, winds, and elusive biosignatures like phosphine. A 3U CubeSat orbiter relays it all back, fueling our Venusian dreams—all for under $500,000, driven by volunteers and your donations, empowered by StellarSpark. Dive deeper at <a href="https://science.nasa.gov/venus">NASA’s Venus portal</a> or <a href="https://www.planetary.org/space-missions/every-venus-mission">The Planetary Society</a>.</p>
         <h3>The Why</h3>
         <p>“Life forms on the surface, forced to adapt, might have migrated into the skies,” mused Carl Sagan in 1967, dreaming of Venus’s clouds. <a href="https://spaceambition.substack.com/p/venus-exploration-the-rationale-for">Phosphine detections</a> now tease the possibility of microbial life, making Venus a cosmic enigma. <a href="https://www.esa.int/Science_Exploration/Space_Science/Envision_factsheet">ESA’s EnVision</a> reveals its Earth-like past, undone by a greenhouse catastrophe. Cloudseeker defies billion-dollar gatekeepers, proving a scrappy team can pierce the veil.</p>
         <h3>The Tech</h3>
@@ -323,9 +325,23 @@
     </article>
 
     <article id="nonprofit" class="nonprofit">
-        <h2>Flight4Science</h2>
-        <p>Flight4Science, our non-profit arm, tears down space’s barriers by sharing rocket payload slots. From student CubeSats to micro-missions like Cloudseeker, we launch dreamers skyward. Crowd-funding, volunteer grit, and donated gear slash costs, proving space isn’t just for giants. Partner with us to ignite your mission.</p>
-        <p>Back Flight4Science to spark a new era of explorers and claim the cosmos for all.</p>
+        <h2>StellarSpark</h2>
+        <p>StellarSpark, Nephelis Industries’ non-profit arm, shatters space’s elitist barriers by sharing rocket payload slots. From student CubeSats to micro-missions like Cloudseeker, we launch dreamers—high schoolers, garage tinkerers, bold visionaries—skyward. Crowd-funding, volunteer grit, and donated gear slash costs, proving space isn’t just for giants. Partner with us to ignite your mission, whether it’s Venus’s clouds or Europa’s icy depths.</p>
+        <p>Back StellarSpark to spark a new era of explorers and claim the cosmos for all.</p>
+    </article>
+
+    <article id="community" class="community">
+        <h2>Spark the Cosmos</h2>
+        <p>StellarSpark isn’t just a platform—it’s a rebellion for students and hobbyists to conquer the solar system. Got a wild idea for a Mars rover, an asteroid sensor, or a Jupiter moon probe? We’re here to make it real. Join our community to design payloads, learn from Nephelis engineers, and launch your own micro-mission. Our 2028 StellarSpark Challenge offers a 1-kg payload slot on a SpaceX rideshare—free for the winning student or hobbyist team.</p>
+        <p>From Venus’s clouds to Saturn’s rings, StellarSpark fuels countless adventures. Submit your payload idea, volunteer your skills, or mentor the next generation. Together, we’ll flood the solar system with probes, each a spark in the cosmic dark. Share your vision with #StellarSpark and ignite the future.</p>
+        <p class="video-placeholder">Future infographic: Student and hobbyist probes lighting up the solar system, crowdfunded by our community.</p>
+        <div class="community-image">
+            <picture>
+                <source srcset="https://photojournal.jpl.nasa.gov/jpeg/PIA21923.jpg" media="(min-width: 768px)">
+                <img src="https://photojournal.jpl.nasa.gov/jpeg/PIA21923.jpg" alt="Solar System Exploration" loading="lazy">
+            </picture>
+        </div>
+        <a href="https://www.nephelisindustries.com/stellarspark-submit" class="cta-button">Submit Your Idea</a>
     </article>
 
     <article id="launch" class="launch">
@@ -344,14 +360,7 @@
             </picture>
         </div>
         <div class="timeline">
-            <h3>Timeline</h3>
-            <ul>
-                <li>July 2025–December 2026: Build and test Cloudseeker (18 months, volunteer-led).</li>
-                <li>January 2027: Launch on SpaceX Transporter to LEO.</li>
-                <li>January–June 2027: 5–6-month cruise via lunar flyby.</li>
-                <li>June 2027: Probe enters Venus’s atmosphere, begins 30-day data collection.</li>
-                <li>July 2027: Data relayed to Earth, shared with supporters.</li>
-            </ul>
+            IGNITE BUILD: JUL 03 2025 → THRUST LAUNCH: JAN 01 2027 → CRUISE TO VENUS: JAN 01 2027 → UNVEIL DATA: JUL 01 2027
         </div>
     </article>
 
@@ -363,7 +372,7 @@
 
     <article id="join" class="join">
         <h2>Make History with Us</h2>
-        <p>Join Cloudseeker and etch your name in Venus’s clouds. Donate to fuel our $500,000 miniprobe, volunteer your skills—engineering, design, or outreach—or pitch your payload for Flight4Science. Every $10, every hour, defies the odds. Share #Cloudseeker on X and ignite a movement to conquer the veil.</p>
+        <p>Join Cloudseeker and StellarSpark to etch your name in Venus’s clouds and beyond. Donate to fuel our $500,000 miniprobe, volunteer your skills—engineering, design, or outreach—or pitch your payload for StellarSpark’s next mission. Every $10, every hour, defies the odds. Share #Cloudseeker and #StellarSpark on X to ignite a movement across the solar system.</p>
         <a href="https://www.kickstarter.com/projects/nephelis/cloudseeker" class="cta-button">Join the Quest</a>
     </article>
 
