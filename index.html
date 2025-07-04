@@ -42,14 +42,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cloudseeker: Pierce the Veil</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="description" content="Project Nephelis launches Cloudseeker, a $500,000 crowd-funded miniprobe to explore Venus’s clouds in 2027, powered by Grok and StellarSpark.">
+    <meta name="keywords" content="Venus, Cloudseeker, Project Nephelis, space exploration, crowd-funding, StellarSpark, Grok">
+    <meta name="author" content="Project Nephelis">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23FFD700%22>N</text></svg>" type="image/svg+xml">
+    <link rel="preconnect" href="https://photojournal.jpl.nasa.gov" prefetch>
+    <title>Cloudseeker: Project Nephelis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --venus-gold: #FFD700;
             --cloud-purple: #6A0DAD;
             --space-black: #0A0A0A;
             --accent-red: #FF4D4D;
+            --lunar-silver: #D3D7D9;
         }
         * {
             margin: 0;
@@ -58,10 +64,15 @@
         }
         body {
             background: var(--space-black);
-            color: #E0E0E0;
+            color: var(--lunar-silver);
             font-family: 'Orbitron', sans-serif;
-            line-height: 1.6;
+            font-weight: 500;
+            font-size: 1.3rem;
+            line-height: 1.8;
             overflow-x: hidden;
+            transition: all 0.4s ease;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
         }
         header {
             position: sticky;
@@ -69,27 +80,28 @@
             width: 100%;
             background: rgba(10, 10, 10, 0.7);
             backdrop-filter: blur(10px);
-            padding: 1rem 2rem;
+            padding: 1.5rem 2.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
         header .logo {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 700;
             letter-spacing: 3px;
             color: var(--venus-gold);
         }
         nav a {
-            color: #E0E0E0;
+            color: var(--lunar-silver);
             text-decoration: none;
-            margin-left: 1.5rem;
-            font-size: 1rem;
-            transition: color 0.3s, transform 0.2s;
+            margin-left: 2rem;
+            font-size: 1.1rem;
+            transition: color 0.4s ease, transform 0.2s ease;
         }
         nav a:hover {
-            color: var(--venus-gold);
+            color: var(--cloud-purple);
             transform: scale(1.1);
         }
         .hero {
@@ -98,13 +110,14 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            background: url('https://photojournal.jpl.nasa.gov/jpeg/PIA00104.jpg') no-repeat center/cover;
+            background: linear-gradient(45deg, var(--space-black), rgba(106, 13, 173, 0.3)), url('https://photojournal.jpl.nasa.gov/jpeg/PIA00073.jpg') no-repeat center/cover;
             position: relative;
-            animation: parallax 20s infinite linear;
+            animation: cloudSwirl 25s infinite ease-in-out;
         }
-        @keyframes parallax {
-            0% { background-position: center 0; }
-            100% { background-position: center -50px; }
+        @keyframes cloudSwirl {
+            0% { background-position: 0 0; }
+            50% { background-position: -50px 0; }
+            100% { background-position: 0 0; }
         }
         .hero::after {
             content: '';
@@ -113,7 +126,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.6);
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(106, 13, 173, 0.3));
         }
         .hero-content {
             z-index: 1;
@@ -121,25 +134,25 @@
             padding: 2rem;
         }
         .hero .tagline {
-            font-size: 1.8rem;
-            font-weight: 400;
+            font-size: 2rem;
+            font-weight: 700;
             color: var(--cloud-purple);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             opacity: 0;
             animation: fadeIn 1s ease-in forwards;
         }
         .hero h1 {
-            font-size: 4rem;
+            font-size: 4.5rem;
             font-weight: 700;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             color: var(--venus-gold);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             text-transform: uppercase;
             opacity: 0;
             animation: fadeIn 1s ease-in 0.5s forwards;
         }
         .hero p {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             margin-bottom: 2rem;
             opacity: 0;
             animation: fadeIn 1s ease-in 1s forwards;
@@ -149,93 +162,101 @@
         }
         .cta-button {
             display: inline-block;
-            padding: 1rem 2rem;
+            padding: 1.2rem 2.5rem;
             background: var(--accent-red);
             color: #FFF;
             text-decoration: none;
             font-weight: 700;
-            border-radius: 5px;
-            transition: background 0.3s, box-shadow 0.3s;
+            border-radius: 6px;
+            transition: background 0.4s ease, box-shadow 0.4s ease;
         }
         .cta-button:hover {
             background: var(--cloud-purple);
             box-shadow: 0 0 15px var(--venus-gold);
         }
         section {
-            padding: 5rem 2rem;
+            padding: 4rem 2.5rem;
             max-width: 1200px;
             margin: 0 auto;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.1), rgba(106, 13, 173, 0.1));
+        }
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
         }
         h2 {
-            font-size: 2.8rem;
+            font-size: 3rem;
+            font-weight: 700;
             margin-bottom: 2rem;
             text-align: center;
             color: var(--venus-gold);
             opacity: 0;
             transform: translateY(20px);
-            transition: opacity 0.5s, transform 0.5s;
+            transition: opacity 0.5s ease, transform 0.5s ease;
         }
         h3 {
-            font-size: 1.8rem;
-            margin: 1.5rem 0 1rem;
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 2rem 0 1.5rem;
             color: var(--cloud-purple);
         }
         .mission, .nonprofit, .community, .launch, .vision, .join {
-            background: rgba(26, 26, 26, 0.9);
-            margin: 2rem 0;
-            padding: 3rem;
-            border-radius: 10px;
+            background: rgba(10, 10, 10, 0.7);
+            margin: 2.5rem 0;
+            padding: 3.5rem;
+            border-radius: 12px;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2rem;
+            gap: 2.5rem;
+            position: relative;
+            overflow: hidden;
         }
         .mission p, .nonprofit p, .community p, .launch p, .vision p, .join p {
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
         }
-        .mission-images, .launch-image, .community-image {
+        .mission-images, .launch-image, .community-image, .vision-image {
             grid-column: 1 / -1;
             display: flex;
             justify-content: space-between;
-            margin-top: 2rem;
+            margin-top: 2.5rem;
         }
-        .mission-images picture, .launch-image picture, .community-image picture {
+        .mission-images picture, .launch-image picture, .community-image picture, .vision-image picture {
             width: 48%;
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.2), rgba(106, 13, 173, 0.2));
+            border-radius: 10px;
+            overflow: hidden;
         }
-        .mission-images img, .launch-image img, .community-image img {
+        .mission-images img, .launch-image img, .community-image img, .vision-image img {
             width: 100%;
             border-radius: 10px;
             loading: lazy;
         }
         .video-placeholder {
-            margin-top: 2rem;
+            margin-top: 2.5rem;
             font-style: italic;
             color: #999;
-            border: 1px dashed var(--venus-gold);
-            padding: 1rem;
+            border: 2px dashed var(--venus-gold);
+            padding: 1.5rem;
             text-align: center;
             grid-column: 1 / -1;
         }
         .timeline {
-            margin-top: 2rem;
+            margin-top: 2.5rem;
             grid-column: 1 / -1;
-            font-size: 1.2rem;
-            letter-spacing: 2px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: 2.5px;
             color: var(--venus-gold);
             text-transform: uppercase;
-        }
-        .timeline li {
-            margin-bottom: 1rem;
-            position: relative;
-            opacity: 0;
-            transform: translateX(-20px);
-            transition: opacity 0.5s, transform 0.5s;
-        }
-        .timeline li::before {
-            content: '•';
-            color: var(--accent-red);
-            position: absolute;
-            left: -1rem;
         }
         .visible {
             opacity: 1;
@@ -245,11 +266,28 @@
             background: var(--space-black);
             padding: 2rem;
             text-align: center;
-            border-top: 1px solid #333;
+            border-top: 1px solid #666;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
         }
         footer p {
-            font-size: 0.9rem;
-            color: var(--venus-gold);
+            font-size: 1rem;
+            color: var(--lunar-silver);
+        }
+        footer a {
+            color: var(--accent-red);
+            text-decoration: none;
+            transition: color 0.4s ease;
+        }
+        footer a:hover {
+            color: var(--cloud-purple);
+        }
+        .final-cta {
+            margin-top: 2rem;
+            font-size: 1.2rem;
+            color: var(--accent-red);
+            text-align: center;
+            padding: 1rem;
+            border: 2px dashed var(--venus-gold);
         }
         @media (max-width: 768px) {
             .hero h1 {
@@ -260,10 +298,14 @@
             }
             .mission, .nonprofit, .community, .launch, .vision, .join {
                 grid-template-columns: 1fr;
+                padding: 2rem;
             }
-            .mission-images picture, .launch-image picture, .community-image picture {
+            .mission-images picture, .launch-image picture, .community-image picture, .vision-image picture {
                 width: 100%;
-                margin-bottom: 1rem;
+                margin-bottom: 1.5rem;
+            }
+            section {
+                padding: 3rem 1.5rem;
             }
         }
     </style>
@@ -277,12 +319,50 @@
                 });
             }, { threshold: 0.1 });
             document.querySelectorAll('h2, .timeline').forEach(el => observer.observe(el));
+
+            const canvas = document.querySelector('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resizeCanvas);
+
+            const particles = [];
+            for (let i = 0; i < 20; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    r: Math.random() * 2 + 1,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    color: `rgba(255, 215, 0, ${Math.random() * 0.3 + 0.1})`
+                });
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.fill();
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                });
+                requestAnimationFrame(animate);
+            }
+            animate();
         });
     </script>
 </head>
 <body>
     <header>
-        <div class="logo">Nephelis</div>
+        <div class="logo">Project Nephelis</div>
         <nav>
             <a href="#mission" aria-label="Mission Section">Mission</a>
             <a href="#nonprofit" aria-label="StellarSpark Section">StellarSpark</a>
@@ -297,7 +377,7 @@
         <div class="hero-content">
             <div class="tagline">Clouds to Cities</div>
             <h1>Pierce the Veil</h1>
-            <p>We’re not NASA. We’re Nephelis Industries—dreamers betting $500,000 on a crowd-funded miniprobe to unravel Venus’s clouds. Cloudseeker is our rebellion against the status quo, a first step to cities in the sky. Venture into the unknown with us.</p>
+            <p>We’re not NASA. We’re Project Nephelis—dreamers betting $500,000 on a crowd-funded miniprobe to unravel Venus’s clouds. Cloudseeker is our rebellion against the status quo, a first step to cities in the sky. Venture into the unknown with us.</p>
             <a href="#join" class="cta-button">Join the Quest</a>
         </div>
     </section>
@@ -305,40 +385,42 @@
     <article id="mission" class="mission">
         <h2>Cloudseeker Mission</h2>
         <h3>The Dream</h3>
-        <p>In 2027, Nephelis Industries will hurl the Cloudseeker miniprobe to Venus, hitching a ride on a <a href="https://www.spacex.com/rideshare">SpaceX rocket</a>. A balloon probe will dance at 55 km in the planet’s clouds for 30 days, snagging imagery and data on CO2, sulfuric acid, winds, and elusive biosignatures like phosphine. A 3U CubeSat orbiter relays it all back, fueling our Venusian dreams—all for under $500,000, driven by volunteers and your donations, empowered by StellarSpark. Dive deeper at <a href="https://science.nasa.gov/venus">NASA’s Venus portal</a> or <a href="https://www.planetary.org/space-missions/every-venus-mission">The Planetary Society</a>.</p>
+        <p>In 2027, Project Nephelis will hurl the Cloudseeker miniprobe to Venus, hitching a ride on a <a href="https://www.spacex.com/rideshare" rel="prefetch">SpaceX rocket</a>. Starting today, 09:43 PM PDT, Jul 03 2025, it will dance at 55 km, navigating the tempest of Venus’s clouds for 30 days, snagging imagery and data on CO2, sulfuric acid, winds, and elusive biosignatures like phosphine. A 3U CubeSat orbiter relays it back, fueling our Venusian dreams—all for under $500,000, driven by volunteers and your donations, empowered by StellarSpark, with trajectory insights from Grok. Dive deeper at <a href="https://science.nasa.gov/venus" rel="prefetch">NASA’s Venus portal</a> or <a href="https://www.planetary.org/space-missions/every-venus-mission" rel="prefetch">The Planetary Society</a>.</p>
         <h3>The Why</h3>
-        <p>“Life forms on the surface, forced to adapt, might have migrated into the skies,” mused Carl Sagan in 1967, dreaming of Venus’s clouds. <a href="https://spaceambition.substack.com/p/venus-exploration-the-rationale-for">Phosphine detections</a> now tease the possibility of microbial life, making Venus a cosmic enigma. <a href="https://www.esa.int/Science_Exploration/Space_Science/Envision_factsheet">ESA’s EnVision</a> reveals its Earth-like past, undone by a greenhouse catastrophe. Cloudseeker defies billion-dollar gatekeepers, proving a scrappy team can pierce the veil.</p>
+        <p>“Life forms on the surface, forced to adapt, might have migrated into the skies,” mused Carl Sagan in 1967, dreaming of Venus’s clouds. <a href="https://spaceambition.substack.com/p/venus-exploration-the-rationale-for" rel="prefetch">Phosphine detections</a> tease microbial life, making Venus a cosmic enigma. <a href="https://www.esa.int/Science_Exploration/Space_Science/Envision_factsheet" rel="prefetch">ESA’s EnVision</a> reveals its Earth-like past, undone by a greenhouse catastrophe. Cloudseeker defies billion-dollar gatekeepers, proving a scrappy team can pierce the veil.</p>
         <h3>The Tech</h3>
-        <p>Envision a 1-meter balloon, sheathed in acid-proof polytetrafluoroethylene, gliding through Venus’s golden haze. Its 1-kg sensor pod—packing a 4K camera, temperature/pressure sensors, and an autofluorescing nephelometer—unlocks atmospheric secrets. Thin-film solar cells power it, riding 200 km/h winds, while a 4-kg CubeSat orbiter with a high-gain antenna beams data home. Built on Soviet Vega’s legacy but honed for 2026, Cloudseeker is lean, fierce innovation.</p>
-        <p><strong>Microprobe Revolution</strong>: Tech like NASA’s <a href="https://ntrs.nasa.gov/citations/20230012848">HEEET heat shield</a> lets microprobes like Cloudseeker brave Venus’s clouds. “By demonstrating that this is possible, we might trigger more interest,” says MIT’s Sara Seager of Rocket Lab’s $10M probe. <a href="https://spacenews.com/rocket-lab-plans-launch-of-venus-mission-as-soon-as-late-2024/">Launch costs</a> are crashing—SpaceX’s rideshares hit ~$5,000/kg, opening interplanetary gates for startups. Cloudseeker’s 10-kg payload rides this tide, redefining exploration.</p>
-        <p class="video-placeholder">Future CGI animation: Watch Cloudseeker’s balloon probe soar through Venus’s clouds, funded by our Kickstarter.</p>
+        <p>Envision a 1-meter balloon, forged from acid-proof polytetrafluoroethylene, gliding through Venus’s golden haze, inspired by Venera’s descent resilience. Its 1-kg sensor pod—packing a 4K camera, temperature/pressure sensors, and an autofluorescing nephelometer—unlocks atmospheric secrets, aiming to map like Magellan’s radar. Thin-film solar cells power it, riding 200 km/h winds, while a 4-kg CubeSat orbiter with a high-gain antenna beams data home. Built on Soviet Vega’s legacy but honed for 2026, Cloudseeker is lean, fierce innovation.</p>
+        <h3>Grok Powered</h3>
+        <p>Grok, built by xAI, enhances Cloudseeker’s mission with advanced trajectory analysis and data interpretation, ensuring precision in our 2027 launch. Learn more about Grok’s capabilities at <a href="https://x.ai" rel="prefetch">xAI</a>. This AI partnership amplifies our low-cost approach, making space exploration smarter and more accessible.</p>
+        <p><strong>Microprobe Revolution</strong>: Tech like NASA’s <a href="https://ntrs.nasa.gov/citations/20230012848" rel="prefetch">HEEET heat shield</a> lets microprobes like Cloudseeker brave Venus’s clouds. “By demonstrating that this is possible, we might trigger more interest,” says MIT’s Sara Seager of Rocket Lab’s $10M probe. <a href="https://spacenews.com/rocket-lab-plans-launch-of-venus-mission-as-soon-as-late-2024/" rel="prefetch">Launch costs</a> are crashing—SpaceX’s rideshares hit ~$5,000/kg, opening interplanetary gates for startups. Cloudseeker’s 10-kg payload rides this tide, redefining exploration.</p>
+        <p class="video-placeholder">Future CGI animation: Watch Cloudseeker’s balloon probe soar through Venus’s clouds, inspired by HAVOC concepts, funded by our Kickstarter.</p>
         <div class="mission-images">
             <picture>
-                <source srcset="https://photojournal.jpl.nasa.gov/jpeg/PIA00072.jpg" media="(min-width: 768px)">
-                <img src="https://photojournal.jpl.nasa.gov/jpeg/PIA00072.jpg" alt="Venus Clouds" loading="lazy">
+                <source srcset="https://photojournal.jpl.nasa.gov/jpeg/PIA00073.jpg" media="(min-width: 768px)">
+                <img src="https://photojournal.jpl.nasa.gov/jpeg/PIA00073.jpg" alt="Venus cloud swirls from Mariner 10" loading="lazy">
             </picture>
             <picture>
                 <source srcset="https://photojournal.jpl.nasa.gov/jpeg/PIA10124.jpg" media="(min-width: 768px)">
-                <img src="https://photojournal.jpl.nasa.gov/jpeg/PIA10124.jpg" alt="Cloudseeker Probe Mockup" loading="lazy">
+                <img src="https://photojournal.jpl.nasa.gov/jpeg/PIA10124.jpg" alt="Cloudseeker probe concept" loading="lazy">
             </picture>
         </div>
     </article>
 
     <article id="nonprofit" class="nonprofit">
         <h2>StellarSpark</h2>
-        <p>StellarSpark, Nephelis Industries’ non-profit arm, shatters space’s elitist barriers by sharing rocket payload slots. From student CubeSats to micro-missions like Cloudseeker, we launch dreamers—high schoolers, garage tinkerers, bold visionaries—skyward. Crowd-funding, volunteer grit, and donated gear slash costs, proving space isn’t just for giants. Partner with us to ignite your mission, whether it’s Venus’s clouds or Europa’s icy depths.</p>
+        <p>StellarSpark, Project Nephelis’ non-profit arm, shatters space’s elitist barriers by sharing rocket payload slots. From student CubeSats to micro-missions like Cloudseeker, we launch dreamers—high schoolers, garage tinkerers, bold visionaries—skyward. Crowd-funding, volunteer grit, and donated gear slash costs, proving space isn’t just for giants. Partner with us to ignite your mission, whether it’s Venus’s clouds or Europa’s icy depths.</p>
         <p>Back StellarSpark to spark a new era of explorers and claim the cosmos for all.</p>
     </article>
 
     <article id="community" class="community">
         <h2>Spark the Cosmos</h2>
-        <p>StellarSpark isn’t just a platform—it’s a rebellion for students and hobbyists to conquer the solar system. Got a wild idea for a Mars rover, an asteroid sensor, or a Jupiter moon probe? We’re here to make it real. Join our community to design payloads, learn from Nephelis engineers, and launch your own micro-mission. Our 2028 StellarSpark Challenge offers a 1-kg payload slot on a SpaceX rideshare—free for the winning student or hobbyist team.</p>
+        <p>StellarSpark isn’t just a platform—it’s a rebellion for students and hobbyists to conquer the solar system. Got a wild idea for a Mars rover, an asteroid sensor, or a Jupiter moon probe? Project Nephelis is here to make it real. Join our community to design payloads, learn from our engineers, and launch your own micro-mission. Our 2028 StellarSpark Challenge offers a 1-kg payload slot on a SpaceX rideshare—submissions due by Dec 31, 2027, free for the winning team.</p>
         <p>From Venus’s clouds to Saturn’s rings, StellarSpark fuels countless adventures. Submit your payload idea, volunteer your skills, or mentor the next generation. Together, we’ll flood the solar system with probes, each a spark in the cosmic dark. Share your vision with #StellarSpark and ignite the future.</p>
         <p class="video-placeholder">Future infographic: Student and hobbyist probes lighting up the solar system, crowdfunded by our community.</p>
         <div class="community-image">
             <picture>
                 <source srcset="https://photojournal.jpl.nasa.gov/jpeg/PIA21923.jpg" media="(min-width: 768px)">
-                <img src="https://photojournal.jpl.nasa.gov/jpeg/PIA21923.jpg" alt="Solar System Exploration" loading="lazy">
+                <img src="https://photojournal.jpl.nasa.gov/jpeg/PIA21923.jpg" alt="Solar system exploration map" loading="lazy">
             </picture>
         </div>
         <a href="https://www.nephelisindustries.com/stellarspark-submit" class="cta-button">Submit Your Idea</a>
@@ -350,13 +432,13 @@
         <h3>Technical Feasibility</h3>
         <p>Cloudseeker’s 10-kg payload—a 1-kg balloon probe and 4-kg CubeSat orbiter—targets Venus’s 55-km cloud layer, where pressure (0.5 bar) and temperature (~30°C) mirror Earth. Its polytetrafluoroethylene shield defies sulfuric acid, with solar cells and a radio sustaining 30 days. The CubeSat, a proven 3U design, relays data via NASA’s Deep Space Network. SpaceX’s rideshare, at ~$5,000/kg, keeps launch costs under $50,000, with volunteers driving down build expenses.</p>
         <h3>Launch Windows (2025–2030)</h3>
-        <p>Venus windows open every ~19 months: <a href="https://www.space.com/1st-ever-private-venus-mission-delayed-2025">summer 2026</a>, January–March 2027, August–October 2028. Cloudseeker aims for January 2027, riding a SpaceX Transporter to LEO, then a lunar flyby and 5–6-month cruise, arriving June 2027.</p>
+        <p>Venus windows open every ~19 months: <a href="https://www.space.com/1st-ever-private-venus-mission-delayed-2025" rel="prefetch">summer 2026</a>, January–March 2027, August–October 2028. Cloudseeker aims for January 2027, riding a SpaceX Transporter to LEO, then a lunar flyby and 5–6-month cruise, arriving June 2027.</p>
         <h3>Route to Venus</h3>
-        <p>From LEO, Cloudseeker’s Photon bus climbs, slingshots past the Moon, and arcs toward Venus. The probe detaches 30 minutes before entry, floating at 55 km for 30 days of data collection.</p>
+        <p>From LEO, Cloudseeker’s Photon bus climbs, slingshots past the Moon, and arcs toward Venus, tracing a path through the cosmic haze. The probe detaches 30 minutes before entry, floating at 55 km for 30 days of data collection.</p>
         <div class="launch-image">
             <picture>
                 <source srcset="https://photojournal.jpl.nasa.gov/jpeg/PIA00271.jpg" media="(min-width: 768px)">
-                <img src="https://photojournal.jpl.nasa.gov/jpeg/PIA00271.jpg" alt="Earth-to-Venus Route Mockup" loading="lazy">
+                <img src="https://photojournal.jpl.nasa.gov/jpeg/PIA00271.jpg" alt="Earth-to-Venus trajectory with Venus cloud swirls" loading="lazy" style="filter: hue-rotate(45deg);">
             </picture>
         </div>
         <div class="timeline">
@@ -366,18 +448,26 @@
 
     <article id="vision" class="vision">
         <h2>Vision for Venus</h2>
-        <p>“We’re not just probing Venus’s clouds—we’re building a home in the sky,” says Nephelis Industries’ founder. Cloudseeker lays the foundation for floating habitats at 50–55 km, where Earth-like conditions beckon. Inspired by NASA’s HAVOC, these solar-powered platforms could shelter thousands, shielded from acid by cutting-edge materials. Cloudseeker’s data—winds, composition, stability—paves the way for robotic probes and self-assembling stations, inching us toward permanent skies.</p>
+        <p>“We’re not just probing Venus’s clouds—we’re building a home in the sky,” says Project Nephelis’ founder. Cloudseeker lays the foundation for floating habitats at 50–55 km, where Earth-like conditions beckon, inspired by Venera’s rugged surface glimpses. Drawing from NASA’s HAVOC, these solar-powered platforms could shelter thousands, shielded from acid by cutting-edge materials. Cloudseeker’s data—winds, composition, stability—paves the way for robotic probes and self-assembling stations, inching us toward permanent skies.</p>
         <p>Mars is distant. Venus is near. Dare to dream with us, one mission at a time.</p>
+        <div class="vision-image">
+            <picture>
+                <source srcset="https://photojournal.jpl.nasa.gov/jpeg/PIA00377.jpg" media="(min-width: 768px)">
+                <img src="https://photojournal.jpl.nasa.gov/jpeg/PIA00377.jpg" alt="Venera 9 surface with habitat concept overlay" loading="lazy">
+            </picture>
+        </div>
     </article>
 
     <article id="join" class="join">
         <h2>Make History with Us</h2>
-        <p>Join Cloudseeker and StellarSpark to etch your name in Venus’s clouds and beyond. Donate to fuel our $500,000 miniprobe, volunteer your skills—engineering, design, or outreach—or pitch your payload for StellarSpark’s next mission. Every $10, every hour, defies the odds. Share #Cloudseeker and #StellarSpark on X to ignite a movement across the solar system.</p>
-        <a href="https://www.kickstarter.com/projects/nephelis/cloudseeker" class="cta-button">Join the Quest</a>
+        <p>Join Cloudseeker and StellarSpark to etch your name in Venus’s clouds and beyond. Donate to fuel our $500,000 miniprobe—launch in 18 months! Volunteer your skills—engineering, design, or outreach—or pitch your payload for StellarSpark’s next mission. Every $10, every hour, defies the odds. Share #Cloudseeker and #StellarSpark on X, and follow @NephelisCo for updates to ignite a movement across the solar system.</p>
+        <a href="https://www.kickstarter.com/profile/nephelisindustries" class="cta-button" target="_blank" rel="noopener">Join the Quest</a>
+        <div class="final-cta">Launch nears—join before Jan 2027! Countdown begins now. <button class="cta-button" disabled>Ask Grok about Venus (Coming Soon)</button></div>
     </article>
 
     <footer>
-        <p>© 2026 Nephelis Industries | Contact: <a href="mailto:info@nephelisindustries.com">info@nephelisindustries.com</a></p>
+        <p>© 2026 Project Nephelis | Contact: <a href="mailto:info@nephelisindustries.com">info@nephelisindustries.com</a> | Follow us: <a href="https://x.com/NephelisCo" target="_blank" rel="noopener">X</a></p>
     </footer>
+    <canvas></canvas>
 </body>
 </html>
