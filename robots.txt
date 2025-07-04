@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /stellarspark-submit
+Crawl-delay: 5
+
+Allow: /
+
+# Sitemap to be added later if generated
+# Sitemap: https://nephelisindustries.github.io/sitemap.xml
