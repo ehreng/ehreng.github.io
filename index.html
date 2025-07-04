@@ -41,7 +41,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="Project Nephelis launches Cloudseeker, a $500,000 crowd-funded miniprobe to explore Venus’s clouds in 2027, powered by Grok and StellarSpark.">
     <meta name="keywords" content="Venus, Cloudseeker, Project Nephelis, space exploration, crowd-funding, StellarSpark, Grok">
     <meta name="author" content="Project Nephelis">
@@ -87,11 +87,20 @@
             z-index: 1000;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
-        header .logo {
-            font-size: 2.2rem;
-            font-weight: 700;
-            letter-spacing: 3px;
-            color: var(--venus-gold);
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--lunar-silver);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        .menu-toggle::before {
+            content: '\2630'; /* Hamburger icon */
+        }
+        nav {
+            display: flex;
         }
         nav a {
             color: var(--lunar-silver);
@@ -162,7 +171,7 @@
         }
         .cta-button {
             display: inline-block;
-            padding: 1.2rem 2.5rem;
+            padding: 1.5rem 3rem;
             background: var(--accent-red);
             color: #FFF;
             text-decoration: none;
@@ -290,11 +299,42 @@
             border: 2px dashed var(--venus-gold);
         }
         @media (max-width: 768px) {
+            .hero {
+                height: 60vh;
+            }
             .hero h1 {
-                font-size: 2.8rem;
+                font-size: 2.5rem;
             }
             .hero .tagline {
-                font-size: 1.3rem;
+                font-size: 1.2rem;
+            }
+            .hero p {
+                font-size: 1.2rem;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            nav {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(10, 10, 10, 0.9);
+                padding: 1rem 2.5rem;
+                animation: slideDown 0.3s ease-out;
+            }
+            nav.active {
+                display: flex;
+            }
+            @keyframes slideDown {
+                from { transform: translateY(-100%); }
+                to { transform: translateY(0); }
+            }
+            nav a {
+                margin: 1rem 0;
+                font-size: 1.2rem;
             }
             .mission, .nonprofit, .community, .launch, .vision, .join {
                 grid-template-columns: 1fr;
@@ -303,6 +343,10 @@
             .mission-images picture, .launch-image picture, .community-image picture, .vision-image picture {
                 width: 100%;
                 margin-bottom: 1.5rem;
+            }
+            .cta-button {
+                padding: 1.5rem 3rem;
+                font-size: 1.2rem;
             }
             section {
                 padding: 3rem 1.5rem;
@@ -357,12 +401,19 @@
                 requestAnimationFrame(animate);
             }
             animate();
+
+            const menuToggle = document.querySelector('.menu-toggle');
+            const nav = document.querySelector('nav');
+            menuToggle.addEventListener('click', () => {
+                nav.classList.toggle('active');
+            });
         });
     </script>
 </head>
 <body>
     <header>
         <div class="logo">Project Nephelis</div>
+        <button class="menu-toggle" aria-label="Toggle Menu"></button>
         <nav>
             <a href="#mission" aria-label="Mission Section">Mission</a>
             <a href="#nonprofit" aria-label="StellarSpark Section">StellarSpark</a>
@@ -385,7 +436,7 @@
     <article id="mission" class="mission">
         <h2>Cloudseeker Mission</h2>
         <h3>The Dream</h3>
-        <p>In 2027, Project Nephelis will hurl the Cloudseeker miniprobe to Venus, hitching a ride on a <a href="https://www.spacex.com/rideshare" rel="prefetch">SpaceX rocket</a>. Starting today, 09:43 PM PDT, Jul 03 2025, it will dance at 55 km, navigating the tempest of Venus’s clouds for 30 days, snagging imagery and data on CO2, sulfuric acid, winds, and elusive biosignatures like phosphine. A 3U CubeSat orbiter relays it back, fueling our Venusian dreams—all for under $500,000, driven by volunteers and your donations, empowered by StellarSpark, with trajectory insights from Grok. Dive deeper at <a href="https://science.nasa.gov/venus" rel="prefetch">NASA’s Venus portal</a> or <a href="https://www.planetary.org/space-missions/every-venus-mission" rel="prefetch">The Planetary Society</a>.</p>
+        <p>In 2027, Project Nephelis will hurl the Cloudseeker miniprobe to Venus, hitching a ride on a <a href="https://www.spacex.com/rideshare" rel="prefetch">SpaceX rocket</a>. Starting today, 10:10 PM PDT, Jul 03 2025, it will dance at 55 km, navigating the tempest of Venus’s clouds for 30 days, snagging imagery and data on CO2, sulfuric acid, winds, and elusive biosignatures like phosphine. A 3U CubeSat orbiter relays it back, fueling our Venusian dreams—all for under $500,000, driven by volunteers and your donations, empowered by StellarSpark, with trajectory insights from Grok. Dive deeper at <a href="https://science.nasa.gov/venus" rel="prefetch">NASA’s Venus portal</a> or <a href="https://www.planetary.org/space-missions/every-venus-mission" rel="prefetch">The Planetary Society</a>.</p>
         <h3>The Why</h3>
         <p>“Life forms on the surface, forced to adapt, might have migrated into the skies,” mused Carl Sagan in 1967, dreaming of Venus’s clouds. <a href="https://spaceambition.substack.com/p/venus-exploration-the-rationale-for" rel="prefetch">Phosphine detections</a> tease microbial life, making Venus a cosmic enigma. <a href="https://www.esa.int/Science_Exploration/Space_Science/Envision_factsheet" rel="prefetch">ESA’s EnVision</a> reveals its Earth-like past, undone by a greenhouse catastrophe. Cloudseeker defies billion-dollar gatekeepers, proving a scrappy team can pierce the veil.</p>
         <h3>The Tech</h3>
