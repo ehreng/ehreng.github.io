@@ -1,56 +1,19 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <meta name="description" content="Nephelis Industries launches Cloudseeker, its first $500K miniprobe, to commercialize Venus with tourism, mining, and retirement.">
-    <meta name="keywords" content="Venus, Cloudseeker, Nephelis Industries, space commercialization, tourism, mining, retirement, StellarSpark, Grok">
+    <meta name="description" content="Nephelis Industries launches Cloudseeker, its first $500K miniprobe, to commercialize Venus with tourism, mining, and data collection.">
+    <meta name="keywords" content="Venus, Cloudseeker, Nephelis Industries, space commercialization, tourism, mining, data collection, StellarSpark, Grok">
     <meta name="author" content="Nephelis Industries">
+    <meta property="og:title" content="Cloudseeker by Nephelis Industries">
+    <meta property="og:image" content="https://photojournal.jpl.nasa.gov/jpeg/PIA00073.jpg">
+    <meta property="og:description" content="Explore Venus with Cloudseeker, a $500K miniprobe by Nephelis Industries.">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23FFD700%22>N</text></svg>" type="image/svg+xml">
-    <link rel="preconnect" href="https://photojournal.jpl.nasa.gov" prefetch>
+    <link rel="sitemap" href="/sitemap.xml">
+    <link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'">
     <title>Cloudseeker by Nephelis Industries</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
     <style>
         :root {
             --sky-blue: #1E90FF;
@@ -77,6 +40,20 @@
             -webkit-font-smoothing: antialiased;
             text-rendering: optimizeLegibility;
         }
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--accent-red);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            z-index: 1001;
+            transition: top 0.3s ease;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
         header {
             position: fixed;
             top: 0;
@@ -89,6 +66,10 @@
             align-items: center;
             z-index: 1000;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            transition: background 0.3s ease;
+        }
+        header.scrolled {
+            background: rgba(31, 37, 39, 1);
         }
         header .logo-img {
             max-width: 200px;
@@ -127,10 +108,16 @@
             padding: 0.4rem 0.8rem;
             transition: all 0.3s ease;
             text-transform: uppercase;
+            position: relative;
         }
-        nav.main-nav a:hover {
-            color: var(--venus-gold);
-            text-shadow: var(--glow);
+        nav.main-nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--venus-gold);
         }
         .mobile-nav {
             display: none;
@@ -191,14 +178,14 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            background: transparent; /* WebGL will handle background */
+            background: transparent;
             position: relative;
-            margin-top: 60px; /* Offset for fixed header */
+            margin-top: 60px;
         }
         .hero-content {
             z-index: 1;
-            max-width: calc(900px + 6vw);
-            padding: calc(2rem + 0.3vw);
+            max-width: clamp(300px, 900px + 6vw, 1000px);
+            padding: clamp(1rem, 2rem + 0.3vw, 3rem);
             background: var(--glass-effect);
             border-radius: 12px;
             backdrop-filter: blur(6px);
@@ -208,50 +195,50 @@
             align-items: center;
         }
         .hero .tagline {
-            font-size: calc(1.8rem + 0.3vw);
+            font-size: clamp(1.2rem, 1.8rem + 0.3vw, 2.5rem);
             font-weight: 700;
             color: var(--violet-depth);
-            margin-bottom: calc(1rem + 0.2vw);
+            margin-bottom: clamp(0.5rem, 1rem + 0.2vw, 1.5rem);
             text-transform: uppercase;
             opacity: 0.7;
             animation: fadeIn 0.8s ease-out;
         }
-        .hero-images {
+        .hero-triptych {
             display: flex;
             justify-content: center;
-            gap: calc(0.8rem + 0.1vw);
-            margin-bottom: calc(1rem + 0.2vw);
+            gap: clamp(0.5rem, 0.8rem + 0.1vw, 1rem);
+            margin-bottom: clamp(0.5rem, 1rem + 0.2vw, 1.5rem);
         }
-        .hero-images picture {
+        .hero-triptych picture {
             width: 30%;
             overflow: hidden;
             border-radius: 8px;
             border: 1px solid rgba(30, 144, 255, 0.2);
         }
-        .hero-images img {
+        .hero-triptych img {
             width: 100%;
             height: auto;
             display: block;
             transition: transform 0.3s ease;
         }
-        .hero-images img:hover {
+        .hero-triptych img:hover {
             transform: scale(1.05);
         }
         .hero p {
-            font-size: calc(1rem + 0.1vw);
-            max-width: calc(700px + 5vw);
-            margin: 0 auto calc(1.5rem + 0.3vw);
+            font-size: clamp(0.8rem, 1rem + 0.1vw, 1.2rem);
+            max-width: clamp(250px, 700px + 5vw, 800px);
+            margin: 0 auto clamp(0.5rem, 1.5rem + 0.3vw, 2rem);
             line-height: 1.6;
             color: var(--white);
         }
         .cta-button {
             display: inline-block;
-            padding: calc(0.8rem + 0.1vw) calc(1.5rem + 0.2vw);
+            padding: clamp(0.5rem, 0.8rem + 0.1vw, 1rem) clamp(1rem, 1.5rem + 0.2vw, 2rem);
             background: var(--accent-red);
             color: var(--white);
             text-decoration: none;
             font-weight: 700;
-            font-size: calc(0.9rem + 0.1vw);
+            font-size: clamp(0.7rem, 0.9rem + 0.1vw, 1.1rem);
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -269,30 +256,30 @@
             box-shadow: 0 0 25px var(--accent-red);
         }
         .ask-grok {
-            padding: calc(2.5rem + 0.4vw);
+            padding: clamp(1.5rem, 2.5rem + 0.4vw, 3rem);
             background: var(--glass-effect);
             border-radius: 12px;
             backdrop-filter: blur(6px);
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            margin: calc(3rem + 0.5vw) auto;
-            max-width: calc(650px + 6vw);
+            margin: clamp(2rem, 3rem + 0.5vw, 4rem) auto;
+            max-width: clamp(300px, 650px + 6vw, 800px);
             text-align: center;
         }
         .ask-grok h2 {
-            font-size: calc(1.6rem + 0.2vw);
-            margin-bottom: calc(1rem + 0.2vw);
+            font-size: clamp(1.2rem, 1.6rem + 0.2vw, 2rem);
+            margin-bottom: clamp(0.5rem, 1rem + 0.2vw, 1.5rem);
             color: var(--venus-gold);
             text-shadow: var(--glow);
         }
         .ask-grok input {
-            font-size: calc(0.9rem + 0.1vw);
-            padding: calc(0.5rem + 0.1vw) calc(1rem + 0.2vw);
+            font-size: clamp(0.7rem, 0.9rem + 0.1vw, 1.1rem);
+            padding: clamp(0.3rem, 0.5rem + 0.1vw, 0.8rem) clamp(0.8rem, 1rem + 0.2vw, 1.5rem);
             width: 60%;
             border: 1px solid var(--sky-blue);
             border-radius: 6px;
             background: rgba(255, 255, 255, 0.05);
             color: var(--white);
-            margin-right: calc(0.6rem + 0.1vw);
+            margin-right: clamp(0.4rem, 0.6rem + 0.1vw, 1rem);
         }
         .ask-grok input:focus {
             outline: none;
@@ -300,8 +287,8 @@
             box-shadow: 0 0 8px var(--venus-gold);
         }
         .ask-grok button {
-            font-size: calc(0.9rem + 0.1vw);
-            padding: calc(0.5rem + 0.1vw) calc(1rem + 0.2vw);
+            font-size: clamp(0.7rem, 0.9rem + 0.1vw, 1.1rem);
+            padding: clamp(0.3rem, 0.5rem + 0.1vw, 0.8rem) clamp(0.8rem, 1rem + 0.2vw, 1.5rem);
             background: var(--accent-red);
             border: none;
             border-radius: 6px;
@@ -315,7 +302,7 @@
             box-shadow: 0 0 12px var(--accent-red);
         }
         .ask-grok .voice-btn, .ask-grok .sim-btn {
-            margin-left: calc(0.6rem + 0.1vw);
+            margin-left: clamp(0.4rem, 0.6rem + 0.1vw, 1rem);
             background: var(--sky-blue);
         }
         .ask-grok .voice-btn:hover, .ask-grok .sim-btn:hover {
@@ -324,9 +311,9 @@
             box-shadow: 0 0 12px var(--sky-blue);
         }
         section {
-            padding: calc(4rem + 0.8vw) 2.5rem;
-            max-width: calc(1200px + 6vw);
-            margin: 0 auto calc(3rem + 0.5vw);
+            padding: clamp(2rem, 4rem + 0.8vw, 5rem) clamp(1.5rem, 2.5rem, 3rem);
+            max-width: clamp(600px, 1200px + 6vw, 1400px);
+            margin: 0 auto clamp(2rem, 3rem + 0.5vw, 4rem);
             position: relative;
             background: linear-gradient(135deg, rgba(31, 37, 39, 0.1), rgba(74, 0, 122, 0.1));
             border-radius: 12px;
@@ -340,40 +327,36 @@
         @keyframes fadeIn {
             to { opacity: 1; }
         }
-        @keyframes cloudSwirl {
-            0% { background-position: 0 0; }
-            50% { background-position: -50px 0; }
-            100% { background-position: 0 0; }
-        }
         h2 {
-            font-size: calc(2.5rem + 0.3vw);
+            font-size: clamp(1.5rem, 2rem + 0.2vw, 2.5rem);
             font-weight: 700;
-            margin-bottom: calc(2rem + 0.4vw);
+            margin-bottom: clamp(1rem, 1.5rem + 0.2vw, 2rem);
             text-align: center;
             color: var(--venus-gold);
             text-shadow: var(--glow);
             animation: fadeIn 0.8s ease-out;
         }
         h3 {
-            font-size: calc(1.8rem + 0.2vw);
+            font-size: clamp(1.2rem, 1.5rem + 0.1vw, 1.8rem);
             font-weight: 700;
-            margin: calc(2rem + 0.4vw) 0 calc(1.5rem + 0.2vw);
+            margin: clamp(1rem, 1.5rem + 0.2vw, 2rem) 0 clamp(0.8rem, 1rem + 0.1vw, 1.5rem);
             color: var(--violet-depth);
             animation: fadeIn 0.8s ease-out 0.2s;
         }
         p {
-            font-size: calc(1.1rem + 0.1vw);
-            margin-bottom: calc(1.5rem + 0.2vw);
+            font-size: clamp(0.7rem, 0.9rem + 0.1vw, 1.1rem);
+            max-width: 65ch;
+            margin-bottom: clamp(0.5rem, 1rem + 0.1vw, 1.5rem);
             color: var(--white);
         }
         .mission, .nonprofit, .community, .launch, .vision, .join {
             background: rgba(31, 37, 39, 0.7);
-            margin: calc(2rem + 0.3vw) 0;
-            padding: calc(2.5rem + 0.3vw);
+            margin: clamp(1rem, 1.5rem + 0.2vw, 2rem) 0;
+            padding: clamp(1.5rem, 2rem + 0.3vw, 2.5rem);
             border-radius: 12px;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: calc(1.5rem + 0.2vw);
+            gap: clamp(0.8rem, 1rem + 0.1vw, 1.5rem);
             position: relative;
             overflow: hidden;
         }
@@ -381,34 +364,37 @@
             grid-column: 1 / -1;
             display: flex;
             justify-content: space-between;
-            margin-top: calc(1.5rem + 0.2vw);
+            margin-top: clamp(0.5rem, 1rem + 0.1vw, 1.5rem);
+            gap: clamp(0.3rem, 0.5rem + 0.1vw, 1rem);
         }
         .mission-images picture, .launch-image picture, .community-image picture, .vision-image picture {
             width: 48%;
             background: linear-gradient(45deg, rgba(255, 215, 0, 0.2), rgba(74, 0, 122, 0.2));
-            border-radius: 10px;
+            border-radius: 8px;
             overflow: hidden;
         }
         .mission-images img, .launch-image img, .community-image img, .vision-image img {
             width: 100%;
-            border-radius: 10px;
+            height: auto;
+            display: block;
+            border-radius: 8px;
             loading: lazy;
         }
         .video-placeholder {
-            margin-top: calc(1.5rem + 0.2vw);
+            margin-top: clamp(0.5rem, 1rem + 0.1vw, 1.5rem);
             font-style: italic;
             color: #999;
             border: 2px dashed var(--venus-gold);
-            padding: calc(1rem + 0.2vw);
+            padding: clamp(0.5rem, 0.8rem + 0.1vw, 1rem);
             text-align: center;
             grid-column: 1 / -1;
         }
         .timeline {
-            margin-top: calc(1.5rem + 0.2vw);
+            margin-top: clamp(0.5rem, 1rem + 0.1vw, 1.5rem);
             grid-column: 1 / -1;
-            font-size: calc(1.1rem + 0.1vw);
+            font-size: clamp(0.7rem, 0.9rem + 0.1vw, 1.1rem);
             font-weight: 700;
-            letter-spacing: calc(2px + 0.1vw);
+            letter-spacing: clamp(1px, 1.5px + 0.1vw, 2px);
             color: var(--venus-gold);
             text-transform: uppercase;
         }
@@ -418,46 +404,52 @@
         }
         footer {
             background: var(--deep-gray);
-            padding: calc(1.5rem + 0.3vw);
+            padding: clamp(1rem, 1.5rem + 0.3vw, 2rem);
             text-align: center;
             border-top: 1px solid #666;
             box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
         }
         footer p {
-            font-size: calc(1rem + 0.2vw);
+            font-size: clamp(0.9rem, 1rem + 0.2vw, 1.2rem);
             color: var(--white);
         }
         footer a {
             color: var(--accent-red);
             text-decoration: none;
             transition: color 0.4s ease;
-            margin: 0 calc(0.5rem + 0.1vw);
+            margin: 0 clamp(0.3rem, 0.5rem + 0.1vw, 0.8rem);
+            padding: clamp(0.2rem, 0.3rem + 0.1vw, 0.5rem);
         }
         footer a:hover {
             color: var(--violet-depth);
         }
         .final-cta {
-            margin-top: calc(1.5rem + 0.3vw);
-            font-size: calc(1rem + 0.1vw);
+            margin-top: clamp(1rem, 1.5rem + 0.3vw, 2rem);
+            font-size: clamp(0.8rem, 1rem + 0.1vw, 1.2rem);
             color: var(--accent-red);
             text-align: center;
-            padding: calc(0.8rem + 0.1vw);
+            padding: clamp(0.5rem, 0.8rem + 0.1vw, 1rem);
             border: 2px dashed var(--venus-gold);
         }
         .x-logo {
-            width: calc(1rem + 0.2vw);
+            width: clamp(0.8rem, 1rem + 0.2vw, 1.5rem);
             height: auto;
             vertical-align: middle;
+            fill: currentColor;
+            transition: fill 0.3s ease;
+        }
+        .x-logo:hover {
+            fill: var(--sky-blue);
         }
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: calc(2.5rem + 0.3vw);
+                font-size: clamp(1.5rem, 2rem + 0.2vw, 2.5rem);
             }
             .hero .tagline {
-                font-size: calc(1.2rem + 0.2vw);
+                font-size: clamp(1rem, 1.2rem + 0.2vw, 1.5rem);
             }
             .hero p {
-                font-size: calc(1rem + 0.1vw);
+                font-size: clamp(0.7rem, 0.8rem + 0.1vw, 1rem);
             }
             .menu-toggle {
                 display: block;
@@ -473,26 +465,29 @@
             }
             .mission, .nonprofit, .community, .launch, .vision, .join {
                 grid-template-columns: 1fr;
-                padding: calc(1.5rem + 0.2vw);
-                gap: calc(1rem + 0.1vw);
+                padding: clamp(1rem, 1.5rem + 0.2vw, 2rem);
+                gap: clamp(0.5rem, 0.8rem + 0.1vw, 1rem);
             }
             .mission-images picture, .launch-image picture, .community-image picture, .vision-image picture {
                 width: 100%;
-                margin-bottom: calc(1rem + 0.1vw);
+                margin-bottom: clamp(0.5rem, 0.8rem + 0.1vw, 1rem);
             }
             .cta-button {
-                padding: calc(0.6rem + 0.1vw) calc(1.2rem + 0.1vw);
-                font-size: calc(0.8rem + 0.1vw);
+                padding: clamp(0.4rem, 0.6rem + 0.1vw, 0.8rem) clamp(0.8rem, 1.2rem + 0.1vw, 1.5rem);
+                font-size: clamp(0.6rem, 0.8rem + 0.1vw, 1rem);
             }
             section {
-                padding: calc(2.5rem + 0.3vw) 1.5rem;
+                padding: clamp(1.5rem, 2.5rem + 0.3vw, 3rem) clamp(1rem, 1.5rem, 2rem);
             }
             footer p {
-                font-size: calc(0.9rem + 0.1vw);
+                font-size: clamp(0.8rem, 0.9rem + 0.1vw, 1.1rem);
             }
         }
     </style>
-    <script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js" async></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js" async></script>
+    <script src="xlsx-parser.js" type="module" defer></script>
+    <script type="module">
         document.addEventListener('DOMContentLoaded', () => {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -502,6 +497,26 @@
                 });
             }, { threshold: 0.1 });
             document.querySelectorAll('h2, .timeline').forEach(el => observer.observe(el));
+
+            const header = document.querySelector('header');
+            const sections = document.querySelectorAll('section, article');
+            function handleScroll() {
+                let scrollPos = window.scrollY + 60; // Account for header height
+                sections.forEach(section => {
+                    const offset = section.offsetTop;
+                    const height = section.offsetHeight;
+                    const id = section.getAttribute('id');
+                    const navLink = document.querySelector(`nav.main-nav a[href="#${id}"]`);
+                    if (scrollPos >= offset && scrollPos < offset + height) {
+                        navLink.classList.add('active');
+                    } else {
+                        navLink.classList.remove('active');
+                    }
+                });
+                header.classList.toggle('scrolled', scrollPos > 100);
+            }
+            window.addEventListener('scroll', handleScroll);
+            handleScroll();
 
             const canvas = document.querySelector('canvas');
             const ctx = canvas.getContext('2d');
@@ -581,51 +596,45 @@
             } else {
                 console.error('Menu elements not found');
             }
-        });
-    </script>
-    <script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
 
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
+            const askForm = document.querySelector('.ask-grok form');
+            if (askForm) {
+                askForm.setAttribute('aria-live', 'polite');
+                askForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const query = document.querySelector('.ask-grok input').value;
+                    if (query) {
+                        window.open(`https://grok.com/search?q=${encodeURIComponent(query)}`, '_blank');
+                    }
+                });
             }
-        }
-        return gk_fileData[filename] || "";
-        }
+
+            const voiceBtn = document.querySelector('.ask-grok .voice-btn');
+            if (voiceBtn) {
+                voiceBtn.setAttribute('role', 'button');
+                voiceBtn.setAttribute('aria-pressed', 'false');
+                voiceBtn.setAttribute('tabindex', '0');
+                voiceBtn.addEventListener('click', () => {
+                    alert('Voice Mode Preview: Grok’s voice feature is coming soon to iOS/Android. Stay tuned!');
+                });
+            }
+
+            const simBtn = document.querySelector('.ask-grok .sim-btn');
+            if (simBtn) {
+                simBtn.setAttribute('role', 'button');
+                simBtn.setAttribute('aria-pressed', 'false');
+                simBtn.setAttribute('tabindex', '0');
+                simBtn.addEventListener('click', () => {
+                    const simulation = `Simulating Cloudseeker’s journey: Launch Jan 2027, Arrival Jun 2027.`;
+                    alert(simulation);
+                });
+            }
+        });
     </script>
 </head>
 <body>
-    <header>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <header aria-label="Primary navigation">
         <img src="logo.jpg" alt="Nephelis Industries Logo" class="logo-img">
         <nav class="main-nav" role="navigation">
             <a href="#mission" aria-label="Cloudseeker Mission">Mission</a>
@@ -648,110 +657,117 @@
         </nav>
     </header>
 
-    <section class="hero">
-        <div class="hero-content">
-            <div class="tagline">Clouds to Commerce</div>
-            <h1>Pierce the Veil</h1>
-            <p>Nephelis Industries leads the charge to commercialize Venus, starting with Cloudseeker—a $500,000 crowd-funded miniprobe. We’re not NASA; we’re pioneers unlocking tourism, mining, and innovation. Join us to shape the future.</p>
-            <a href="#join" class="cta-button" tabindex="0">Join the Quest</a>
-        </div>
-    </section>
+    <main id="main" role="main">
+        <section class="hero">
+            <div class="hero-content">
+                <div class="tagline">Clouds to Commerce</div>
+                <div class="hero-triptych">
+                    <picture>
+                        <source srcset="https://photojournal.jpl.nasa.gov/jpeg/PIA00073.jpg" media="(min-width: 768px)">
+                        <img src="https://photojournal.jpl.nasa.gov/jpeg/PIA00073.jpg" alt="Venus cloud swirls from Mariner 10" loading="lazy">
+                    </picture>
+                    <picture>
+                        <source srcset="https://photojournal.jpl.nasa.gov/jpeg/PIA10124.jpg" media="(min-width: 768px)">
+                        <img src="https://photojournal.jpl.nasa.gov/jpeg/PIA10124.jpg" alt="Cloudseeker probe concept" loading="lazy">
+                    </picture>
+                    <picture>
+                        <source srcset="https://photojournal.jpl.nasa.gov/jpeg/PIA00377.jpg" media="(min-width: 768px)">
+                        <img src="https://photojournal.jpl.nasa.gov/jpeg/PIA00377.jpg" alt="Venera 9 surface" loading="lazy">
+                    </picture>
+                </div>
+                <p>Nephelis Industries launches Cloudseeker, its first $500K miniprobe, to commercialize Venus with tourism, mining, and data collection. Join the future.</p>
+                <a href="#join" class="cta-button" tabindex="0" data-testid="join-quest">Join the Quest</a>
+            </div>
+        </section>
 
-    <article id="mission" class="mission">
-        <h2>Cloudseeker Mission</h2>
-        <h3>The Dream</h3>
-        <p>In 2027, Nephelis Industries launches Cloudseeker, a $500,000 miniprobe, to Venus via a <a href="https://www.spacex.com/rideshare" rel="prefetch">SpaceX rocket</a>. Starting 07:08 PM PDT, Jul 05 2025, it explores the 50–55 km habitable zone, gathering data on CO2, sulfuric acid, winds, and biosignatures. A 3U CubeSat relays findings, marking our first step toward commercial ventures. Powered by volunteers, donations, and StellarSpark with Grok’s trajectory insights, this mission proves low-cost space exploration is viable. Learn more at <a href="https://science.nasa.gov/venus" rel="prefetch">NASA’s Venus portal</a> or <a href="https://www.planetary.org/space-missions/every-venus-mission" rel="prefetch">The Planetary Society</a>.</p>
-        <h3>The Why</h3>
-        <p>“Life might have migrated into the skies,” Carl Sagan mused in 1967 about Venus’s clouds. <a href="https://spaceambition.substack.com/p/venus-exploration-the-rationale-for" rel="prefetch">Phosphine detections</a> hint at microbial life, while <a href="https://www.esa.int/Science_Exploration/Space_Science/Envision_factsheet" rel="prefetch">ESA’s EnVision</a> reveals an Earth-like past disrupted by a greenhouse catastrophe. Cloudseeker challenges billion-dollar space norms, opening Venus for profit.</p>
-        <h3>The Tech</h3>
-        <p>A 1-meter balloon, built with acid-resistant polytetrafluoroethylene, glides through Venus’s haze, inspired by Venera’s resilience. Its 1-kg sensor pod—featuring a 4K camera, sensors, and a nephelometer—maps the atmosphere. Solar cells power it amid 200 km/h winds, with a 4-kg CubeSat beaming data home. Rooted in Soviet Vega’s legacy, refined for 2026, Cloudseeker is lean innovation.</p>
-        <h3>Commercial Vision</h3>
-        <p>Cloudseeker initiates Nephelis Industries’ strategy to commercialize Venus. The 50–55 km zone, with Earth-like pressure and temperatures, supports tourism—imagine cloud city adventures. Mining can extract CO2 for industrial use or sulfur for compounds, despite metal scarcity. Beyond these, energy from solar arrays or research hubs for exoplanet studies promise profit. This mission tests the market, inviting global partners.</p>
-        <h3>Grok Powered</h3>
-        <p>Grok, from xAI, enhances Cloudseeker with trajectory analysis and data insights, ensuring 2027 precision. Explore more at <a href="https://x.ai" rel="prefetch">xAI</a>. This AI boost makes our commercial vision smarter and scalable.</p>
-        <p><strong>Microprobe Revolution</strong>: NASA’s <a href="https://ntrs.nasa.gov/citations/20230012848" rel="prefetch">HEEET heat shield</a> enables Cloudseeker to brave Venus. “This could spark interest,” says MIT’s Sara Seager of Rocket Lab’s $10M probe. <a href="https://spacenews.com/rocket-lab-plans-launch-of-venus-mission-as-soon-as-late-2024/" rel="prefetch">Launch costs</a> at $5,000/kg via SpaceX open doors for startups. Our 10-kg payload leads the charge.</p>
-        <p class="video-placeholder">Future CGI: Watch Cloudseeker soar, funded by Kickstarter.</p>
-        <div class="mission-images">
-            <picture>
-                <source srcset="https://photojournal.jpl.nasa.gov/jpeg/PIA00073.jpg" media="(min-width: 768px)">
-                <img src="https://photojournal.jpl.nasa.gov/jpeg/PIA00073.jpg" alt="Venus cloud swirls from Mariner 10" loading="lazy">
-            </picture>
-            <picture>
-                <source srcset="https://photojournal.jpl.nasa.gov/jpeg/PIA10124.jpg" media="(min-width: 768px)">
-                <img src="https://photojournal.jpl.nasa.gov/jpeg/PIA10124.jpg" alt="Cloudseeker probe concept" loading="lazy">
-            </picture>
-        </div>
-    </article>
+        <article id="mission" class="mission" data-testid="mission-section">
+            <h2>Cloudseeker Mission</h2>
+            <h3>The Dream</h3>
+            <p>In 2027, Nephelis Industries launches Cloudseeker, a $500K miniprobe, to Venus via <a href="https://www.spacex.com/rideshare" rel="prefetch">SpaceX</a>. Starting 07:22 PM PDT, Jul 05 2025, it explores the 50–55 km zone, collecting data on CO2, sulfuric acid, winds, and biosignatures. A 4.4 kg solar panel and 4.4 kg lithium battery power it, with a 3U CubeSat relaying real-time data to Earth. Volunteers and StellarSpark, aided by Grok, make this viable. See <a href="https://science.nasa.gov/venus" rel="prefetch">NASA</a>.</p>
+            <h3>The Why</h3>
+            <p>Carl Sagan’s 1967 theory of life in Venus’s clouds gains support from <a href="https://spaceambition.substack.com/p/venus-exploration-the-rationale-for" rel="prefetch">phosphine</a>. <a href="https://www.esa.int/Science_Exploration/Space_Science/Envision_factsheet" rel="prefetch">EnVision</a> reveals an Earth-like past. Cloudseeker disrupts costly space norms.</p>
+            <h3>The Tech</h3>
+            <p>A 1m acid-resistant balloon, inspired by Venera, carries a 1kg pod with a 4K camera and sensors. A 4.4 kg solar panel and battery support 200 km/h winds, with a 4kg CubeSat for data transmission. Ready for 2026.</p>
+            <h3>Commercial Vision</h3>
+            <p>Cloudseeker tests Venus’s market at 50–55 km for tourism and mining CO2/sulfur. Solar energy and research hubs add profit potential. Partners are welcome.</p>
+            <div class="mission-images">
+                <picture>
+                    <source srcset="https://photojournal.jpl.nasa.gov/jpeg/PIA00073.jpg" media="(min-width: 768px)">
+                    <img src="https://photojournal.jpl.nasa.gov/jpeg/PIA00073.jpg" alt="Venus cloud swirls" loading="lazy">
+                </picture>
+                <picture>
+                    <source srcset="https://photojournal.jpl.nasa.gov/jpeg/PIA10124.jpg" media="(min-width: 768px)">
+                    <img src="https://photojournal.jpl.nasa.gov/jpeg/PIA10124.jpg" alt="Cloudseeker probe" loading="lazy">
+                </picture>
+            </div>
+        </article>
 
-    <article id="nonprofit" class="nonprofit">
-        <h2>StellarSpark</h2>
-        <p>StellarSpark, Nephelis Industries’ non-profit arm, breaks space barriers by sharing payload slots. From student CubeSats to Cloudseeker, we launch dreamers—high schoolers, hobbyists, visionaries—skyward. Crowd-funding and volunteer grit cut costs, proving space is for all. Partner with us to kickstart Venusian ventures.</p>
-        <p>Support StellarSpark to fuel a commercial cosmos.</p>
-    </article>
+        <article id="nonprofit" class="nonprofit" data-testid="nonprofit-section">
+            <h2>StellarSpark</h2>
+            <p>StellarSpark, Nephelis Industries’ non-profit, opens space with payload slots for students and hobbyists. From CubeSats to Cloudseeker, we launch dreamers. Crowd-funding cuts costs. Partner with us.</p>
+            <p>Support to fuel a commercial cosmos.</p>
+        </article>
 
-    <article id="community" class="community">
-        <h2>Spark the Cosmos</h2>
-        <p>StellarSpark empowers students and hobbyists to conquer the solar system. Have a bold idea for a Mars rover or Venus probe? Nephelis Industries makes it real. Join to design payloads, learn from engineers, and launch micro-missions. Our 2028 StellarSpark Challenge offers a 1-kg SpaceX slot—submit by Dec 31, 2027, free for winners.</p>
-        <p>From Venus’s clouds to beyond, we’ll spark a network of ventures. Submit ideas, volunteer, or mentor. Share #StellarSpark to ignite the future.</p>
-        <p class="video-placeholder">Future infographic: Ventures lighting up the solar system.</p>
-        <div class="community-image">
-            <picture>
-                <source srcset="https://photojournal.jpl.nasa.gov/jpeg/PIA21923.jpg" media="(min-width: 768px)">
-                <img src="https://photojournal.jpl.nasa.gov/jpeg/PIA21923.jpg" alt="Solar system exploration map" loading="lazy">
-            </picture>
-        </div>
-        <a href="https://www.nephelisindustries.com/stellarspark-submit" class="cta-button" tabindex="0">Submit Your Idea</a>
-    </article>
+        <article id="community" class="community" data-testid="community-section">
+            <h2>Spark the Cosmos</h2>
+            <p>StellarSpark invites students to design Mars rovers or Venus probes. Join to learn and launch. The 2028 Challenge offers a 1-kg SpaceX slot—submit by Dec 31, 2027.</p>
+            <p>Share #StellarSpark to inspire ventures.</p>
+            <div class="community-image">
+                <picture>
+                    <source srcset="https://photojournal.jpl.nasa.gov/jpeg/PIA21923.jpg" media="(min-width: 768px)">
+                    <img src="https://photojournal.jpl.nasa.gov/jpeg/PIA21923.jpg" alt="Solar system map" loading="lazy">
+                </picture>
+            </div>
+            <a href="https://www.nephelisindustries.com/stellarspark-submit" class="cta-button" tabindex="0" data-testid="submit-idea">Submit Your Idea</a>
+        </article>
 
-    <article id="launch" class="launch">
-        <h2>Launch & Journey</h2>
-        <p>Cloudseeker’s journey is a strategic leap, testing Venus’s commercial potential. Track our progress and join the mission.</p>
-        <h3>Technical Feasibility</h3>
-        <p>Cloudseeker’s 10-kg payload—a 1-kg balloon probe and 4-kg CubeSat—targets the 55-km cloud layer, mimicking Earth’s pressure and temperature. Its acid-resistant shield, solar cells, and radio sustain 30 days. The CubeSat relays data via NASA’s Deep Space Network. SpaceX’s $5,000/kg rideshare keeps costs under $50,000, driven by volunteers.</p>
-        <h3>Launch Windows (2025–2030)</h3>
-        <p>Venus windows open every 19 months: <a href="https://www.space.com/1st-ever-private-venus-mission-delayed-2025" rel="prefetch">summer 2026</a>, January–March 2027, August–October 2028. We aim for January 2027, with a lunar flyby and 5–6-month cruise.</p>
-        <h3>Route to Venus</h3>
-        <p>From LEO, Cloudseeker’s Photon bus slingshots past the Moon, arcing to Venus. The probe detaches 30 minutes before entry, floating at 55 km.</p>
-        <div class="launch-image">
-            <picture>
-                <source srcset="https://photojournal.jpl.nasa.gov/jpeg/PIA00271.jpg" media="(min-width: 768px)">
-                <img src="https://photojournal.jpl.nasa.gov/jpeg/PIA00271.jpg" alt="Earth-to-Venus trajectory with Venus cloud swirls" loading="lazy" style="filter: hue-rotate(45deg);">
-            </picture>
-        </div>
-        <div class="timeline">
-            IGNITE BUILD: JUL 03 2025 → THRUST LAUNCH: JAN 01 2027 → CRUISE TO VENUS: JAN 01 2027 → UNVEIL DATA: JUL 01 2027
-        </div>
-    </article>
+        <article id="launch" class="launch" data-testid="launch-section">
+            <h2>Launch & Journey</h2>
+            <h3>Feasibility</h3>
+            <p>Cloudseeker’s 10-kg payload, with a 1-kg balloon and 4-kg CubeSat, targets 55 km. A 4.4 kg solar panel and battery last 30 days, relaying data via NASA’s network. SpaceX’s $5,000/kg keeps costs low.</p>
+            <h3>Windows</h3>
+            <p>Launch windows: 2026 summer, 2027 Jan-Mar, 2028 Aug-Oct. Target: Jan 2027 with a lunar flyby.</p>
+            <h3>Route</h3>
+            <p>From LEO, it slingshots past the Moon to Venus, detaching pre-entry.</p>
+            <div class="launch-image">
+                <picture>
+                    <source srcset="https://photojournal.jpl.nasa.gov/jpeg/PIA00271.jpg" media="(min-width: 768px)">
+                    <img src="https://photojournal.jpl.nasa.gov/jpeg/PIA00271.jpg" alt="Earth-to-Venus trajectory" loading="lazy" style="filter: hue-rotate(45deg);">
+                </picture>
+            </div>
+            <div class="timeline">BUILD: JUL 03 2025 → LAUNCH: JAN 01 2027 → DATA: JUL 01 2027</div>
+        </article>
 
-    <article id="vision" class="vision">
-        <h2>Vision</h2>
-        <p>“We’re building a commercial frontier in the sky,” says Nephelis Industries’ founder. Cloudseeker paves the way for habitats at 50–55 km, inspired by Venera’s surface insights. With NASA’s HAVOC as a guide, solar-powered cities could thrive, shielded from acid. Data on winds and stability will drive robotic ventures and self-assembling stations.</p>
-        <p>Venus is our next market. Dream with us.</p>
-        <div class="vision-image">
-            <picture>
-                <source srcset="https://photojournal.jpl.nasa.gov/jpeg/PIA00377.jpg" media="(min-width: 768px)">
-                <img src="https://photojournal.jpl.nasa.gov/jpeg/PIA00377.jpg" alt="Venera 9 surface with habitat concept overlay" loading="lazy">
-            </picture>
-        </div>
-    </article>
+        <article id="vision" class="vision" data-testid="vision-section">
+            <h2>Vision</h2>
+            <p>“A commercial frontier awaits,” says Nephelis Industries’ founder. Cloudseeker enables 50–55 km habitats, guided by NASA’s HAVOC, with solar cities and robotic ventures.</p>
+            <p>Venus is our market. Join us.</p>
+            <div class="vision-image">
+                <picture>
+                    <source srcset="https://photojournal.jpl.nasa.gov/jpeg/PIA00377.jpg" media="(min-width: 768px)">
+                    <img src="https://photojournal.jpl.nasa.gov/jpeg/PIA00377.jpg" alt="Venera habitat concept" loading="lazy">
+                </picture>
+            </div>
+        </article>
 
-    <article id="join" class="join">
-        <h2>Join Us</h2>
-        <p>Make History with Us. Join Cloudseeker and StellarSpark to launch Venus’s commercial era. Donate to our $500,000 miniprobe—launch in 18 months! Volunteer—engineering, design, outreach—or pitch payloads. Every $10 fuels profit potential. Follow @NephelisCo on X for updates and share #Cloudseeker, #StellarSpark.</p>
-        <a href="https://www.kickstarter.com/profile/nephelisindustries" class="cta-button" target="_blank" rel="noopener" tabindex="0">Join the Quest</a>
-        <div class="final-cta" style="margin-top: calc(1.5rem + 0.3vw);">Launch nears—join before Jan 2027! <button class="cta-button" disabled tabindex="0">Ask Grok about Venus (Coming Soon)</button></div>
-    </article>
+        <article id="join" class="join" data-testid="join-section">
+            <h2>Join Us</h2>
+            <p>Support Cloudseeker’s $500K launch in 18 months. Volunteer or pitch payloads. Follow @NephelisCo, share #Cloudseeker.</p>
+            <a href="https://www.kickstarter.com/profile/nephelisindustries" class="cta-button" target="_blank" rel="noopener" tabindex="0" data-testid="join-quest-link">Join the Quest</a>
+            <div class="final-cta" style="margin-top: clamp(1rem, 1.5rem + 0.3vw, 2rem);">Launch nears—join before Jan 2027! <button class="cta-button" disabled tabindex="0" data-testid="ask-grok-button">Ask Grok about Venus (Coming Soon)</button></div>
+        </article>
 
-    <article id="ask-grok" class="ask-grok">
-        <h2>Ask Grok</h2>
-        <p>Get insights on Cloudseeker and Venus from xAI’s Grok.</p>
-        <form>
-            <input type="text" placeholder="Your question..." aria-label="Ask Grok a question">
-            <button type="submit">Submit</button>
-            <button type="button" class="voice-btn">Voice Preview</button>
-            <button type="button" class="sim-btn">Mission Simulator</button>
-        </form>
-    </article>
+        <article id="ask-grok" class="ask-grok" data-testid="ask-grok-section">
+            <h2>Ask Grok</h2>
+            <p>Get insights on Cloudseeker from xAI’s Grok.</p>
+            <form aria-live="polite">
+                <input type="text" placeholder="Your question..." aria-label="Ask Grok a question">
+                <button type="submit">Submit</button>
+                <button type="button" class="voice-btn" role="button" aria-pressed="false" tabindex="0">Voice Preview</button>
+                <button type="button" class="sim-btn" role="button" aria-pressed="false" tabindex="0">Mission Simulator</button>
+            </form>
+        </article>
+    </main>
 
     <footer>
         <p>© 2026 Nephelis Industries | Contact: <a href="mailto:info@nephelisindustries.com">info@nephelisindustries.com</a> | <a href="https://x.com/NephelisCo" target="_blank" rel="noopener"><svg class="x-logo" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a></p>
