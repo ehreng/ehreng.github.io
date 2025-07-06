@@ -1,0 +1,25 @@
+/*
+  style.css
+  Nephelis Industries - Project AETHER
+*/
+
+:root {
+    --sky-blue: #1E90FF;
+    --venus-gold: #FFD700;
+    --violet-depth: #4A007A;
+    --deep-gray: #1F2527;
+    --accent-red: #FF4D4D;
+    --white: #FFFFFF;
+    --glass-effect: rgba(255, 255, 255, 0.1);
+    --glow: 0 0 8px rgba(255, 215, 0, 0.6), 0 0 15px rgba(255, 215, 0, 0.3);
+}
+
+/* ... (All other CSS rules from the original <style> tag go here) ... */
+
+/* Improved styles for figure captions */
+.image-grid figcaption {
+    font-size: 0.85rem;
+    color: #aaa;
+    text-align: center;
+    margin-top: 0.5rem;
+}
