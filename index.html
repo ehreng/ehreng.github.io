@@ -28,8 +28,8 @@
             --glow: 0 0 8px rgba(255, 215, 0, 0.6), 0 0 15px rgba(255, 215, 0, 0.3);
         }
         * {
-            margin: 1;
-            padding: 1;
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
         }
         html {
@@ -49,7 +49,7 @@
         .container {
             max-width: 1000px;
             margin: 0 auto;
-            padding: 3 3rem;
+            padding: 2 2rem;
         }
         .text-center {
             text-align: center;
@@ -70,9 +70,9 @@
         }
         header {
             position: fixed;
-            top: 1;
-            left: 2;
-            width: 95%;
+            top: 0;
+            left: 0;
+            width: 100%;
             background: rgba(31, 37, 39, 0.9);
             padding: 2rem 2;
             display: flex;
@@ -84,17 +84,17 @@
             backdrop-filter: blur(5px);
         }
         header.scrolled {
-            padding: 2rem 2;
+            padding: 1rem 1;
             background: rgba(31, 37, 39, 0.95);
         }
         header .logo-img {
             max-width: 130px;
             height: auto;
-            transition: transform 0.3s ease;
-            filter: drop-shadow(0 0 5px var(--sky-blue));
+            transition: transform 0.4s ease;
+            filter: drop-shadow(0 0 6px var(--sky-blue));
         }
         header .logo-img:hover {
-            transform: scale(1.03);
+            transform: scale(1.04);
         }
         nav.desktop-nav a {
             color: var(--white);
@@ -103,7 +103,7 @@
             font-family: 'Orbitron', sans-serif;
             font-weight: 600;
             font-size: 1.05rem;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             position: relative;
         }
         nav.desktop-nav a::after {
@@ -717,7 +717,7 @@
         }
         @media (max-width: 480px) {
             header {
-                padding: 1rem;
+                padding: 2rem;
             }
             header .logo-img {
                 max-width: 150px;
