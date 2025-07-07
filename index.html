@@ -3,64 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <meta name="description" content="Nephelis Industries' Project AETHER: Launching Cloudseeker, a crowd-funded miniprobe to unlock Venus's atmospheric potential for a Type I civilization.">
-    <meta name="keywords" content="Venus, Cloudseeker, Nephelis Industries, space commercialization, space tourism, atmospheric mining, astrobiology, Kardashev Scale, Type I civilization, e/acc, AI in space, StellarSpark, Grok, future of humanity, space exploration, colonization">
+    <meta name="description" content="Nephelis Industries' Project AETHER: Launching Cloudseeker, a crowd-funded miniprobe to unlock Venus's atmospheric potential.">
     <meta name="author" content="Nephelis Industries">
     <meta property="og:title" content="Project AETHER: Cloudseeker - Nephelis Industries">
-    <meta property="og:description" content="Join Nephelis Industries in Project AETHER, an ambitious quest to harness Venus's atmospheric resources and accelerate humanity towards a Type I civilization.">
+    <meta property="og:description" content="Join Nephelis Industries in Project AETHER, an ambitious quest to harness Venus's atmospheric resources.">
     <meta property="og:image" content="https://photojournal.jpl.nasa.gov/jpeg/PIA00073.jpg">
-    <meta name="theme-color" content="#1F2527">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23FFD700%22>N</text></svg>" type="image/svg+xml">
+    <meta name="theme-color" content="#F5F5F5">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23111111%22>N</text></svg>" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="sitemap" href="/sitemap.xml">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
     <title>Project AETHER: Cloudseeker - Nephelis Industries</title>
     <style>
         :root {
-            --sky-blue: #1E90FF;
-            --venus-gold: #FFD700;
-            --violet-depth: #4A007A;
-            --deep-gray: #1F2527;
-            --accent-red: #FF4D4D;
-            --white: #FFFFFF;
-            --glass-effect: rgba(255, 255, 255, 0.1);
-            --glow: 0 0 8px rgba(255, 215, 0, 0.6), 0 0 15px rgba(255, 215, 0, 0.3);
+            --background: #F5F5F5;
+            --foreground: #111111;
+            --border-color: #DDDDDD;
+            --footer-background: #111111;
+            --footer-foreground: #F5F5F5;
         }
         * {
-            margin: ;
-            padding: ;
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
         }
         html {
             scroll-behavior: smooth;
         }
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Roboto Mono', monospace;
             font-weight: 400;
-            background-color: var(--deep-gray);
-            color: var(--white);
-            line-height: 1.8;
+            background-color: var(--background);
+            color: var(--foreground);
+            line-height: 1.7;
             -webkit-font-smoothing: antialiased;
-            text-rendering: optimizeLegibility;
             overflow-x: hidden;
-            position: relative;
         }
         .container {
-            max-width: 1000px;
-            margin: 20px auto;
-            padding: 2 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
         }
         .text-center {
             text-align: center;
         }
         .skip-link {
             position: absolute;
-            top: -40px;
+            top: -100px;
             left: 0;
-            background: var(--accent-red);
-            color: var(--white);
-            padding: 0.4rem 1rem;
+            background: var(--foreground);
+            color: var(--background);
+            padding: 0.5rem 1rem;
             text-decoration: none;
             z-index: 1001;
             transition: top 0.3s ease;
@@ -72,1011 +65,422 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 90%;
-            background: rgba(31, 37, 39, 0.9);
-            padding: 0.5rem 0.5;
+            width: 100%;
+            background: var(--background);
+            z-index: 999;
+            border-bottom: 1px solid var(--border-color);
+        }
+        header .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 999;
-            transition: background 0.3s ease, padding 0.3s ease;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(5px);
+            height: 80px;
+            padding: 0 2rem;
         }
-        header.scrolled {
-            padding: 1rem 1;
-            background: rgba(31, 37, 39, 0.95);
-        }
-        header .logo-img {
-            max-width: 130px;
-            height: auto;
-            transition: transform 0.4s ease;
-            filter: drop-shadow(0 0 6px var(--sky-blue));
-        }
-        header .logo-img:hover {
-            transform: scale(1.04);
+        .logo-text {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-decoration: none;
+            color: var(--foreground);
+            letter-spacing: -0.5px;
         }
         nav.desktop-nav a {
-            color: var(--white);
+            color: var(--foreground);
             text-decoration: none;
             margin-left: 2rem;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 600;
-            font-size: 1.05rem;
-            transition: all 0.4s ease;
-            position: relative;
-        }
-        nav.desktop-nav a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 1;
-            background-color: var(--venus-gold);
-            transition: width 0.3s ease-out;
-        }
-        nav.desktop-nav a:hover::after,
-        nav.desktop-nav a.active::after {
-            width: 100%;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            transition: opacity 0.3s ease;
         }
         nav.desktop-nav a:hover {
-            color: var(--sky-blue);
-        }
-        nav.desktop-nav a.active {
-            color: var(--venus-gold);
+            opacity: 0.6;
         }
         .menu-toggle {
             display: none;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--foreground);
+            cursor: pointer;
+            z-index: 1002;
+        }
+        .mobile-nav {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--background);
+            z-index: 1001;
+        }
+        .mobile-nav.active {
+            display: flex;
+        }
+        .mobile-nav a {
+            color: var(--foreground);
+            text-decoration: none;
+            padding: 1.5rem 0;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 2rem;
+            transition: opacity 0.3s ease;
+        }
+        .mobile-nav a:hover {
+            opacity: 0.7;
+        }
+        .close-btn {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
             font-size: 2rem;
             background: none;
             border: none;
-            color: var(--sky-blue);
+            color: var(--foreground);
             cursor: pointer;
-            padding: 0.5rem 1.5rem;
-            z-index: 1002;
-            transition: color 0.4s ease;
+            font-family: 'Inter', sans-serif;
         }
-        .menu-toggle:hover {
-            color: var(--venus-gold);
-        }
-        .mobile-nav {
-            display: flex;
-            flex-direction: column;
-            position: fixed;
-            top: 0;
-            right: -300px;
-            width: 280px;
-            height: 100%;
-            background: rgba(31, 37, 39, 0.98);
-            padding: 6rem 2rem 2rem;
-            transition: right 0.4s ease;
-            z-index: 1001;
-            box-shadow: -5px 0 20px rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(8px);
-        }
-        .mobile-nav.active {
-            right: 0;
-        }
-        .mobile-nav a {
-            color: var(--white);
-            text-decoration: none;
-            padding: 1rem 0;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 600;
-            font-size: 1.3rem;
-            transition: color 0.3s ease;
-            border-bottom: 1px solid rgba(30, 144, 255, 0.2);
-        }
-        .mobile-nav a:last-child {
-            border-bottom: none;
-        }
-        .mobile-nav a:hover {
-            color: var(--sky-blue);
-        }
-        .mobile-nav .close-btn {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            font-size: 2.5rem;
-            background: none;
-            border: none;
-            color: var(--accent-red);
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-        .mobile-nav .close-btn:hover {
-            color: var(--venus-gold);
-        }
-        .mobile-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 1000;
-            transition: opacity 0.3s ease;
-        }
-        .mobile-overlay.active {
-            display: block;
-        }
-        .hero {
-            position: relative;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            overflow: hidden;
-            padding-top: 40px;
-        }
-        .hero-content {
-            z-index: 1;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem;
-            background: var(--glass-effect);
-            border-radius: 12px;
-            border: 1px solid rgba(30, 144, 255, 0.2);
-            box-shadow: var(--glow);
-            animation: fadeIn 1.5s ease-out;
-        }
-        .hero h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3.5rem;
-            font-weight: 700;
-            color: var(--white);
-            margin-bottom: 1.5rem;
-            text-shadow: 0 0 15px rgba(30, 144, 255, 0.7);
-        }
-        .hero p {
-            font-size: 1.2rem;
-            margin: 1.5rem auto 2.5rem;
-            line-height: 1.7;
-            max-width: 700px;
-        }
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: var(--accent-red);
-            color: var(--white);
-            text-decoration: none;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            font-size: 1.1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            box-shadow: 0 0 15px var(--accent-red);
-            border: 1px solid var(--accent-red);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0% { box-shadow: 0 0 15px var(--accent-red); transform: translateY(0); }
-            50% { box-shadow: 0 0 25px var(--accent-red); transform: translateY(-3px); }
-            100% { box-shadow: 0 0 15px var(--accent-red); transform: translateY(0); }
-        }
-        .cta-button:hover {
-            background: var(--violet-depth);
-            box-shadow: 0 0 30px var(--accent-red), 0 0 10px var(--venus-gold);
-            transform: scale(1.05) translateY(-2px);
+        main {
+            padding-top: 80px;
         }
         .section {
-            padding: 3rem 0;
-            background-color: var(--deep-gray);
-            position: relative;
-            z-index: 10;
+            padding: 6rem 2rem;
+            border-bottom: 1px solid var(--border-color);
         }
-        .section:nth-of-type(even) {
-            background-color: rgba(31, 37, 39, 0.9);
-        }
-        .section h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--sky-blue);
-            margin-bottom: 2.5rem;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            text-shadow: 0 0 10px rgba(30, 144, 255, 0.6);
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        .section h2.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .section p {
-            font-size: 1.15rem;
-            margin-bottom: 1.5rem;
-        }
-        .section ul {
-            list-style: none;
-            padding-left: 0;
-            margin-top: 1.5rem;
-        }
-        .section ul li {
-            margin-bottom: 1rem;
-            position: relative;
-            padding-left: 1rem;
-            font-size: 1.1rem;
-        }
-        .section ul li:before {
-            content: "✦";
-            color: var(--venus-gold);
-            font-weight: bold;
-            display: inline-block;
-            width: 1em;
-            margin-left: -1em;
-            position: absolute;
-            left: 0;
-            top: 0;
-        }
-        .section a {
-            color: var(--sky-blue);
-            text-decoration: none;
-            transition: color 0.3s ease, text-shadow 0.3s ease;
-        }
-        .section a:hover {
-            color: var(--venus-gold);
-            text-shadow: 0 0 5px var(--venus-gold);
-        }
-        .mission-content p {
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            text-align: center;
-        }
-        .image-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 3rem;
-            margin-bottom: 1rem;
-        }
-        .image-grid figure {
-            flex: 1 1 calc(33% - 1rem);
-            min-width: 280px;
-            overflow: hidden;
-            border-radius: 10px;
-            border: 2px solid rgba(30, 144, 255, 0.3);
-            box-shadow: 0 0 15px rgba(30, 144, 255, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-        .image-grid figure:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 10px 25px rgba(30, 144, 255, 0.5);
-        }
-        .image-grid img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.4s ease;
-        }
-        .image-grid figure:hover img {
-            transform: scale(1.1);
-        }
-        .image-grid figcaption {
-            font-size: 0.9rem;
-            color: #aaa;
-            text-align: center;
-            padding: 0.5rem;
-            background: rgba(0, 0, 0, 0.2);
-            margin-top: auto;
-        }
-        .tech-grid {
+        .section-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
         }
-        .tech-item {
-            background: var(--glass-effect);
-            border: 1px solid rgba(30, 144, 255, 0.2);
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: 0 0 15px rgba(30, 144, 255, 0.2);
+        .section-grid-text h1, .section-grid-text h2 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: -1.5px;
+        }
+        .section-grid-text p {
+            max-width: 45ch;
+            margin-bottom: 2rem;
+        }
+        .section-grid-text .byline {
+            font-weight: 500;
+            text-transform: uppercase;
+            margin-top: -1rem;
+            margin-bottom: 2rem;
+        }
+        .section-grid-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .centered-section h2 {
             text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .tech-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(30, 144, 255, 0.4);
-        }
-        .tech-item h3 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--venus-gold);
-            font-size: 1.6rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: -1px;
             margin-bottom: 1rem;
-            text-shadow: 0 0 5px rgba(255, 215, 0, 0.4);
         }
-        .tech-item p {
-            font-size: 1rem;
-            margin-bottom: 0;
-        }
-        .tech-item img {
-            max-width: 100px;
-            margin-bottom: 1rem;
-            filter: drop-shadow(0 0 5px var(--sky-blue));
-        }
-        .timeline-section p {
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
+        .centered-section > p {
             text-align: center;
+            max-width: 60ch;
+            margin: 0 auto 3rem auto;
+            opacity: 0.8;
         }
-        .vision-content {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-        .vision-content p {
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            text-align: center;
-        }
-        .kardashev-scale {
-            margin: 3rem auto 0;
-            border: 2px dashed var(--venus-gold);
-            padding: 2rem;
-            border-radius: 10px;
-            background: rgba(255, 215, 0, 0.05);
-            text-align: center;
-            max-width: 800px;
-        }
-        .kardashev-scale p {
-            font-family: 'Orbitron', sans-serif;
-            font-style: normal;
-            font-size: 1.5rem;
-            color: var(--venus-gold);
-            margin: 0;
-        }
-        .impact-grid {
+        .info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin-top: 3rem;
         }
-        .impact-item {
-            background: var(--glass-effect);
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            border-radius: 10px;
+        .info-item {
+            border: 1px solid var(--border-color);
             padding: 2rem;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .impact-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
-        }
-        .impact-item h3 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--sky-blue);
-            font-size: 1.6rem;
+        .info-item h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.2rem;
             margin-bottom: 1rem;
-            text-shadow: 0 0 5px rgba(30, 144, 255, 0.4);
-        }
-        .impact-item p {
-            font-size: 1rem;
-            margin-bottom: 0;
-        }
-        .progress-bar-container {
-            width: 80%;
-            max-width: 600px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            height: 30px;
-            margin: 1.5rem auto 1rem;
-            overflow: hidden;
-            border: 1px solid var(--sky-blue);
-            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
-        }
-        .progress-bar {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, var(--sky-blue), var(--venus-gold));
-            border-radius: 15px;
-            transition: width 1s ease-out;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            padding-right: 10px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.9rem;
-            color: var(--deep-gray);
-            text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
-        }
-        #ask-grok form {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            max-width: 600px;
-            margin: 2.5rem auto 0;
-            background: var(--glass-effect);
-            padding: 2rem;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
-        }
-        #ask-grok label {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-        #ask-grok input[type="text"] {
-            width: 100%;
-            padding: 1rem 1.2rem;
-            border: 1px solid var(--sky-blue);
-            border-radius: 5px;
-            background-color: rgba(0, 0, 0, 0.4);
-            color: var(--white);
-            font-size: 1.1rem;
-            outline: none;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-        #ask-grok input[type="text"]:focus {
-            border-color: var(--venus-gold);
-            box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
-        }
-        #ask-grok button {
-            padding: 0.8rem 1.5rem;
-            border: none;
-            border-radius: 5px;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
-        #ask-grok button[type="submit"] {
-            background-color: var(--sky-blue);
-            color: var(--deep-gray);
-            box-shadow: 0 0 10px rgba(30, 144, 255, 0.6);
-        }
-        #ask-grok button[type="submit"]:hover {
-            background-color: var(--venus-gold);
-            color: var(--deep-gray);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
-        }
-        .community-icons {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-        .community-icons a {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--sky-blue);
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: transparent;
+            color: var(--foreground);
             text-decoration: none;
-            font-size: 1.1rem;
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 500;
+            font-size: 0.9rem;
+            border: 1px solid var(--foreground);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
         }
-        .community-icons a:hover {
-            color: var(--venus-gold);
+        .cta-button:hover {
+            background: var(--foreground);
+            color: var(--background);
         }
-        .community-icons svg {
-            width: 1.5em;
-            height: 1.5em;
-            fill: currentColor;
+        .mission-list {
+            list-style: none;
+            max-width: 70ch;
+            margin: 2rem auto;
         }
-        .final-cta {
-            margin-top: 2rem;
-            font-size: 1.1rem;
-            color: var(--venus-gold);
+        .mission-list li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        .mission-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--foreground);
+        }
+        .kardashev-scale {
+            margin: 3rem auto 0;
+            border: 1px solid var(--border-color);
+            padding: 2rem;
             text-align: center;
-            padding: 1rem;
-            border: 2px dashed var(--sky-blue);
-            border-radius: 8px;
-            background: rgba(30, 144, 255, 0.05);
-            box-shadow: 0 0 10px rgba(30, 144, 255, 0.3);
+            max-width: 800px;
+        }
+        .kardashev-scale p {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin: 0;
         }
         footer {
-            text-align: center;
-            padding: 3rem;
-            background: #11111a;
-            color: #888;
-            border-top: 1px solid rgba(30, 144, 255, 0.1);
+            background: var(--footer-background);
+            color: var(--footer-foreground);
+            padding: 4rem 2rem;
         }
-        footer p {
-            font-size: 0.95rem;
-            color: var(--white);
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .footer-column h3 {
+            text-transform: uppercase;
+            font-size: 1rem;
             margin-bottom: 1rem;
+            font-family: 'Inter', sans-serif;
         }
-        footer .social-links {
-            margin-top: 1rem;
-        }
-        footer .social-links a {
-            color: var(--sky-blue);
+        .footer-column a {
+            color: var(--footer-foreground);
             text-decoration: none;
-            margin: 0 0.8rem;
-            font-size: 1.5rem;
-            transition: color 0.3s ease, transform 0.3s ease;
-            display: inline-block;
+            display: block;
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
         }
-        footer .social-links a:hover {
-            color: var(--venus-gold);
-            transform: translateY(-3px);
+        .footer-column a:hover {
+            opacity: 1;
         }
-        footer .social-links svg {
-            width: 1.2em;
-            height: 1.2em;
-            vertical-align: middle;
-            fill: currentColor;
-        }
-        footer .legal-links {
-            margin-top: 1rem;
-        }
-        footer .legal-links a {
-            color: #888;
-            margin: 0 0.6rem;
+        .footer-bottom {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            text-align: center;
             font-size: 0.9rem;
-        }
-        footer .legal-links a:hover {
-            color: var(--sky-blue);
-        }
-        canvas#stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            pointer-events: none;
             opacity: 0.7;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @media (max-width: 1024px) {
-            .hero h1 {
-                font-size: 3rem;
-            }
-            .image-grid figure {
-                flex: 1 1 calc(50% - 1rem);
-            }
-            .tech-grid {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            }
-            .impact-grid {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            }
-        }
         @media (max-width: 768px) {
-            .container {
+            .header-container {
                 padding: 0 1rem;
             }
-            header {
-                justify-content: space-between;
-                padding-left: 1rem;
-                padding-right: 1rem;
-            }
-            nav.desktop-nav {
+            .desktop-nav {
                 display: none;
             }
             .menu-toggle {
                 display: block;
             }
-            .hero {
-                padding-top: 80px;
-            }
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            .hero p {
-                font-size: 1rem;
-            }
-            .cta-button {
-                padding: 0.8rem 1.8rem;
-                font-size: 1rem;
-            }
             .section {
-                padding: 4rem 0;
+                padding: 4rem 1rem;
             }
-            .section h2 {
-                font-size: 2.2rem;
-            }
-            .section p, .section ul li {
-                font-size: 1rem;
-            }
-            .image-grid figure {
-                flex: 1 1 90%;
-            }
-            #ask-grok form {
-                gap: 1rem;
-            }
-            #ask-grok button {
-                padding: 0.7rem 1.2rem;
-                font-size: 0.9rem;
-            }
-            .tech-grid, .impact-grid {
+            .section-grid {
                 grid-template-columns: 1fr;
+                gap: 2rem;
             }
-        }
-        @media (max-width: 480px) {
-            header {
-                padding: 2rem;
-            }
-            header .logo-img {
-                max-width: 150px;
-            }
-            .hero h1 {
-                font-size: 2rem;
-            }
-            .hero p {
-                font-size: 0.9rem;
-            }
-            .section h2 {
-                font-size: 1.8rem;
-            }
-            .mobile-nav {
-                width: 100%;
-                right: -100%;
-            }
-            .mobile-nav.active {
-                right: 0;
+            .section-grid-text h1, .section-grid-text h2 {
+                font-size: 2.5rem;
             }
         }
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-            document.querySelectorAll('h2, .tech-item, .impact-item').forEach(el => observer.observe(el));
-
-            const header = document.querySelector('header');
-            window.addEventListener('scroll', () => {
-                header.classList.toggle('scrolled', window.scrollY > 50);
-            });
-
-            const navLinks = document.querySelectorAll('.desktop-nav a, .mobile-nav a');
-            const sections = document.querySelectorAll('main section');
-            function changeLinkState() {
-                let index = sections.length;
-                while (--index && window.scrollY + 50 < sections[index].offsetTop) {}
-                navLinks.forEach((link) => link.classList.remove('active'));
-                const activeLink = document.querySelector(`nav a[href="#${sections[index].id}"]`);
-                if (activeLink) {
-                    activeLink.classList.add('active');
-                }
-            }
-            changeLinkState();
-            window.addEventListener('scroll', changeLinkState);
-
             const menuToggle = document.querySelector('.menu-toggle');
             const mobileNav = document.querySelector('.mobile-nav');
-            const mobileOverlay = document.querySelector('.mobile-overlay');
-            const closeBtn = document.querySelector('.mobile-nav .close-btn');
+            const closeBtn = document.querySelector('.close-btn');
 
             const toggleMenu = () => {
-                const isActive = mobileNav.classList.toggle('active');
-                mobileOverlay.classList.toggle('active');
-                menuToggle.setAttribute('aria-expanded', isActive);
-                mobileNav.setAttribute('aria-hidden', !isActive);
+                mobileNav.classList.toggle('active');
             };
 
-            menuToggle.addEventListener('click', toggleMenu);
-            closeBtn.addEventListener('click', toggleMenu);
-            mobileOverlay.addEventListener('click', toggleMenu);
-            mobileNav.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', toggleMenu);
-            });
+            if (menuToggle && mobileNav && closeBtn) {
+                menuToggle.addEventListener('click', toggleMenu);
+                closeBtn.addEventListener('click', toggleMenu);
 
-            const askForm = document.querySelector('#ask-grok form');
-            const askInput = document.querySelector('#ask-grok-input');
-            if (askForm && askInput) {
-                askForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    const query = askInput.value.trim();
-                    if (query) {
-                        window.open(`https://x.com/grok/search?q=${encodeURIComponent(query)}`, '_blank');
-                        askInput.value = '';
-                    }
+                mobileNav.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        // Close menu when a link is clicked
+                        mobileNav.classList.remove('active');
+                    });
                 });
             }
-
-            const canvas = document.querySelector('canvas#stars');
-            if (canvas) {
-                const ctx = canvas.getContext('2d');
-                let stars = [];
-                const generateStars = () => {
-                    stars = Array.from({ length: 250 }, () => ({
-                        x: Math.random() * canvas.width,
-                        y: Math.random() * canvas.height,
-                        r: Math.random() * 1.2 + 0.3,
-                        vx: (Math.random() - 0.5) * 0.1,
-                        vy: (Math.random() - 0.5) * 0.1,
-                        opacity: Math.random() * 0.5 + 0.3
-                    }));
-                };
-                const resizeCanvas = () => {
-                    canvas.width = window.innerWidth;
-                    canvas.height = window.innerHeight;
-                    generateStars();
-                };
-                const animateStars = () => {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    stars.forEach(star => {
-                        ctx.beginPath();
-                        ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
-                        ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
-                        ctx.shadowBlur = star.r * 2;
-                        ctx.shadowColor = `rgba(30, 144, 255, ${star.opacity * 0.8})`;
-                        ctx.fill();
-                        star.x += star.vx;
-                        star.y += star.vy;
-                        if (star.x < 0) star.x = canvas.width;
-                        if (star.x > canvas.width) star.x = 0;
-                        if (star.y < 0) star.y = canvas.height;
-                        if (star.y > canvas.height) star.y = 0;
-                    });
-                    requestAnimationFrame(animateStars);
-                };
-                resizeCanvas();
-                animateStars();
-                window.addEventListener('resize', resizeCanvas);
-            }
-
-            const targetAmount = 500000;
-            let currentAmount = 0;
-            const progressBar = document.querySelector('#progress-bar');
-            const progressText = document.querySelector('#progress-text');
-            if (progressBar && progressText) {
-                const updateProgressBar = () => {
-                    const percentage = (currentAmount / targetAmount) * 100;
-                    progressBar.style.width = `${percentage}%`;
-                    progressText.textContent = `$${currentAmount.toLocaleString()} / $${targetAmount.toLocaleString()} (${percentage.toFixed(1)}%)`;
-                    if (currentAmount < targetAmount) {
-                        const increment = Math.random() * 5000 + 1000;
-                        currentAmount = Math.min(currentAmount + increment, targetAmount);
-                        setTimeout(updateProgressBar, Math.random() * 1500 + 500);
-                    } else {
-                        progressText.textContent = `Goal Achieved! $${targetAmount.toLocaleString()} (100%)`;
-                        progressBar.style.background = 'linear-gradient(90deg, #2ecc71, #27ae60)';
-                    }
-                };
-                setTimeout(updateProgressBar, 2000);
-            }
-
-            document.getElementById('current-year').textContent = new Date().getFullYear();
         });
     </script>
 </head>
 <body>
-    <canvas id="stars" aria-hidden="true"></canvas>
     <a href="#main" class="skip-link">Skip to main content</a>
     <header>
-        <a href="/" aria-label="Home">
-            <img src="logo.jpg" alt="Nephelis Industries Project AETHER Logo" class="logo-img">
-        </a>
-        <nav class="desktop-nav" aria-label="Primary">
-            <a href="#overview">Overview</a>
-            <a href="#mission">Mission</a>
-            <a href="#technology">Technology</a>
-            <a href="#timeline">Timeline</a>
-            <a href="#vision">Vision</a>
-            <a href="#impact">Impact</a>
-            <a href="#join">Join Us</a>
-            <a href="#ask-grok">Ask Grok</a>
-        </nav>
-        <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-nav">☰</button>
-        <nav class="mobile-nav" id="mobile-nav" aria-hidden="true">
-            <button class="close-btn" aria-label="Close menu">×</button>
-            <a href="#overview">Overview</a>
-            <a href="#mission">Mission</a>
-            <a href="#technology">Technology</a>
-            <a href="#timeline">Timeline</a>
-            <a href="#vision">Vision</a>
-            <a href="#impact">Impact</a>
-            <a href="#join">Join Us</a>
-            <a href="#ask-grok">Ask Grok</a>
-        </nav>
+        <div class="header-container">
+            <a href="/" class="logo-text">NEPHELIS INDUSTRIES</a>
+            <nav class="desktop-nav">
+                <a href="#overview">Overview</a>
+                <a href="#mission">Mission</a>
+                <a href="#technology">Technology</a>
+                <a href="#vision">Vision</a>
+                <a href="#join">Join Us</a>
+            </nav>
+            <button class="menu-toggle" aria-label="Toggle Menu">☰</button>
+        </div>
     </header>
 
+    <nav class="mobile-nav">
+        <button class="close-btn" aria-label="Close Menu">×</button>
+        <a href="#overview">Overview</a>
+        <a href="#mission">Mission</a>
+        <a href="#technology">Technology</a>
+        <a href="#vision">Vision</a>
+        <a href="#join">Join Us</a>
+    </nav>
+
     <main id="main">
-        <section class="hero">
-            <div class="hero-content">
-                <h1>Project AETHER: Cloudseeker</h1>
-                <p>Nephelis Industries proudly presents Project AETHER, spearheaded by the groundbreaking Cloudseeker mission. This miniprobe is not just exploring Venus; it’s laying the foundation for humanity’s next great leap—unlocking the immense energy potential of the Venusian atmosphere.</p>
-                <a href="#join" class="cta-button">Forge Our Future</a>
-            </div>
-        </section>
-
-        <section id="overview" class="section container">
-            <h2>THE IMPERATIVE: WHY VENUS, WHY NOW?</h2>
-            <p class="text-center" style="max-width: 800px; margin-left: auto; margin-right: auto;">For millennia, humanity has gazed skyward, dreaming of new frontiers. Venus, our shrouded sister planet, holds secrets and resources vital for our progression towards a Type I civilization. Project AETHER is our answer to this imperative. We embrace effective accelerationism (e/acc): leveraging innovation, community, and audacious goals to swiftly expand human capability and ensure a thriving multi-planetary future. The Cloudseeker miniprobe spearheads this era, targeting Venus’s 50-55 km zone to gather data for atmospheric habitats, resource extraction, and astrobiological insights.</p>
-            <div class="image-grid">
-                <figure>
+        <section class="section">
+            <div class="container section-grid">
+                <div class="section-grid-text">
+                    <h1>Project AETHER: Cloudseeker</h1>
+                    <p class="byline">A Venus Mission by Nephelis Industries</p>
+                    <p>Nephelis Industries proudly presents Project AETHER, spearheaded by the groundbreaking Cloudseeker mission. This miniprobe is not just exploring Venus; it’s laying the foundation for humanity’s next great leap—unlocking the immense energy potential of the Venusian atmosphere.</p>
+                    <a href="#join" class="cta-button">Join the Initiative →</a>
+                </div>
+                <div class="section-grid-image">
                     <img src="https://photojournal.jpl.nasa.gov/jpeg/PIA00073.jpg" alt="A false-color image of Venus's swirling cloud tops, captured by the Mariner 10 spacecraft." loading="lazy">
-                    <figcaption>Venus's Swirling Clouds (NASA/JPL)</figcaption>
-                </figure>
-                <figure>
-                    <img src="https://photojournal.jpl.nasa.gov/jpeg/PIA10124.jpg" alt="Artist's concept of a potential future atmospheric habitat on Venus." loading="lazy">
-                    <figcaption>Atmospheric Habitat Concept (NASA)</figcaption>
-                </figure>
-                <figure>
-                    <img src="https://photojournal.jpl.nasa.gov/jpeg/PIA00377.jpg" alt="A conceptual image of future human exploration on Venus." loading="lazy">
-                    <figcaption>Future Venus Exploration (NASA)</figcaption>
-                </figure>
+                </div>
             </div>
-            <p class="text-center" style="font-size: 0.9rem; color: #aaa;"><em>Images courtesy of NASA’s Jet Propulsion Laboratory.</em></p>
+        </section>
+        
+        <section id="overview" class="section">
+            <div class="container section-grid">
+                <div class="section-grid-image">
+                     <img src="https://photojournal.jpl.nasa.gov/jpeg/PIA10124.jpg" alt="Artist's concept of a potential future atmospheric habitat on Venus." loading="lazy">
+                </div>
+                <div class="section-grid-text">
+                    <h2>THE IMPERATIVE: WHY VENUS, WHY NOW?</h2>
+                    <p>For millennia, humanity has gazed skyward, dreaming of new frontiers. Venus, our shrouded sister planet, holds secrets and resources vital for our progression towards a Type I civilization. Project AETHER is our answer to this imperative.</p>
+                    <p>The Cloudseeker miniprobe spearheads this era, targeting Venus’s 50-55 km zone to gather data for atmospheric habitats, resource extraction, and astrobiological insights.</p>
+                </div>
+            </div>
         </section>
 
-        <section id="mission" class="section container">
-            <h2>The Cloudseeker Mission</h2>
-            <div class="mission-content text-center">
-                <p><strong>The Core Objective:</strong> Launching January 2027, Cloudseeker targets Venus’s 50-55 km altitude band, where temperatures (0°C to 50°C) and pressure (1 atm) mirror Earth. It gathers real-time data to validate models for habitation and discovery.</p>
-                <ul>
-                    <li><strong>Atmospheric Composition:</strong> Mass spectrometers and gas chromatographs analyze CO2, sulfuric acid, water vapor, and phosphine for resources and life signs.</li>
-                    <li><strong>Dynamic Weather Systems:</strong> Anemometers and lidar map 200-350 km/h winds and stability for aerial platform design.</li>
-                    <li><strong>Biosignature Hunt:</strong> Instruments search for phosphine and organic molecules, building on Sagan’s cloud-life theory.</li>
-                    <li><strong>Technological Validation:</strong> Proves affordable, community-driven exploration with AI integration.</li>
+        <section id="mission" class="section centered-section">
+            <div class="container">
+                <h2>The Cloudseeker Mission</h2>
+                <p>Launching January 2027, Cloudseeker targets Venus’s 50-55 km altitude band, where temperatures (0°C to 50°C) and pressure (1 atm) mirror Earth. It gathers real-time data to validate models for habitation and discovery.</p>
+                 <ul class="mission-list">
+                    <li><strong>Atmospheric Composition:</strong> Analyze CO2, sulfuric acid, water vapor, and phosphine for resources and life signs.</li>
+                    <li><strong>Dynamic Weather Systems:</strong> Map 200-350 km/h winds and stability for aerial platform design.</li>
+                    <li><strong>Biosignature Hunt:</strong> Search for phosphine and organic molecules, building on Sagan’s cloud-life theory.</li>
+                    <li><strong>Technological Validation:</strong> Prove affordable, community-driven exploration is possible.</li>
                 </ul>
-                <p>Refined by late 2026, this mission showcases lean innovation.</p>
             </div>
         </section>
 
-        <section id="technology" class="section container">
-            <h2>Technology Stack</h2>
-            <p class="text-center">Cloudseeker thrives in Venus’s harsh environment with miniaturized, resilient tech.</p>
-            <div class="tech-grid">
-                <div class="tech-item">
-                    <img src="https://placehold.co/100x100/1F2527/1E90FF?text=AERO" alt="Aerostat Balloon Icon">
-                    <h3>Acid-Resistant Aerostat</h3>
-                    <p>A 1m fluoropolymer balloon withstands sulfuric acid and extreme pressures.</p>
+        <section id="technology" class="section centered-section">
+            <div class="container">
+                <h2>Technology Stack</h2>
+                <p>Cloudseeker thrives in Venus’s harsh environment with miniaturized, resilient tech.</p>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <h3>Acid-Resistant Aerostat</h3>
+                        <p>A 1m fluoropolymer balloon withstands sulfuric acid and extreme pressures.</p>
+                    </div>
+                    <div class="info-item">
+                        <h3>Integrated Sensor Suite</h3>
+                        <p>A 1kg pod with 4K camera, spectrometers, and environmental sensors.</p>
+                    </div>
+                    <div class="info-item">
+                        <h3>3U CubeSat Relay</h3>
+                        <p>A 3U CubeSat ensures high-bandwidth data transmission to Earth.</p>
+                    </div>
+                     <div class="info-item">
+                        <h3>Advanced Materials</h3>
+                        <p>Lightweight alloys and coatings enhance probe durability and lifespan.</p>
+                    </div>
                 </div>
-                <div class="tech-item">
-                    <img src="https://placehold.co/100x100/1F2527/1E90FF?text=SENS" alt="Sensor Array Icon">
-                    <h3>Integrated Sensor Suite</h3>
-                    <p>A 1kg pod with 4K camera, spectrometers, and environmental sensors.</p>
-                </div>
-                <div class="tech-item">
-                    <img src="https://placehold.co/100x100/1F2527/1E90FF?text=PWR" alt="Solar Panel Icon">
-                    <h3>Solar & Battery Power</h3>
-                    <p>A 4.4 kg solar panel and 4.4 kg battery power the mission.</p>
-                </div>
-                <div class="tech-item">
-                    <img src="https://placehold.co/100x100/1F2527/1E90FF?text=SAT" alt="CubeSat Icon">
-                    <h3>3U CubeSat Relay</h3>
-                    <p>A 3U CubeSat ensures high-bandwidth data transmission to Earth.</p>
-                </div>
-                <div class="tech-item">
-                    <img src="https://placehold.co/100x100/1F2527/1E90FF?text=AI" alt="AI Brain Icon">
-                    <h3>Grok AI Integration</h3>
-                    <p>xAI’s Grok optimizes navigation, data analysis, and anomalies.</p>
-                </div>
-                <div class="tech-item">
-                    <img src="https://placehold.co/100x100/1F2527/1E90FF?text=MATL" alt="Materials Science Icon">
-                    <h3>Advanced Materials</h3>
-                    <p>Lightweight alloys and coatings enhance probe durability.</p>
+            </div>
+        </section>
+        
+        <section id="vision" class="section centered-section">
+             <div class="container">
+                <h2>Our Galactic Vision</h2>
+                <p>Venus’s 50-55 km zone offers Earth-like conditions, shielded from radiation. Cloudseeker targets resources and life signs, inspired by NASA’s HAVOC, for aerostat cities and mining. This mission accelerates our energy mastery, paving the way for a multi-planetary future.</p>
+                 <div class="kardashev-scale">
+                    <p>Let's climb the Kardashev Scale!</p>
                 </div>
             </div>
         </section>
 
-        <section id="timeline" class="section container timeline-section">
-            <h2>Timeline</h2>
-            <p>In Q3 2025, we’ll finalize Cloudseeker’s design, source materials, and begin volunteer fabrication with early Grok AI simulations, launching public outreach. From Q1-Q4 2026, we’ll assemble the probe, conduct Venus-like testing, and plan launch integration. On January 1, 2027, Cloudseeker lifts off, marking AETHER’s dawn with real-time broadcasts. From June 2027, it will collect data on atmospheric conditions and biosignatures. Beyond 2028, we’ll use this data to design larger platforms and advance Venusian tourism plans.</p>
-        </section>
-
-        <section id="vision" class="section container">
-            <h2>Our Galactic Vision</h2>
-            <div class="vision-content">
-                <p>Venus’s 50-55 km zone offers Earth-like conditions (1 atm, 0-50°C), shielded from radiation. Cloudseeker targets resources and life signs, inspired by NASA’s HAVOC, for aerostat cities and mining. This mission accelerates our energy mastery, paving the way for a multi-planetary future.</p>
+        <section id="join" class="section centered-section">
+            <div class="container">
+                <h2>Join the AETHER Initiative</h2>
+                <p>This community-driven mission is powered by pioneers like you. Your contribution powers Cloudseeker’s launch and brings humanity one step closer to a multi-planetary future.</p>
+                <a href="https://www.kickstarter.com/profile/nephelisindustries" class="cta-button" target="_blank" rel="noopener">Support on Kickstarter →</a>
             </div>
-            <div class="kardashev-scale">
-                <p>Let's climb the Kardashev Scale!</p>
-            </div>
-        </section>
-
-        <section id="impact" class="section container">
-            <h2>Global Impact</h2>
-            <p class="text-center">Cloudseeker catalyzes shifts in science, economy, and inspiration.</p>
-            <div class="impact-grid">
-                <div class="impact-item">
-                    <h3>Scientific Breakthroughs</h3>
-                    <p>Data on Venus’s atmosphere and biosignatures redefines planetary science.</p>
-                </div>
-                <div class="impact-item">
-                    <h3>Economic Expansion</h3>
-                    <p>Resource identification sparks a multi-trillion dollar space economy.</p>
-                </div>
-                <div class="impact-item">
-                    <h3>Tech Acceleration</h3>
-                    <p>Venus tech boosts Earth industries and future missions.</p>
-                </div>
-                <div class="impact-item">
-                    <h3>Inspiration & Education</h3>
-                    <p>Inspires a new generation in STEM and space careers.</p>
-                </div>
-                <div class="impact-item">
-                    <h3>Human Resilience</h3>
-                    <p>Off-world outposts reduce single-planet dependency.</p>
-                </div>
-                <div class="impact-item">
-                    <h3>Interplanetary Unity</h3>
-                    <p>Fosters global collaboration for a shared future.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="join" class="section container text-center">
-            <h2>Join the AETHER Initiative</h2>
-            <p>This community-driven mission targets a crowdfunding goal in 18 months. Your contribution powers Cloudseeker’s launch.</p>
-            <p class="crowdfunding-goal" style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--venus-gold); margin-top: 2rem; text-shadow: 0 0 5px rgba(255, 215, 0, 0.4);">Funding Goal: $500,000</p>
-            <div class="progress-bar-container">
-                <div class="progress-bar" id="progress-bar"><span id="progress-text">$0 / $500,000 (0%)</span></div>
-            </div>
-            <p>A $10 contribution makes you a pioneer. Higher tiers offer updates, tours, and payload rights!</p>
-            <a href="https://www.kickstarter.com/profile/nephelisindustries" class="cta-button" target="_blank" rel="noopener">Support on Kickstarter</a>
-            <h3 style="color: var(--sky-blue); margin-top: 3rem; text-shadow: 0 0 5px rgba(30, 144, 255, 0.4);">Become a Part of the Crew:</h3>
-            <p>Volunteer as engineers, designers, or ambassadors, or pitch payloads.</p>
-            <div class="community-icons">
-                <a href="https://x.com/NephelisCo" target="_blank" rel="noopener" aria-label="Follow us on X">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><g><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.21 -6.817L4.99 21.75H1.68l7.73 -8.835L1.254 2.25H8.08l4.714 6.236Z"></path></g></svg>
-                    <span>@NephelisCo</span>
-                </a>
-            </div>
-            <div class="final-cta">
-                The future awaits. Join before January 2027!
-            </div>
-        </section>
-
-        <section id="ask-grok" class="section container">
-            <h2>Engage with Grok AI</h2>
-            <p class="text-center">Leverage xAI’s Grok for mission insights and Venusian mysteries. Ask anything!</p>
-            <form>
-                <label for="ask-grok-input">Ask Grok a question about Venus</label>
-                <input id="ask-grok-input" type="text" placeholder="Ask about Venus, Cloudseeker, or e/acc...">
-                <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-                    <button type="submit">Query Grok</button>
-                </div>
-            </form>
-            <p style="margin-top: 2rem; font-style: italic; color: #aaa; text-align: center;">Grok’s reasoning optimizes trajectories and data, refining interaction models with your input.</p>
         </section>
     </main>
 
     <footer>
-        <div class="container">
-            <p>© <span id="current-year"></span> Nephelis Industries. All rights reserved.<br>Empowering Humanity's Interplanetary Future.</p>
-            <div class="social-links">
-                <a href="https://x.com/NephelisCo" target="_blank" rel="noopener" aria-label="Follow Nephelis Industries on X">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><g><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.21 -6.817L4.99 21.75H1.68l7.73 -8.835L1.254 2.25H8.08l4.714 6.236Z"></path></g></svg>
-                </a>
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h3>NEPHELIS INDUSTRIES</h3>
+                <p style="opacity: 0.7; max-width: 30ch;">Empowering Humanity's Interplanetary Future.</p>
             </div>
-            <div class="legal-links">
-                <a href="/privacy-policy">Privacy Policy</a> |
-                <a href="/terms-of-service">Terms of Service</a> |
+            <div class="footer-column">
+                <h3>Sitemap</h3>
+                <a href="#overview">Overview</a>
+                <a href="#mission">Mission</a>
+                <a href="#technology">Technology</a>
+                <a href="#vision">Vision</a>
+            </div>
+            <div class="footer-column">
+                <h3>Connect</h3>
+                <a href="https://x.com/NephelisCo" target="_blank" rel="noopener">Follow on X</a>
+                <a href="#join">Join the Initiative</a>
                 <a href="/investor-relations">Investor Relations</a>
             </div>
+             <div class="footer-column">
+                <h3>Legal</h3>
+                <a href="/privacy-policy">Privacy Policy</a>
+                <a href="/terms-of-service">Terms of Service</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+             <p>© <span id="current-year">2025</span> Nephelis Industries. All rights reserved.</p>
+             <script>document.getElementById('current-year').textContent = new Date().getFullYear();</script>
         </div>
     </footer>
-    <div class="mobile-overlay" aria-hidden="true"></div>
 </body>
 </html>
