@@ -1,486 +1,524 @@
+<!-- 
+    ================================================================
+    HOME PAGE (index.html)
+    - Save this section as 'index.html'
+    ================================================================
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <meta name="description" content="Nephelis Industries' Project AETHER: Launching Cloudseeker, a crowd-funded miniprobe to unlock Venus's atmospheric potential.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nephelis Industries' Project AETHER: A mission to unlock the atmospheric potential of Venus.">
     <meta name="author" content="Nephelis Industries">
-    <meta property="og:title" content="Project AETHER: Cloudseeker - Nephelis Industries">
-    <meta property="og:description" content="Join Nephelis Industries in Project AETHER, an ambitious quest to harness Venus's atmospheric resources.">
-    <meta property="og:image" content="https://photojournal.jpl.nasa.gov/jpeg/PIA00073.jpg">
-    <meta name="theme-color" content="#F5F5F5">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23111111%22>N</text></svg>" type="image/svg+xml">
+    <title>Nephelis Industries - Project AETHER</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <title>Project AETHER: Cloudseeker - Nephelis Industries</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>N</text></svg>">
+
     <style>
         :root {
             --background: #F5F5F5;
             --foreground: #111111;
             --border-color: #DDDDDD;
-            --footer-background: #111111;
-            --footer-foreground: #F5F5F5;
+            --accent: #333333;
         }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        html {
-            scroll-behavior: smooth;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Roboto Mono', monospace;
-            font-weight: 400;
             background-color: var(--background);
             color: var(--foreground);
-            line-height: 1.7;
+            line-height: 1.6;
             -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
         }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-        .text-center {
-            text-align: center;
-        }
-        .skip-link {
-            position: absolute;
-            top: -100px;
-            left: 0;
-            background: var(--foreground);
-            color: var(--background);
-            padding: 0.5rem 1rem;
-            text-decoration: none;
-            z-index: 1001;
-            transition: top 0.3s ease;
-        }
-        .skip-link:focus {
-            top: 0;
-        }
-        header {
+        h1, h2, h3 { font-family: 'Inter', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: -0.02em; }
+        p { max-width: 65ch; margin-bottom: 1rem; }
+
+        /* --- Header & Navigation --- */
+        .main-header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background: var(--background);
-            z-index: 999;
-            border-bottom: 1px solid var(--border-color);
-        }
-        header .header-container {
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 80px;
-            padding: 0 2rem;
+            z-index: 1000;
+            background: var(--background);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .header-logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--foreground);
+        }
+        .header-logo-icon {
+            height: 40px;
+            margin-right: 12px;
         }
         .logo-text {
             font-family: 'Inter', sans-serif;
             font-weight: 700;
             font-size: 1.2rem;
-            text-decoration: none;
-            color: var(--foreground);
             letter-spacing: -0.5px;
         }
-        nav.desktop-nav a {
+        .desktop-nav a {
             color: var(--foreground);
             text-decoration: none;
-            margin-left: 2rem;
+            margin-left: 2.5rem;
             font-size: 0.9rem;
             font-weight: 500;
             text-transform: uppercase;
-            transition: opacity 0.3s ease;
+            transition: color 0.3s;
         }
-        nav.desktop-nav a:hover {
-            opacity: 0.6;
-        }
-        .menu-toggle {
-            display: none;
-            font-size: 1.5rem;
-            background: none;
-            border: none;
-            color: var(--foreground);
-            cursor: pointer;
-            z-index: 1002;
-        }
-        .mobile-nav {
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--background);
-            z-index: 1001;
-        }
-        .mobile-nav.active {
-            display: flex;
-        }
-        .mobile-nav a {
-            color: var(--foreground);
-            text-decoration: none;
-            padding: 1.5rem 0;
-            font-family: 'Inter', sans-serif;
-            font-weight: 700;
-            font-size: 2rem;
-            transition: opacity 0.3s ease;
-        }
-        .mobile-nav a:hover {
-            opacity: 0.7;
-        }
-        .close-btn {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            font-size: 2rem;
-            background: none;
-            border: none;
-            color: var(--foreground);
-            cursor: pointer;
-            font-family: 'Inter', sans-serif;
-        }
-        main {
-            padding-top: 80px;
-        }
-        .section {
-            padding: 6rem 2rem;
+        .desktop-nav a:hover { color: #888; }
+        .menu-toggle { display: none; font-size: 1.5rem; background: none; border: none; color: var(--foreground); cursor: pointer; z-index: 1002; }
+        .mobile-nav { display: none; flex-direction: column; justify-content: center; align-items: center; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--background); z-index: 1001; }
+        .mobile-nav.active { display: flex; }
+        .mobile-nav a { color: var(--foreground); text-decoration: none; padding: 1.5rem 0; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 2rem; }
+        .close-btn { position: absolute; top: 2rem; right: 2rem; font-size: 2rem; background: none; border: none; color: var(--foreground); cursor: pointer; }
+
+        main { padding-top: 80px; }
+
+        /* --- Content Sections --- */
+        .content-section {
+            padding: 8rem 2rem;
             border-bottom: 1px solid var(--border-color);
         }
-        .section-grid {
+        .grid-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
             align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        .section-grid-text h1, .section-grid-text h2 {
-            font-family: 'Inter', sans-serif;
-            font-weight: 700;
-            font-size: 3.5rem;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: -1.5px;
-        }
-        .section-grid-text p {
-            max-width: 45ch;
-            margin-bottom: 2rem;
-        }
-        .section-grid-text .byline {
+        .grid-container.reverse .grid-text { grid-column: 2 / 3; grid-row: 1 / 2; }
+        .grid-container.reverse .grid-image { grid-column: 1 / 2; grid-row: 1 / 2; }
+        .grid-text h2 { font-size: 3rem; margin-bottom: 1.5rem; }
+        .grid-image img { width: 100%; display: block; border: 1px solid var(--border-color); }
+        .tech-stack-list { list-style: none; margin-top: 2rem; }
+        .tech-stack-list li { padding: 1rem; border: 1px solid var(--border-color); margin-bottom: 1rem; }
+        .tech-stack-list strong { display: block; font-family: 'Inter', sans-serif; margin-bottom: 0.25rem; }
+        .cta-section { text-align: center; padding: 8rem 2rem; }
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            border: 1px solid var(--foreground);
+            text-decoration: none;
+            color: var(--foreground);
+            font-family: 'Roboto Mono', monospace;
             font-weight: 500;
             text-transform: uppercase;
-            margin-top: -1rem;
-            margin-bottom: 2rem;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
         }
-        .section-grid-image img {
+        .cta-button:hover { background: var(--foreground); color: var(--background); }
+
+        /* --- Footer --- */
+        .main-footer { padding: 4rem 2rem; background: #f9f9f9; border-top: 1px solid var(--border-color); text-align: center; }
+        .footer-nav { margin-bottom: 2rem; }
+        .footer-nav a { color: var(--accent); text-decoration: none; margin: 0 1rem; text-transform: uppercase; font-size: 0.9rem; }
+        .footer-copy { font-size: 0.9rem; color: #999; }
+
+        /* --- Mobile Responsiveness --- */
+        @media (max-width: 768px) {
+            .desktop-nav { display: none; }
+            .menu-toggle { display: block; }
+            .grid-container, .grid-container.reverse { grid-template-columns: 1fr; gap: 3rem; }
+            .grid-container.reverse .grid-text, .grid-container.reverse .grid-image { grid-column: 1 / 2; grid-row: auto; }
+            .grid-text h2 { font-size: 2.2rem; }
+            .content-section, .cta-section { padding: 4rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <a href="index.html" class="header-logo-link">
+            <img src="nephelis.png" alt="Nephelis Industries Logo" class="header-logo-icon">
+            <span class="logo-text">Nephelis Industries</span>
+        </a>
+        <nav class="desktop-nav">
+            <a href="#mission">Mission</a>
+            <a href="#technology">Technology</a>
+            <a href="investor-relations.html">Investors</a>
+            <a href="#join">Join</a>
+        </nav>
+        <button class="menu-toggle" aria-label="Toggle Menu">☰</button>
+    </header>
+    
+    <nav class="mobile-nav">
+        <button class="close-btn" aria-label="Close Menu">×</button>
+        <a href="#mission">Mission</a>
+        <a href="#technology">Technology</a>
+        <a href="investor-relations.html">Investors</a>
+        <a href="#join">Join</a>
+    </nav>
+
+    <main>
+        <section id="mission" class="content-section">
+            <div class="grid-container">
+                <div class="grid-text">
+                    <h2>The Mission</h2>
+                    <p>Nephelis Industries presents Project AETHER, a landmark mission to Venus. Our miniprobe, Cloudseeker, will lay the foundation for humanity’s next great leap by unlocking the immense energy and resource potential of the Venusian atmosphere.</p>
+                    <p>Launching in 2027, Cloudseeker targets the 50-55 km altitude band, where temperatures and pressure mirror Earth-like conditions, to validate models for habitation, resource extraction, and astrobiological discovery.</p>
+                </div>
+                <div class="grid-image">
+                    <img src="https://photojournal.jpl.nasa.gov/jpeg/PIA00271.jpg" alt="Global view of Venus in ultraviolet light from the Pioneer Venus Orbiter.">
+                </div>
+            </div>
+        </section>
+
+        <section id="technology" class="content-section">
+            <div class="grid-container reverse">
+                <div class="grid-text">
+                    <h2>Technology</h2>
+                    <p>Cloudseeker thrives in Venus’s harsh environment by leveraging a stack of miniaturized, resilient technologies designed for maximum efficiency and durability.</p>
+                    <ul class="tech-stack-list">
+                        <li><strong>Acid-Resistant Aerostat:</strong> A fluoropolymer balloon designed to withstand sulfuric acid clouds and extreme atmospheric pressures.</li>
+                        <li><strong>Integrated Sensor Suite:</strong> A compact, 1kg pod containing a 4K camera, mass spectrometers, and environmental sensors.</li>
+                        <li><strong>3U CubeSat Relay:</strong> A dedicated CubeSat in orbit ensures high-bandwidth data transmission back to Earth.</li>
+                    </ul>
+                </div>
+                <div class="grid-image">
+                    <img src="https://photojournal.jpl.nasa.gov/jpeg/PIA10124.jpg" alt="An artist's concept of a high-altitude scientific airship exploring Venus.">
+                </div>
+            </div>
+        </section>
+
+        <section id="join" class="cta-section">
+            <h2>Join the AETHER Initiative</h2>
+            <p>This community-driven mission is powered by pioneers like you. Your contribution fuels Cloudseeker’s launch and brings humanity one step closer to a multi-planetary future.</p>
+            <a href="https://www.kickstarter.com/profile/nephelisindustries" class="cta-button" target="_blank" rel="noopener">Support on Kickstarter</a>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <nav class="footer-nav">
+            <a href="index.html">Home</a>
+            <a href="#mission">Mission</a>
+            <a href="#technology">Technology</a>
+            <a href="investor-relations.html">Investors</a>
+            <a href="#join">Join</a>
+        </nav>
+        <p class="footer-copy">© <span id="current-year"></span> Nephelis Industries. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+            
+            const menuToggle = document.querySelector('.menu-toggle');
+            const mobileNav = document.querySelector('.mobile-nav');
+            const closeBtn = document.querySelector('.close-btn');
+
+            const toggleMenu = () => mobileNav.classList.toggle('active');
+
+            if (menuToggle && mobileNav && closeBtn) {
+                menuToggle.addEventListener('click', toggleMenu);
+                closeBtn.addEventListener('click', toggleMenu);
+                mobileNav.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => mobileNav.classList.remove('active'));
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+<!-- 
+    ================================================================
+    INVESTOR RELATIONS PAGE (investor-relations.html)
+    - Save this section as 'investor-relations.html'
+    ================================================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Investor Relations at Nephelis Industries: Support Project AETHER and join our mission to unlock Venus’s atmospheric potential.">
+    <meta name="author" content="Nephelis Industries">
+    <title>Investor Relations - Nephelis Industries</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>N</text></svg>">
+
+    <style>
+        :root {
+            --background: #F5F5F5;
+            --foreground: #111111;
+            --border-color: #DDDDDD;
+            --accent: #333333;
+            --dark-bg: #111111;
+            --light-fg: #FFFFFF;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background-color: var(--background);
+            color: var(--foreground);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+        h1, h2, h3 { font-family: 'Inter', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: -0.02em; }
+        p { max-width: 65ch; margin-bottom: 1rem; }
+
+        /* --- Header & Navigation --- */
+        .main-header {
+            position: sticky;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: auto;
-            display: block;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: var(--background);
+            border-bottom: 1px solid var(--border-color);
         }
-        .centered-section h2 {
-            text-align: center;
+        .header-logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--foreground);
+        }
+        .header-logo-icon {
+            height: 40px;
+            margin-right: 12px;
+        }
+        .logo-text {
             font-family: 'Inter', sans-serif;
-            font-size: 2.5rem;
-            text-transform: uppercase;
-            letter-spacing: -1px;
-            margin-bottom: 1rem;
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: -0.5px;
         }
-        .centered-section > p {
+        .desktop-nav a { color: var(--foreground); text-decoration: none; margin-left: 2.5rem; font-size: 0.9rem; font-weight: 500; text-transform: uppercase; transition: color 0.3s; }
+        .desktop-nav a:hover { color: #888; }
+        
+        .menu-toggle { display: none; font-size: 1.5rem; background: none; border: none; color: var(--foreground); cursor: pointer; z-index: 1002; }
+        .mobile-nav { display: none; flex-direction: column; justify-content: center; align-items: center; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--background); z-index: 1001; }
+        .mobile-nav.active { display: flex; }
+        .mobile-nav a { color: var(--foreground); text-decoration: none; padding: 1.5rem 0; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 2rem; }
+        .close-btn { position: absolute; top: 2rem; right: 2rem; font-size: 2rem; background: none; border: none; color: var(--foreground); cursor: pointer; }
+
+        /* --- Page Content --- */
+        .ir-section {
+            padding: 6rem 2rem;
             text-align: center;
-            max-width: 60ch;
-            margin: 0 auto 3rem auto;
-            opacity: 0.8;
         }
+        .ir-section h2 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .ir-section > p { max-width: 60ch; margin: 0 auto 3rem auto; opacity: 0.8; }
+        
+        .ir-hero {
+            background: var(--dark-bg);
+            color: var(--light-fg);
+        }
+        .ir-hero .cta-button {
+            color: var(--light-fg);
+            border-color: var(--light-fg);
+        }
+        .ir-hero .cta-button:hover {
+            background: var(--light-fg);
+            color: var(--dark-bg);
+        }
+
         .info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin-top: 3rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
         }
         .info-item {
             border: 1px solid var(--border-color);
             padding: 2rem;
         }
-        .info-item h3 {
-            font-family: 'Inter', sans-serif;
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-        }
+        .info-item h3 { font-size: 1.2rem; margin-bottom: 1rem; }
+        .info-item p { margin: 0 auto 1.5rem auto; }
+        .info-item .cta-button { margin-top: 0; }
+        
         .cta-button {
             display: inline-block;
             padding: 1rem 2rem;
-            background: transparent;
-            color: var(--foreground);
+            border: 1px solid var(--foreground);
             text-decoration: none;
+            color: var(--foreground);
             font-family: 'Roboto Mono', monospace;
             font-weight: 500;
             font-size: 0.9rem;
-            border: 1px solid var(--foreground);
-            cursor: pointer;
+            text-transform: uppercase;
             transition: all 0.3s ease;
-            text-transform: uppercase;
         }
-        .cta-button:hover {
-            background: var(--foreground);
-            color: var(--background);
-        }
-        .mission-list {
-            list-style: none;
-            max-width: 70ch;
-            margin: 2rem auto;
-        }
-        .mission-list li {
-            margin-bottom: 1rem;
-            padding-left: 1.5rem;
+        .cta-button:hover { background: var(--foreground); color: var(--background); }
+        
+        .starry-bar {
+            width: 100%;
+            height: 80px;
+            background: var(--dark-bg);
             position: relative;
+            overflow: hidden;
         }
-        .mission-list li::before {
-            content: "→";
+        
+        .star {
             position: absolute;
-            left: 0;
-            color: var(--foreground);
+            background: var(--light-fg);
+            border-radius: 50%;
+            animation: twinkle 4s infinite ease-in-out;
         }
-        .kardashev-scale {
-            margin: 3rem auto 0;
-            border: 1px solid var(--border-color);
-            padding: 2rem;
-            text-align: center;
-            max-width: 800px;
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 0.8; transform: scale(1.2); }
         }
-        .kardashev-scale p {
-            font-family: 'Inter', sans-serif;
-            font-weight: 700;
-            font-size: 1.5rem;
-            margin: 0;
-        }
-        footer {
-            background: var(--footer-background);
-            color: var(--footer-foreground);
-            padding: 4rem 2rem;
-        }
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .footer-column h3 {
-            text-transform: uppercase;
-            font-size: 1rem;
-            margin-bottom: 1rem;
-            font-family: 'Inter', sans-serif;
-        }
-        .footer-column a {
-            color: var(--footer-foreground);
-            text-decoration: none;
-            display: block;
-            margin-bottom: 0.5rem;
-            opacity: 0.8;
-            transition: opacity 0.3s ease;
-        }
-        .footer-column a:hover {
-            opacity: 1;
-        }
-        .footer-bottom {
-            margin-top: 4rem;
-            padding-top: 2rem;
-            border-top: 1px solid #333;
-            text-align: center;
-            font-size: 0.9rem;
-            opacity: 0.7;
-        }
+
+        /* --- Footer --- */
+        .main-footer { padding: 4rem 2rem; background: #f9f9f9; border-top: 1px solid var(--border-color); text-align: center; }
+        .footer-nav { margin-bottom: 2rem; }
+        .footer-nav a { color: var(--accent); text-decoration: none; margin: 0 1rem; text-transform: uppercase; font-size: 0.9rem; }
+        .footer-copy { font-size: 0.9rem; color: #999; }
+
+        /* --- Mobile Responsiveness --- */
         @media (max-width: 768px) {
-            .header-container {
-                padding: 0 1rem;
-            }
-            .desktop-nav {
-                display: none;
-            }
-            .menu-toggle {
-                display: block;
-            }
-            .section {
-                padding: 4rem 1rem;
-            }
-            .section-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            .section-grid-text h1, .section-grid-text h2 {
-                font-size: 2.5rem;
-            }
+            .desktop-nav { display: none; }
+            .menu-toggle { display: block; }
+            .ir-section { padding: 4rem 1rem; }
+            .ir-section h2 { font-size: 2rem; }
         }
     </style>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuToggle = document.querySelector('.menu-toggle');
-            const mobileNav = document.querySelector('.mobile-nav');
-            const closeBtn = document.querySelector('.close-btn');
-
-            const toggleMenu = () => {
-                mobileNav.classList.toggle('active');
-            };
-
-            if (menuToggle && mobileNav && closeBtn) {
-                menuToggle.addEventListener('click', toggleMenu);
-                closeBtn.addEventListener('click', toggleMenu);
-
-                mobileNav.querySelectorAll('a').forEach(link => {
-                    link.addEventListener('click', () => {
-                        // Close menu when a link is clicked
-                        mobileNav.classList.remove('active');
-                    });
-                });
-            }
-        });
-    </script>
 </head>
 <body>
-    <a href="#main" class="skip-link">Skip to main content</a>
-    <header>
-        <div class="header-container">
-            <a href="index.html" class="logo-text">NEPHELIS INDUSTRIES</a>
-            <nav class="desktop-nav">
-                <a href="#overview">Overview</a>
-                <a href="#mission">Mission</a>
-                <a href="#technology">Technology</a>
-                <a href="#vision">Vision</a>
-                <a href="#join">Join Us</a>
-            </nav>
-            <button class="menu-toggle" aria-label="Toggle Menu">☰</button>
-        </div>
+    <header class="main-header">
+        <a href="index.html" class="header-logo-link">
+            <img src="https://i.imgur.com/Jv9A2Jg.jpg" alt="Nephelis Industries Logo" class="header-logo-icon">
+            <span class="logo-text">Nephelis Industries</span>
+        </a>
+        <nav class="desktop-nav">
+            <a href="index.html#mission">Mission</a>
+            <a href="index.html#technology">Technology</a>
+            <a href="investor-relations.html">Investors</a>
+            <a href="index.html#join">Join</a>
+        </nav>
+        <button class="menu-toggle" aria-label="Toggle Menu">☰</button>
     </header>
 
     <nav class="mobile-nav">
         <button class="close-btn" aria-label="Close Menu">×</button>
-        <a href="#overview">Overview</a>
-        <a href="#mission">Mission</a>
-        <a href="#technology">Technology</a>
-        <a href="#vision">Vision</a>
-        <a href="#join">Join Us</a>
+        <a href="index.html#mission">Mission</a>
+        <a href="index.html#technology">Technology</a>
+        <a href="investor-relations.html">Investors</a>
+        <a href="index.html#join">Join</a>
     </nav>
 
-    <main id="main">
-        <section class="section">
-            <div class="container section-grid">
-                <div class="section-grid-text">
-                    <h1>Project AETHER: Cloudseeker</h1>
-                    <p class="byline">A Venus Mission by Nephelis Industries</p>
-                    <p>Nephelis Industries proudly presents Project AETHER, spearheaded by the groundbreaking Cloudseeker mission. This miniprobe is not just exploring Venus; it’s laying the foundation for humanity’s next great leap—unlocking the immense energy potential of the Venusian atmosphere.</p>
-                    <a href="#join" class="cta-button">Join the Initiative →</a>
+    <main>
+        <section class="ir-section ir-hero">
+            <h2>Investor Relations</h2>
+            <p>Nephelis Industries is leading the charge toward a multi-planetary future with Project AETHER. Join our community-driven mission to explore Venus’s atmosphere and invest in humanity’s next frontier.</p>
+            <a href="#contact" class="cta-button">Contact IR →</a>
+        </section>
+        
+        <div class="starry-bar" id="star-bar-1"></div>
+
+        <section id="investment" class="ir-section">
+            <h2>Investment Opportunities</h2>
+            <p>Support Nephelis Industries by joining our Kickstarter campaign or expressing interest in future funding rounds as we scale our vision for Venus exploration.</p>
+            <div class="info-grid">
+                <div class="info-item">
+                    <h3>Crowdfunding</h3>
+                    <p>Pledge to receive exclusive rewards like mission patches, data access, or a virtual seat at mission control.</p>
+                    <a href="https://www.kickstarter.com/profile/nephelisindustries" class="cta-button" target="_blank" rel="noopener">Pledge Now →</a>
                 </div>
-                <div class="section-grid-image">
-                    <img src="https://photojournal.jpl.nasa.gov/jpeg/PIA00073.jpg" alt="A false-color image of Venus's swirling cloud tops, captured by the Mariner 10 spacecraft." loading="lazy">
+                <div class="info-item">
+                    <h3>Future Funding</h3>
+                    <p>We plan to open seed funding rounds in 2026 for institutional investors. Register your interest with our IR team.</p>
+                    <a href="#contact" class="cta-button">Contact IR →</a>
                 </div>
             </div>
         </section>
         
-        <section id="overview" class="section">
-            <div class="container section-grid">
-                <div class="section-grid-image">
-                     <img src="https://photojournal.jpl.nasa.gov/jpeg/PIA10124.jpg" alt="Artist's concept of a potential future atmospheric habitat on Venus." loading="lazy">
-                </div>
-                <div class="section-grid-text">
-                    <h2>THE IMPERATIVE: WHY VENUS, WHY NOW?</h2>
-                    <p>For millennia, humanity has gazed skyward, dreaming of new frontiers. Venus, our shrouded sister planet, holds secrets and resources vital for our progression towards a Type I civilization. Project AETHER is our answer to this imperative.</p>
-                    <p>The Cloudseeker miniprobe spearheads this era, targeting Venus’s 50-55 km zone to gather data for atmospheric habitats, resource extraction, and astrobiological insights.</p>
-                </div>
-            </div>
+        <div class="starry-bar" id="star-bar-2"></div>
+
+        <section id="governance" class="ir-section">
+            <h2>Governance & Leadership</h2>
+            <p>Our team is committed to ethical innovation and transparent governance, driving Project AETHER with expertise and vision.</p>
+            
         </section>
 
-        <section id="mission" class="section centered-section">
-            <div class="container">
-                <h2>The Cloudseeker Mission</h2>
-                <p>Launching January 2027, Cloudseeker targets Venus’s 50-55 km altitude band, where temperatures (0°C to 50°C) and pressure (1 atm) mirror Earth. It gathers real-time data to validate models for habitation and discovery.</p>
-                 <ul class="mission-list">
-                    <li><strong>Atmospheric Composition:</strong> Analyze CO2, sulfuric acid, water vapor, and phosphine for resources and life signs.</li>
-                    <li><strong>Dynamic Weather Systems:</strong> Map 200-350 km/h winds and stability for aerial platform design.</li>
-                    <li><strong>Biosignature Hunt:</strong> Search for phosphine and organic molecules, building on Sagan’s cloud-life theory.</li>
-                    <li><strong>Technological Validation:</strong> Prove affordable, community-driven exploration is possible.</li>
-                </ul>
-            </div>
-        </section>
+        <div class="starry-bar" id="star-bar-3"></div>
 
-        <section id="technology" class="section centered-section">
-            <div class="container">
-                <h2>Technology Stack</h2>
-                <p>Cloudseeker thrives in Venus’s harsh environment with miniaturized, resilient tech.</p>
-                <div class="info-grid">
-                    <div class="info-item">
-                        <h3>Acid-Resistant Aerostat</h3>
-                        <p>A 1m fluoropolymer balloon withstands sulfuric acid and extreme pressures.</p>
-                    </div>
-                    <div class="info-item">
-                        <h3>Integrated Sensor Suite</h3>
-                        <p>A 1kg pod with 4K camera, spectrometers, and environmental sensors.</p>
-                    </div>
-                    <div class="info-item">
-                        <h3>3U CubeSat Relay</h3>
-                        <p>A 3U CubeSat ensures high-bandwidth data transmission to Earth.</p>
-                    </div>
-                     <div class="info-item">
-                        <h3>Advanced Materials</h3>
-                        <p>Lightweight alloys and coatings enhance probe durability and lifespan.</p>
-                    </div>
+        <section id="contact" class="ir-section">
+            <h2>Contact Investor Relations</h2>
+            <p>Have questions about investing in Nephelis Industries? Reach out to our Investor Relations team.</p>
+            <div class="info-grid">
+                <div class="info-item">
+                    <h3>Email</h3>
+                    <p><a href="mailto:info@nephelisindustries.com" style="color: var(--foreground); text-decoration: none;">ir@nephelisindustries.com</a></p>
                 </div>
-            </div>
-        </section>
-        
-        <section id="vision" class="section centered-section">
-             <div class="container">
-                <h2>Our Galactic Vision</h2>
-                <p>Venus’s 50-55 km zone offers Earth-like conditions, shielded from radiation. Cloudseeker targets resources and life signs, inspired by NASA’s HAVOC, for aerostat cities and mining. This mission accelerates our energy mastery, paving the way for a multi-planetary future.</p>
-                 <div class="kardashev-scale">
-                    <p>Let's climb the Kardashev Scale!</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="join" class="section centered-section">
-            <div class="container">
-                <h2>Join the AETHER Initiative</h2>
-                <p>This community-driven mission is powered by pioneers like you. Your contribution powers Cloudseeker’s launch and brings humanity one step closer to a multi-planetary future.</p>
-                <a href="https://www.kickstarter.com/profile/nephelisindustries" class="cta-button" target="_blank" rel="noopener">Support on Kickstarter →</a>
+                
             </div>
         </section>
     </main>
 
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-column">
-                <h3>NEPHELIS INDUSTRIES</h3>
-                <p style="opacity: 0.7; max-width: 30ch;">Empowering Humanity's Interplanetary Future.</p>
-            </div>
-            <div class="footer-column">
-                <h3>Sitemap</h3>
-                <a href="#overview">Overview</a>
-                <a href="#mission">Mission</a>
-                <a href="#technology">Technology</a>
-                <a href="#vision">Vision</a>
-            </div>
-            <div class="footer-column">
-                <h3>Connect</h3>
-                <a href="https://x.com/NephelisCo" target="_blank" rel="noopener">Follow on X</a>
-                <a href="#join">Join the Initiative</a>
-                <a href="/investor-relations">Investor Relations</a>
-            </div>
-             <div class="footer-column">
-                <h3>Legal</h3>
-                <a href="/privacy-policy">Privacy Policy</a>
-                <a href="/terms-of-service">Terms of Service</a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-             <p>© <span id="current-year">2025</span> Nephelis Industries. All rights reserved.</p>
-             <script>document.getElementById('current-year').textContent = new Date().getFullYear();</script>
-        </div>
+    <footer class="main-footer">
+        <nav class="footer-nav">
+            <a href="index.html">Home</a>
+            <a href="index.html#mission">Mission</a>
+            <a href="index.html#technology">Technology</a>
+            <a href="investor-relations.html">Investors</a>
+        </nav>
+        <p class="footer-copy">© <span id="current-year"></span> Nephelis Industries. All Rights Reserved.</p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+            
+            const menuToggle = document.querySelector('.menu-toggle');
+            const mobileNav = document.querySelector('.mobile-nav');
+            const closeBtn = document.querySelector('.close-btn');
+
+            const toggleMenu = () => mobileNav.classList.toggle('active');
+
+            if (menuToggle && mobileNav && closeBtn) {
+                menuToggle.addEventListener('click', toggleMenu);
+                closeBtn.addEventListener('click', toggleMenu);
+                mobileNav.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => mobileNav.classList.remove('active'));
+                });
+            }
+            
+            function createStars(barId, count) {
+                const bar = document.getElementById(barId);
+                if (!bar) return;
+                for (let i = 0; i < count; i++) {
+                    let star = document.createElement('div');
+                    star.className = 'star';
+                    star.style.width = `${Math.random() * 2 + 1}px`;
+                    star.style.height = star.style.width;
+                    star.style.top = `${Math.random() * 100}%`;
+                    star.style.left = `${Math.random() * 100}%`;
+                    star.style.animationDelay = `${Math.random() * 4}s`;
+                    bar.appendChild(star);
+                }
+            }
+            createStars('star-bar-1', 50);
+            createStars('star-bar-2', 50);
+            createStars('star-bar-3', 50);
+        });
+    </script>
 </body>
 </html>
