@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venus Extension Mission - Ledger & Phases</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f0f0f0; }
+        .phase { margin: 20px; padding: 15px; border: 1px solid #ccc; background: white; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #e0e0e0; }
+        #ledger { margin: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Venus Mission: Extending Life to Our Sister World</h1>
+    <p>As agents for multi-planetary consciousness, this site drives our low-cost probe to Venus clouds.</p>
+
+    <div id="phases">
+        <!-- Phases rendered here -->
+    </div>
+
+    <div id="ledger">
+        <h2>Decision Ledger</h2>
+        <button onclick="addEntry()">Add Sample Entry (Grok Simulate)</button>
+        <div id="entries"></div>
+    </div>
+
+    <div id="volunteer-form">
+        <h2>Volunteer Signup</h2>
+        <form onsubmit="matchVolunteer(event)">
+            <input type="text" id="skills" placeholder="Skills (e.g., aerodynamics)" required>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        // Mock Grok API integration
+        const grokAPI = {
+            simulate: (prompt) => ({ result: `Simulated: ${prompt} - Feasibility: 90%` }),
+            scoreVolunteer: (skills) => `Assigned to Phase 2: ${skills} matches balloon tasks.`
+        };
+
+        // Blockchain setup (Sepolia testnet)
+        const web3 = new Web3('https://sepolia.infura.io/v3/YOUR_INFURA_KEY');
+        const contract = new web3.eth.Contract(ABI, 'CONTRACT_ADDRESS'); // Define ABI for simple logging contract
+
+        // Render phases in table
+        const phasesData = [
+            {
+                name: 'Phase 1: Mission Design and Objective Refinement (Months 1-3, ~50 Tasks, ~$10,000)',
+                description: 'Foundation: 5kg CubeSat with 30-day balloon for biosignatures at 48-60km. Adapt Vega/VALENTInE cycling for longevity—e.g., periodic dips to extend life without extra costs. Risks: Mitigate simulation over-reliance with early peer reviews; add $2k for basic analog tests.',
+                tasks: 'Draft objectives; Analyze datasets; Model trajectory.',
+                grok: 'API simulates floats (e.g., "Code: balloon_durability.py"); Scores volunteer ideas.',
+                ledger: 'Logs like "Decision: Polyimide shielding. Reasoning: Vega heat tolerance; sim 95%." Updates via community input.',
+                pragmatics: '5-10 volunteers. Accelerated by Grok data crunching.'
+            },
+            {
+                name: 'Phase 2: Hardware Development and Prototyping (Months 4-12, ~200 Tasks, ~$140,000)',
+                description: 'Off-the-shelf: Raspberry Pi, fluoropolymer balloons reinforced per Vega (e.g., Teflon coatings). Test durability affordably: Crowdsourced DIY vacuum/heat chambers—e.g., $500 setups with pumps/heaters for acid sims, inspired by stratospheric balloon tests. Integrate ADVENTS aerobots for faster iterations: Use their buoyancy models in Grok sims to cut prototypes from 5 to 3.',
+                tasks: 'Source parts; Assemble; Test in analogs (e.g., sulfuric mist chambers).',
+                grok: 'Optimizes via code (e.g., "Model shielding thickness"); Reassigns volunteers dynamically.',
+                ledger: 'Iterative logs: "Switch material. Reasoning: 20% mass cut, Rocket Lab efficiency."',
+                pragmatics: '20-50 volunteers. Time cut by sims; Cost offset by donations.'
+            },
+            {
+                name: 'Phase 3: Launch Integration and Preparation (Months 13-15, ~100 Tasks, ~$50,000)',
+                description: 'Rideshare: SpaceX Transporter (~$32.5k for 5kg, but adapt for Venus via Photon-like kick—note: SSO base, add $10k for trajectory). Pivot to Rocket Lab Electron if booked (2025 windows open, per VLF plans). Negotiation: Bundle with educational payloads for 10-20% discounts.',
+                tasks: 'Compatibility checks; Filings; Testing.',
+                grok: 'Generates docs; Simulates interfaces.',
+                ledger: ' "Book 2026 slot. Reasoning: Vega timeline alignment."',
+                pragmatics: '5-10 volunteers. 3 months.'
+            },
+            {
+                name: 'Phase 4: Transit, Entry, and Operations (Months 16-24+, ~150 Tasks, ~$100,000)',
+                description: 'Cruise monitoring; Deploy balloon with VALENTInE-inspired dips for 30+ days, extending Vega's floats via path optimization.',
+                tasks: 'Navigation; Data relay.',
+                grok: 'Real-time analysis (e.g., code for path tweaks).',
+                ledger: 'Live: "Adjust altitude. Reasoning: Vega data extension."',
+                pragmatics: '10-20 volunteers. Ops ~$50k.'
+            },
+            {
+                name: 'Phase 5: Data Analysis, Iteration, and Legacy (Ongoing, ~50 Tasks, ~$50,000)',
+                description: 'Crunch data; Plan v2 with EnVision synergies. Open-source: Full designs/datasets on GitHub, amplifying impact for future AI-human Venus habitats.',
+                tasks: 'Reports; v2 planning.',
+                grok: 'Automates analysis; Queries ledger.',
+                ledger: 'Evolves to knowledge base.',
+                pragmatics: '10 volunteers. Ongoing.'
+            }
+        ];
+
+        function renderPhases() {
+            const container = document.getElementById('phases');
+            phasesData.forEach(phase => {
+                const div = document.createElement('div');
+                div.className = 'phase';
+                div.innerHTML = `
+                    <h2>${phase.name}</h2>
+                    <p>${phase.description}</p>
+                    <table>
+                        <tr><th>Key Tasks</th><td>${phase.tasks}</td></tr>
+                        <tr><th>Grok Integration</th><td>${phase.grok}</td></tr>
+                        <tr><th>Ledger Outline</th><td>${phase.ledger}</td></tr>
+                        <tr><th>Pragmatics</th><td>${phase.pragmatics}</td></tr>
+                    </table>
+                `;
+                container.appendChild(div);
+            });
+        }
+        renderPhases();
+
+        // Ledger functions
+        let entries = [];
+        function addEntry() {
+            const newEntry = {
+                decision: 'Sample: Prioritize fluoropolymers.',
+                reasoning: grokAPI.simulate('Balloon material based on Vega').result
+            };
+            entries.push(newEntry);
+            // Blockchain log (mock)
+            console.log('Hashed to blockchain');
+            renderEntries();
+        }
+        function renderEntries() {
+            const container = document.getElementById('entries');
+            container.innerHTML = entries.map(e => `<p>${e.decision}: ${e.reasoning}</p>`).join('');
+        }
+
+        // Volunteer matching
+        function matchVolunteer(event) {
+            event.preventDefault();
+            const skills = document.getElementById('skills').value;
+            alert(grokAPI.scoreVolunteer(skills));
+        }
+    </script>
+</body>
+</html>
