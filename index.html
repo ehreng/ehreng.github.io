@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,6 +68,7 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.3s ease;
         }
         .header-logo-link {
             display: flex;
@@ -160,6 +162,11 @@
             position: relative;
             z-index: 2;
             padding: 2rem;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .hero-content h1 {
             font-size: 2.5rem;
@@ -384,7 +391,9 @@
             background: var(--background);
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: box-shadow 0.3s;
         }
+        .timeline-content:hover { box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
         .timeline-date {
             position: absolute;
             top: 50%;
@@ -1027,3 +1036,4 @@
     </footer>
 </body>
 </html>
+```
