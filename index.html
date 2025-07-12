@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,6 +35,7 @@
         h1, h2, h3 { font-family: 'Inter', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: -0.02em; }
         p { max-width: 65ch; margin-bottom: 1rem; }
         a { color: var(--foreground); text-decoration: none; }
+        sup a { font-size: 0.7rem; color: var(--accent); }
 
         /* --- Header & Navigation --- */
         .main-header {
@@ -416,7 +416,7 @@
             <div class="hero-overlay"></div>
             <div class="hero-content">
                 <h1>We’re not NASA. We’re Nephelis Industries: dreamers and builders betting $500,000 on a crowd-funded probe to Venus. Extend human and AI consciousness beyond Earth now.</h1>
-               <p class="powered-by">Powered by <a href="https://x.ai/api">@xAI</a></p>
+                <p class="powered-by">Powered by @xAI</p>
             </div>
         </section>
 
@@ -426,9 +426,9 @@
                     <h2>The Mission</h2>
                     <p>Project AETHER sends Cloudseeker, a miniprobe, to Venus's atmosphere. It unlocks energy and resources for floating habitats, extending human life, consciousness, and AI to another world.</p>
                     <p>Targeting 50-55 km altitude—Earth-like conditions—Cloudseeker validates habitation models, resource extraction, and astrobiology. Launch: 2027. Data will fuel Venus colonies, securing multi-planetary survival.</p>
-                    <p>Venus offers abundant solar power, CO2 for fuel, nitrogen for breathable air. We need $500,000+ in crowdfunding for build, testing, launch. Volunteers: engineers, scientists, AI experts—apply via email.</p>
+                    <p>Venus offers abundant solar power, CO2 for fuel, nitrogen for breathable air. We need $500,000+ in crowdfunding for build, testing, launch. While our budget is modest compared to Rocket Lab's Venus Life Finder (<$10M)<sup><a href="https://www.planetary.org/space-missions/rocket-lab-venus-mission">[1]</a></sup><sup><a href="https://futurism.com/nasa-heat-shield-private-venus-probe">[2]</a></sup>, it focuses on niche habitation validation. Volunteers: engineers, scientists, AI experts—apply via email.</p>
                     <p>Back this: Be part of humanity's backup plan. Earth's risks demand action. Venus ensures life thrives across the solar system.</p>
-                    <p>With our hypothetical VenusExpress service, leveraging state-of-the-art next-gen propulsion like nuclear electric or VASIMR plasma drives, travel time shrinks to 30-45 days—faster than current 3-6 months, enabling frequent resupply and human missions.</p>
+                    <p>With our hypothetical VenusExpress service, leveraging state-of-the-art next-gen propulsion like nuclear electric or VASIMR plasma drives (still in prototype stage as of 2025)<sup><a href="https://en.wikipedia.org/wiki/Variable_Specific_Impulse_Magnetoplasma_Rocket">[3]</a></sup>, travel time shrinks to 30-45 days—faster than current 3-6 months, enabling frequent resupply and human missions.</p>
                 </div>
                 <div class="grid-image">
                     <img src="probe.jpg" alt="Artist's concept of Cloudseeker probe in Venus's clouds.">
@@ -442,11 +442,11 @@
             <div class="grid-container reverse">
                 <div class="grid-text">
                     <h2>Technology</h2>
-                    <p>Cloudseeker uses miniaturized tech for Venus's extremes, enabling future life-sustaining outposts.</p>
+                    <p>Cloudseeker uses miniaturized tech for Venus's extremes, enabling future life-sustaining outposts. We acknowledge risks like sulfuric acid corrosion, mitigated by advanced materials, but probes may have short lifetimes<sup><a href="https://www.nasa.gov/centers-and-facilities/glenn/cook-crush-choke-testing-components-before-launching-to-venus/">[4]</a></sup><sup><a href="https://space.stackexchange.com/questions/46691/is-the-surface-environment-of-venus-corrosive">[5]</a></sup>.</p>
                     <ul class="tech-stack-list">
                         <li><strong>Acid-Resistant Aerostat:</strong> Fluoropolymer balloon resists sulfuric acid, floats in habitable zone—basis for human/AI habitats.</li>
-                        <li><strong>Integrated Sensor Suite:</strong> 1kg pod with 4K camera, mass spectrometers, bio-sensors—detects resources, life signs.</li>
-                        <li><strong>3U CubeSat Relay:</strong> Orbits Venus, transmits high-bandwidth data—essential for colony comms.</li>
+                        <li><strong>Integrated Sensor Suite:</strong> 1kg pod with 4K camera, mass spectrometers, bio-sensors (updated for ammonia/phosphine)—detects resources, life signs<sup><a href="https://www.cnn.com/2024/07/29/science/venus-gases-phosphine-ammonia">[6]</a></sup>.</li>
+                        <li><strong>3U CubeSat Relay:</strong> Orbits Venus, transmits high-bandwidth data—essential for colony comms, though cloud opacity may challenge.</li>
                         <li><strong>AI-Optimized Navigation:</strong> xAI models enable autonomous ops in dynamic atmosphere—key for AI-human synergy off-Earth.</li>
                     </ul>
                     <p>We need: Hardware donations, software contributions, testing facilities. Volunteers: Coders, fabricators—join to build the future.</p>
@@ -600,7 +600,7 @@
 
         <section id="vsmars" class="content-section centered-section">
             <h2>Vs Mars</h2>
-            <p>Why Venus? It's not competition—it's complementarity. But Venus edges out for life extension.</p>
+            <p>Why Venus? It's not competition—it's complementarity. But Venus edges out for life extension, though we acknowledge challenges like cloud-reduced solar power<sup><a href="https://www.sciencedirect.com/science/article/pii/S0019103521004449">[7]</a></sup>, acid-complicated resources<sup><a href="https://www.nasa.gov/centers-and-facilities/glenn/cook-crush-choke-testing-components-before-launching-to-venus/">[4]</a></sup>, and radiation in clouds<sup><a href="https://www.aanda.org/articles/aa/full_html/2020/01/aa36968-19/aa36968-19.html">[8]</a></sup>.</p>
             <table class="comparison-table">
                 <thead>
                     <tr>
@@ -632,7 +632,7 @@
                     </tr>
                     <tr>
                         <td>Solar Irradiance</td>
-                        <td>2601 W/m² (1.91x Earth)</td>
+                        <td>2601 W/m² (1.91x Earth), but reduced by clouds</td>
                         <td>590 W/m² (0.43x Earth)</td>
                     </tr>
                     <tr>
@@ -642,22 +642,22 @@
                     </tr>
                     <tr>
                         <td>Resources</td>
-                        <td>CO2 96.5%, N2 3.5%, SO2 150ppm, acids—abundant for ISRU</td>
+                        <td>CO2 96.5%, N2 3.5%, SO2 150ppm, acids—abundant for ISRU, but corrosion challenges</td>
                         <td>Water ice, but sparse; thin CO2 atm</td>
                     </tr>
                     <tr>
                         <td>Challenges</td>
-                        <td>Acid clouds (mitigated by altitude/materials)</td>
+                        <td>Acid clouds (mitigated by altitude/materials), radiation</td>
                         <td>Radiation, dust storms, low gravity</td>
                     </tr>
                     <tr>
                         <td>Life Potential</td>
-                        <td>Possible cloud microbes (phosphine)</td>
+                        <td>Possible cloud microbes (phosphine, under debate as of 2025)<sup><a href="https://link.aps.org/doi/10.1103/Physics.13.201">[9]</a></sup><sup><a href="https://www.frontiersin.org/journals/astronomy-and-space-sciences/articles/10.3389/fspas.2024.1372057/full">[10]</a></sup></td>
                         <td>Past life evidence</td>
                     </tr>
                 </tbody>
             </table>
-            <p>Venus: Faster setup for floating cities, better for long-term human/AI thriving. Mars ground ops complement. Back Venus first—it's the smart bet.</p>
+            <p>Venus: Faster setup for floating cities, better for long-term human/AI thriving, though recent studies suggest it was never water-rich or habitable long-term<sup><a href="https://news.uchicago.edu/story/was-venus-ever-habitable-new-uchicago-study-casts-doubt">[11]</a></sup><sup><a href="https://www.cam.ac.uk/research/news/researchers-deal-a-blow-to-theory-that-venus-once-had-liquid-water-on-its-surface">[12]</a></sup><sup><a href="https://www.theguardian.com/science/2024/dec/02/venus-life-water-atmosphere-analysis-science-research">[13]</a></sup>. Mars ground ops complement. Back Venus first—it's the smart bet.</p>
             <h3>Venus Facts</h3>
             <p>Discover why Venus is humanity's next frontier—fascinating, feasible, essential.</p>
             <ul class="facts-list">
@@ -668,7 +668,7 @@
                 <li><strong>Solar Energy Production:</strong> Floating habitats could harness 1.9x Earth's solar flux; with cloud albedo reflecting 75%, sub-cloud irradiance ~65 W/m², but elevated panels capture more—potential for GW-scale farms powering AI datacenters, electrolysis for fuels.</li>
                 <li><strong>Sun Sensation:</strong> Through habitat glass (UV-filtered), sunlight feels warmer/intense due to higher irradiance—akin to Earth's tropics but brighter; skin senses gentle heat, no burn risk with proper shielding, evoking perpetual golden hour.</li>
                 <li><strong>Proximity Advantage:</strong> Closer orbit: 3-6 months current travel; with VenusExpress (nuclear electric/VASIMR), 30-45 days at 0.1-0.2g acceleration—easier resupply, lower radiation exposure en route.</li>
-                <li><strong>Astrobiology Hotspot:</strong> Phosphine detection suggests microbial life—probe could confirm, rewrite biology.</li>
+                <li><strong>Astrobiology Hotspot:</strong> Phosphine detection suggests microbial life—probe could confirm, rewrite biology, though debate continues on its origin<sup><a href="https://link.aps.org/doi/10.1103/Physics.13.201">[9]</a></sup><sup><a href="https://www.frontiersin.org/journals/astronomy-and-space-sciences/articles/10.3389/fspas.2024.1372057/full">[10]</a></sup><sup><a href="https://phys.org/news/2025-06-clouds-venus-host-life.html">[14]</a></sup>.</li>
             </ul>
             <p>These facts make Venus irresistible. Back AETHER: Probe data unlocks this potential.</p>
         </section>
@@ -730,6 +730,9 @@
                     <a href="mailto:info@nephelisindustries.com" class="cta-button urgent">Volunteer Now →</a>
                 </div>
             </div>
+            <h3>Team</h3>
+            <p>Nephelis Industries is run by space enthusiasts. We comply with FAA/ITAR regulations for launches and protect IP. </p>
+          
         </section>
 
     </main>
@@ -757,4 +760,3 @@
     </footer>
 </body>
 </html>
-```
