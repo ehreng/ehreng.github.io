@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -353,16 +354,6 @@
             z-index: 1;
         }
 
-        /* Vision Section */
-        .vision-section {
-            background: var(--gradient-bg);
-            color: var(--background);
-            padding: 8rem 2rem;
-            text-align: center;
-        }
-        .vision-section h2 { color: var(--background); }
-        .vision-section p { max-width: 60ch; margin: 1rem auto; }
-
         /* Facts List */
         .facts-list { list-style: none; margin-top: 2rem; text-align: left; }
         .facts-list li { padding: 1rem; border: 1px solid var(--border-color); margin-bottom: 1rem; transition: transform 0.3s; }
@@ -401,11 +392,8 @@
         <nav class="desktop-nav">
             <a href="#mission">Mission</a>
             <a href="#technology">Technology</a>
-            <a href="#vision">Vision</a>
-            <a href="#facts">Facts</a>
-            <a href="#comparison">Vs Mars</a>
-            <a href="#competitors">Competitors</a>
             <a href="#history">History</a>
+            <a href="#vsmars">Vs Mars</a>
             <a href="#timeline">Timeline</a>
             <a href="#support">Support</a>
         </nav>
@@ -417,11 +405,8 @@
         <label for="menu-checkbox" class="close-btn-label">×</label>
         <a href="#mission">Mission</a>
         <a href="#technology">Technology</a>
-        <a href="#vision">Vision</a>
-        <a href="#facts">Facts</a>
-        <a href="#comparison">Vs Mars</a>
-        <a href="#competitors">Competitors</a>
         <a href="#history">History</a>
+        <a href="#vsmars">Vs Mars</a>
         <a href="#timeline">Timeline</a>
         <a href="#support">Support</a>
     </nav>
@@ -431,7 +416,7 @@
             <div class="hero-overlay"></div>
             <div class="hero-content">
                 <h1>We’re not NASA. We’re Nephelis Industries: dreamers and builders betting $500,000 on a crowd-funded probe to Venus. Extend human and AI consciousness beyond Earth now.</h1>
-                <p class="powered-by">Powered by <a href="https://x.ai/api">@xAI</a></p>
+               <p class="powered-by">Powered by <a href="https://x.ai/api">@xAI</a></p>
             </div>
         </section>
 
@@ -465,7 +450,7 @@
                         <li><strong>AI-Optimized Navigation:</strong> xAI models enable autonomous ops in dynamic atmosphere—key for AI-human synergy off-Earth.</li>
                     </ul>
                     <p>We need: Hardware donations, software contributions, testing facilities. Volunteers: Coders, fabricators—join to build the future.</p>
-                    
+                    <p class="powered-by">Powered by @xAI</p>
                 </div>
                 <div class="grid-image">
                     <img src="sat.jpg" alt="Artist's concept of CubeSat relaying data from Venus probe.">
@@ -475,101 +460,10 @@
 
         <div class="starry-bar" id="star-bar-2"></div>
 
-        <section id="vision" class="vision-section content-section">
-            <h2>Our Vision: Life on Venus</h2>
-            <p>Cloudseeker paves way for floating cities at 50km: 0.9g gravity (90% of Earth's, preventing muscle atrophy unlike Mars' 0.38g), radiation shield, endless resources. Humans and AI co-exist, consciousness expands.</p>
-            <p>Venus: Closer to Earth, faster trips, superior solar energy. Extract acids for materials, CO2 for propellant. Astrobiology potential: Life in clouds?</p>
-            <p>Back now: Fund probe, volunteer skills—engineers, biologists, fundraisers. Secure interstellar legacy. Venus isn't hell—it's heaven afloat.</p>
-            <p>VenusExpress: Hypothetical express service with advanced propulsion (e.g., nuclear electric for high specific impulse >8000s, thrust-to-weight optimized) cuts travel to 30-45 days, vs 97+ days current. Enables routine commuting, cargo hauls.</p>
-            <a href="#support" class="cta-button urgent">Back the Mission Now!</a>
-        </section>
-
-        <div class="starry-bar" id="star-bar-3"></div>
-
-        <section id="facts" class="content-section centered-section">
-            <h2>Venus Facts</h2>
-            <p>Discover why Venus is humanity's next frontier—fascinating, feasible, essential.</p>
-            <ul class="facts-list">
-                <li><strong>Gravity:</strong> 0.903g (90.3% of Earth's gravity)—near-ideal for long-term human health, minimal bone/muscle loss compared to low-g environments.</li>
-                <li><strong>Habitable Layer:</strong> At 50-55km altitude, temperatures range from 75°C at 50km to ~0-30°C at 55km; pressure ~1 bar at 50km dropping to ~0.5 bar at 55km—Earth-like, breathable with O2 supplementation.</li>
-                <li><strong>Resource Rich Atmosphere:</strong> 96.5% CO2 (for fuel via Sabatier process, plastics); 3.5% N2 (for air mixtures); traces: SO2 (150 ppm, for sulfuric acid batteries/fertilizers); Ar (70 ppm); H2O (20 ppm); CO (17 ppm); He (12 ppm); Ne (7 ppm); H2SO4 in clouds (for chemical feedstocks).</li>
-                <li><strong>Solar Irradiance:</strong> Top-of-atmosphere: 2601 W/m² (1.91x Earth's 1361 W/m²)—immense potential; at 50-55km within clouds, diffused but still ~100-200 W/m² direct, enabling high-efficiency solar arrays (e.g., 30% efficient panels yielding >500 W/m² peak above clouds via tethered collectors).</li>
-                <li><strong>Solar Energy Production:</strong> Floating habitats could harness 1.9x Earth's solar flux; with cloud albedo reflecting 75%, sub-cloud irradiance ~65 W/m², but elevated panels capture more—potential for GW-scale farms powering AI datacenters, electrolysis for fuels.</li>
-                <li><strong>Sun Sensation:</strong> Through habitat glass (UV-filtered), sunlight feels warmer/intense due to higher irradiance—akin to Earth's tropics but brighter; skin senses gentle heat, no burn risk with proper shielding, evoking perpetual golden hour.</li>
-                <li><strong>Proximity Advantage:</strong> Closer orbit: 3-6 months current travel; with VenusExpress (nuclear electric/VASIMR), 30-45 days at 0.1-0.2g acceleration—easier resupply, lower radiation exposure en route.</li>
-                <li><strong>Astrobiology Hotspot:</strong> Phosphine detection suggests microbial life—probe could confirm, rewrite biology.</li>
-            </ul>
-            <p>These facts make Venus irresistible. Back AETHER: Probe data unlocks this potential.</p>
-        </section>
-
-        <div class="starry-bar" id="star-bar-4"></div>
-
-        <section id="comparison" class="content-section centered-section">
-            <h2>Venus vs Mars</h2>
-            <p>Why Venus? It's not competition—it's complementarity. But Venus edges out for life extension.</p>
-            <table class="comparison-table">
-                <thead>
-                    <tr>
-                        <th>Aspect</th>
-                        <th>Venus</th>
-                        <th>Mars</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Travel Time (Current)</td>
-                        <td>3-6 months</td>
-                        <td>6-9 months</td>
-                    </tr>
-                    <tr>
-                        <td>Travel Time (VenusExpress/Advanced)</td>
-                        <td>30-45 days (nuclear electric/VASIMR)</td>
-                        <td>~3-4 months (similar tech)</td>
-                    </tr>
-                    <tr>
-                        <td>Gravity</td>
-                        <td>0.903g (90.3% Earth)</td>
-                        <td>0.38g (health risks)</td>
-                    </tr>
-                    <tr>
-                        <td>Atmosphere</td>
-                        <td>Dense, resource-rich; habitable altitude 50-55km: 0-75°C, 0.5-1 bar</td>
-                        <td>Thin, cold; needs domes (-60°C avg, 0.006 bar)</td>
-                    </tr>
-                    <tr>
-                        <td>Solar Irradiance</td>
-                        <td>2601 W/m² (1.91x Earth)</td>
-                        <td>590 W/m² (0.43x Earth)</td>
-                    </tr>
-                    <tr>
-                        <td>Solar Production</td>
-                        <td>High potential via floating arrays; diffused in clouds but tetherable</td>
-                        <td>Lower flux, dust issues reduce efficiency</td>
-                    </tr>
-                    <tr>
-                        <td>Resources</td>
-                        <td>CO2 96.5%, N2 3.5%, SO2 150ppm, acids—abundant for ISRU</td>
-                        <td>Water ice, but sparse; thin CO2 atm</td>
-                    </tr>
-                    <tr>
-                        <td>Challenges</td>
-                        <td>Acid clouds (mitigated by altitude/materials)</td>
-                        <td>Radiation, dust storms, low gravity</td>
-                    </tr>
-                    <tr>
-                        <td>Life Potential</td>
-                        <td>Possible cloud microbes (phosphine)</td>
-                        <td>Past life evidence</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p>Venus: Faster setup for floating cities, better for long-term human/AI thriving. Mars ground ops complement. Back Venus first! It's the smart bet!</p>
-        </section>
-
-        <div class="starry-bar" id="star-bar-5"></div>
-
-        <section id="competitors" class="content-section centered-section">
-            <h2>Competing Missions: How We Stand Out</h2>
+        <section id="history" class="content-section centered-section">
+            <h2>History</h2>
+            <p>Venus exploration has a rich legacy, from early flybys to modern orbiters. Project AETHER builds on this foundation, focusing on untapped potential for human and AI habitation.</p>
+            <h3>Competing Missions: How We Stand Out</h3>
             <p>While government and private efforts advance Venus exploration, Project AETHER fills unique niches at a fraction of the cost.</p>
             <table class="comparison-table">
                 <thead>
@@ -620,13 +514,7 @@
                 </tbody>
             </table>
             <p>Unlike high-cost government missions focusing on basic science like surface geology or atmospheric chemistry, or Rocket Lab's targeted life search, we exploit an untapped niche: validating the 50-55km altitude for floating habitats, modeling resource extraction for sustainable human/AI colonies—at 1/20th Rocket Lab's cost and 1/1000th NASA's. Our crowd-funded approach democratizes space, accelerates practical colonization prep where others overlook.</p>
-        </section>
-
-        <div class="starry-bar" id="star-bar-6"></div>
-
-        <section id="history" class="content-section centered-section">
-            <h2>History of Venus Missions</h2>
-            <p>Venus exploration has a rich legacy, from early flybys to modern orbiters. Project AETHER builds on this foundation, focusing on untapped potential for human and AI habitation.</p>
+            <h3>History of Venus Missions</h3>
             <table class="comparison-table">
                 <thead>
                     <tr>
@@ -708,48 +596,119 @@
             <p>Future missions include NASA's DAVINCI (orbiter/descent probe to study from clouds to surface), VERITAS (orbiter for exploration since the 1990s), and ESA's EnVision (orbiter for history, activity, and climate in the 2030s). Our low-cost probe complements these by targeting practical colonization data now.</p>
         </section>
 
-        <div class="starry-bar" id="star-bar-7"></div>
+        <div class="starry-bar" id="star-bar-3"></div>
+
+        <section id="vsmars" class="content-section centered-section">
+            <h2>Vs Mars</h2>
+            <p>Why Venus? It's not competition—it's complementarity. But Venus edges out for life extension.</p>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Aspect</th>
+                        <th>Venus</th>
+                        <th>Mars</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Travel Time (Current)</td>
+                        <td>3-6 months</td>
+                        <td>6-9 months</td>
+                    </tr>
+                    <tr>
+                        <td>Travel Time (VenusExpress/Advanced)</td>
+                        <td>30-45 days (nuclear electric/VASIMR)</td>
+                        <td>~3-4 months (similar tech)</td>
+                    </tr>
+                    <tr>
+                        <td>Gravity</td>
+                        <td>0.903g (90.3% Earth)</td>
+                        <td>0.38g (health risks)</td>
+                    </tr>
+                    <tr>
+                        <td>Atmosphere</td>
+                        <td>Dense, resource-rich; habitable altitude 50-55km: 0-75°C, 0.5-1 bar</td>
+                        <td>Thin, cold; needs domes (-60°C avg, 0.006 bar)</td>
+                    </tr>
+                    <tr>
+                        <td>Solar Irradiance</td>
+                        <td>2601 W/m² (1.91x Earth)</td>
+                        <td>590 W/m² (0.43x Earth)</td>
+                    </tr>
+                    <tr>
+                        <td>Solar Production</td>
+                        <td>High potential via floating arrays; diffused in clouds but tetherable</td>
+                        <td>Lower flux, dust issues reduce efficiency</td>
+                    </tr>
+                    <tr>
+                        <td>Resources</td>
+                        <td>CO2 96.5%, N2 3.5%, SO2 150ppm, acids—abundant for ISRU</td>
+                        <td>Water ice, but sparse; thin CO2 atm</td>
+                    </tr>
+                    <tr>
+                        <td>Challenges</td>
+                        <td>Acid clouds (mitigated by altitude/materials)</td>
+                        <td>Radiation, dust storms, low gravity</td>
+                    </tr>
+                    <tr>
+                        <td>Life Potential</td>
+                        <td>Possible cloud microbes (phosphine)</td>
+                        <td>Past life evidence</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Venus: Faster setup for floating cities, better for long-term human/AI thriving. Mars ground ops complement. Back Venus first—it's the smart bet.</p>
+            <h3>Venus Facts</h3>
+            <p>Discover why Venus is humanity's next frontier—fascinating, feasible, essential.</p>
+            <ul class="facts-list">
+                <li><strong>Gravity:</strong> 0.903g (90.3% of Earth's gravity)—near-ideal for long-term human health, minimal bone/muscle loss compared to low-g environments.</li>
+                <li><strong>Habitable Layer:</strong> At 50-55km altitude, temperatures range from 75°C at 50km to ~0-30°C at 55km; pressure ~1 bar at 50km dropping to ~0.5 bar at 55km—Earth-like, breathable with O2 supplementation.</li>
+                <li><strong>Resource Rich Atmosphere:</strong> 96.5% CO2 (for fuel via Sabatier process, plastics); 3.5% N2 (for air mixtures); traces: SO2 (150 ppm, for sulfuric acid batteries/fertilizers); Ar (70 ppm); H2O (20 ppm); CO (17 ppm); He (12 ppm); Ne (7 ppm); H2SO4 in clouds (for chemical feedstocks).</li>
+                <li><strong>Solar Irradiance:</strong> Top-of-atmosphere: 2601 W/m² (1.91x Earth's 1361 W/m²)—immense potential; at 50-55km within clouds, diffused but still ~100-200 W/m² direct, enabling high-efficiency solar arrays (e.g., 30% efficient panels yielding >500 W/m² peak above clouds via tethered collectors).</li>
+                <li><strong>Solar Energy Production:</strong> Floating habitats could harness 1.9x Earth's solar flux; with cloud albedo reflecting 75%, sub-cloud irradiance ~65 W/m², but elevated panels capture more—potential for GW-scale farms powering AI datacenters, electrolysis for fuels.</li>
+                <li><strong>Sun Sensation:</strong> Through habitat glass (UV-filtered), sunlight feels warmer/intense due to higher irradiance—akin to Earth's tropics but brighter; skin senses gentle heat, no burn risk with proper shielding, evoking perpetual golden hour.</li>
+                <li><strong>Proximity Advantage:</strong> Closer orbit: 3-6 months current travel; with VenusExpress (nuclear electric/VASIMR), 30-45 days at 0.1-0.2g acceleration—easier resupply, lower radiation exposure en route.</li>
+                <li><strong>Astrobiology Hotspot:</strong> Phosphine detection suggests microbial life—probe could confirm, rewrite biology.</li>
+            </ul>
+            <p>These facts make Venus irresistible. Back AETHER: Probe data unlocks this potential.</p>
+        </section>
+
+        <div class="starry-bar" id="star-bar-4"></div>
 
         <section id="timeline" class="content-section centered-section">
-            <h2>Mission Timeline</h2>
+            <h2>Timeline</h2>
             <p>We're moving fast!</p>
+            <h3>Our Vision: Life on Venus</h3>
+            <p>Project AETHER paves the way for floating cities at 50km altitude with 0.9g gravity, radiation shielding, and abundant resources. Humans and AI will co-exist in engineered serenity, extending consciousness across the solar system. Venus offers superior solar energy, closer proximity for faster trips via VenusExpress (30-45 days), and astrobiology potential. Back now to secure this multi-planetary future.</p>
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <h3>Now: Crowdfunding & Development</h3>
-                        <p>Raise funds, build prototypes, integrate xAI. Need: Donations, volunteers (engineers, devs).</p>
-                    </div>
-                    <span class="timeline-date">2025</span>
-                    <div class="timeline-content"></div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content"></div>
-                    <span class="timeline-date">2026</span>
-                    <div class="timeline-content">
-                        <h3>Testing & Integration</h3>
-                        <p>Simulations, hardware tests. Need: Lab access, expert input.</p>
+                        <h3>Now: Crowdfunding & Development - 2025</h3>
+                        <p>Secure initial funding through crowdfunding platforms, design and build initial prototypes of the Cloudseeker probe and CubeSat relay, integrate xAI models for navigation and data analysis, conduct preliminary simulations of Venus atmospheric conditions, assemble core team of engineers and scientists, solicit hardware donations from partners, recruit volunteers including software developers for AI optimization and hardware fabricators for balloon testing. Need: Substantial donations to hit $500k goal, skilled volunteers in aerospace engineering, AI specialists, and materials science experts to accelerate development.</p>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <h3>Launch & Deployment</h3>
-                        <p>Probe to Venus, data streams. Real-time insights for colonies.</p>
+                        <h3>Testing & Integration - 2026</h3>
+                        <p>Perform rigorous ground-based simulations using environmental chambers to mimic Venus's acid clouds and pressures, integrate sensor suite with aerostat balloon for endurance tests, validate AI navigation in simulated dynamic atmospheres, secure lab access for high-fidelity prototyping, conduct integration tests between probe and relay CubeSat for data transmission, iterate on designs based on test results, partner with universities for expert reviews and additional testing resources. Need: Access to specialized testing facilities like vacuum chambers and acid exposure labs, input from atmospheric scientists and AI ethicists, more volunteers for data analysis and hardware debugging.</p>
                     </div>
-                    <span class="timeline-date">2027</span>
-                    <div class="timeline-content"></div>
                 </div>
                 <div class="timeline-item">
-                    <div class="timeline-content"></div>
-                    <span class="timeline-date">Beyond</span>
                     <div class="timeline-content">
-                        <h3>Habitat Buildout</h3>
-                        <p>Scale to outposts, AI-human bases. Multi-planetary life secured.</p>
+                        <h3>Launch & Deployment - 2027</h3>
+                        <p>Finalize partnerships for launch vehicle (e.g., rideshare on Falcon 9 or similar), transport assembled probe to launch site for final checks, execute launch to Venus trajectory, deploy Cloudseeker into atmosphere at target altitude, activate CubeSat relay for orbital data handling, monitor real-time data streams on atmospheric conditions and resource viability, analyze incoming telemetry for habitation model validation, share initial findings with supporters and scientific community for feedback. Need: Reliable launch providers, ground station support for tracking, volunteers for mission control operations and public outreach during deployment phase.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Beyond: Habitat Buildout - Beyond</h3>
+                        <p>Utilize probe data to design scalable floating outposts, develop AI-human symbiotic systems for colony management, secure additional funding for larger missions based on AETHER success, collaborate with international partners for habitat construction, test advanced materials for long-term Venus exposure, plan crewed missions using VenusExpress propulsion tech, establish initial AI data centers in atmosphere for computation off-Earth, expand to full colonies ensuring multi-planetary redundancy for all life forms. Need: Ongoing investments, global volunteers in architecture, biology, and robotics to build and sustain habitats.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <div class="starry-bar" id="star-bar-8"></div>
+        <div class="starry-bar" id="star-bar-5"></div>
 
         <section id="support" class="content-section centered-section">
             <h2>Support Us</h2>
@@ -774,17 +733,14 @@
         </section>
 
     </main>
-    <div class="starry-bar" id="star-bar-9"></div>
+    <div class="starry-bar" id="star-bar-6"></div>
     <footer class="main-footer">
         <nav class="footer-nav">
             <a href="#home">Home</a>
             <a href="#mission">Mission</a>
             <a href="#technology">Technology</a>
-            <a href="#vision">Vision</a>
-            <a href="#facts">Facts</a>
-            <a href="#comparison">Vs Mars</a>
-            <a href="#competitors">Competitors</a>
             <a href="#history">History</a>
+            <a href="#vsmars">Vs Mars</a>
             <a href="#timeline">Timeline</a>
             <a href="#support">Support</a>
         </nav>
@@ -801,3 +757,4 @@
     </footer>
 </body>
 </html>
+```
