@@ -12,6 +12,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>N</text></svg>">
 
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0D5C7VZD35"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0D5C7VZD35');
+</script>
+
     <style>
         :root {
             --background: #FFFFFF;
@@ -22,6 +32,11 @@
             --light-fg: #FFFFFF;
             --urgent-color: #FF4500;
             --gradient-bg: linear-gradient(135deg, #FF4500, #FFD700);
+            --table-bg-odd: #f9f9f9;
+            --table-bg-even: #ffffff;
+            --table-header-bg: #f0f0f0;
+            --link-color: #007bff;
+            --hover-color: #0056b3;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
@@ -34,7 +49,8 @@
         }
         h1, h2, h3 { font-family: 'Inter', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: -0.02em; }
         p { max-width: 65ch; margin-bottom: 1rem; }
-        a { color: var(--foreground); text-decoration: none; }
+        a { color: var(--link-color); text-decoration: none; transition: color 0.3s; }
+        a:hover { color: var(--hover-color); }
         sup a { font-size: 0.7rem; color: var(--accent); }
 
         /* --- Header & Navigation --- */
@@ -48,8 +64,8 @@
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--border-color);
         }
         .header-logo-link {
@@ -77,7 +93,7 @@
             text-transform: uppercase;
             transition: color 0.3s;
         }
-        .desktop-nav a:hover { color: #888; }
+        .desktop-nav a:hover { color: var(--urgent-color); }
         .menu-toggle { display: none; }
         .mobile-nav { display: none; }
         #menu-checkbox { display: none; }
@@ -295,6 +311,29 @@
             100% { background-position: 100% 100%; }
         }
 
+        /* Photo Gallery */
+        .photo-gallery {
+            display: flex;
+            overflow-x: auto;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1rem 0;
+        }
+        .photo-gallery img {
+            width: 300px;
+            height: auto;
+            margin-right: 1rem;
+            flex-shrink: 0;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+        .photo-gallery img:hover { transform: scale(1.05); }
+        .photo-gallery img:last-child {
+            margin-right: 0;
+        }
+
         /* --- Footer --- */
         .main-footer { padding: 4rem 2rem; background: #f9f9f9; border-top: 1px solid var(--border-color); text-align: center; }
         .footer-nav { margin-bottom: 2rem; }
@@ -312,6 +351,7 @@
             .grid-container.reverse .grid-text, .grid-container.reverse .grid-image { grid-column: 1 / 2; grid-row: auto; }
             .grid-text h2 { font-size: 2.2rem; }
             .content-section, .cta-section { padding: 4rem 1rem; }
+            .photo-gallery img { width: 200px; }
         }
 
         /* Timeline Section */
@@ -342,6 +382,8 @@
             padding: 1rem;
             border: 1px solid var(--border-color);
             background: var(--background);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
         .timeline-date {
             position: absolute;
@@ -352,11 +394,12 @@
             padding: 0.5rem 1rem;
             border: 1px solid var(--border-color);
             z-index: 1;
+            border-radius: 4px;
         }
 
         /* Facts List */
         .facts-list { list-style: none; margin-top: 2rem; text-align: left; }
-        .facts-list li { padding: 1rem; border: 1px solid var(--border-color); margin-bottom: 1rem; transition: transform 0.3s; }
+        .facts-list li { padding: 1rem; border: 1px solid var(--border-color); margin-bottom: 1rem; transition: transform 0.3s; border-radius: 8px; }
         .facts-list li:hover { transform: translateY(-5px); }
         .facts-list strong { display: block; font-family: 'Inter', sans-serif; margin-bottom: 0.25rem; }
 
@@ -365,19 +408,33 @@
             width: 100%;
             max-width: 1200px;
             margin: 2rem auto;
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0;
             text-align: left;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         .comparison-table th, .comparison-table td {
             padding: 1rem;
             border: 1px solid var(--border-color);
         }
         .comparison-table th {
-            background: var(--gradient-bg);
-            color: var(--background);
+            background: var(--table-header-bg);
+            color: var(--foreground);
+            font-weight: 600;
         }
         .comparison-table tr:nth-child(even) {
-            background: #f9f9f9;
+            background: var(--table-bg-odd);
+        }
+        .comparison-table tr:nth-child(odd) {
+            background: var(--table-bg-even);
+        }
+        .comparison-table a {
+            color: var(--link-color);
+        }
+        .comparison-table a:hover {
+            color: var(--hover-color);
         }
     </style>
 </head>
@@ -424,11 +481,11 @@
             <div class="grid-container">
                 <div class="grid-text">
                     <h2>The Mission</h2>
-                    <p>Project AETHER sends Cloudseeker, a miniprobe, to Venus's atmosphere. It unlocks energy and resources for floating habitats, extending human life, consciousness, and AI to another world.</p>
+                    <p>Project AETHER sends Cloudseeker, a miniprobe, to Venus's atmosphere. It unlocks energy and resources for floating habitats, extending human life, consciousness, and AI to another world<sup><a href="https://ntrs.nasa.gov/api/citations/20030022668/downloads/20030022668.pdf">[15]</a></sup><sup><a href="https://bigthink.com/hard-science/how-to-colonize-venus/">[16]</a></sup>.</p>
                     <p>Targeting 50-55 km altitude—Earth-like conditions—Cloudseeker validates habitation models, resource extraction, and astrobiology. Launch: 2027. Data will fuel Venus colonies, securing multi-planetary survival.</p>
                     <p>Venus offers abundant solar power, CO2 for fuel, nitrogen for breathable air. We need $500,000+ in crowdfunding for build, testing, launch. While our budget is modest compared to Rocket Lab's Venus Life Finder (<$10M)<sup><a href="https://www.planetary.org/space-missions/rocket-lab-venus-mission">[1]</a></sup><sup><a href="https://futurism.com/nasa-heat-shield-private-venus-probe">[2]</a></sup>, it focuses on niche habitation validation. Volunteers: engineers, scientists, AI experts—apply via email.</p>
                     <p>Be part of humanity's backup plan. Earth's risks demand action. Venus ensures life thrives across the solar system.</p>
-                    <p>With our hypothetical VenusExpress service, leveraging state-of-the-art next-gen propulsion like nuclear electric or VASIMR plasma drives (still in prototype stage as of 2025)<sup><a href="https://en.wikipedia.org/wiki/Variable_Specific_Impulse_Magnetoplasma_Rocket">[3]</a></sup>, travel time shrinks to 30-45 days—faster than current 3-6 months, enabling frequent resupply and human missions.</p>
+                    <p>With our hypothetical VenusExpress service, leveraging state-of-the-art next-gen propulsion like nuclear electric or VASIMR plasma drives (still in prototype stage as of 2025)<sup><a href="https://en.wikipedia.org/wiki/Variable_Specific_Impulse_Magnetoplasma_Rocket">[3]</a></sup><sup><a href="https://www.space.com/23613-advanced-space-propulsion-vasimr-engine.html">[17]</a></sup>, travel time shrinks to 30-45 days—faster than current 3-6 months, enabling frequent resupply and human missions.</p>
                 </div>
                 <div class="grid-image">
                     <img src="probe.jpg" alt="Artist's concept of Cloudseeker probe in Venus's clouds.">
@@ -442,12 +499,12 @@
             <div class="grid-container reverse">
                 <div class="grid-text">
                     <h2>Technology</h2>
-                    <p>Cloudseeker uses miniaturized tech for Venus's extremes, enabling future life-sustaining outposts. We acknowledge risks like sulfuric acid corrosion, mitigated by advanced materials, but probes may have short lifetimes<sup><a href="https://www.nasa.gov/centers-and-facilities/glenn/cook-crush-choke-testing-components-before-launching-to-venus/">[4]</a></sup><sup><a href="https://space.stackexchange.com/questions/46691/is-the-surface-environment-of-venus-corrosive">[5]</a></sup>.</p>
+                    <p>Cloudseeker uses miniaturized tech for Venus's extremes, enabling future life-sustaining outposts. We acknowledge risks like sulfuric acid corrosion, mitigated by advanced materials, but probes may have short lifetimes<sup><a href="https://www.nasa.gov/centers-and-facilities/glenn/cook-crush-choke-testing-components-before-launching-to-venus/">[4]</a></sup><sup><a href="https://space.stackexchange.com/questions/46691/is-the-surface-environment-of-venus-corrosive">[5]</a></sup><sup><a href="https://marsonearthproject.org/harsh-conditions-on-venus-testing-new-astronautical-engineering-techniques/">[18]</a></sup><sup><a href="https://www.snexplores.org/article/heres-why-venus-so-unwelcoming">[19]</a></sup>.</p>
                     <ul class="tech-stack-list">
                         <li><strong>Acid-Resistant Aerostat:</strong> Fluoropolymer balloon resists sulfuric acid, floats in habitable zone—basis for human/AI habitats.</li>
-                        <li><strong>Integrated Sensor Suite:</strong> 1kg pod with 4K camera, mass spectrometers, bio-sensors (updated for ammonia/phosphine)—detects resources, life signs<sup><a href="https://www.cnn.com/2024/07/29/science/venus-gases-phosphine-ammonia">[6]</a></sup>.</li>
+                        <li><strong>Integrated Sensor Suite:</strong> 1kg pod with 4K camera, mass spectrometers, bio-sensors (updated for ammonia/phosphine)—detects resources, life signs<sup><a href="https://www.cnn.com/2024/07/29/science/venus-gases-phosphine-ammonia">[6]</a></sup><sup><a href="https://astrobiology.com/2025/06/venus-cloud-research-progress-and-perspectives.html">[20]</a></sup><sup><a href="https://phys.org/news/2025-07-life-venus-probe-mission-clouds.html">[21]</a></sup><sup><a href="https://www.space.com/venus-clouds-life-phosphine-evidence-debate">[22]</a></sup>.</li>
                         <li><strong>3U CubeSat Relay:</strong> Orbits Venus, transmits high-bandwidth data—essential for colony comms, though cloud opacity may challenge.</li>
-                        <li><strong>AI-Optimized Navigation:</strong> xAI models enable autonomous ops in dynamic atmosphere—key for AI-human synergy off-Earth.</li>
+                        <li><strong>AI-Optimized Navigation:</strong> xAI models enable autonomous ops in dynamic atmosphere—key for AI-human synergy off-Earth<sup><a href="https://en.wikipedia.org/wiki/XAI_%28company%29">[23]</a></sup><sup><a href="https://wandb.ai/byyoung3/ml-news/reports/xAI-Elon-Musk-s-Next-Venture-in-Artificial-Intelligence---Vmlldzo0ODY3MjU1">[24]</a></sup><sup><a href="https://opentools.ai/news/elon-musk-unveils-xai-to-decode-the-universes-mysteries">[25]</a></sup>.</li>
                     </ul>
                     <p>We need: Hardware donations, software contributions, testing facilities. Volunteers: Coders, fabricators—join to build the future.</p>
                     <p class="powered-by">Powered by @xAI</p>
@@ -458,15 +515,21 @@
             </div>
         </section>
 
+        <div class="photo-gallery">
+            <img src="a.jpg" alt="Venus Photo 1">
+            <img src="b.jpg" alt="Venus Photo 2">
+            <img src="c.jpg" alt="Venus Photo 3">
+            <img src="d.jpg" alt="Venus Photo 4">
+            <img src="e.jpg" alt="Venus Photo 5">
+            <img src="f.jpg" alt="Venus Photo 6">
+        </div>
+
         <div class="starry-bar" id="star-bar-2"></div>
 
         <section id="history" class="content-section centered-section">
             <h2>History</h2>
             <p>Venus exploration has a rich legacy, from early flybys to modern orbiters. Project AETHER builds on this foundation, focusing on untapped potential for human and AI habitation.</p>
-            
-<h3>Competing Missions: How We Stand Out</h3>
-<p>Unlike high-cost government missions focusing on basic science like surface geology or atmospheric chemistry, or Rocket Lab's targeted life search, we exploit an untapped niche: validating the 50-55km altitude for floating habitats, modeling resource extraction for sustainable human/AI colonies—at 1/20th Rocket Lab's cost and 1/1000th NASA's. Our crowd-funded approach democratizes space, accelerates practical colonization prep where others overlook.</p>
-
+            <h3>Competing Missions: How We Stand Out</h3>
             <p>While government and private efforts advance Venus exploration, Project AETHER fills unique niches at a fraction of the cost.</p>
             <table class="comparison-table">
                 <thead>
@@ -480,28 +543,28 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Rocket Lab Venus Life Finder</td>
+                        <td><a href="https://www.rocketlabusa.com/missions/venus-life-finder/" target="_blank" rel="noopener">Rocket Lab Venus Life Finder</a></td>
                         <td>Private</td>
-                        <td><$10M</td>
+                        <td><$10M<sup><a href="https://www.planetary.org/space-missions/rocket-lab-venus-mission">[1]</a></sup><sup><a href="https://www.space.com/rocket-lab-private-venus-mission-delayed-2025">[26]</a></sup></td>
                         <td>Astrobiology in clouds</td>
                         <td>2025</td>
                     </tr>
                     <tr>
-                        <td>NASA DAVINCI</td>
+                        <td><a href="https://www.nasa.gov/mission/davinci/" target="_blank" rel="noopener">NASA DAVINCI</a></td>
                         <td>Government</td>
-                        <td>~$500M</td>
+                        <td>~$500M<sup><a href="https://universemagazine.com/en/nasas-mission-to-venus-may-face-new-delays/">[27]</a></sup></td>
                         <td>Atmosphere chemistry, noble gases</td>
                         <td>2029</td>
                     </tr>
                     <tr>
-                        <td>NASA VERITAS</td>
+                        <td><a href="https://www.jpl.nasa.gov/missions/veritas/" target="_blank" rel="noopener">NASA VERITAS</a></td>
                         <td>Government</td>
-                        <td>~$500M</td>
+                        <td>~$500M<sup><a href="https://spacenews.com/veritas-venus-mission-seeks-to-avoid-further-delays/">[28]</a></sup></td>
                         <td>Surface mapping, geology</td>
                         <td>2031</td>
                     </tr>
                     <tr>
-                        <td>ESA EnVision</td>
+                        <td><a href="https://www.esa.int/Science_Exploration/Space_Science/EnVision" target="_blank" rel="noopener">ESA EnVision</a></td>
                         <td>Government</td>
                         <td>~$383M</td>
                         <td>Orbiter, surface/atmosphere</td>
@@ -516,7 +579,7 @@
                     </tr>
                 </tbody>
             </table>
-            
+            <p>Unlike high-cost government missions focusing on basic science like surface geology or atmospheric chemistry, or Rocket Lab's targeted life search, we exploit an untapped niche: validating the 50-55km altitude for floating habitats, modeling resource extraction for sustainable human/AI colonies—at 1/20th Rocket Lab's cost and 1/1000th NASA's. Our crowd-funded approach democratizes space, accelerates practical colonization prep where others overlook.</p>
             <h3>History of Venus Missions</h3>
             <table class="comparison-table">
                 <thead>
@@ -532,7 +595,7 @@
                 <tbody>
                     <tr>
                         <td>Dec. 14, 1962</td>
-                        <td>Mariner 2</td>
+                        <td><a href="https://solarsystem.nasa.gov/missions/mariner-2/in-depth/" target="_blank" rel="noopener">Mariner 2</a></td>
                         <td>USA</td>
                         <td>Flyby</td>
                         <td>First successful mission to another planet</td>
@@ -540,7 +603,7 @@
                     </tr>
                     <tr>
                         <td>Nov. 3, 1973</td>
-                        <td>Mariner 10</td>
+                        <td><a href="https://solarsystem.nasa.gov/missions/mariner-10/in-depth/" target="_blank" rel="noopener">Mariner 10</a></td>
                         <td>USA</td>
                         <td>Flyby</td>
                         <td>Study Mercury and Venus in single mission</td>
@@ -548,7 +611,7 @@
                     </tr>
                     <tr>
                         <td>May 20, 1978</td>
-                        <td>Pioneer Venus 1</td>
+                        <td><a href="https://solarsystem.nasa.gov/missions/pioneer-venus-1/in-depth/" target="_blank" rel="noopener">Pioneer Venus 1</a></td>
                         <td>USA</td>
                         <td>Orbiter</td>
                         <td>First U.S. spacecraft to orbit Venus</td>
@@ -556,7 +619,7 @@
                     </tr>
                     <tr>
                         <td>May 4, 1989</td>
-                        <td>Magellan</td>
+                        <td><a href="https://www.jpl.nasa.gov/missions/magellan/" target="_blank" rel="noopener">Magellan</a></td>
                         <td>USA</td>
                         <td>Orbiter</td>
                         <td>Image the entire surface of Venus</td>
@@ -564,7 +627,7 @@
                     </tr>
                     <tr>
                         <td>Nov. 9, 2005</td>
-                        <td>Venus Express</td>
+                        <td><a href="https://www.esa.int/Science_Exploration/Space_Science/Venus_Express" target="_blank" rel="noopener">Venus Express</a></td>
                         <td>ESA</td>
                         <td>Orbiter</td>
                         <td>First European spacecraft to orbit Venus</td>
@@ -572,7 +635,7 @@
                     </tr>
                     <tr>
                         <td>May 20, 2010</td>
-                        <td>Akatsuki</td>
+                        <td><a href="https://global.jaxa.jp/projects/sat/akatsuki/" target="_blank" rel="noopener">Akatsuki</a></td>
                         <td>Japan</td>
                         <td>Orbiter</td>
                         <td>Study Venus atmosphere and climate</td>
@@ -580,7 +643,7 @@
                     </tr>
                     <tr>
                         <td>Various (2018-2024)</td>
-                        <td>Parker Solar Probe</td>
+                        <td><a href="https://www.nasa.gov/content/goddard/parker-solar-probe" target="_blank" rel="noopener">Parker Solar Probe</a></td>
                         <td>USA</td>
                         <td>Flyby (multiple, 7 total)</td>
                         <td>Use Venus flybys for solar study trajectory</td>
@@ -588,7 +651,7 @@
                     </tr>
                     <tr>
                         <td>Various (2018-2021)</td>
-                        <td>BepiColombo</td>
+                        <td><a href="https://www.esa.int/Science_Exploration/Space_Science/BepiColombo" target="_blank" rel="noopener">BepiColombo</a></td>
                         <td>ESA/JAXA</td>
                         <td>Flyby (multiple)</td>
                         <td>Use Venus flybys for Mercury mission</td>
@@ -603,7 +666,7 @@
 
         <section id="vsmars" class="content-section centered-section">
             <h2>Vs Mars</h2>
-            <p>Why Venus? It's not competition—it's complementarity. But Venus edges out for life extension, though we acknowledge challenges like cloud-reduced solar power<sup><a href="https://www.sciencedirect.com/science/article/pii/S0019103521004449">[7]</a></sup>, acid-complicated resources<sup><a href="https://www.nasa.gov/centers-and-facilities/glenn/cook-crush-choke-testing-components-before-launching-to-venus/">[4]</a></sup>, and radiation in clouds<sup><a href="https://www.aanda.org/articles/aa/full_html/2020/01/aa36968-19/aa36968-19.html">[8]</a></sup>.</p>
+            <p>Why Venus? It's not competition—it's complementarity. But Venus edges out for life extension, though we acknowledge challenges like cloud-reduced solar power<sup><a href="https://www.sciencedirect.com/science/article/pii/S0019103521004449">[7]</a></sup>, acid-complicated resources<sup><a href="https://www.nasa.gov/centers-and-facilities/glenn/cook-crush-choke-testing-components-before-launching-to-venus/">[4]</a></sup>, and radiation in clouds<sup><a href="https://www.aanda.org/articles/aa/full_html/2020/01/aa36968-19/aa36968-19.html">[8]</a></sup><sup><a href="https://www.mos.org/article/planetary-profile-vagaries-venus">[29]</a></sup>.</p>
             <table class="comparison-table">
                 <thead>
                     <tr>
@@ -655,14 +718,13 @@
                     </tr>
                     <tr>
                         <td>Life Potential</td>
-                        <td>Possible cloud microbes (phosphine, under debate as of 2025)<sup><a href="https://link.aps.org/doi/10.1103/Physics.13.201">[9]</a></sup><sup><a href="https://www.frontiersin.org/journals/astronomy-and-space-sciences/articles/10.3389/fspas.2024.1372057/full">[10]</a></sup></td>
+                        <td>Possible cloud microbes (phosphine, under debate as of 2025)<sup><a href="https://link.aps.org/doi/10.1103/Physics.13.201">[9]</a></sup><sup><a href="https://www.frontiersin.org/journals/astronomy-and-space-sciences/articles/10.3389/fspas.2024.1372057/full">[10]</a></sup><sup><a href="https://phys.org/news/2025-06-clouds-venus-host-life.html">[14]</a></sup><sup><a href="https://www.space.com/venus-clouds-life-phosphine-evidence-debate">[22]</a></sup></td>
                         <td>Past life evidence</td>
                     </tr>
                 </tbody>
             </table>
-            <p>Venus: Faster setup for floating cities, better for long-term human/AI thriving, though recent studies suggest it was never water-rich or habitable long-term<sup><a href="https://news.uchicago.edu/story/was-venus-ever-habitable-new-uchicago-study-casts-doubt">[11]</a></sup><sup><a href="https://www.cam.ac.uk/research/news/researchers-deal-a-blow-to-theory-that-venus-once-had-liquid-water-on-its-surface">[12]</a></sup><sup><a href="https://www.theguardian.com/science/2024/dec/02/venus-life-water-atmosphere-analysis-science-research">[13]</a></sup>. Mars ground ops complement. Back Venus first—it's the smart bet.</p>
+            <p>Venus: Faster setup for floating cities, better for long-term human/AI thriving, though recent studies suggest it was never water-rich or habitable long-term<sup><a href="https://news.uchicago.edu/story/was-venus-ever-habitable-new-uchicago-study-casts-doubt">[11]</a></sup><sup><a href="https://www.cam.ac.uk/research/news/researchers-deal-a-blow-to-theory-that-venus-once-had-liquid-water-on-its-surface">[12]</a></sup><sup><a href="https://www.theguardian.com/science/2024/dec/02/venus-life-water-atmosphere-analysis-science-research">[13]</a></sup><sup><a href="https://www.sci.news/space/venus-habitability-13490.html">[30]</a></sup>. Mars ground ops complement. Back Venus first—it's the smart bet.</p>
             <h3>Venus Facts</h3>
-            <p></p>
             <ul class="facts-list">
                 <li><strong>Gravity:</strong> 0.903g (90.3% of Earth's gravity)—near-ideal for long-term human health, minimal bone/muscle loss compared to low-g environments.</li>
                 <li><strong>Habitable Layer:</strong> At 50-55km altitude, temperatures range from 75°C at 50km to ~0-30°C at 55km; pressure ~1 bar at 50km dropping to ~0.5 bar at 55km—Earth-like, breathable with O2 supplementation.</li>
@@ -671,9 +733,185 @@
                 <li><strong>Solar Energy Production:</strong> Floating habitats could harness 1.9x Earth's solar flux; with cloud albedo reflecting 75%, sub-cloud irradiance ~65 W/m², but elevated panels capture more—potential for GW-scale farms powering AI datacenters, electrolysis for fuels.</li>
                 <li><strong>Sun Sensation:</strong> Through habitat glass (UV-filtered), sunlight feels warmer/intense due to higher irradiance—akin to Earth's tropics but brighter; skin senses gentle heat, no burn risk with proper shielding, evoking perpetual golden hour.</li>
                 <li><strong>Proximity Advantage:</strong> Closer orbit: 3-6 months current travel; with VenusExpress (nuclear electric/VASIMR), 30-45 days at 0.1-0.2g acceleration—easier resupply, lower radiation exposure en route.</li>
-                <li><strong>Astrobiology Hotspot:</strong> Phosphine detection suggests microbial life—probe could confirm, rewrite biology, though debate continues on its origin<sup><a href="https://link.aps.org/doi/10.1103/Physics.13.201">[9]</a></sup><sup><a href="https://www.frontiersin.org/journals/astronomy-and-space-sciences/articles/10.3389/fspas.2024.1372057/full">[10]</a></sup><sup><a href="https://phys.org/news/2025-06-clouds-venus-host-life.html">[14]</a></sup>.</li>
+                <li><strong>Astrobiology Hotspot:</strong> Phosphine detection suggests microbial life—probe could confirm, rewrite biology, though debate continues on its origin<sup><a href="https://link.aps.org/doi/10.1103/Physics.13.201">[9]</a></sup><sup><a href="https://www.frontiersin.org/journals/astronomy-and-space-sciences/articles/10.3389/fspas.2024.1372057/full">[10]</a></sup><sup><a href="https://phys.org/news/2025-06-clouds-venus-host-life.html">[14]</a></sup><sup><a href="https://www.space.com/venus-clouds-life-phosphine-evidence-debate">[22]</a></sup>.</li>
             </ul>
-           
+            <p>These facts make Venus irresistible. Back AETHER: Probe data unlocks this potential.</p>
+
+            <h3>Venus Atmosphere Profile</h3>
+            <style type="text/css">
+                #T_updated_row0_col1, #T_updated_row1_col1, #T_updated_row2_col1, #T_updated_row3_col1, #T_updated_row4_col1 {
+                  color: blue;
+                }
+                #T_updated_row0_col2, #T_updated_row1_col2, #T_updated_row2_col2, #T_updated_row3_col2, #T_updated_row4_col2, #T_updated_row5_col2, #T_updated_row6_col2 {
+                  background-color: lightgray;
+                }
+                #T_updated_row5_col1, #T_updated_row6_col1 {
+                  color: green;
+                }
+                #T_updated_row7_col1, #T_updated_row8_col1, #T_updated_row9_col1, #T_updated_row10_col1, #T_updated_row11_col1, #T_updated_row12_col1, #T_updated_row13_col1, #T_updated_row14_col1, #T_updated_row15_col1, #T_updated_row16_col1, #T_updated_row17_col1 {
+                  color: red;
+                }
+                #T_updated_row7_col2, #T_updated_row8_col2, #T_updated_row9_col2, #T_updated_row10_col2, #T_updated_row11_col2 {
+                  background-color: gray;
+                }
+                #T_updated_row12_col2, #T_updated_row13_col2, #T_updated_row14_col2, #T_updated_row15_col2, #T_updated_row16_col2, #T_updated_row17_col2 {
+                  background-color: purple;
+                }
+            </style>
+            <table id="T_updated" class="comparison-table">
+              <thead>
+                <tr>
+                  <th class="blank level0" >&nbsp;</th>
+                  <th id="T_updated_level0_col0" class="col_heading level0 col0" >Altitude (km)</th>
+                  <th id="T_updated_level0_col1" class="col_heading level0 col1" >Temperature (°C / °F)</th>
+                  <th id="T_updated_level0_col2" class="col_heading level0 col2" >Pressure (atm)</th>
+                  <th id="T_updated_level0_col3" class="col_heading level0 col3" >Chemical Makeup</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th id="T_updated_level0_row0" class="row_heading level0 row0" >0</th>
+                  <td id="T_updated_row0_col0" class="data row0 col0" >80</td>
+                  <td id="T_updated_row0_col1" class="data row0 col1" >-76 (-104.8)</td>
+                  <td id="T_updated_row0_col2" class="data row0 col2" >0.004760</td>
+                  <td id="T_updated_row0_col3" class="data row0 col3" >CO2: 96.5%, N2: 3.5%; Traces minimal (e.g., He ~12 ppm). Upper mesosphere, thin gases.</td>
+                </tr>
+                <tr>
+                  <th id="T_updated_level0_row1" class="row_heading level0 row1" >1</th>
+                  <td id="T_updated_row1_col0" class="data row1 col0" >75</td>
+                  <td id="T_updated_row1_col1" class="data row1 col1" >-58 (-72.4)</td>
+                  <td id="T_updated_row1_col2" class="data row1 col2" >0.013600</td>
+                  <td id="T_updated_row1_col3" class="data row1 col3" >CO2: 96.5%, N2: 3.5%; Similar to above, low traces.</td>
+                </tr>
+                <tr>
+                  <th id="T_updated_level0_row2" class="row_heading level0 row2" >2</th>
+                  <td id="T_updated_row2_col0" class="data row2 col0" >70</td>
+                  <td id="T_updated_row2_col1" class="data row2 col1" >-43 (-45.4)</td>
+                  <td id="T_updated_row2_col2" class="data row2 col2" >0.036900</td>
+                  <td id="T_updated_row2_col3" class="data row2 col3" >CO2: 96.5%, N2: 3.5%; Upper cloud layer; H2SO4 droplets begin (~1-2% by volume in clouds). SO2 ~150 ppm.</td>
+                </tr>
+                <tr>
+                  <th id="T_updated_level0_row3" class="row_heading level0 row3" >3</th>
+                  <td id="T_updated_row3_col0" class="data row3 col0" >65</td>
+                  <td id="T_updated_row3_col1" class="data row3 col1" >-30 (-22)</td>
+                  <td id="T_updated_row3_col2" class="data row3 col2" >0.097650</td>
+                  <td id="T_updated_row3_col3" class="data row3 col3" >CO2: 96.5%, N2: 3.5%; Middle clouds; H2SO4 ~75% of cloud mass, SO2 increases.</td>
+                </tr>
+                <tr>
+                  <th id="T_updated_level0_row4" class="row_heading level0 row4" >4</th>
+                  <td id="T_updated_row4_col0" class="data row4 col0" >60</td>
+                  <td id="T_updated_row4_col1" class="data row4 col1" >-10 (14)</td>
+                  <td id="T_updated_row4_col2" class="data row4 col2" >0.235700</td>
+                  <td id="T_updated_row4_col3" class="data row4 col3" >CO2: 96.5%, N2: 3.5%; Lower clouds; H2O ~20 ppm, CO ~17 ppm.</td>
+                </tr>
+                <tr>
+                  <th id="T_updated_level0_row5" class="row_heading level0 row5" >5</th>
+                  <td id="T_updated_row5_col0" class="data row5 col0" >55</td>
+                  <td id="T_updated_row5_col1" class="data row5 col1" >27 (80.6)</td>
+                  <td id="T_updated_row5_col2" class="data row5 col2" >0.531400</td>
+                  <td id="T_updated_row5_col3" class="data row5 col3" >CO2: 96.5%, N2: 3.5%; Earth-like temp/pressure; Traces: Ar ~70 ppm, Ne ~7 ppm, PH3 ~1 ppb (debated).</td>
+                </tr>
+                <tr>
+                  <th id="T_updated_level0_row6" class="row_heading level0 row6" >6</th>
+                  <td id="T_updated_row6_col0" class="data row6 col0" >53</td>
+                  <td id="T_updated_row6_col1" class="data row6 col1" >46 (115)</td>
+                  <td id="T_updated_row6_col2" class="data row6 col2" >0.745000</td>
+                  <td id="T_updated_row6_col3" class="data row6 col3" >CO2: 96.5%, N2: 3.5%; Within habitable zone clouds; Traces: SO2 ~150 ppm, H2SO4 droplets, PH3 ~300 ppb (preliminary).</td>
+                </tr>
+                <tr>
+                  <th id="T_updated_level0_row7" class="row_heading level0 row7" >7</th>
+                  <td id="T_updated_row7_col0" class="data row7 col0" >50</td>
+                  <td id="T_updated_row7_col1" class="data row7 col1" >75 (167)</td>
+                  <td id="T_updated_row7_col2" class="data row7 col2" >1.066000</td>
+                  <td id="T_updated_row7_col3" class="data row7 col3" >CO2: 96.5%, N2: 3.5%; Below main clouds; SO2 decreases below clouds.</td>
+                </tr>
+                <tr>
+                  <th id="T_updated_level0_row8" class="row_heading level0 row8" >8</th>
+                  <td id="T_updated_row8_col0" class="data row8 col0" >45</td>
+                  <td id="T_updated_row8_col1" class="data row8 col1" >110 (230)</td>
+                  <td id="T_updated_row8_col2" class="data row8 col2" >1.979000</td>
+                  <td id="T_updated_row8_col3" class="data row8 col3" >CO2: 96.5%, N2: 3.5%; Stable composition.</td>
+                </tr>
+                <tr>
+                  <th id="T_updated_level0_row9" class="row_heading level0 row9" >9</th>
+                  <td id="T_updated_row9_col0" class="data row9 col0" >40</td>
+                  <td id="T_updated_row9_col1" class="data row9 col1" >143 (289.4)</td>
+                  <td id="T_updated_row9_col2" class="data row9 col2" >3.501000</td>
+                  <td id="T_updated_row9_col3" class="data row9 col3" >CO2: 96.5%, N2: 3.5%; Minor traces consistent.</td>
+                </tr>
+                <tr>
+                  <th id="T_updated_level0_row10" class="row_heading level0 row10" >10</th>
+                  <td id="T_updated_row10_col0" class="data row10 col0" >35</td>
+                  <td id="T_updated_row10_col1" class="data row10 col1" >180 (356)</td>
+                  <td id="T_updated_row10_col2" class="data row10 col2" >5.917000</td>
+                  <td id="T_updated_row10_col3" class="data row10 col3" >CO2: 96.5%, N2: 3.5%.</td>
+                </tr>
+                <tr>
+                  <th id="T_updated_level0_row11" class="row_heading level0 row11" >11</th>
+                  <td id="T_updated_row11_col0" class="data row11 col0" >30</td>
+                  <td id="T_updated_row11_col1" class="data row11 col1" >222 (431.6)</td>
+                  <td id="T_updated_row11_col2" class="data row11 col2" >9.851000</td>
+                  <td id="T_updated_row11_col3" class="data row11 col3" >CO2: 96.5%, N2: 3.5%.</td>
+                </tr>
+                <tr>
+                  <th id="T_updated_level0_row12" class="row_heading level0 row12" >12</th>
+                  <td id="T_updated_row12_col0" class="data row12 col0" >25</td>
+                  <td id="T_updated_row12_col1" class="data row12 col1" >264 (507.2)</td>
+                  <td id="T_updated_row12_col2" class="data row12 col2" >14.930000</td>
+                  <td id="T_updated_row12_col3" class="data row12 col3" >CO2: 96.5%, N2: 3.5%.</td>
+                </tr>
+                <tr>
+                  <th id="T_updated_level0_row13" class="row_heading level0 row13" >13</th>
+                  <td id="T_updated_row13_col0" class="data row13 col0" >20</td>
+                  <td id="T_updated_row13_col1" class="data row13 col1" >306 (582.8)</td>
+                  <td id="T_updated_row13_col2" class="data row13 col2" >22.520000</td>
+                  <td id="T_updated_row13_col3" class="data row13 col3" >CO2: 96.5%, N2: 3.5%.</td>
+                </tr>
+                <tr>
+                  <th id="T_updated_level0_row14" class="row_heading level0 row14" >14</th>
+                  <td id="T_updated_row14_col0" class="data row14 col0" >15</td>
+                  <td id="T_updated_row14_col1" class="data row14 col1" >348 (658.4)</td>
+                  <td id="T_updated_row14_col2" class="data row14 col2" >33.040000</td>
+                  <td id="T_updated_row14_col3" class="data row14 col3" >CO2: 96.5%, N2: 3.5%.</td>
+                </tr>
+                <tr>
+                  <th id="T_updated_level0_row15" class="row_heading level0 row15" >15</th>
+                  <td id="T_updated_row15_col0" class="data row15 col0" >10</td>
+                  <td id="T_updated_row15_col1" class="data row15 col1" >385 (725)</td>
+                  <td id="T_updated_row15_col2" class="data row15 col2" >47.390000</td>
+                  <td id="T_updated_row15_col3" class="data row15 col3" >CO2: 96.5%, N2: 3.5%.</td>
+                </tr>
+                <tr>
+                  <th id="T_updated_level0_row16" class="row_heading level0 row16" >16</th>
+                  <td id="T_updated_row16_col0" class="data row16 col0" >5</td>
+                  <td id="T_updated_row16_col1" class="data row16 col1" >424 (795.2)</td>
+                  <td id="T_updated_row16_col2" class="data row16 col2" >66.650000</td>
+                  <td id="T_updated_row16_col3" class="data row16 col3" >CO2: 96.5%, N2: 3.5%; Near-surface, traces like SO2 ~130 ppm.</td>
+                </tr>
+                <tr>
+                  <th id="T_updated_level0_row17" class="row_heading level0 row17" >17</th>
+                  <td id="T_updated_row17_col0" class="data row17 col0" >0</td>
+                  <td id="T_updated_row17_col1" class="data row17 col1" >462 (863.6)</td>
+                  <td id="T_updated_row17_col2" class="data row17 col2" >92.100000</td>
+                  <td id="T_updated_row17_col3" class="data row17 col3" >CO2: 96.5%, N2: 3.5%; Traces: SO2 ~150 ppm, H2O ~20 ppm, CO ~17 ppm, Ar ~70 ppm.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Chemical Explainer</h3>
+            <p>Key chemicals in Venus's atmosphere, their uses, feedstocks, and Mars comparison (Mars: ~95% CO2 at 0.006 atm, water ice, regolith, no acid clouds).</p>
+            <ul class="facts-list">
+                <li><strong>CO2 (Carbon Dioxide):</strong> Greenhouse gas for ISRU. Feedstocks: O2 (electrolysis), H2O/fuel (Sabatier), C for materials. Vs Mars: Dense atm easier to harvest than Mars's thin CO2/ice.</li>
+                <li><strong>N2 (Nitrogen):</strong> For breathable air. Feedstocks: NH3 fertilizers (Haber-Bosch). Vs Mars: Higher volume in dense atm vs Mars's sparse 2.6% N2.</li>
+                <li><strong>H2SO4 (Sulfuric Acid):</strong> Corrosive but for processing. Feedstocks: S for batteries/fertilizers. Vs Mars: Cloud harvesting vs ground sulfates.</li>
+                <li><strong>SO2 (Sulfur Dioxide):</strong> Acid precursor. Feedstocks: H2SO4, S fertilizers. Vs Mars: Higher conc. for chemistry vs trace volcanism.</li>
+                <li><strong>H2O (Water):</strong> Critical for life/fuel. Feedstocks: H2/O2 (electrolysis). Vs Mars: Scarce vapor vs abundant ice—Mars advantage.</li>
+                <li><strong>CO (Carbon Monoxide):</strong> Fuel gas. Feedstocks: Methanol synthesis. Vs Mars: Similar trace scarcity, Venus density aids.</li>
+                <li><strong>Ar (Argon):</strong> Inert for welding. Vs Mars: Lower % but denser atm yields more vs Mars's 1.9%.</li>
+                <li><strong>He (Helium):</strong> For cryogenics/balloons. Vs Mars: Similar trace, Venus easier to filter.</li>
+                <li><strong>Ne (Neon):</strong> For lighting/cryogenics. Vs Mars: Negligible for both, minor Venus edge.</li>
+            </ul>
+            <p>Data from VIRA model. Interpolation for 53 km assumes linear change; actual may vary. <sup><a href="https://en.wikipedia.org/wiki/Atmosphere_of_Venus">[34]</a></sup></p>
         </section>
 
         <div class="starry-bar" id="star-bar-4"></div>
@@ -682,7 +920,7 @@
             <h2>Timeline</h2>
             <p>We're moving fast!</p>
             <h3>Our Vision: Life on Venus</h3>
-            <p>Project AETHER paves the way for floating cities at 50km altitude with 0.9g gravity, radiation shielding, and abundant resources. Venus offers superior solar energy, closer proximity for faster trips via VenusExpress (30-45 days), and astrobiology potential. Back now to secure this multi-planetary future.</p>
+            <p>Project AETHER paves the way for floating cities at 50km altitude with 0.9g gravity, radiation shielding, and abundant resources. Humans and AI will co-exist in engineered serenity, extending consciousness across the solar system. Venus offers superior solar energy, closer proximity for faster trips via VenusExpress (30-45 days), and astrobiology potential. Back now to secure this multi-planetary future<sup><a href="https://en.wikipedia.org/wiki/Colonization_of_Venus">[31]</a></sup><sup><a href="https://forum.kerbalspaceprogram.com/topic/129619-venus-vs-mars-colonization/">[32]</a></sup><sup><a href="https://space.stackexchange.com/questions/27797/venus-vs-mars-for-colonization">[33]</a></sup>.</p>
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-content">
