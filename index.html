@@ -175,13 +175,13 @@
 
         /* --- Content Sections --- */
         .content-section {
-            padding: 8rem 2rem;
+            padding: 6rem 2rem;
             border-bottom: 1px solid var(--border-color);
         }
         .grid-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            gap: 3rem;
             align-items: center;
             max-width: 1200px;
             margin: 0 auto;
@@ -191,15 +191,15 @@
         .grid-text h2 { font-size: 3rem; margin-bottom: 1.5rem; }
         .grid-image img { width: 100%; display: block; border: 1px solid var(--border-color); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
         
-        .centered-section { text-align: center; }
-        .centered-section > p { max-width: 60ch; margin-left: auto; margin-right: auto; opacity: 0.8; }
+        .centered-section { text-align: left; }
+        .centered-section > p { max-width: none; margin-left: 0; margin-right: 0; opacity: 1; }
         
         .tech-stack-list { list-style: none; margin-top: 2rem; text-align: left; }
         .tech-stack-list li { padding: 1rem; border: 1px solid var(--border-color); margin-bottom: 1rem; transition: transform 0.3s; }
         .tech-stack-list li:hover { transform: translateY(-5px); }
         .tech-stack-list strong { display: block; font-family: 'Inter', sans-serif; margin-bottom: 0.25rem; }
         
-        .cta-section { text-align: center; padding: 8rem 2rem; }
+        .cta-section { text-align: center; padding: 6rem 2rem; }
         .cta-button {
             display: inline-block;
             padding: 1rem 2.5rem;
@@ -318,21 +318,21 @@
             max-width: 1200px;
             margin: 2rem auto;
             padding: 1rem 0;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            gap: 1rem;
         }
         .photo-gallery img {
-            width: 300px;
+            width: calc(33.33% - 1rem);
             height: auto;
-            margin-right: 1rem;
             flex-shrink: 0;
             border: 1px solid var(--border-color);
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             border-radius: 8px;
             transition: transform 0.3s;
+            scroll-snap-align: start;
         }
         .photo-gallery img:hover { transform: scale(1.05); }
-        .photo-gallery img:last-child {
-            margin-right: 0;
-        }
 
         /* --- Footer --- */
         .main-footer { padding: 4rem 2rem; background: #f9f9f9; border-top: 1px solid var(--border-color); text-align: center; }
@@ -351,7 +351,7 @@
             .grid-container.reverse .grid-text, .grid-container.reverse .grid-image { grid-column: 1 / 2; grid-row: auto; }
             .grid-text h2 { font-size: 2.2rem; }
             .content-section, .cta-section { padding: 4rem 1rem; }
-            .photo-gallery img { width: 200px; }
+            .photo-gallery img { width: 100%; }
         }
 
         /* Timeline Section */
@@ -436,6 +436,29 @@
         .comparison-table a:hover {
             color: var(--hover-color);
         }
+
+        /* Atmosphere Table Specific Styles */
+        #T_updated_row0_col1, #T_updated_row1_col1, #T_updated_row2_col1, #T_updated_row3_col1, #T_updated_row4_col1 {
+          color: #007bff; /* Blue for cold */
+        }
+        #T_updated_row0_col2, #T_updated_row1_col2, #T_updated_row2_col2, #T_updated_row3_col2, #T_updated_row4_col2, #T_updated_row5_col2, #T_updated_row6_col2 {
+          background-color: #e9ecef; /* Light gray for low pressure */
+        }
+        #T_updated_row5_col1, #T_updated_row6_col1 {
+          color: #28a745; /* Green for habitable temp */
+        }
+        #T_updated_row7_col1, #T_updated_row8_col1, #T_updated_row9_col1, #T_updated_row10_col1, #T_updated_row11_col1, #T_updated_row12_col1, #T_updated_row13_col1, #T_updated_row14_col1, #T_updated_row15_col1, #T_updated_row16_col1, #T_updated_row17_col1 {
+          color: #dc3545; /* Red for hot */
+        }
+        #T_updated_row7_col2, #T_updated_row8_col2, #T_updated_row9_col2, #T_updated_row10_col2, #T_updated_row11_col2 {
+          background-color: #ced4da; /* Gray for medium pressure */
+        }
+        #T_updated_row12_col2, #T_updated_row13_col2, #T_updated_row14_col2, #T_updated_row15_col2, #T_updated_row16_col2, #T_updated_row17_col2 {
+          background-color: #6f42c1; /* Purple for high pressure */
+        }
+        #T_updated_row5, #T_updated_row6 {
+          background-color: rgba(40,167,69,0.1); /* Light green shade for habitable rows */
+        }
     </style>
 </head>
 <body>
@@ -493,6 +516,15 @@
             </div>
         </section>
 
+        <div class="photo-gallery">
+            <img src="a.jpg" alt="Venus Photo 1">
+            <img src="b.jpg" alt="Venus Photo 2">
+            <img src="c.jpg" alt="Venus Photo 3">
+            <img src="d.jpg" alt="Venus Photo 4">
+            <img src="e.jpg" alt="Venus Photo 5">
+            <img src="f.jpg" alt="Venus Photo 6">
+        </div>
+
         <div class="starry-bar" id="star-bar-1"></div>
 
         <section id="technology" class="content-section">
@@ -514,15 +546,6 @@
                 </div>
             </div>
         </section>
-
-        <div class="photo-gallery">
-            <img src="a.jpg" alt="Venus Photo 1">
-            <img src="b.jpg" alt="Venus Photo 2">
-            <img src="c.jpg" alt="Venus Photo 3">
-            <img src="d.jpg" alt="Venus Photo 4">
-            <img src="e.jpg" alt="Venus Photo 5">
-            <img src="f.jpg" alt="Venus Photo 6">
-        </div>
 
         <div class="starry-bar" id="star-bar-2"></div>
 
@@ -740,28 +763,31 @@
             <h3>Venus Atmosphere Profile</h3>
             <style type="text/css">
                 #T_updated_row0_col1, #T_updated_row1_col1, #T_updated_row2_col1, #T_updated_row3_col1, #T_updated_row4_col1 {
-                  color: blue;
+                  color: #007bff; /* Blue for cold */
                 }
                 #T_updated_row0_col2, #T_updated_row1_col2, #T_updated_row2_col2, #T_updated_row3_col2, #T_updated_row4_col2, #T_updated_row5_col2, #T_updated_row6_col2 {
-                  background-color: lightgray;
+                  background-color: #e9ecef; /* Light gray for low pressure */
                 }
                 #T_updated_row5_col1, #T_updated_row6_col1 {
-                  color: green;
+                  color: #28a745; /* Green for habitable temp */
                 }
                 #T_updated_row7_col1, #T_updated_row8_col1, #T_updated_row9_col1, #T_updated_row10_col1, #T_updated_row11_col1, #T_updated_row12_col1, #T_updated_row13_col1, #T_updated_row14_col1, #T_updated_row15_col1, #T_updated_row16_col1, #T_updated_row17_col1 {
-                  color: red;
+                  color: #dc3545; /* Red for hot */
                 }
                 #T_updated_row7_col2, #T_updated_row8_col2, #T_updated_row9_col2, #T_updated_row10_col2, #T_updated_row11_col2 {
-                  background-color: gray;
+                  background-color: #ced4da; /* Gray for medium pressure */
                 }
                 #T_updated_row12_col2, #T_updated_row13_col2, #T_updated_row14_col2, #T_updated_row15_col2, #T_updated_row16_col2, #T_updated_row17_col2 {
-                  background-color: purple;
+                  background-color: #6f42c1; /* Purple for high pressure */
+                }
+                #T_updated_row5, #T_updated_row6 {
+                  background-color: rgba(40,167,69,0.1); /* Light green shade for habitable rows */
                 }
             </style>
             <table id="T_updated" class="comparison-table">
               <thead>
                 <tr>
-                  <th class="blank level0" >&nbsp;</th>
+                  <th class="blank level0" > </th>
                   <th id="T_updated_level0_col0" class="col_heading level0 col0" >Altitude (km)</th>
                   <th id="T_updated_level0_col1" class="col_heading level0 col1" >Temperature (°C / °F)</th>
                   <th id="T_updated_level0_col2" class="col_heading level0 col2" >Pressure (atm)</th>
