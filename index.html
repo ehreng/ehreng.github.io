@@ -468,6 +468,16 @@
         #T_updated_row5, #T_updated_row6 {
           background-color: rgba(40,167,69,0.1); /* Light green shade for habitable rows */
         }
+
+        /* Added for external images */
+        .external-image {
+            display: block;
+            margin: 2rem auto;
+            max-width: 800px;
+            width: 100%;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
     </style>
 </head>
 <body>
@@ -555,6 +565,7 @@
                     <img src="sat.jpg" alt="Artist's concept of CubeSat relaying data from Venus probe.">
                 </div>
             </div>
+            <img src="https://planetary.s3.amazonaws.com/web/assets/pictures/20160519_akatsuki_observation_plans.png" alt="Akatsuki Orbital Observation Plans" class="external-image">
         </section>
 
         <div class="starry-bar" id="star-bar-2"></div>
@@ -562,6 +573,7 @@
         <section id="history" class="content-section centered-section">
             <h2>History</h2>
             <p>Venus exploration has a rich legacy, from early flybys to modern orbiters. Project AETHER builds on this foundation, focusing on untapped potential for human and AI habitation.</p>
+            <img src="https://photojournal.jpl.nasa.gov/jpeg/PIA00104.jpg" alt="Global Radar Map of Venus" class="external-image">
             <h3>Competing Missions: How We Stand Out</h3>
             <p>While government and private efforts advance Venus exploration, Project AETHER fills unique niches at a fraction of the cost.</p>
             <table class="comparison-table">
@@ -693,6 +705,7 @@
                 </tbody>
             </table>
             <p>Future missions include NASA's DAVINCI (orbiter/descent probe to study from clouds to surface), VERITAS (orbiter for exploration since the 1990s), and ESA's EnVision (orbiter for history, activity, and climate in the 2030s). Our low-cost probe complements these by targeting practical colonization data now.</p>
+            <img src="https://planetary.s3.amazonaws.com/web/assets/pictures/20160519_akatsuki_3d_atmosphere_observations.png" alt="Akatsuki 3D Investigation of Venus Atmosphere" class="external-image">
         </section>
 
         <div class="starry-bar" id="star-bar-3"></div>
@@ -771,6 +784,7 @@
             <p>These facts make Venus irresistible. Back AETHER: Probe data unlocks this potential.</p>
 
             <h3>Venus Atmosphere Profile</h3>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Atmosphere_of_venus.png" alt="Venus Atmosphere Structure Diagram" class="external-image">
             <style type="text/css">
                 #T_updated_row0_col1, #T_updated_row1_col1, #T_updated_row2_col1, #T_updated_row3_col1, #T_updated_row4_col1 {
                   color: #007bff; /* Blue for cold */
@@ -935,6 +949,7 @@
             </table>
 
             <h3>Chemical Explainer</h3>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/1/17/Atmosphere_composition.gif" alt="Venus Atmosphere Composition Diagram" class="external-image">
             <p>Key chemicals in Venus's atmosphere, their uses, feedstocks, and Mars comparison (Mars: ~95% CO2 at 0.006 atm, water ice, regolith, no acid clouds).</p>
             <ul class="facts-list">
                 <li><strong>CO2 (Carbon Dioxide):</strong> Greenhouse gas for ISRU. Feedstocks: O2 (electrolysis), H2O/fuel (Sabatier), C for materials. Vs Mars: Dense atm easier to harvest than Mars's thin CO2/ice.</li>
@@ -948,6 +963,7 @@
                 <li><strong>Ne (Neon):</strong> For lighting/cryogenics. Vs Mars: Negligible for both, minor Venus edge.</li>
             </ul>
             <p>Data from VIRA model. Interpolation for 53 km assumes linear change; actual may vary. <sup><a href="https://en.wikipedia.org/wiki/Atmosphere_of_Venus">[34]</a></sup></p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Venus_circulation.jpg" alt="Venus Atmospheric Circulation Diagram" class="external-image">
         </section>
 
         <div class="starry-bar" id="star-bar-4"></div>
@@ -1007,9 +1023,6 @@
                     <a href="mailto:info@nephelisindustries.com" class="cta-button urgent">Volunteer Now →</a>
                 </div>
             </div>
-
-        <p class="footer-copy"></p>
-
             <h3>Team</h3>
             <p>Nephelis Industries is run by space enthusiasts. We comply with FAA/ITAR regulations for launches and protect IP. </p>
           
