@@ -1,1040 +1,385 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Nephelis Industries' Project AETHER: Unlocking Venus's atmosphere for human and AI life extension.">
-    <meta name="author" content="Nephelis Industries">
-    <title>Nephelis Industries - Project AETHER</title>
-
+    <meta name="description" content="Nephelis Industries: Pioneering interplanetary exploration with a mission to Venus.">
+    <meta name="keywords" content="Nephelis Industries, Venus, space exploration, aerospace, AI, robotics, interplanetary probe">
+    <meta name="WebXR" content="optional">
+    <title>Nephelis Industries | Pioneering the Future</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>N</text></svg>">
-
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0D5C7VZD35"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-0D5C7VZD35');
-</script>
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --background: #FFFFFF;
-            --foreground: #111111;
-            --border-color: #DDDDDD;
-            --accent: #333333;
-            --dark-bg: #111111;
-            --light-fg: #FFFFFF;
-            --urgent-color: #FF4500;
-            --gradient-bg: linear-gradient(135deg, #FF4500, #FFD700);
-            --table-bg-odd: #f9f9f9;
-            --table-bg-even: #ffffff;
-            --table-header-bg: #f0f0f0;
-            --link-color: #007bff;
-            --hover-color: #0056b3;
+            --accent-orange: #FF4500;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        html {
+            scroll-behavior: smooth;
+        }
         body {
-            font-family: 'Roboto Mono', monospace;
-            background-color: var(--background);
-            color: var(--foreground);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
-        h1, h2, h3 { font-family: 'Inter', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: -0.02em; }
-        p { max-width: 65ch; margin-bottom: 1rem; }
-        a { color: var(--link-color); text-decoration: none; transition: color 0.3s; }
-        a:hover { color: var(--hover-color); }
-        sup a { font-size: 0.7rem; color: var(--accent); }
-
-        /* --- Header & Navigation --- */
-        .main-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--border-color);
-            transition: background-color 0.3s ease;
-        }
-        .header-logo-link {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: var(--foreground);
-        }
-        .header-logo-icon {
-            height: 40px;
-            margin-right: 12px;
-        }
-        .logo-text {
             font-family: 'Inter', sans-serif;
-            font-weight: 100;
-            font-size: 0.8rem;
-            letter-spacing: -0.8px;
+            background-color: #000;
+            color: #e0e0e0;
+            overflow-x: hidden;
         }
-        .desktop-nav a {
-            color: var(--foreground);
-            text-decoration: none;
-            margin-left: 2.5rem;
-            font-size: 0.9rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            transition: color 0.3s;
+        .font-mono {
+            font-family: 'Roboto Mono', monospace;
         }
-        .desktop-nav a:hover { color: var(--urgent-color); }
-        .menu-toggle { display: none; }
-        .mobile-nav { display: none; }
-        #menu-checkbox { display: none; }
-        .menu-toggle-label {
-            display: none;
-            font-size: 1.5rem;
-            background: none;
-            border: none;
-            color: var(--foreground);
-            cursor: pointer;
-            z-index: 1002;
-        }
-        .mobile-nav {
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        #webgl-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--background);
-            z-index: 1001;
+            z-index: -1;
+            opacity: 0.2;
         }
-        #menu-checkbox:checked ~ .mobile-nav { display: flex; }
-        .mobile-nav a { color: var(--foreground); text-decoration: none; padding: 1.5rem 0; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 2rem; }
-        .close-btn-label {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            font-size: 2rem;
-            background: none;
-            border: none;
-            color: var(--foreground);
-            cursor: pointer;
+        .header-skew {
+            transform: rotate(-8.2deg);
+            transform-origin: top left;
+            margin-top: 5vw;
+            margin-left: -5vw;
+            width: 110vw;
         }
-
-        main {}
-
-        /* --- Hero Section --- */
-        .hero-section {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
+        .holographic-link {
+            perspective: 800px;
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .holographic-link-inner {
+            display: inline-block;
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), color 0.3s;
+            transform-style: preserve-3d;
+            text-shadow: 0 0 5px rgba(255, 69, 0, 0.5), 0 0 10px rgba(255, 69, 0, 0.5);
+        }
+        .holographic-link:hover {
+            transform: scale(1.1);
+        }
+        .holographic-link:hover .holographic-link-inner {
+            transform: rotateY(20deg) rotateX(10deg) translateZ(20px);
+            color: var(--accent-orange);
+        }
+        .glass-panel {
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 69, 0, 0.2);
+        }
+        .content-section {
             position: relative;
+            z-index: 1;
+        }
+        /* Table styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 69, 0, 0.2);
+        }
+        th {
+            color: var(--accent-orange);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+        tbody tr:hover {
+            background-color: rgba(255, 69, 0, 0.05);
+        }
+        /* Slideshow styles */
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            height: 500px; /* Adjust as needed */
+            margin: 2rem auto;
             overflow: hidden;
-            background-image: url('1.jpg');
+            border-radius: 1rem;
+        }
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background-size: cover;
             background-position: center;
-            color: var(--light-fg);
-            text-align: center;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            animation: fadeAnimation 30s infinite;
         }
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
+        @keyframes fadeAnimation {
+            0% { opacity: 0; }
+            5% { opacity: 1; }
+            30% { opacity: 1; }
+            35% { opacity: 0; }
+            100% { opacity: 0; }
         }
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            padding: 2rem;
-            animation: fadeIn 1.5s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .hero-content h1 {
-            font-size: 2.5rem;
-            max-width: 25ch;
-            margin: 0 auto;
-            line-height: 1.3;
-        }
-        .hero-content .powered-by {
-            margin-top: 1rem;
-            font-size: 1rem;
-            opacity: 0.8;
-        }
+        .slide:nth-child(1) { animation-delay: 0s; }
+        .slide:nth-child(2) { animation-delay: 6s; }
+        .slide:nth-child(3) { animation-delay: 12s; }
+        .slide:nth-child(4) { animation-delay: 18s; }
+        .slide:nth-child(5) { animation-delay: 24s; }
 
-        /* --- Content Sections --- */
-        .content-section {
-            padding: 6rem 2rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .grid-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .grid-container.reverse .grid-text { grid-column: 2 / 3; grid-row: 1 / 2; }
-        .grid-container.reverse .grid-image { grid-column: 1 / 2; grid-row: 1 / 2; }
-        .grid-text h2 { font-size: 3rem; margin-bottom: 1.5rem; }
-        .grid-image img { width: 100%; display: block; border: 1px solid var(--border-color); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        
-        .centered-section { text-align: left; }
-        .centered-section > p { max-width: none; margin-left: 0; margin-right: 0; opacity: 1; }
-        
-        .tech-stack-list { list-style: none; margin-top: 2rem; text-align: left; }
-        .tech-stack-list li { padding: 1rem; border: 1px solid var(--border-color); margin-bottom: 1rem; transition: transform 0.3s; }
-        .tech-stack-list li:hover { transform: translateY(-5px); }
-        .tech-stack-list strong { display: block; font-family: 'Inter', sans-serif; margin-bottom: 0.25rem; }
-        
-        .cta-section { text-align: center; padding: 6rem 2rem; }
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            border: 1px solid var(--foreground);
-            text-decoration: none;
-            color: var(--foreground);
-            font-family: 'Roboto Mono', monospace;
-            font-weight: 500;
-            text-transform: uppercase;
-            margin-top: 2rem;
-            transition: all 0.3s ease;
-        }
-        .cta-button:hover { background: var(--foreground); color: var(--background); }
-        .cta-button.urgent { border-color: var(--urgent-color); color: var(--urgent-color); }
-        .cta-button.urgent:hover { background: var(--urgent-color); color: var(--background); }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-            text-align: center;
-        }
-        .info-item {
-            border: 1px solid var(--border-color);
-            padding: 2rem;
-            transition: box-shadow 0.3s;
-        }
-        .info-item:hover { box-shadow: 0 8px 16px rgba(0,0,0,0.2); }
-        .info-item h3 { font-size: 1.2rem; margin-bottom: 1rem; }
-        .info-item p { margin: 0 auto 1.5rem auto; }
-        .info-item .cta-button { margin-top: 0; }
-        .contact-icon {
-            display: inline-block;
-            width: 24px;
-            height: 24px;
-            margin-right: 8px;
-            vertical-align: middle;
-        }
-        .contact-icon svg {
-            width: 100%;
-            height: 100%;
-            fill: var(--foreground);
-        }
-
-        .starry-bar {
-            width: 100%;
-            height: 80px;
-            background: var(--dark-bg);
-            position: relative;
-            overflow: hidden;
-        }
-        .star {
-            position: absolute;
-            background: var(--light-fg);
-            border-radius: 50%;
-            opacity: 0.2;
-            animation: twinkle 4s infinite ease-in-out;
-        }
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.2; transform: scale(0.8); }
-            50% { opacity: 0.8; transform: scale(1.2); }
-        }
-        .starry-bar::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.8) 1px, transparent 1px),
-                        radial-gradient(circle at 20% 80%, rgba(255,255,255,0.6) 1px, transparent 1px),
-                        radial-gradient(circle at 30% 40%, rgba(255,255,255,0.7) 1px, transparent 1px),
-                        radial-gradient(circle at 40% 60%, rgba(255,255,255,0.5) 1px, transparent 1px),
-                        radial-gradient(circle at 50% 30%, rgba(255,255,255,0.9) 1px, transparent 1px),
-                        radial-gradient(circle at 60% 70%, rgba(255,255,255,0.4) 1px, transparent 1px),
-                        radial-gradient(circle at 70% 10%, rgba(255,255,255,0.8) 1px, transparent 1px),
-                        radial-gradient(circle at 80% 90%, rgba(255,255,255,0.6) 1px, transparent 1px),
-                        radial-gradient(circle at 90% 50%, rgba(255,255,255,0.7) 1px, transparent 1px),
-                        radial-gradient(circle at 95% 25%, rgba(255,255,255,0.5) 1px, transparent 1px);
-            background-size: 200% 200%;
-            animation: starry-move 20s linear infinite;
-        }
-        .starry-bar::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 15% 35%, rgba(255,255,255,0.7) 1px, transparent 1px),
-                        radial-gradient(circle at 25% 65%, rgba(255,255,255,0.5) 1px, transparent 1px),
-                        radial-gradient(circle at 35% 15%, rgba(255,255,255,0.8) 1px, transparent 1px),
-                        radial-gradient(circle at 45% 85%, rgba(255,255,255,0.6) 1px, transparent 1px),
-                        radial-gradient(circle at 55% 45%, rgba(255,255,255,0.9) 1px, transparent 1px),
-                        radial-gradient(circle at 65% 55%, rgba(255,255,255,0.4) 1px, transparent 1px),
-                        radial-gradient(circle at 75% 75%, rgba(255,255,255,0.7) 1px, transparent 1px),
-                        radial-gradient(circle at 85% 5%, rgba(255,255,255,0.5) 1px, transparent 1px),
-                        radial-gradient(circle at 5% 95%, rgba(255,255,255,0.8) 1px, transparent 1px),
-                        radial-gradient(circle at 0% 50%, rgba(255,255,255,0.6) 1px, transparent 1px);
-            background-size: 200% 200%;
-            animation: starry-move 30s linear infinite reverse;
-        }
-        @keyframes starry-move {
-            0% { background-position: 0 0; }
-            100% { background-position: 100% 100%; }
-        }
-
-        /* Photo Gallery */
-        .photo-gallery {
-            display: flex;
-            overflow-x: auto;
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 1rem 0;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-            gap: 1rem;
-        }
-        .photo-gallery img {
-            width: calc(33.33% - 1rem);
-            height: auto;
-            flex-shrink: 0;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            border-radius: 8px;
-            transition: transform 0.3s;
-            scroll-snap-align: start;
-        }
-        .photo-gallery img:hover { transform: scale(1.05); }
-
-        /* --- Footer --- */
-        .main-footer { padding: 4rem 2rem; background: #f9f9f9; border-top: 1px solid var(--border-color); text-align: center; }
-        .footer-nav { margin-bottom: 2rem; }
-        .footer-nav a { color: var(--accent); text-decoration: none; margin: 0 1rem; text-transform: uppercase; font-size: 0.9rem; }
-        .footer-copy { font-size: 0.9rem; color: #999; }
-        .footer-contact { margin-top: 1rem; }
-        .footer-contact a { margin: 0 1rem; display: inline-flex; align-items: center; }
-
-        /* --- Mobile Responsiveness --- */
-        @media (max-width: 768px) {
-            .desktop-nav { display: none; }
-            .menu-toggle-label { display: block; }
-            .hero-content h1 { font-size: 1.8rem; }
-            .grid-container, .grid-container.reverse { grid-template-columns: 1fr; gap: 3rem; }
-            .grid-container.reverse .grid-text, .grid-container.reverse .grid-image { grid-column: 1 / 2; grid-row: auto; }
-            .grid-text h2 { font-size: 2.2rem; }
-            .content-section, .cta-section { padding: 4rem 1rem; }
-            .photo-gallery img { width: 100%; }
-        }
-
-        /* Timeline Section */
-        .timeline {
-            position: relative;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 0;
-        }
-        .timeline::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            width: 2px;
-            height: 100%;
-            background: var(--border-color);
-        }
-        .timeline-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 4rem;
-            position: relative;
-        }
-        .timeline-item:nth-child(even) { flex-direction: row-reverse; }
-        .timeline-content {
-            width: 45%;
-            padding: 1rem;
-            border: 1px solid var(--border-color);
-            background: var(--background);
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            transition: box-shadow 0.3s;
-        }
-        .timeline-content:hover { box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        .timeline-date {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: var(--background);
-            padding: 0.5rem 1rem;
-            border: 1px solid var(--border-color);
-            z-index: 1;
-            border-radius: 4px;
-        }
-
-        /* Facts List */
-        .facts-list { list-style: none; margin-top: 2rem; text-align: left; }
-        .facts-list li { padding: 1rem; border: 1px solid var(--border-color); margin-bottom: 1rem; transition: transform 0.3s; border-radius: 8px; }
-        .facts-list li:hover { transform: translateY(-5px); }
-        .facts-list strong { display: block; font-family: 'Inter', sans-serif; margin-bottom: 0.25rem; }
-
-        /* Comparison Table */
-        .comparison-table {
-            width: 100%;
-            max-width: 1200px;
-            margin: 2rem auto;
-            border-collapse: separate;
-            border-spacing: 0;
-            text-align: left;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        .comparison-table th, .comparison-table td {
-            padding: 1rem;
-            border: 1px solid var(--border-color);
-        }
-        .comparison-table th {
-            background: var(--table-header-bg);
-            color: var(--foreground);
-            font-weight: 600;
-        }
-        .comparison-table tr:nth-child(even) {
-            background: var(--table-bg-odd);
-        }
-        .comparison-table tr:nth-child(odd) {
-            background: var(--table-bg-even);
-        }
-        .comparison-table a {
-            color: var(--link-color);
-        }
-        .comparison-table a:hover {
-            color: var(--hover-color);
-        }
-
-        /* Atmosphere Table Specific Styles */
-        #T_updated_row0_col1, #T_updated_row1_col1, #T_updated_row2_col1, #T_updated_row3_col1, #T_updated_row4_col1 {
-          color: #007bff; /* Blue for cold */
-        }
-        #T_updated_row0_col2, #T_updated_row1_col2, #T_updated_row2_col2, #T_updated_row3_col2, #T_updated_row4_col2, #T_updated_row5_col2, #T_updated_row6_col2 {
-          background-color: #e9ecef; /* Light gray for low pressure */
-        }
-        #T_updated_row5_col1, #T_updated_row6_col1 {
-          color: #28a745; /* Green for habitable temp */
-        }
-        #T_updated_row7_col1, #T_updated_row8_col1, #T_updated_row9_col1, #T_updated_row10_col1, #T_updated_row11_col1, #T_updated_row12_col1, #T_updated_row13_col1, #T_updated_row14_col1, #T_updated_row15_col1, #T_updated_row16_col1, #T_updated_row17_col1 {
-          color: #dc3545; /* Red for hot */
-        }
-        #T_updated_row7_col2, #T_updated_row8_col2, #T_updated_row9_col2, #T_updated_row10_col2, #T_updated_row11_col2 {
-          background-color: #ced4da; /* Gray for medium pressure */
-        }
-        #T_updated_row12_col2, #T_updated_row13_col2, #T_updated_row14_col2, #T_updated_row15_col2, #T_updated_row16_col2, #T_updated_row17_col2 {
-          background-color: #6f42c1; /* Purple for high pressure */
-        }
-        #T_updated_row5, #T_updated_row6 {
-          background-color: rgba(40,167,69,0.1); /* Light green shade for habitable rows */
-        }
     </style>
 </head>
-<body>
-    <a href="#main" class="skip-link">Skip to main content</a>
+<body class="antialiased">
 
-    <header class="main-header">
-        <a href="#home" class="header-logo-link">
-            <img src="nephelis.png" alt="Nephelis Industries Logo" class="header-logo-icon">
-            <span class="logo-text"></span>
-        </a>
-        <nav class="desktop-nav">
-            <a href="#mission">Mission</a>
-            <a href="#technology">Technology</a>
-            <a href="#history">History</a>
-            <a href="#vsmars">Vs Mars</a>
-            <a href="#timeline">Timeline</a>
-            <a href="#support">Support</a>
-        </nav>
-        <input type="checkbox" id="menu-checkbox" class="menu-toggle">
-        <label for="menu-checkbox" class="menu-toggle-label">☰</label>
-    </header>
+    <canvas id="webgl-canvas"></canvas>
     
-    <nav class="mobile-nav">
-        <label for="menu-checkbox" class="close-btn-label">×</label>
-        <a href="#mission">Mission</a>
-        <a href="#technology">Technology</a>
-        <a href="#history">History</a>
-        <a href="#vsmars">Vs Mars</a>
-        <a href="#timeline">Timeline</a>
-        <a href="#support">Support</a>
-    </nav>
-
-    <main id="main">
-        <section id="home" class="hero-section">
-            <div class="hero-overlay"></div>
-            <div class="hero-content">
-                <h1>We’re not NASA. We’re Nephelis Industries: dreamers and builders betting $500,000 on a crowd-funded probe to Venus. Extend human and AI consciousness beyond Earth now.</h1>
-                <p class="powered-by">Powered by @xAI</p>
+    <div class="relative min-h-screen overflow-hidden">
+        <!-- Header Section -->
+        <header class="header-skew bg-black/50 py-8 px-16 mb-24">
+            <div class="max-w-7xl mx-auto flex justify-between items-center" style="transform: rotate(8.2deg);">
+                <div class="text-4xl font-black tracking-widest uppercase text-white">
+                    Nephelis<span style="color: var(--accent-orange);">.</span>
+                </div>
+                <nav id="main-nav" class="flex space-x-6 items-center text-sm md:text-base md:space-x-8">
+                    <a href="#mission" class="holographic-link"><span class="holographic-link-inner font-bold text-white">Mission</span></a>
+                    <a href="#tech" class="holographic-link"><span class="holographic-link-inner font-bold text-white">Technology</span></a>
+                    <a href="#why-venus" class="holographic-link"><span class="holographic-link-inner font-bold text-white">Why Venus?</span></a>
+                    <a href="#history" class="holographic-link"><span class="holographic-link-inner font-bold text-white">History</span></a>
+                    <a href="#timeline" class="holographic-link"><span class="holographic-link-inner font-bold text-white">Timeline</span></a>
+                    <a href="#support" class="holographic-link"><span class="holographic-link-inner font-bold text-white">Support</span></a>
+                </nav>
             </div>
-        </section>
+        </header>
 
-        <section id="mission" class="content-section">
-            <div class="grid-container">
-                <div class="grid-text">
-                    <h2>The Mission</h2>
-                    <p>Project AETHER sends Cloudseeker, a miniprobe, to Venus's atmosphere. It unlocks energy and resources for floating habitats, extending human life, consciousness and AI to another world<sup><a href="https://ntrs.nasa.gov/api/citations/20030022668/downloads/20030022668.pdf">[15]</a></sup><sup><a href="https://bigthink.com/hard-science/how-to-colonize-venus/">[16]</a></sup>.</p>
-                    <p>Targeting 50-55 km altitude—Earth-like conditions—Cloudseeker validates habitation models, resource extraction and astrobiology. Launch: 2027. Data will fuel Venus colonies, securing multi-planetary survival.</p>
-                    <p>Venus offers abundant solar power, CO2 for fuel, nitrogen for breathable air. We seek less than $500,000 in crowdfunding for build, testing and launch. While our budget is modest compared to Rocket Lab's Venus Life Finder (<$10M)<sup><a href="https://www.planetary.org/space-missions/rocket-lab-venus-mission">[1]</a></sup><sup><a href="https://futurism.com/nasa-heat-shield-private-venus-probe">[2]</a></sup>, it focuses on niche habitation validation. Volunteers needed! We accept: space enthusiasts, hobbyists, engineers, scientists, AI geeks, real estate investors, time travelers, aliens and more!</p>
-                    <p>Be part of humanity's backup plan. Earth's risks demand action. Venus ensures life thrives across the solar system.</p>
-                    <p>With our hypothetical VenusExpress service, leveraging state-of-the-art next-gen propulsion like nuclear electric or VASIMR plasma drives (still in prototype stage as of 2025)<sup><a href="https://en.wikipedia.org/wiki/Variable_Specific_Impulse_Magnetoplasma_Rocket">[3]</a></sup><sup><a href="https://www.space.com/23613-advanced-space-propulsion-vasimr-engine.html">[17]</a></sup>, travel time shrinks to 30-45 days—faster than current 3-6 months, enabling frequent resupply and human missions.</p>
+        <!-- Main Content -->
+        <main class="container mx-auto px-6 md:px-12 space-y-32 md:space-y-48 content-section pb-24">
+            
+            <!-- Hero Section -->
+            <section class="text-center md:text-left">
+                <h1 class="text-5xl md:text-7xl font-black tracking-tighter leading-tight mb-4">
+                    We are Dreamers and Builders<span style="color: var(--accent-orange);">.</span><br>Extending Consciousness to Venus<span style="color: var(--accent-orange);">.</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto md:mx-0">
+                    We're not a government agency. We are Nephelis Industries: a lean, crowd-funded initiative betting on a new frontier. Our mission is to extend human and AI presence beyond Earth, starting now.
+                </p>
+                <div class="mt-8 flex justify-center md:justify-start space-x-4">
+                    <a href="#support" class="bg-orange-600 text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-orange-500 transition-all transform hover:scale-105 shadow-lg shadow-orange-500/20" style="background-color: var(--accent-orange);">
+                        Join The Mission
+                    </a>
+                     <a href="#mission" class="border-2 border-white/50 text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-white/10 hover:border-white transition-all transform hover:scale-105">
+                        Learn More
+                    </a>
                 </div>
-                <div class="grid-image">
-                    <img src="probe.jpg" alt="Artist's concept of Cloudseeker probe in Venus's clouds.">
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <h3 style="text-align: center; margin: 2rem auto; max-width: 1200px;">Envisioning Venus: Possible Future Snapshots</h3>
-        <div class="photo-gallery">
-            <img src="a.jpg" alt="Transparent Venus probe with camera and sensors hanging in the clouds">
-            <img src="b.jpg" alt="Luxurious Venus habitat interior with pool overlooking clouds at sunset">
-            <img src="c.jpg" alt="Group of people taking a selfie in a futuristic Venus city dome">
-            <img src="d.jpg" alt="Person in a spherical habitat bubble floating above Venus clouds">
-            <img src="e.jpg" alt="Busy futuristic Venus spaceport with flying ships and people walking">
-            <img src="f.jpg" alt="Close-up of a crystalline spherical structure, possibly Venus microbial life or habitat module">
-        </div>
-
-        <div class="starry-bar" id="star-bar-1"></div>
-
-        <section id="technology" class="content-section">
-            <div class="grid-container reverse">
-                <div class="grid-text">
-                    <h2>Technology</h2>
-                    <p>Cloudseeker uses miniaturized tech for Venus's extremes, enabling future life-sustaining outposts. We acknowledge risks like sulfuric acid corrosion, mitigated by advanced materials, but probes may have short lifetimes<sup><a href="https://www.nasa.gov/centers-and-facilities/glenn/cook-crush-choke-testing-components-before-launching-to-venus/">[4]</a></sup><sup><a href="https://space.stackexchange.com/questions/46691/is-the-surface-environment-of-venus-corrosive">[5]</a></sup><sup><a href="https://marsonearthproject.org/harsh-conditions-on-venus-testing-new-astronautical-engineering-techniques/">[18]</a></sup><sup><a href="https://www.snexplores.org/article/heres-why-venus-so-unwelcoming">[19]</a></sup>.</p>
-                    <ul class="tech-stack-list">
-                        <li><strong>Acid-Resistant Aerostat:</strong> Fluoropolymer balloon resists sulfuric acid, floats in habitable zone—basis for human/AI habitats.</li>
-                        <li><strong>Integrated Sensor Suite:</strong> 1kg pod with 4K camera, mass spectrometers, bio-sensors (updated for ammonia/phosphine)—detects resources, life signs<sup><a href="https://www.cnn.com/2024/07/29/science/venus-gases-phosphine-ammonia">[6]</a></sup><sup><a href="https://astrobiology.com/2025/06/venus-cloud-research-progress-and-perspectives.html">[20]</a></sup><sup><a href="https://phys.org/news/2025-07-life-venus-probe-mission-clouds.html">[21]</a></sup><sup><a href="https://www.space.com/venus-clouds-life-phosphine-evidence-debate">[22]</a></sup>.</li>
-                        <li><strong>3U CubeSat Relay:</strong> Orbits Venus, transmits high-bandwidth data—essential for colony comms, though cloud opacity may challenge.</li>
-                        <li><strong>AI-Optimized Navigation:</strong> xAI models enable autonomous ops in dynamic atmosphere—key for AI-human synergy off-Earth<sup><a href="https://en.wikipedia.org/wiki/XAI_%28company%29">[23]</a></sup><sup><a href="https://wandb.ai/byyoung3/ml-news/reports/xAI-Elon-Musk-s-Next-Venture-in-Artificial-Intelligence---Vmlldzo0ODY3MjU1">[24]</a></sup><sup><a href="https://opentools.ai/news/elon-musk-unveils-xai-to-decode-the-universes-mysteries">[25]</a></sup>.</li>
-                    </ul>
-                    <p>We need: Hardware donations, software contributions, testing facilities. Volunteers: Coders, fabricators—join to build the future.</p>
-                    <p class="powered-by">Powered by @xAI</p>
-                </div>
-                <div class="grid-image">
-                    <img src="sat.jpg" alt="Artist's concept of CubeSat relaying data from Venus probe.">
-                </div>
-            </div>
-        </section>
-
-        <div class="starry-bar" id="star-bar-2"></div>
-
-        <section id="history" class="content-section centered-section">
-            <h2>History</h2>
-            <p>Venus exploration has a rich legacy, from early flybys to modern orbiters. Project AETHER builds on this foundation, focusing on untapped potential for human and AI habitation.</p>
-            <h3>Competing Missions: How We Stand Out</h3>
-            <p>While government and private efforts advance Venus exploration, Project AETHER fills unique niches at a fraction of the cost.</p>
-            <table class="comparison-table">
-                <thead>
-                    <tr>
-                        <th>Mission</th>
-                        <th>Type/Funder</th>
-                        <th>Cost</th>
-                        <th>Focus</th>
-                        <th>Launch</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><a href="https://www.rocketlabusa.com/missions/venus-life-finder/" target="_blank" rel="noopener">Rocket Lab Venus Life Finder</a></td>
-                        <td>Private</td>
-                        <td><$10M<sup><a href="https://www.planetary.org/space-missions/rocket-lab-venus-mission">[1]</a></sup><sup><a href="https://www.space.com/rocket-lab-private-venus-mission-delayed-2025">[26]</a></sup></td>
-                        <td>Astrobiology in clouds</td>
-                        <td>2025</td>
-                    </tr>
-                    <tr>
-                        <td><a href="https://www.nasa.gov/mission/davinci/" target="_blank" rel="noopener">NASA DAVINCI</a></td>
-                        <td>Government</td>
-                        <td>~$500M<sup><a href="https://universemagazine.com/en/nasas-mission-to-venus-may-face-new-delays/">[27]</a></sup></td>
-                        <td>Atmosphere chemistry, noble gases</td>
-                        <td>2029</td>
-                    </tr>
-                    <tr>
-                        <td><a href="https://www.jpl.nasa.gov/missions/veritas/" target="_blank" rel="noopener">NASA VERITAS</a></td>
-                        <td>Government</td>
-                        <td>~$500M<sup><a href="https://spacenews.com/veritas-venus-mission-seeks-to-avoid-further-delays/">[28]</a></sup></td>
-                        <td>Surface mapping, geology</td>
-                        <td>2031</td>
-                    </tr>
-                    <tr>
-                        <td><a href="https://www.esa.int/Science_Exploration/Space_Science/EnVision" target="_blank" rel="noopener">ESA EnVision</a></td>
-                        <td>Government</td>
-                        <td>~$383M</td>
-                        <td>Orbiter, surface/atmosphere</td>
-                        <td>2031</td>
-                    </tr>
-                    <tr>
-                        <td>Project AETHER (Ours)</td>
-                        <td>Crowd-funded Private</td>
-                        <td>$0.5M</td>
-                        <td>Habitation validation, resource extraction for colonies, AI integration</td>
-                        <td>2027</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p>Unlike high-cost government missions focusing on basic science like surface geology or atmospheric chemistry, or Rocket Lab's targeted life search, we exploit an untapped niche: validating the 50-55km altitude for floating habitats, modeling resource extraction for sustainable human/AI colonies—at 1/20th Rocket Lab's cost and 1/1000th NASA's. Our crowd-funded approach democratizes space, accelerates practical colonization prep where others overlook.</p>
-            <h3>History of Venus Missions</h3>
-            <table class="comparison-table">
-                <thead>
-                    <tr>
-                        <th>Launch Date</th>
-                        <th>Spacecraft</th>
-                        <th>Agency</th>
-                        <th>Type</th>
-                        <th>Objective</th>
-                        <th>Outcome</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Dec. 14, 1962</td>
-                        <td><a href="https://solarsystem.nasa.gov/missions/mariner-2/in-depth/" target="_blank" rel="noopener">Mariner 2</a></td>
-                        <td>USA</td>
-                        <td>Flyby</td>
-                        <td>First successful mission to another planet</td>
-                        <td>Success-First</td>
-                    </tr>
-                    <tr>
-                        <td>Nov. 3, 1973</td>
-                        <td><a href="https://solarsystem.nasa.gov/missions/mariner-10/in-depth/" target="_blank" rel="noopener">Mariner 10</a></td>
-                        <td>USA</td>
-                        <td>Flyby</td>
-                        <td>Study Mercury and Venus in single mission</td>
-                        <td>Success</td>
-                    </tr>
-                    <tr>
-                        <td>May 20, 1978</td>
-                        <td><a href="https://solarsystem.nasa.gov/missions/pioneer-venus-1/in-depth/" target="_blank" rel="noopener">Pioneer Venus 1</a></td>
-                        <td>USA</td>
-                        <td>Orbiter</td>
-                        <td>First U.S. spacecraft to orbit Venus</td>
-                        <td>Success</td>
-                    </tr>
-                    <tr>
-                        <td>May 4, 1989</td>
-                        <td><a href="https://www.jpl.nasa.gov/missions/magellan/" target="_blank" rel="noopener">Magellan</a></td>
-                        <td>USA</td>
-                        <td>Orbiter</td>
-                        <td>Image the entire surface of Venus</td>
-                        <td>Success</td>
-                    </tr>
-                    <tr>
-                        <td>Nov. 9, 2005</td>
-                        <td><a href="https://www.esa.int/Science_Exploration/Space_Science/Venus_Express" target="_blank" rel="noopener">Venus Express</a></td>
-                        <td>ESA</td>
-                        <td>Orbiter</td>
-                        <td>First European spacecraft to orbit Venus</td>
-                        <td>Success</td>
-                    </tr>
-                    <tr>
-                        <td>May 20, 2010</td>
-                        <td><a href="https://global.jaxa.jp/projects/sat/akatsuki/" target="_blank" rel="noopener">Akatsuki</a></td>
-                        <td>Japan</td>
-                        <td>Orbiter</td>
-                        <td>Study Venus atmosphere and climate</td>
-                        <td>Success</td>
-                    </tr>
-                    <tr>
-                        <td>Various (2018-2024)</td>
-                        <td><a href="https://www.nasa.gov/content/goddard/parker-solar-probe" target="_blank" rel="noopener">Parker Solar Probe</a></td>
-                        <td>USA</td>
-                        <td>Flyby (multiple, 7 total)</td>
-                        <td>Use Venus flybys for solar study trajectory</td>
-                        <td>Success (all flybys)</td>
-                    </tr>
-                    <tr>
-                        <td>Various (2018-2021)</td>
-                        <td><a href="https://www.esa.int/Science_Exploration/Space_Science/BepiColombo" target="_blank" rel="noopener">BepiColombo</a></td>
-                        <td>ESA/JAXA</td>
-                        <td>Flyby (multiple)</td>
-                        <td>Use Venus flybys for Mercury mission</td>
-                        <td>Success</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p>Future missions include NASA's DAVINCI (orbiter/descent probe to study from clouds to surface), VERITAS (orbiter for exploration since the 1990s) and ESA's EnVision (orbiter for history, activity, and climate in the 2030s). Our low-cost probe complements these by targeting practical colonization data now.</p>
-        </section>
-
-        <div class="starry-bar" id="star-bar-3"></div>
-
-        <section id="vsmars" class="content-section centered-section">
-            <h2>Vs Mars</h2>
-            <p>Why Venus? It's not competition—it's complementarity. But Venus edges out for life extension, though we acknowledge challenges like cloud-reduced solar power<sup><a href="https://www.sciencedirect.com/science/article/pii/S0019103521004449">[7]</a></sup>, acid-complicated resources<sup><a href="https://www.nasa.gov/centers-and-facilities/glenn/cook-crush-choke-testing-components-before-launching-to-venus/">[4]</a></sup> and radiation in clouds<sup><a href="https://www.aanda.org/articles/aa/full_html/2020/01/aa36968-19/aa36968-19.html">[8]</a></sup><sup><a href="https://www.mos.org/article/planetary-profile-vagaries-venus">[29]</a></sup>.</p>
-            <table class="comparison-table">
-                <thead>
-                    <tr>
-                        <th>Aspect</th>
-                        <th>Venus</th>
-                        <th>Mars</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Travel Time (Current)</td>
-                        <td>3-6 months</td>
-                        <td>6-9 months</td>
-                    </tr>
-                    <tr>
-                        <td>Travel Time (VenusExpress/Advanced)</td>
-                        <td>30-45 days (nuclear electric/VASIMR)</td>
-                        <td>~3-4 months (similar tech)</td>
-                    </tr>
-                    <tr>
-                        <td>Gravity</td>
-                        <td>0.903g (90.3% Earth)</td>
-                        <td>0.38g (health risks)</td>
-                    </tr>
-                    <tr>
-                        <td>Atmosphere</td>
-                        <td>Dense, resource-rich; habitable altitude 50-55km: 0-75°C, 0.5-1 bar</td>
-                        <td>Thin, cold; needs domes (-60°C avg, 0.006 bar)</td>
-                    </tr>
-                    <tr>
-                        <td>Solar Irradiance</td>
-                        <td>2601 W/m² (1.91x Earth), but reduced by clouds</td>
-                        <td>590 W/m² (0.43x Earth)</td>
-                    </tr>
-                    <tr>
-                        <td>Solar Production</td>
-                        <td>High potential via floating arrays; diffused in clouds but tetherable</td>
-                        <td>Lower flux, dust issues reduce efficiency</td>
-                    </tr>
-                    <tr>
-                        <td>Resources</td>
-                        <td>CO2 96.5%, N2 3.5%, SO2 150ppm, acids—abundant for ISRU, but corrosion challenges</td>
-                        <td>Water ice, but sparse; thin CO2 atm</td>
-                    </tr>
-                    <tr>
-                        <td>Challenges</td>
-                        <td>Acid clouds (mitigated by altitude/materials), radiation</td>
-                        <td>Radiation, dust storms, low gravity</td>
-                    </tr>
-                    <tr>
-                        <td>Life Potential</td>
-                        <td>Possible cloud microbes (phosphine, under debate as of 2025)<sup><a href="https://link.aps.org/doi/10.1103/Physics.13.201">[9]</a></sup><sup><a href="https://www.frontiersin.org/journals/astronomy-and-space-sciences/articles/10.3389/fspas.2024.1372057/full">[10]</a></sup><sup><a href="https://phys.org/news/2025-06-clouds-venus-host-life.html">[14]</a></sup><sup><a href="https://www.space.com/venus-clouds-life-phosphine-evidence-debate">[22]</a></sup></td>
-                        <td>Past life evidence</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p>Venus: Faster setup for floating cities, better for long-term human/AI thriving, though recent studies suggest it was never water-rich or habitable long-term<sup><a href="https://news.uchicago.edu/story/was-venus-ever-habitable-new-uchicago-study-casts-doubt">[11]</a></sup><sup><a href="https://www.cam.ac.uk/research/news/researchers-deal-a-blow-to-theory-that-venus-once-had-liquid-water-on-its-surface">[12]</a></sup><sup><a href="https://www.theguardian.com/science/2024/dec/02/venus-life-water-atmosphere-analysis-science-research">[13]</a></sup><sup><a href="https://www.sci.news/space/venus-habitability-13490.html">[30]</a></sup>. Mars ground ops complement. Back Venus first—it's the smart bet.</p>
-            <h3>Venus Facts</h3>
-            <ul class="facts-list">
-                <li><strong>Gravity:</strong> 0.903g (90.3% of Earth's gravity)—near-ideal for long-term human health, minimal bone/muscle loss compared to low-g environments.</li>
-                <li><strong>Habitable Layer:</strong> At 50-55km altitude, temperatures range from 75°C at 50km to ~0-30°C at 55km; pressure ~1 bar at 50km dropping to ~0.5 bar at 55km—Earth-like, breathable with O2 supplementation.</li>
-                <li><strong>Resource Rich Atmosphere:</strong> 96.5% CO2 (for fuel via Sabatier process, plastics); 3.5% N2 (for air mixtures); traces: SO2 (150 ppm, for sulfuric acid batteries/fertilizers); Ar (70 ppm); H2O (20 ppm); CO (17 ppm); He (12 ppm); Ne (7 ppm); H2SO4 in clouds (for chemical feedstocks).</li>
-                <li><strong>Solar Irradiance:</strong> Top-of-atmosphere: 2601 W/m² (1.91x Earth's 1361 W/m²)—immense potential; at 50-55km within clouds, diffused but still ~100-200 W/m² direct, enabling high-efficiency solar arrays (e.g., 30% efficient panels yielding >500 W/m² peak above clouds via tethered collectors).</li>
-                <li><strong>Solar Energy Production:</strong> Floating habitats could harness 1.9x Earth's solar flux; with cloud albedo reflecting 75%, sub-cloud irradiance ~65 W/m², but elevated panels capture more—potential for GW-scale farms powering AI datacenters, electrolysis for fuels.</li>
-                <li><strong>Sun Sensation:</strong> Through habitat glass (UV-filtered), sunlight feels warmer/intense due to higher irradiance—akin to Earth's tropics but brighter; skin senses gentle heat, no burn risk with proper shielding, evoking perpetual golden hour.</li>
-                <li><strong>Proximity Advantage:</strong> Closer orbit: 3-6 months current travel; with VenusExpress (nuclear electric/VASIMR), 30-45 days at 0.1-0.2g acceleration—easier resupply, lower radiation exposure en route.</li>
-                <li><strong>Astrobiology Hotspot:</strong> Phosphine detection suggests microbial life—probe could confirm, rewrite biology, though debate continues on its origin<sup><a href="https://link.aps.org/doi/10.1103/Physics.13.201">[9]</a></sup><sup><a href="https://www.frontiersin.org/journals/astronomy-and-space-sciences/articles/10.3389/fspas.2024.1372057/full">[10]</a></sup><sup><a href="https://phys.org/news/2025-06-clouds-venus-host-life.html">[14]</a></sup><sup><a href="https://www.space.com/venus-clouds-life-phosphine-evidence-debate">[22]</a></sup>.</li>
-            </ul>
-            <p>These facts make Venus irresistible. Back AETHER: Probe data unlocks this potential.</p>
-
-            <h3>Venus Atmosphere Profile</h3>
-            <style type="text/css">
-                #T_updated_row0_col1, #T_updated_row1_col1, #T_updated_row2_col1, #T_updated_row3_col1, #T_updated_row4_col1 {
-                  color: #007bff; /* Blue for cold */
-                }
-                #T_updated_row0_col2, #T_updated_row1_col2, #T_updated_row2_col2, #T_updated_row3_col2, #T_updated_row4_col2, #T_updated_row5_col2, #T_updated_row6_col2 {
-                  background-color: #e9ecef; /* Light gray for low pressure */
-                }
-                #T_updated_row5_col1, #T_updated_row6_col1 {
-                  color: #28a745; /* Green for habitable temp */
-                }
-                #T_updated_row7_col1, #T_updated_row8_col1, #T_updated_row9_col1, #T_updated_row10_col1, #T_updated_row11_col1, #T_updated_row12_col1, #T_updated_row13_col1, #T_updated_row14_col1, #T_updated_row15_col1, #T_updated_row16_col1, #T_updated_row17_col1 {
-                  color: #dc3545; /* Red for hot */
-                }
-                #T_updated_row7_col2, #T_updated_row8_col2, #T_updated_row9_col2, #T_updated_row10_col2, #T_updated_row11_col2 {
-                  background-color: #ced4da; /* Gray for medium pressure */
-                }
-                #T_updated_row12_col2, #T_updated_row13_col2, #T_updated_row14_col2, #T_updated_row15_col2, #T_updated_row16_col2, #T_updated_row17_col2 {
-                  background-color: #6f42c1; /* Purple for high pressure */
-                }
-                #T_updated_row5, #T_updated_row6 {
-                  background-color: rgba(40,167,69,0.1); /* Light green shade for habitable rows */
-                }
-            </style>
-            <table id="T_updated" class="comparison-table">
-              <thead>
-                <tr>
-                  <th class="blank level0" > </th>
-                  <th id="T_updated_level0_col0" class="col_heading level0 col0" >Altitude (km)</th>
-                  <th id="T_updated_level0_col1" class="col_heading level0 col1" >Temperature (°C / °F)</th>
-                  <th id="T_updated_level0_col2" class="col_heading level0 col2" >Pressure (atm)</th>
-                  <th id="T_updated_level0_col3" class="col_heading level0 col3" >Chemical Makeup</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th id="T_updated_level0_row0" class="row_heading level0 row0" >0</th>
-                  <td id="T_updated_row0_col0" class="data row0 col0" >80</td>
-                  <td id="T_updated_row0_col1" class="data row0 col1" >-76 (-104.8)</td>
-                  <td id="T_updated_row0_col2" class="data row0 col2" >0.004760</td>
-                  <td id="T_updated_row0_col3" class="data row0 col3" >CO2: 96.5%, N2: 3.5%; Traces minimal (e.g., He ~12 ppm). Upper mesosphere, thin gases.</td>
-                </tr>
-                <tr>
-                  <th id="T_updated_level0_row1" class="row_heading level0 row1" >1</th>
-                  <td id="T_updated_row1_col0" class="data row1 col0" >75</td>
-                  <td id="T_updated_row1_col1" class="data row1 col1" >-58 (-72.4)</td>
-                  <td id="T_updated_row1_col2" class="data row1 col2" >0.013600</td>
-                  <td id="T_updated_row1_col3" class="data row1 col3" >CO2: 96.5%, N2: 3.5%; Similar to above, low traces.</td>
-                </tr>
-                <tr>
-                  <th id="T_updated_level0_row2" class="row_heading level0 row2" >2</th>
-                  <td id="T_updated_row2_col0" class="data row2 col0" >70</td>
-                  <td id="T_updated_row2_col1" class="data row2 col1" >-43 (-45.4)</td>
-                  <td id="T_updated_row2_col2" class="data row2 col2" >0.036900</td>
-                  <td id="T_updated_row2_col3" class="data row2 col3" >CO2: 96.5%, N2: 3.5%; Upper cloud layer; H2SO4 droplets begin (~1-2% by volume in clouds). SO2 ~150 ppm.</td>
-                </tr>
-                <tr>
-                  <th id="T_updated_level0_row3" class="row_heading level0 row3" >3</th>
-                  <td id="T_updated_row3_col0" class="data row3 col0" >65</td>
-                  <td id="T_updated_row3_col1" class="data row3 col1" >-30 (-22)</td>
-                  <td id="T_updated_row3_col2" class="data row3 col2" >0.097650</td>
-                  <td id="T_updated_row3_col3" class="data row3 col3" >CO2: 96.5%, N2: 3.5%; Middle clouds; H2SO4 ~75% of cloud mass, SO2 increases.</td>
-                </tr>
-                <tr>
-                  <th id="T_updated_level0_row4" class="row_heading level0 row4" >4</th>
-                  <td id="T_updated_row4_col0" class="data row4 col0" >60</td>
-                  <td id="T_updated_row4_col1" class="data row4 col1" >-10 (14)</td>
-                  <td id="T_updated_row4_col2" class="data row4 col2" >0.235700</td>
-                  <td id="T_updated_row4_col3" class="data row4 col3" >CO2: 96.5%, N2: 3.5%; Lower clouds; H2O ~20 ppm, CO ~17 ppm.</td>
-                </tr>
-                <tr>
-                  <th id="T_updated_level0_row5" class="row_heading level0 row5" >5</th>
-                  <td id="T_updated_row5_col0" class="data row5 col0" >55</td>
-                  <td id="T_updated_row5_col1" class="data row5 col1" >27 (80.6)</td>
-                  <td id="T_updated_row5_col2" class="data row5 col2" >0.531400</td>
-                  <td id="T_updated_row5_col3" class="data row5 col3" >CO2: 96.5%, N2: 3.5%; Earth-like temp/pressure; Traces: Ar ~70 ppm, Ne ~7 ppm, PH3 ~1 ppb (debated).</td>
-                </tr>
-                <tr>
-                  <th id="T_updated_level0_row6" class="row_heading level0 row6" >6</th>
-                  <td id="T_updated_row6_col0" class="data row6 col0" >53</td>
-                  <td id="T_updated_row6_col1" class="data row6 col1" >46 (115)</td>
-                  <td id="T_updated_row6_col2" class="data row6 col2" >0.745000</td>
-                  <td id="T_updated_row6_col3" class="data row6 col3" >CO2: 96.5%, N2: 3.5%; Within habitable zone clouds; Traces: SO2 ~150 ppm, H2SO4 droplets, PH3 ~300 ppb (preliminary).</td>
-                </tr>
-                <tr>
-                  <th id="T_updated_level0_row7" class="row_heading level0 row7" >7</th>
-                  <td id="T_updated_row7_col0" class="data row7 col0" >50</td>
-                  <td id="T_updated_row7_col1" class="data row7 col1" >75 (167)</td>
-                  <td id="T_updated_row7_col2" class="data row7 col2" >1.066000</td>
-                  <td id="T_updated_row7_col3" class="data row7 col3" >CO2: 96.5%, N2: 3.5%; Below main clouds; SO2 decreases below clouds.</td>
-                </tr>
-                <tr>
-                  <th id="T_updated_level0_row8" class="row_heading level0 row8" >8</th>
-                  <td id="T_updated_row8_col0" class="data row8 col0" >45</td>
-                  <td id="T_updated_row8_col1" class="data row8 col1" >110 (230)</td>
-                  <td id="T_updated_row8_col2" class="data row8 col2" >1.979000</td>
-                  <td id="T_updated_row8_col3" class="data row8 col3" >CO2: 96.5%, N2: 3.5%; Stable composition.</td>
-                </tr>
-                <tr>
-                  <th id="T_updated_level0_row9" class="row_heading level0 row9" >9</th>
-                  <td id="T_updated_row9_col0" class="data row9 col0" >40</td>
-                  <td id="T_updated_row9_col1" class="data row9 col1" >143 (289.4)</td>
-                  <td id="T_updated_row9_col2" class="data row9 col2" >3.501000</td>
-                  <td id="T_updated_row9_col3" class="data row9 col3" >CO2: 96.5%, N2: 3.5%; Minor traces consistent.</td>
-                </tr>
-                <tr>
-                  <th id="T_updated_level0_row10" class="row_heading level0 row10" >10</th>
-                  <td id="T_updated_row10_col0" class="data row10 col0" >35</td>
-                  <td id="T_updated_row10_col1" class="data row10 col1" >180 (356)</td>
-                  <td id="T_updated_row10_col2" class="data row10 col2" >5.917000</td>
-                  <td id="T_updated_row10_col3" class="data row10 col3" >CO2: 96.5%, N2: 3.5%.</td>
-                </tr>
-                <tr>
-                  <th id="T_updated_level0_row11" class="row_heading level0 row11" >11</th>
-                  <td id="T_updated_row11_col0" class="data row11 col0" >30</td>
-                  <td id="T_updated_row11_col1" class="data row11 col1" >222 (431.6)</td>
-                  <td id="T_updated_row11_col2" class="data row11 col2" >9.851000</td>
-                  <td id="T_updated_row11_col3" class="data row11 col3" >CO2: 96.5%, N2: 3.5%.</td>
-                </tr>
-                <tr>
-                  <th id="T_updated_level0_row12" class="row_heading level0 row12" >12</th>
-                  <td id="T_updated_row12_col0" class="data row12 col0" >25</td>
-                  <td id="T_updated_row12_col1" class="data row12 col1" >264 (507.2)</td>
-                  <td id="T_updated_row12_col2" class="data row12 col2" >14.930000</td>
-                  <td id="T_updated_row12_col3" class="data row12 col3" >CO2: 96.5%, N2: 3.5%.</td>
-                </tr>
-                <tr>
-                  <th id="T_updated_level0_row13" class="row_heading level0 row13" >13</th>
-                  <td id="T_updated_row13_col0" class="data row13 col0" >20</td>
-                  <td id="T_updated_row13_col1" class="data row13 col1" >306 (582.8)</td>
-                  <td id="T_updated_row13_col2" class="data row13 col2" >22.520000</td>
-                  <td id="T_updated_row13_col3" class="data row13 col3" >CO2: 96.5%, N2: 3.5%.</td>
-                </tr>
-                <tr>
-                  <th id="T_updated_level0_row14" class="row_heading level0 row14" >14</th>
-                  <td id="T_updated_row14_col0" class="data row14 col0" >15</td>
-                  <td id="T_updated_row14_col1" class="data row14 col1" >348 (658.4)</td>
-                  <td id="T_updated_row14_col2" class="data row14 col2" >33.040000</td>
-                  <td id="T_updated_row14_col3" class="data row14 col3" >CO2: 96.5%, N2: 3.5%.</td>
-                </tr>
-                <tr>
-                  <th id="T_updated_level0_row15" class="row_heading level0 row15" >15</th>
-                  <td id="T_updated_row15_col0" class="data row15 col0" >10</td>
-                  <td id="T_updated_row15_col1" class="data row15 col1" >385 (725)</td>
-                  <td id="T_updated_row15_col2" class="data row15 col2" >47.390000</td>
-                  <td id="T_updated_row15_col3" class="data row15 col3" >CO2: 96.5%, N2: 3.5%.</td>
-                </tr>
-                <tr>
-                  <th id="T_updated_level0_row16" class="row_heading level0 row16" >16</th>
-                  <td id="T_updated_row16_col0" class="data row16 col0" >5</td>
-                  <td id="T_updated_row16_col1" class="data row16 col1" >424 (795.2)</td>
-                  <td id="T_updated_row16_col2" class="data row16 col2" >66.650000</td>
-                  <td id="T_updated_row16_col3" class="data row16 col3" >CO2: 96.5%, N2: 3.5%; Near-surface, traces like SO2 ~130 ppm.</td>
-                </tr>
-                <tr>
-                  <th id="T_updated_level0_row17" class="row_heading level0 row17" >17</th>
-                  <td id="T_updated_row17_col0" class="data row17 col0" >0</td>
-                  <td id="T_updated_row17_col1" class="data row17 col1" >462 (863.6)</td>
-                  <td id="T_updated_row17_col2" class="data row17 col2" >92.100000</td>
-                  <td id="T_updated_row17_col3" class="data row17 col3" >CO2: 96.5%, N2: 3.5%; Traces: SO2 ~150 ppm, H2O ~20 ppm, CO ~17 ppm, Ar ~70 ppm.</td>
-                </tr>
-              </tbody>
-            </table>
-
-            <h3>Chemical Explainer</h3>
-            <p>Key chemicals in Venus's atmosphere, their uses, feedstocks, and Mars comparison (Mars: ~95% CO2 at 0.006 atm, water ice, regolith, no acid clouds).</p>
-            <ul class="facts-list">
-                <li><strong>CO2 (Carbon Dioxide):</strong> Greenhouse gas for ISRU. Feedstocks: O2 (electrolysis), H2O/fuel (Sabatier), C for materials. Vs Mars: Dense atm easier to harvest than Mars's thin CO2/ice.</li>
-                <li><strong>N2 (Nitrogen):</strong> For breathable air. Feedstocks: NH3 fertilizers (Haber-Bosch). Vs Mars: Higher volume in dense atm vs Mars's sparse 2.6% N2.</li>
-                <li><strong>H2SO4 (Sulfuric Acid):</strong> Corrosive but for processing. Feedstocks: S for batteries/fertilizers. Vs Mars: Cloud harvesting vs ground sulfates.</li>
-                <li><strong>SO2 (Sulfur Dioxide):</strong> Acid precursor. Feedstocks: H2SO4, S fertilizers. Vs Mars: Higher conc. for chemistry vs trace volcanism.</li>
-                <li><strong>H2O (Water):</strong> Critical for life/fuel. Feedstocks: H2/O2 (electrolysis). Vs Mars: Scarce vapor vs abundant ice—Mars advantage.</li>
-                <li><strong>CO (Carbon Monoxide):</strong> Fuel gas. Feedstocks: Methanol synthesis. Vs Mars: Similar trace scarcity, Venus density aids.</li>
-                <li><strong>Ar (Argon):</strong> Inert for welding. Vs Mars: Lower % but denser atm yields more vs Mars's 1.9%.</li>
-                <li><strong>He (Helium):</strong> For cryogenics/balloons. Vs Mars: Similar trace, Venus easier to filter.</li>
-                <li><strong>Ne (Neon):</strong> For lighting/cryogenics. Vs Mars: Negligible for both, minor Venus edge.</li>
-            </ul>
-            <p>Data from VIRA model. Interpolation for 53 km assumes linear change; actual may vary. <sup><a href="https://en.wikipedia.org/wiki/Atmosphere_of_Venus">[34]</a></sup></p>
-        </section>
-
-        <div class="starry-bar" id="star-bar-4"></div>
-
-        <section id="timeline" class="content-section centered-section">
-            <h2>Timeline</h2>
-            <p>We're moving fast!</p>
-            <h3>Our Vision: Life on Venus</h3>
-            <p>Project AETHER paves the way for floating cities at 50km altitude with 0.9g gravity, radiation shielding, and abundant resources. Humans and AI will co-exist in engineered serenity, extending consciousness across the solar system. Venus offers superior solar energy, closer proximity for faster trips via VenusExpress (30-45 days), and astrobiology potential. Back now to secure this multi-planetary future<sup><a href="https://en.wikipedia.org/wiki/Colonization_of_Venus">[31]</a></sup><sup><a href="https://forum.kerbalspaceprogram.com/topic/129619-venus-vs-mars-colonization/">[32]</a></sup><sup><a href="https://space.stackexchange.com/questions/27797/venus-vs-mars-for-colonization">[33]</a></sup>.</p>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Now: Crowdfunding & Development - 2025</h3>
-                        <p>Secure initial funding through crowdfunding platforms, design and build initial prototypes of the Cloudseeker probe and CubeSat relay, integrate xAI models for navigation and data analysis, conduct preliminary simulations of Venus atmospheric conditions, assemble core team of engineers and scientists, solicit hardware donations from partners, recruit volunteers including software developers for AI optimization and hardware fabricators for balloon testing. Need: Substantial donations to hit $500k goal, skilled volunteers in aerospace engineering, AI specialists and materials science experts to accelerate development.</p>
+            <!-- Mission Section -->
+            <section id="mission" class="glass-panel p-8 md:p-12 rounded-2xl">
+                <h2 class="text-4xl font-bold mb-6" style="color: var(--accent-orange);">The Mission: Project AETHER</h2>
+                <div class="grid md:grid-cols-2 gap-8 text-lg text-gray-300">
+                    <div>
+                        <p class="mb-4">Project AETHER sends <strong>Cloudseeker</strong>, a miniprobe, to Venus's atmosphere. It will unlock data on energy and resources critical for future floating habitats, extending human life, consciousness, and AI to another world.</p>
+                        <p>Targeting the 50-55 km altitude—where conditions are surprisingly Earth-like—Cloudseeker's goal is to validate habitation models, test resource extraction techniques, and search for astrobiological markers. With a planned launch in 2027, its data will fuel the development of Venusian colonies and secure humanity's multi-planetary survival.</p>
+                    </div>
+                    <div>
+                        <p class="mb-4">Venus offers abundant solar power, CO2 for fuel, and nitrogen for breathable air. We seek less than <strong>$500,000 in crowdfunding</strong> for the build, testing, and launch. While our budget is modest compared to Rocket Lab's Venus Life Finder (<$10M), it's hyper-focused on validating habitation concepts.</p>
+                        <p>With our hypothetical <strong>VenusExpress</strong> service, leveraging next-gen propulsion, travel time could shrink to 30-45 days—enabling frequent resupply and human missions. This is humanity's backup plan, and Venus ensures life can thrive across the solar system.</p>
                     </div>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Testing & Integration - 2026</h3>
-                        <p>Perform rigorous ground-based simulations using environmental chambers to mimic Venus's acid clouds and pressures, integrate sensor suite with aerostat balloon for endurance tests, validate AI navigation in simulated dynamic atmospheres, secure lab access for high-fidelity prototyping, conduct integration tests between probe and relay CubeSat for data transmission, iterate on designs based on test results, partner with universities for expert reviews and additional testing resources. Need: Access to specialized testing facilities like vacuum chambers and acid exposure labs, input from atmospheric scientists and AI ethicists, more volunteers for data analysis and hardware debugging.</p>
+            </section>
+
+            <!-- Slideshow Section -->
+            <section id="gallery">
+                <h2 class="text-4xl font-bold mb-6 text-center" style="color: var(--accent-orange);">Envisioning Venus: Possible Future Snapshots</h2>
+                <div class="slideshow-container glass-panel">
+                    <div class="slide" style="background-image: url('https://placehold.co/1200x500/1a1a1a/ff4500?text=Celestial+Vista');"></div>
+                    <div class="slide" style="background-image: url('https://placehold.co/1200x500/2a2a2a/ff4500?text=Floating+Habitat');"></div>
+                    <div class="slide" style="background-image: url('https://placehold.co/1200x500/0a0a0a/ff4500?text=Venusian+Spaceport');"></div>
+                    <div class="slide" style="background-image: url('https://placehold.co/1200x500/1c1c1c/ff4500?text=Cloud-Top+City');"></div>
+                    <div class="slide" style="background-image: url('https://placehold.co/1200x500/2c2c2c/ff4500?text=A+New+Horizon');"></div>
+                </div>
+            </section>
+
+            <!-- Technology Section -->
+            <section id="tech" class="text-right">
+                <div class="inline-block max-w-4xl ml-auto glass-panel p-8 md:p-12 rounded-2xl">
+                    <h2 class="text-4xl font-bold mb-6 text-left" style="color: var(--accent-orange);">Technology: The Cloudseeker Probe</h2>
+                    <div class="space-y-6 text-lg text-gray-300 text-left">
+                        <p>Cloudseeker uses miniaturized tech designed for Venus's extremes, enabling future life-sustaining outposts. We acknowledge risks like sulfuric acid corrosion, which we mitigate with advanced materials, but probes may have short lifetimes.</p>
+                        <ul class="list-disc list-inside space-y-4">
+                            <li><strong>Acid-Resistant Aerostat:</strong> A fluoropolymer balloon designed to resist sulfuric acid and float in the habitable zone—the basis for future human/AI habitats.</li>
+                            <li><strong>Integrated Sensor Suite:</strong> A 1kg pod with a 4K camera, mass spectrometers, and bio-sensors (updated for ammonia/phosphine) to detect resources and potential signs of life.</li>
+                            <li><strong>3U CubeSat Relay:</strong> Orbits Venus to transmit high-bandwidth data back to Earth, essential for colony communications, though cloud opacity remains a challenge.</li>
+                            <li><strong>AI-Optimized Navigation:</strong> Powered by @xAI models, our systems enable autonomous operations in a dynamic atmosphere—key for AI-human synergy off-Earth.</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Launch & Deployment - 2027</h3>
-                        <p>Finalize partnerships for launch vehicle (e.g., rideshare on Falcon 9 or similar), transport assembled probe to launch site for final checks, execute launch to Venus trajectory, deploy Cloudseeker into atmosphere at target altitude, activate CubeSat relay for orbital data handling, monitor real-time data streams on atmospheric conditions and resource viability, analyze incoming telemetry for habitation model validation, share initial findings with supporters and scientific community for feedback. Need: Reliable launch providers, ground station support for tracking, volunteers for mission control operations and public outreach during deployment phase.</p>
-                    </div>
+            </section>
+            
+            <!-- Why Venus Section -->
+            <section id="why-venus" class="glass-panel p-8 md:p-12 rounded-2xl">
+                <h2 class="text-4xl font-bold mb-6" style="color: var(--accent-orange);">Why Venus? The Smart Bet</h2>
+                <p class="text-lg text-gray-300 mb-8">It's not competition with Mars—it's complementarity. But for extending life, Venus has a clear edge. We acknowledge challenges like cloud-reduced solar power, acid-complicated resources, and radiation, but the advantages are undeniable.</p>
+                <div class="overflow-x-auto rounded-lg">
+                    <table class="font-mono">
+                        <thead>
+                            <tr><th>Aspect</th><th>Venus</th><th>Mars</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Travel Time (Current)</td><td>3-6 months</td><td>6-9 months</td></tr>
+                            <tr><td>Gravity</td><td>0.903g (90.3% Earth)</td><td>0.38g (health risks)</td></tr>
+                            <tr><td>Atmosphere</td><td>Dense, resource-rich; habitable at 50-55km</td><td>Thin, cold; needs domes (-60°C avg)</td></tr>
+                            <tr><td>Solar Irradiance</td><td>1.91x Earth, high potential</td><td>0.43x Earth, dust issues</td></tr>
+                            <tr><td>Resources</td><td>Abundant CO2, N2, SO2 for ISRU</td><td>Water ice, but sparse; thin CO2</td></tr>
+                            <tr><td>Life Potential</td><td>Possible cloud microbes (phosphine debate)</td><td>Past life evidence</td></tr>
+                        </tbody>
+                    </table>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Beyond: Habitat Buildout - Beyond</h3>
-                        <p>Utilize probe data to design scalable floating outposts, develop AI-human symbiotic systems for colony management, secure additional funding for larger missions based on AETHER success, collaborate with international partners for habitat construction, test advanced materials for long-term Venus exposure, plan crewed missions using VenusExpress propulsion tech, establish initial AI data centers in atmosphere for computation off-Earth, expand to full colonies ensuring multi-planetary redundancy for all life forms. Need: Ongoing investments, global volunteers in architecture, biology and robotics to build and sustain habitats.</p>
-                    </div>
+            </section>
+
+            <!-- History Section -->
+            <section id="history" class="glass-panel p-8 md:p-12 rounded-2xl">
+                <h2 class="text-4xl font-bold mb-6" style="color: var(--accent-orange);">History & Context</h2>
+                <p class="text-lg text-gray-300 mb-8">While government and private efforts advance Venus exploration, Project AETHER fills a unique niche at a fraction of the cost. We stand on the shoulders of giants, but our eyes are fixed on a different prize: habitation.</p>
+                <h3 class="text-2xl font-bold text-white mb-4">Competing Missions: How We Stand Out</h3>
+                <div class="overflow-x-auto rounded-lg mb-12">
+                     <table class="font-mono">
+                        <thead>
+                            <tr><th>Mission</th><th>Type/Funder</th><th>Cost</th><th>Focus</th><th>Launch</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Rocket Lab Venus Life Finder</td><td>Private</td><td>&lt;$10M</td><td>Astrobiology in clouds</td><td>2025</td></tr>
+                            <tr><td>NASA DAVINCI</td><td>Government</td><td>~$500M</td><td>Atmosphere chemistry</td><td>2029</td></tr>
+                            <tr><td>NASA VERITAS</td><td>Government</td><td>~$500M</td><td>Surface mapping</td><td>2031</td></tr>
+                            <tr><td>ESA EnVision</td><td>Government</td><td>~$383M</td><td>Orbiter studies</td><td>2031</td></tr>
+                            <tr><td><strong>Project AETHER (Ours)</strong></td><td><strong>Crowd-funded</strong></td><td><strong>$0.5M</strong></td><td><strong>Habitation validation, ISRU</strong></td><td><strong>2027</strong></td></tr>
+                        </tbody>
+                    </table>
                 </div>
+                <h3 class="text-2xl font-bold text-white mb-4">Key Historical Missions</h3>
+                 <div class="overflow-x-auto rounded-lg">
+                     <table class="font-mono">
+                        <thead>
+                            <tr><th>Launch Date</th><th>Spacecraft</th><th>Agency</th><th>Objective</th><th>Outcome</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Dec. 14, 1962</td><td>Mariner 2</td><td>USA</td><td>First successful mission to another planet</td><td>Success</td></tr>
+                            <tr><td>May 20, 1978</td><td>Pioneer Venus 1</td><td>USA</td><td>First U.S. spacecraft to orbit Venus</td><td>Success</td></tr>
+                            <tr><td>May 4, 1989</td><td>Magellan</td><td>USA</td><td>Image the entire surface of Venus</td><td>Success</td></tr>
+                            <tr><td>Nov. 9, 2005</td><td>Venus Express</td><td>ESA</td><td>First European spacecraft to orbit Venus</td><td>Success</td></tr>
+                            <tr><td>May 20, 2010</td><td>Akatsuki</td><td>Japan</td><td>Study Venus atmosphere and climate</td><td>Success</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Timeline Section -->
+            <section id="timeline" class="space-y-12">
+                 <h2 class="text-4xl font-bold text-center" style="color: var(--accent-orange);">Our Timeline</h2>
+                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="glass-panel p-6 rounded-xl border-t-4" style="border-color: var(--accent-orange);">
+                        <h3 class="text-2xl font-black text-white">2025</h3>
+                        <p class="font-bold mb-2" style="color: var(--accent-orange);">NOW: Crowdfunding & Development</p>
+                        <p class="text-gray-300">Secure funding, build prototypes, integrate AI models, and assemble our core team. We need donations and skilled volunteers to accelerate development.</p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-xl border-t-4" style="border-color: var(--accent-orange);">
+                        <h3 class="text-2xl font-black text-white">2026</h3>
+                        <p class="font-bold mb-2" style="color: var(--accent-orange);">Testing & Integration</p>
+                        <p class="text-gray-300">Perform rigorous ground simulations, validate AI navigation, and conduct integration tests between the probe and relay CubeSat.</p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-xl border-t-4" style="border-color: var(--accent-orange);">
+                        <h3 class="text-2xl font-black text-white">2027</h3>
+                        <p class="font-bold mb-2" style="color: var(--accent-orange);">Launch & Deployment</p>
+                        <p class="text-gray-300">Finalize launch partnerships, deploy Cloudseeker into the Venusian atmosphere, and begin real-time data analysis to validate our models.</p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-xl border-t-4" style="border-color: var(--accent-orange);">
+                        <h3 class="text-2xl font-black text-white">Beyond</h3>
+                        <p class="font-bold mb-2" style="color: var(--accent-orange);">Habitat Buildout</p>
+                        <p class="text-gray-300">Utilize probe data to design scalable floating outposts, develop AI-human symbiotic systems, and plan for a sustained presence on Venus.</p>
+                    </div>
+                 </div>
+            </section>
+
+             <!-- Support Section -->
+            <section id="support" class="glass-panel p-8 md:p-12 rounded-2xl text-center">
+                <h2 class="text-4xl font-bold mb-2" style="color: var(--accent-orange);">Join The Mission</h2>
+                <p class="text-lg text-gray-300 mb-8 max-w-3xl mx-auto">Our strength lies in community. We are looking for passionate engineers, AI specialists, fabricators, and outreach coordinators to help build the future. Your skills are the most valuable asset we have.</p>
+                <a href="mailto:volunteer@nephelisindustries.com" class="inline-block font-bold py-3 px-8 rounded-lg text-lg text-white transition-all transform hover:scale-105 shadow-lg shadow-orange-500/20" style="background-color: var(--accent-orange);">
+                    Volunteer Your Skills &rarr;
+                </a>
+            </section>
+
+        </main>
+
+        <footer class="text-center p-8 text-gray-500 content-section">
+            <p class="mb-2">&copy; 2026 Nephelis Industries. All Rights Reserved. We comply with FAA/ITAR regulations.</p>
+            <div class="space-x-4">
+                <a href="mailto:info@nephelisindustries.com" class="hover:text-orange-500 transition-colors">info@nephelisindustries.com</a>
+                <span>&bull;</span>
+                <a href="https://twitter.com/NephelisCo" target="_blank" class="hover:text-orange-500 transition-colors">@NephelisCo</a>
             </div>
-        </section>
+        </footer>
+    </div>
 
-        <div class="starry-bar" id="star-bar-5"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Smooth Scrolling for Nav Links ---
+            document.querySelectorAll('#main-nav a').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
 
-        <section id="support" class="content-section centered-section">
-            <h2>Support Us</h2>
-            <p>Fund, invest, volunteer—make Venus happen. Rewards: Patches, data access, mission control seats.</p>
-            <div class="info-grid">
-                <div class="info-item">
-                    <h3>Donate</h3>
-                    <p>Contribute to $500k goal. Get exclusives. Every dollar builds the probe.</p>
-                    <a href="https://www.kickstarter.com/projects/nephelisindustries/656128391/?ref=dxw0bb&token=cfd7b60a" class="cta-button urgent" target="_blank" rel="noopener">Donate Now →</a>
-                </div>
-                <div class="info-item">
-                    <h3>Invest</h3>
-                    <p>Seed rounds open. Back space pioneers. High returns in life extension tech.</p>
-                    <a href="mailto:info@nephelisindustries.com" class="cta-button urgent">Invest Now →</a>
-                </div>
-                <div class="info-item">
-                    <h3>Volunteer</h3>
-                    <p>Skills needed: Engineering, AI, fundraising, outreach. Join the team—shape the future.</p>
-                    <a href="mailto:info@nephelisindustries.com" class="cta-button urgent">Volunteer Now →</a>
-                </div>
-            </div>
-            <h3>Team</h3>
-            <p>Nephelis Industries is run by space enthusiasts. We comply with FAA/ITAR regulations for launches and protect IP. </p>
-          
-        </section>
+            // --- WebGL Background ---
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('webgl-canvas'), antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
 
-    </main>
-    <div class="starry-bar" id="star-bar-6"></div>
-    <footer class="main-footer">
-        <nav class="footer-nav">
-            <a href="#home">Home</a>
-            <a href="#mission">Mission</a>
-            <a href="#technology">Technology</a>
-            <a href="#history">History</a>
-            <a href="#vsmars">Vs Mars</a>
-            <a href="#timeline">Timeline</a>
-            <a href="#support">Support</a>
-        </nav>
-        <p class="footer-copy">© 2025 Nephelis Industries. All Rights Reserved.</p>
-        <div class="footer-contact">
-            <a href="mailto:info@nephelisindustries.com">info@nephelisindustries.com</a>
-            <a href="https://x.com/NephelisCo" target="_blank" rel="noopener" style="display: inline-flex; align-items: center;">
-                <span class="contact-icon">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><g><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.21-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.714 6.236L18.244 2.25z"></path></g></svg>
-                </span>
-                @NephelisCo
-            </a>
-        </div>
-    </footer>
+            const particles = new THREE.BufferGeometry();
+            const particleCount = 5000;
+            const posArray = new Float32Array(particleCount * 3);
+
+            for (let i = 0; i < particleCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * (Math.random() * 50);
+            }
+            particles.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+            const material = new THREE.PointsMaterial({
+                size: 0.015,
+                color: 0xFF4500, // Orange color
+                transparent: true,
+                blending: THREE.AdditiveBlending,
+            });
+
+            const particleMesh = new THREE.Points(particles, material);
+            scene.add(particleMesh);
+            camera.position.z = 5;
+
+            const clock = new THREE.Clock();
+
+            const animateBackground = () => {
+                requestAnimationFrame(animateBackground);
+                const elapsedTime = clock.getElapsedTime();
+                particleMesh.rotation.y = elapsedTime * 0.05;
+                particleMesh.rotation.x = elapsedTime * 0.02;
+                renderer.render(scene, camera);
+            };
+            animateBackground();
+
+            window.addEventListener('resize', () => {
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+            });
+        });
+    </script>
 </body>
 </html>
-```
