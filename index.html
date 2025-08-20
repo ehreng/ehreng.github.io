@@ -1,163 +1,353 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Nephelis Industries – Mission to Venus</title>
-  <meta name="description" content="Nephelis Industries is a scrappy team crowd-funding a probe to Venus to unlock data for future floating habitats."/>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2246%22 fill=%22%2300e7ff%22/><text x=%2250%22 y=%2258%22 font-size=%2254%22 text-anchor=%22middle%22 fill=%22040a0c%22 font-family=%22Arial%22>N</text></svg>">
-
-  <!-- Inline, optimized CSS (keeps look identical) -->
-  <style>
-    :root{
-      --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans","Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-      --text:#e6e6e6;--muted:#bdbdbd;--bg:#0b0b10;--card:#101218;--accent:#5cf2ff;--accent-strong:#9af7ff;--border:#1b1e26;
-      --shadow:0 10px 30px rgba(0,0,0,.35);--radius:16px;--maxw:1100px;--lh:1.55;
-    }
-    *,*::before,*::after{box-sizing:border-box}
-    html{-webkit-text-size-adjust:100%}
-    body,h1,h2,h3,p,ul,ol,figure{margin:0}
-    img,svg,video{display:block;max-width:100%}
-    body{
-      font-family:var(--font-sans);
-      background: radial-gradient(1200px 800px at 50% -10%, #111426 0%, var(--bg) 55%, #06070b 100%);
-      color:var(--text); line-height:var(--lh);
-      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-    }
-    #hero,section,footer{width:min(100%,calc(var(--maxw) + 4rem));margin-inline:auto;padding:clamp(1.2rem,2.5vw,2rem)}
-    section{
-      background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,0));
-      border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow);
-      backdrop-filter:saturate(120%) blur(6px); margin-block:clamp(14px,2.6vw,24px);
-      content-visibility:auto; contain-intrinsic-size:600px;
-    }
-    h1{font-size:clamp(36px,6vw,60px); line-height:1.05; letter-spacing:-.02em; text-shadow:0 0 24px rgba(92,242,255,.35),0 0 4px rgba(92,242,255,.6)}
-    h2{font-size:clamp(22px,3vw,30px); margin-bottom:.6rem}
-    #hero{text-align:left;background:transparent;border:none;box-shadow:none;padding-top:clamp(32px,6vh,80px)}
-    #hero p{color:var(--muted); max-width:62ch; margin-top:.8rem; font-size:clamp(16px,1.9vw,18px)}
-    p{max-width:72ch}
-    ul{padding-left:1.1rem; display:grid; gap:.35rem}
-    li::marker{color:var(--accent)}
-    table{width:100%; border-collapse:collapse; border:1px solid var(--border); border-radius:10px; overflow:clip; background:#0f1218}
-    th,td{text-align:left; padding:.8rem .9rem; border-bottom:1px solid var(--border)}
-    th{color:var(--accent-strong); font-weight:600}
-    tr:hover td{background:rgba(92,242,255,.05); transition:background .2s linear}
-    .btn, a.btn{display:inline-block; padding:.78rem 1.05rem; border-radius:999px;
-      background:linear-gradient(90deg,var(--accent) 0%,var(--accent-strong) 100%); color:#041217;
-      text-decoration:none; font-weight:700; letter-spacing:.02em; box-shadow:0 8px 25px rgba(92,242,255,.25);
-      will-change:transform; transition:transform .15s ease, box-shadow .2s ease}
-    .btn:hover{transform:translateY(-1px); box-shadow:0 10px 28px rgba(92,242,255,.32)}
-    .btn:active{transform:translateY(0)}
-    footer{text-align:center; color:var(--muted); border-top:1px solid var(--border);
-      background:rgba(255,255,255,.02); border-radius:var(--radius)}
-    footer a{color:var(--accent); text-decoration:none}
-    footer a:hover{text-decoration:underline}
-    :focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:6px}
-    @media (prefers-reduced-motion: reduce){
-      *{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; scroll-behavior:auto !important}
-    }
-    @media (max-width:640px){
-      section{padding:1rem}
-      th,td{padding:.7rem .7rem; font-size:.98rem}
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nephelis Industries: Pioneering interplanetary exploration with a mission to Venus.">
+    <meta name="keywords" content="Nephelis Industries, Venus, space exploration, aerospace, AI, robotics, interplanetary probe">
+    <title>Nephelis Industries | Project AETHER</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent-orange: #FF4500;
+            --border-color: rgba(255, 69, 0, 0.2);
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background-color: #0A0A0A;
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+        h1, h2, h3 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+        .content-panel {
+            border: 1px solid var(--border-color);
+            background: rgba(10, 10, 10, 0.4);
+        }
+        .header {
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+        }
+        /* Circular Text CTA */
+        .circular-cta {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 150px;
+            height: 150px;
+            z-index: 1000;
+            transition: transform 0.3s ease-out;
+        }
+        .circular-text {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            border-radius: 50%;
+            animation: rotate 20s linear infinite;
+        }
+        .circular-text span {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            height: 75px; /* Half of parent height */
+            transform-origin: 0 100%;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+        }
+        .cta-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background-color: var(--accent-orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .cta-center:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        /* Slideshow */
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            overflow: hidden;
+        }
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: contain; /* Changed from cover to contain */
+            background-position: center;
+            background-repeat: no-repeat; /* Added to prevent tiling */
+            opacity: 0;
+            animation: fadeAnimation 36s infinite;
+        }
+        @keyframes fadeAnimation {
+            0% { opacity: 0; }
+            4% { opacity: 1; }
+            16% { opacity: 1; }
+            20% { opacity: 0; }
+            100% { opacity: 0; }
+        }
+        .slide:nth-child(1) { animation-delay: 0s; }
+        .slide:nth-child(2) { animation-delay: 6s; }
+        .slide:nth-child(3) { animation-delay: 12s; }
+        .slide:nth-child(4) { animation-delay: 18s; }
+        .slide:nth-child(5) { animation-delay: 24s; }
+        .slide:nth-child(6) { animation-delay: 30s; }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        th {
+            color: var(--accent-orange);
+        }
+    </style>
 </head>
-<body>
+<body class="antialiased">
 
-  <!-- Hero -->
-  <header id="hero" role="banner">
-    <h1>Dreamers and Builders.<br>A Mission to Venus.<br>We are NEPHELIS.</h1>
-    <p>We’re not NASA—we’re Nephelis Industries: a scrappy team crowd‑funding a probe to Venus to unlock data for future floating habitats.</p>
-  </header>
+    <!-- Circular CTA -->
+    <a href="#support" class="circular-cta">
+        <div class="circular-text"></div>
+        <div class="cta-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-right-short text-black" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
+            </svg>
+        </div>
+    </a>
 
-  <!-- Mission -->
-  <section id="mission" aria-labelledby="mission-title">
-    <h2 id="mission-title">The Mission: Project AETHER</h2>
-    <p>Project AETHER will send <strong>Cloudseeker</strong>, a mini‑probe, into Venus’s cloud layer to validate key assumptions for future aerostat habitats—resource use, environmental conditions, and biosignatures. The mission targets <strong>50–55&nbsp;km altitude</strong>, where temperature and pressure are near Earth‑like.</p>
-    <p>Launch target: <strong>2027</strong>. Data from Cloudseeker will inform designs for long‑lived atmospheric stations and guide follow‑on missions.</p>
-    <p>We’re raising <strong>under $500,000</strong> to build, test, and launch Cloudseeker. For context, Rocket Lab’s privately funded <strong>Venus Life Finder</strong> was scoped in the <strong>&lt;~$10M</strong> range for a short cloud skim; our focus is a lean, habitation‑forward pathfinder.</p>
-    <p>Volunteers welcome—engineers, scientists, makers, AI folks, operators, storytellers. If you can help us ship, you’re in.</p>
-  </section>
+    <!-- Header -->
+    <header class="header sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center p-4">
+            <img src="http://googleusercontent.com/file_content/11" alt="Nephelis Logo" class="h-10">
+            <nav id="main-nav" class="hidden md:flex space-x-6 text-sm">
+                <a href="#mission" class="hover:text-orange-500 transition-colors">Mission</a>
+                <a href="#tech" class="hover:text-orange-500 transition-colors">Technology</a>
+                <a href="#why-venus" class="hover:text-orange-500 transition-colors">Why Venus?</a>
+                <a href="#history" class="hover:text-orange-500 transition-colors">History</a>
+                <a href="#timeline" class="hover:text-orange-500 transition-colors">Timeline</a>
+            </nav>
+        </div>
+    </header>
 
-  <!-- Envisioning -->
-  <section id="envisioning" aria-labelledby="envisioning-title">
-    <h2 id="envisioning-title">Envisioning Venus</h2>
-    <!-- keep your imagery / video embed as is -->
-  </section>
+    <!-- Main Content -->
+    <main class="container mx-auto p-4 space-y-8">
+        
+        <!-- Hero Section -->
+        <section class="grid md:grid-cols-5 gap-8 items-center">
+            <div class="hero-content md:col-span-3">
+                <h1 class="text-5xl md:text-6xl tracking-tighter leading-tight">
+                    Dreamers and Builders<span style="color: var(--accent-orange);">.</span><br>Pioneering a Mission to Venus<span style="color: var(--accent-orange);">.</span><br>We are Nephelis<span style="color: var(--accent-orange);">.</span>
+                </h1>
+            </div>
+            <div class="content-panel rounded-lg overflow-hidden md:col-span-2">
+                 <video autoplay loop muted playsinline class="w-full h-full object-cover">
+                    <source src="http://googleusercontent.com/file_content/10" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </section>
 
-  <!-- Technology -->
-  <section id="technology" aria-labelledby="technology-title">
-    <h2 id="technology-title">Technology: Cloudseeker</h2>
-    <p>Cloudseeker is built to survive Venus’s acidic clouds long enough to return high‑value measurements. Lifetime is limited by sulfuric acid exposure and power—so we optimize for “fast science” first.</p>
-    <ul>
-      <li><strong>Acid‑resistant aerostat:</strong> Fluoropolymer envelope designed for the main cloud deck’s H₂SO₄ environment, floating in the ~50–55&nbsp;km habitable band.</li>
-      <li><strong>Integrated sensor pod (~1&nbsp;kg):</strong> HD imaging, gas analysis, and aerosol instruments to sample CO₂/N₂ mix and cloud particulates; includes rapid optical/fluorescence methods relevant to organics.</li>
-      <li><strong>3U CubeSat relay:</strong> A lightweight orbiter acts as a bent‑pipe / store‑and‑forward link; cloud opacity and geometry drive link margins.</li>
-      <li><strong>Autonomy:</strong> Onboard models assist navigation and sampling prioritization in a dynamic, sheared atmosphere.</li>
-    </ul>
-  </section>
+        <!-- Mission Section -->
+        <section id="mission" class="content-panel p-8 rounded-lg">
+            <h2 class="text-3xl mb-4" style="color: var(--accent-orange);">The Mission: Project AETHER</h2>
+            <div class="grid md:grid-cols-2 gap-8 text-gray-300">
+                <div>
+                    <p class="mb-4">Project AETHER sends Cloudseeker, a miniprobe, to Venus's atmosphere. It unlocks energy and resources for floating habitats, extending human life, consciousness and AI to another world.</p>
+                    <p class="mb-4">Targeting 50-55 km altitude—Earth-like conditions—Cloudseeker validates habitation models, resource extraction and astrobiology. Launch: 2027. Data will fuel Venus colonies, securing multi-planetary survival.</p>
+                    <p>Be part of humanity's backup plan. Earth's risks demand action. Venus ensures life thrives across the solar system.</p>
+                </div>
+                <div>
+                    <p class="mb-4">Venus offers abundant solar power, CO2 for fuel, nitrogen for breathable air. We seek less than $500,000 in crowdfunding for build, testing and launch. While our budget is modest compared to Rocket Lab's Venus Life Finder (<$10M), it focuses on niche habitation validation. Volunteers needed! We accept: space enthusiasts, hobbyists, engineers, scientists, AI geeks, real estate investors, time travelers, aliens and more!</p>
+                    <p>With our hypothetical VenusExpress service, leveraging state-of-the-art next-gen propulsion like nuclear electric or VASIMR plasma drives, travel time shrinks to 30-45 days—faster than current 3-6 months, enabling frequent resupply and human missions.</p>
+                </div>
+            </div>
+        </section>
 
-  <!-- Why Venus -->
-  <section id="why-venus" aria-labelledby="why-title">
-    <h2 id="why-title">Why Venus? The Smart Bet</h2>
-    <p>Venus complements Mars. At the right altitude, it offers near‑Earth pressure/temperature and abundant solar energy—albeit with acid clouds and challenging power/radiation trade‑offs.</p>
+        <!-- Gallery Section -->
+        <section id="gallery" class="content-panel p-8 rounded-lg">
+            <h2 class="text-3xl mb-4 text-center" style="color: var(--accent-orange);">Envisioning Venus</h2>
+            <div class="slideshow-container rounded-lg">
+                <div class="slide" style="background-image: url('http://googleusercontent.com/file_content/2');"></div>
+                <div class="slide" style="background-image: url('http://googleusercontent.com/file_content/9');"></div>
+                <div class="slide" style="background-image: url('http://googleusercontent.com/file_content/4');"></div>
+                <div class="slide" style="background-image: url('http://googleusercontent.com/file_content/8');"></div>
+                <div class="slide" style="background-image: url('http://googleusercontent.com/file_content/7');"></div>
+                <div class="slide" style="background-image: url('http://googleusercontent.com/file_content/6');"></div>
+            </div>
+        </section>
 
-    <table role="table" aria-label="Venus vs Mars comparison">
-      <tr><th>Factor</th><th>Venus</th><th>Mars</th></tr>
-      <tr><td>Travel Time (current tech)</td><td>~5 months</td><td>~6–9 months</td></tr>
-      <tr><td>Travel Time (advanced, conceptual)</td><td>30–45 days (aspirational)</td><td>—</td></tr>
-      <tr><td>Gravity</td><td>0.904 g</td><td>0.38 g</td></tr>
-      <tr><td>Atmosphere at target altitude</td><td>~30–70&nbsp;°C; 0.5–1&nbsp;bar; H₂SO₄ clouds</td><td>Thin, cold; requires pressurized habitats</td></tr>
-      <tr><td>Solar irradiance (TOA)</td><td>~2601&nbsp;W/m² (~1.91× Earth)</td><td>~590&nbsp;W/m² (~0.43× Earth)</td></tr>
-      <tr><td>Radiation</td><td>Near‑Earth average in cloud layer; strong shielding from atmosphere</td><td>Elevated cosmic radiation at surface</td></tr>
-      <tr><td>Life potential</td><td>Cloud‑based hypotheses debated (phosphine claims contested)</td><td>Evidence of past surface habitability</td></tr>
-    </table>
+        <!-- Technology Section -->
+        <section id="tech" class="grid md:grid-cols-2 gap-8 items-center">
+            <div class="content-panel p-8 rounded-lg">
+                <h2 class="text-3xl mb-4" style="color: var(--accent-orange);">Technology: Cloudseeker</h2>
+                <p class="mb-4">Cloudseeker uses miniaturized tech for Venus's extremes, enabling future life-sustaining outposts. We acknowledge risks like sulfuric acid corrosion, mitigated by advanced materials, but probes may have short lifetimes.</p>
+                <ul class="list-disc list-inside space-y-2 text-gray-300">
+                    <li><strong>Acid-Resistant Aerostat:</strong> Fluoropolymer balloon resists sulfuric acid, floats in habitable zone—basis for human/AI habitats.</li>
+                    <li><strong>Integrated Sensor Suite:</strong> 1kg pod with 4K camera, mass spectrometers, bio-sensors (updated for ammonia/phosphine)—detects resources, life signs.</li>
+                    <li><strong>3U CubeSat Relay:</strong> Orbits Venus, transmits high-bandwidth data—essential for colony comms, though cloud opacity may challenge.</li>
+                    <li><strong>AI-Optimized Navigation:</strong> xAI models enable autonomous ops in dynamic atmosphere—key for AI-human synergy off-Earth.</li>
+                </ul>
+            </div>
+            <img src="http://googleusercontent.com/file_content/1" alt="Cloudseeker Probe Technology" class="rounded-lg w-full h-auto">
+        </section>
+        
+        <!-- Why Venus Section -->
+        <section id="why-venus" class="content-panel p-8 rounded-lg">
+            <h2 class="text-3xl mb-4" style="color: var(--accent-orange);">Why Venus? The Smart Bet</h2>
+            <p class="text-gray-300 mb-4">It's not competition—it's complementarity. But Venus edges out for life extension, though we acknowledge challenges like cloud-reduced solar power, acid-complicated resources and radiation in clouds.</p>
+            <div class="overflow-x-auto mb-6">
+                <table class="text-sm">
+                    <thead><tr><th>Aspect</th><th>Venus</th><th>Mars</th></tr></thead>
+                    <tbody>
+                        <tr><td>Travel Time (Current)</td><td>3-6 months</td><td>6-9 months</td></tr>
+                        <tr><td>Travel Time (Advanced)</td><td>30-45 days (nuclear electric/VASIMR)</td><td>~3-4 months (similar tech)</td></tr>
+                        <tr><td>Gravity</td><td>0.903g (90.3% Earth)</td><td>0.38g (health risks)</td></tr>
+                        <tr><td>Atmosphere</td><td>Dense, resource-rich; habitable altitude 50-55km: 0-75°C, 0.5-1 bar</td><td>Thin, cold; needs domes (-60°C avg, 0.006 bar)</td></tr>
+                        <tr><td>Solar Irradiance</td><td>2601 W/m² (1.91x Earth), but reduced by clouds</td><td>590 W/m² (0.43x Earth)</td></tr>
+                        <tr><td>Resources</td><td>CO2 96.5%, N2 3.5%, SO2 150ppm, acids—abundant for ISRU</td><td>Water ice, but sparse; thin CO2 atm</td></tr>
+                        <tr><td>Challenges</td><td>Acid clouds (mitigated by altitude/materials), radiation</td><td>Radiation, dust storms, low gravity</td></tr>
+                        <tr><td>Life Potential</td><td>Possible cloud microbes (phosphine, under debate)</td><td>Past life evidence</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <h3 class="text-2xl mb-4 text-white">Venus Facts</h3>
+            <ul class="grid md:grid-cols-2 gap-4 text-sm list-disc list-inside">
+                <li><strong>Gravity:</strong> 0.903g—near-ideal for long-term human health.</li>
+                <li><strong>Habitable Layer:</strong> At 50-55km, Earth-like temperature and pressure.</li>
+                <li><strong>Resource Rich:</strong> Atmosphere is 96.5% CO2 and 3.5% N2.</li>
+                <li><strong>Solar Irradiance:</strong> 1.91x Earth's, immense potential for solar power.</li>
+                <li><strong>Proximity:</strong> Closer orbit means faster travel and resupply.</li>
+                <li><strong>Astrobiology Hotspot:</strong> Phosphine detection suggests possible microbial life.</li>
+            </ul>
+        </section>
 
-    <h3>Venus Facts</h3>
-    <ul>
-      <li>Gravity: 0.904&nbsp;g</li>
-      <li>Habitable layer: ~50–55&nbsp;km with Earth‑like pressure/temperature</li>
-      <li>Atmosphere: ~96.5% CO₂, ~3.5% N₂ (trace SO₂, etc.)</li>
-      <li>Solar energy: ~1.9× Earth at TOA; reduced inside clouds</li>
-    </ul>
-  </section>
+        <!-- History Section -->
+        <section id="history" class="content-panel p-8 rounded-lg">
+            <h2 class="text-3xl mb-4" style="color: var(--accent-orange);">History & Context</h2>
+            <p class="text-gray-300 mb-4">Our crowd-funded approach democratizes space, accelerating practical colonization prep where others overlook.</p>
+            <div class="overflow-x-auto">
+                 <table class="text-sm">
+                    <thead><tr><th>Mission</th><th>Type/Funder</th><th>Cost</th><th>Focus</th><th>Launch</th></tr></thead>
+                    <tbody>
+                        <tr><td>Rocket Lab Venus Life Finder</td><td>Private</td><td>&lt;$10M</td><td>Astrobiology in clouds</td><td>2025</td></tr>
+                        <tr><td>NASA DAVINCI</td><td>Government</td><td>~$500M</td><td>Atmosphere chemistry</td><td>2029</td></tr>
+                        <tr><td>NASA VERITAS</td><td>Government</td><td>~$500M</td><td>Surface mapping</td><td>2031</td></tr>
+                        <tr><td>ESA EnVision</td><td>Government</td><td>~$383M</td><td>Orbiter studies</td><td>2031</td></tr>
+                        <tr><td><strong>Project AETHER (Ours)</strong></td><td><strong>Crowd-funded</strong></td><td><strong>$0.5M</strong></td><td><strong>Habitation validation, ISRU</strong></td><td><strong>2027</strong></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
-  <!-- History -->
-  <section id="history" aria-labelledby="history-title">
-    <h2 id="history-title">History &amp; Context</h2>
-    <p>Crowd‑funding lowers the barrier to targeted, data‑driven exploration between large flagship missions.</p>
-    <ul>
-      <li><strong>Rocket Lab – Venus Life Finder (private):</strong> short cloud transect; concept budget &lt;~$10M; first launch window mid‑2020s.</li>
-      <li><strong>NASA DAVINCI (gov’t):</strong> deep atmosphere chemistry; launch NET 2029.</li>
-      <li><strong>NASA VERITAS (gov’t):</strong> orbital radar mapping; 2030s after delay.</li>
-      <li><strong>ESA EnVision (gov’t):</strong> orbiter studies; early 2030s.</li>
-      <li><strong>Project AETHER (crowd‑funded):</strong> habitation validation pathfinder; target 2027.</li>
-    </ul>
-  </section>
+        <!-- Timeline -->
+        <section id="timeline" class="content-panel p-8 rounded-lg">
+            <h2 class="text-3xl mb-4" style="color: var(--accent-orange);">Timeline</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold text-white">2025: Crowdfunding & Development</h3>
+                    <p class="text-gray-400">Secure initial funding, design and build prototypes of the Cloudseeker probe and CubeSat relay, integrate xAI models, and assemble core team.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-white">2026: Testing & Integration</h3>
+                    <p class="text-gray-400">Perform rigorous ground-based simulations, integrate sensor suite with aerostat, validate AI navigation, and iterate on designs based on test results.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-white">2027: Launch & Deployment</h3>
+                    <p class="text-gray-400">Finalize launch partnerships, deploy Cloudseeker into atmosphere, activate CubeSat relay, and monitor real-time data streams.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-white">Beyond: Habitat Buildout</h3>
+                    <p class="text-gray-400">Utilize probe data to design scalable floating outposts, develop AI-human symbiotic systems, and plan crewed missions using VenusExpress tech.</p>
+                </div>
+            </div>
+        </section>
 
-  <!-- Timeline -->
-  <section id="timeline" aria-labelledby="timeline-title">
-    <h2 id="timeline-title">Timeline</h2>
-    <ul>
-      <li><strong>2025 — Crowdfunding &amp; Development:</strong> Lock core specs, build engineering models of the aerostat and sensor pod, and recruit contributors.</li>
-      <li><strong>2026 — Testing &amp; Integration:</strong> Chamber and acid‑fog tests for materials, link testing with relay, and autonomy tuning.</li>
-      <li><strong>2027 — Launch &amp; Deployment:</strong> Deliver to launch provider, deploy Cloudseeker, and begin sampling + relay ops.</li>
-      <li><strong>Beyond — Habitat Build‑out:</strong> Translate measurements into scalable aerostat designs and logistics for repeat missions.</li>
-    </ul>
-  </section>
+        <!-- Support -->
+        <footer id="support" class="content-panel p-8 rounded-lg text-center">
+            <h2 class="text-3xl mb-2" style="color: var(--accent-orange);">Join The Mission</h2>
+            <p class="text-gray-300 mb-4 max-w-xl mx-auto">Our strength lies in community. We are looking for passionate engineers, AI specialists, and outreach coordinators. Your skills are our most valuable asset.</p>
+            <a href="mailto:volunteer@nephelisindustries.com" class="inline-block font-bold py-2 px-6 rounded text-lg text-black transition-transform hover:scale-105" style="background-color: var(--accent-orange);">
+                Volunteer &rarr;
+            </a>
+        </footer>
+        <div class="text-center text-gray-600 text-sm pb-8">
+            <p>&copy; 2026 Nephelis Industries. All Rights Reserved.</p>
+            <div class="flex justify-center items-center space-x-4 mt-2">
+                <a href="mailto:info@nephelisindustries.com" class="hover:text-orange-500">info@nephelisindustries.com</a>
+                <span>&bull;</span>
+                <a href="https://x.com/NephelisCo" target="_blank" class="flex items-center space-x-2 hover:text-orange-500">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.602.75zM11.437 13.98l1.04-1.18L4.12 2.16h-1.2l6.544 9.34z"/>
+                    </svg>
+                    <span>@NephelisCo</span>
+                </a>
+            </div>
+        </div>
+    </main>
 
-  <!-- Join -->
-  <section id="join" aria-labelledby="join-title">
-    <h2 id="join-title">Join the Mission</h2>
-    <p>Our strength is the community. Engineers, scientists, operators, AI/ML, comms/outreach—if you ship, we need you.</p>
-    <a href="mailto:info@nephelisindustries.com" class="btn" aria-label="Email Nephelis to volunteer">Volunteer →</a>
-  </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Circular Text CTA
+            const textContainer = document.querySelector('.circular-text');
+            const text = " • Join The Mission • Join The Mission";
+            const chars = text.split('');
+            const angle = 360 / chars.length;
 
-  <!-- Footer -->
-  <footer role="contentinfo">
-    <p>© 2026 Nephelis Industries. All rights reserved.</p>
-    <p><a href="mailto:info@nephelisindustries.com">info@nephelisindustries.com</a> • <a href="https://twitter.com/NephelisCo" target="_blank" rel="noopener">@NephelisCo</a></p>
-  </footer>
+            chars.forEach((char, i) => {
+                const span = document.createElement('span');
+                span.innerText = char;
+                span.style.transform = `rotate(${angle * i}deg)`;
+                textContainer.appendChild(span);
+            });
 
+            // Mouse follow effect for CTA
+            const cta = document.querySelector('.circular-cta');
+            window.addEventListener('mousemove', (e) => {
+                const x = e.clientX;
+                const y = e.clientY;
+                const windowWidth = window.innerWidth;
+                const windowHeight = window.innerHeight;
+                
+                const distance = Math.sqrt(Math.pow(x - (cta.offsetLeft + 75), 2) + Math.pow(y - (cta.offsetTop + 75), 2));
+                if (distance < 150) {
+                    const moveX = (x > windowWidth / 2) ? -30 : 30;
+                    const moveY = (y > windowHeight / 2) ? -30 : 30;
+                    cta.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                } else {
+                    cta.style.transform = 'translate(0, 0)';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
