@@ -3,13 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Nephelis Industries: Pioneering interplanetary exploration with a mission to Venus.">
-<meta name="keywords" content="Nephelis Industries, Venus, space exploration, aerospace, AI, robotics, interplanetary probe">
 <title>Nephelis Industries | Project AETHER</title>
+
+<!-- META / SEO -->
+<meta name="description" content="Project AETHER: a 10–12 kg aerostat probe + 3U relay to float at 50–55 km in Venus’s atmosphere and stream data for 30–90 days.">
+<link rel="canonical" href="https://nephelisindustries.com/">
+<meta property="og:title" content="Nephelis Industries | Project AETHER">
+<meta property="og:description" content="Crowdfunded probe to Venus’s habitable cloud layer. Sponsor a panel or send a symbolic DNA capsule.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="logo.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@NephelisCo">
+
+<!-- Fonts & Tailwind -->
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="preload" href="logo.jpg" as="image">
+
 <style>
   :root{ --accent-orange:#FF4500; --border-color:rgba(255,69,0,.2); --bg:#0A0A0A; --fg:#e0e0e0; }
   html{ scroll-behavior:smooth }
@@ -17,6 +29,17 @@
   h1,h2,h3{ font-family:'Inter',sans-serif; font-weight:900; text-transform:uppercase }
   .content-panel{ border:1px solid var(--border-color); background:rgba(10,10,10,.4) }
   .header{ background:rgba(10,10,10,.8); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-bottom:1px solid var(--border-color) }
+  a:focus{ outline:2px dashed var(--accent-orange); outline-offset:2px }
+
+  /* MOBILE NAV */
+  #main-nav a{ padding:0.25rem 0.1rem }
+  .hamburger{ display:none }
+  @media (max-width: 768px){
+    .hamburger{ display:block }
+    #main-nav{ display:none }
+    #main-nav.open{ display:flex; flex-direction:column; gap:0.75rem; padding-top:0.5rem }
+  }
+
   /* Circular CTA */
   .circular-cta{ position:fixed; bottom:40px; right:40px; width:150px; height:150px; z-index:1000; transition:transform .3s ease-out }
   .circular-text{ width:100%; height:100%; position:relative; border-radius:50%; animation:rotate 20s linear infinite }
@@ -24,47 +47,64 @@
   .cta-center{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:80px; height:80px; background:var(--accent-orange); border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:transform .3s }
   .cta-center:hover{ transform:translate(-50%,-50%) scale(1.1) }
   @keyframes rotate{ from{transform:rotate(0)} to{transform:rotate(360deg)} }
-  /* GALLERY —— bigger + uncropped */
+
+  /* GALLERY — bigger + uncropped */
   .slideshow-container{ position:relative; width:100%; padding-top:56.25%; overflow:hidden; border-radius:.5rem; background:#000 }
-  @media (min-width:1024px){
-    .slideshow-container{ padding-top:0; height:82vh; } /* was 72vh → 82vh */
-  }
+  @media (min-width:1024px){ .slideshow-container{ padding-top:0; height:82vh; } } /* large on desktop */
   .slide{
-    position:absolute; top:0; left:0; width:100%; height:100%;
-    background-size: contain;   /* was cover → prevent cropping */
+    position:absolute; inset:0;
+    background-size:contain;  /* prevent cropping */
     background-position:center; background-repeat:no-repeat;
-    opacity:0; animation:fadeAnimation 18s infinite; /* faster cycle kept */
+    opacity:0; animation:fadeAnimation 18s infinite;
   }
   .slide:nth-child(1){ animation-delay:0s } .slide:nth-child(2){ animation-delay:3s } .slide:nth-child(3){ animation-delay:6s }
   .slide:nth-child(4){ animation-delay:9s } .slide:nth-child(5){ animation-delay:12s } .slide:nth-child(6){ animation-delay:15s }
   @keyframes fadeAnimation{ 0%{opacity:0} 6%{opacity:1} 22%{opacity:1} 28%{opacity:0} 100%{opacity:0} }
+
   /* X Feed */
   .x-feed-container{ position:relative; background:var(--bg); overflow:hidden; border:none!important; box-shadow:none!important }
   .x-feed-container svg.bg{ position:absolute; inset:0; width:100%; height:100%; z-index:-1; mix-blend-mode:overlay; opacity:.2 }
-  table{ width:100%; border-collapse:collapse } th,td{ padding:.5rem; border-bottom:1px solid var(--border-color) } th{ color:var(--accent-orange) }
-  @media (prefers-reduced-motion:reduce){ svg.bg{ animation:none; opacity:.15 } .circular-text{ animation:none } }
-  /* Inputs (calc) */
+
+  /* Inputs & Buttons */
   .input{ width:100%; background:#0e0e0e; border:1px solid #292929; border-radius:10px; color:var(--fg); padding:10px 12px }
-  .calc-grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px } @media(max-width:900px){ .calc-grid{ grid-template-columns:1fr } }
   .btn{ display:inline-block; border:1px solid rgba(255,255,255,.15); border-radius:10px; padding:10px 14px; background:#141414; transition:transform .08s, box-shadow .2s, border-color .2s }
   .btn:hover{ transform:translateY(-1px); box-shadow:0 0 18px -6px rgba(255,69,0,.55); border-color:var(--accent-orange) }
   .tiny{ font-size:.9rem; color:#b3b3b3 }
-  /* Lightbox */
+  table{ width:100%; border-collapse:collapse } th,td{ padding:.5rem; border-bottom:1px solid var(--border-color) } th{ color:var(--accent-orange) }
+
+  /* Lightbox (accessible) */
   .lightbox{ position:fixed; inset:0; background:rgba(0,0,0,.85); display:none; align-items:center; justify-content:center; z-index:10000 }
   .lightbox.open{ display:flex } .lightbox img{ max-width:92vw; max-height:92vh; border-radius:10px; border:1px solid var(--border-color) }
   .lightbox .close{ position:absolute; top:20px; right:24px; color:#fff; font-size:28px; cursor:pointer }
   .lightbox .nav{ position:absolute; top:50%; transform:translateY(-50%); font-size:38px; color:#fff; cursor:pointer; user-select:none; padding:10px 16px }
   .lightbox .prev{ left:20px } .lightbox .next{ right:20px }
+
   /* Diagram panels */
   .diagram{ width:100%; background:#0e0e0e; border:1px solid #292929; border-radius:10px }
+
+  /* Cards */
+  .card{ border:1px solid var(--border-color); border-radius:12px; background:#0e0e0e; padding:18px }
+
+  /* Progress bar */
+  .bar{ height:10px; background:#1b1b1b; border:1px solid #2a2a2a; border-radius:999px; overflow:hidden }
+  .bar>span{ display:block; height:100%; background:var(--accent-orange); width:0% }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    .circular-text{ animation:none }
+    .slide{ animation:none; opacity:1 }
+  }
 </style>
+<script>
+  /* Tailwind config – keep default */
+</script>
 </head>
 <body class="antialiased">
 
 <!-- Circular CTA -->
-<a href="#support" class="circular-cta">
-  <div class="circular-text"></div>
-  <div class="cta-center">
+<a href="#support" class="circular-cta" aria-label="Jump to support section">
+  <div class="circular-text" aria-hidden="true"></div>
+  <div class="cta-center" aria-hidden="true">
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-right-short text-black" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/></svg>
   </div>
 </a>
@@ -72,31 +112,32 @@
 <!-- Header -->
 <header class="header sticky top-0 z-50">
   <div class="container mx-auto flex justify-between items-center p-4">
-    <img src="logo.jpg" alt="Nephelis Logo" class="h-10">
-    <nav id="main-nav" class="hidden md:flex space-x-6 text-sm">
+    <img src="logo.jpg" alt="Nephelis Industries logo" class="h-10" loading="eager">
+    <button class="hamburger btn md:hidden" aria-controls="main-nav" aria-expanded="false">Menu ▾</button>
+    <nav id="main-nav" class="hidden md:flex space-x-6 text-sm" aria-label="Primary">
       <a href="#mission" class="hover:text-orange-500 transition-colors">Mission</a>
+      <a href="#glance" class="hover:text-orange-500 transition-colors">At a Glance</a>
       <a href="#tech" class="hover:text-orange-500 transition-colors">Technology</a>
       <a href="#astro" class="hover:text-orange-500 transition-colors">Astrophysics</a>
       <a href="#funding" class="hover:text-orange-500 transition-colors">Funding</a>
       <a href="#gallery" class="hover:text-orange-500 transition-colors">Gallery</a>
       <a href="#diagrams" class="hover:text-orange-500 transition-colors">Diagrams</a>
       <a href="#why-venus" class="hover:text-orange-500 transition-colors">Why Venus?</a>
-      <a href="#history" class="hover:text-orange-500 transition-colors">History</a>
-      <a href="#timeline" class="hover:text-orange-500 transition-colors">Timeline</a>
+      <a href="#faq" class="hover:text-orange-500 transition-colors">FAQ</a>
       <a href="#x-feed" class="hover:text-orange-500 transition-colors">X Feed</a>
     </nav>
   </div>
 </header>
 
-<!-- Main -->
-<main class="container mx-auto p-4 space-y-8">
+<main class="container mx-auto p-4 space-y-8" id="main">
 
   <!-- Hero -->
   <section class="grid md:grid-cols-2 gap-8 items-center">
     <div class="hero-content">
       <h1 class="text-5xl md:text-6xl tracking-tighter leading-tight">
-        Dreamers and Builders<span style="color:var(--accent-orange);">.</span><br> A Mission to Venus<span style="color:var(--accent-orange);">.</span><br> We are NEPHELIS<span style="color:var(--accent-orange);">.</span>
+        Dreamers and Builders<span style="color:var(--accent-orange);">.</span><br>A Mission to Venus<span style="color:var(--accent-orange);">.</span><br>We are NEPHELIS<span style="color:var(--accent-orange);">.</span>
       </h1>
+      <p class="mt-4 text-gray-300">AETHER is a crowd-funded aerostat probe riding a rideshare to Venus, then floating where temperature and pressure are Earth-like (50–55 km) to stream back images and chemistry for 30–90 days.</p>
     </div>
     <div class="content-panel rounded-lg overflow-hidden">
       <video autoplay loop muted playsinline class="w-full h-full object-cover">
@@ -105,25 +146,153 @@
     </div>
   </section>
 
-  <!-- Mission -->
+  <!-- At a Glance -->
+  <section id="glance" class="grid md:grid-cols-4 gap-4">
+    <div class="card">
+      <h3 class="text-xl mb-1">Goal</h3>
+      <p class="text-gray-300 tiny">Validate <b>habitation</b> in Venus’s cloud layer; map resources and chemistry for future outposts.</p>
+    </div>
+    <div class="card">
+      <h3 class="text-xl mb-1">Vehicle</h3>
+      <p class="text-gray-300 tiny">~<b>10–12 kg</b> aerostat + <b>3U relay</b>; onboard Δv 150–200 m/s; float at <b>50–55 km</b>.</p>
+    </div>
+    <div class="card">
+      <h3 class="text-xl mb-1">Timeline</h3>
+      <p class="text-gray-300 tiny">Build & test ’25–’26 • Launch target <b>2027</b> • Ops <b>30–90 days</b>.</p>
+    </div>
+    <div class="card">
+      <h3 class="text-xl mb-1">How to Help</h3>
+      <p class="text-gray-300 tiny"><a href="#funding" class="underline">Sponsor a panel</a> • <a href="#funding" class="underline">DNA capsule</a> • <a href="#support" class="underline">Volunteer</a></p>
+    </div>
+  </section>
+
+  <!-- Mission Section (kept) -->
   <section id="mission" class="content-panel p-8 rounded-lg">
-    <h2 class="text-3xl mb-4" style="color:var(--accent-orange);">The Mission: Project AETHER</h2>
+    <h2 class="text-3xl mb-4" style="color: var(--accent-orange);">The Mission: Project AETHER</h2>
     <div class="grid md:grid-cols-2 gap-8 text-gray-300">
       <div>
         <p class="mb-4">Project AETHER will send Cloudseeker, a miniprobe, to Venus's atmosphere. It unlocks energy and resources for floating habitats, extending human life, consciousness and AI to another world.</p>
-        <p class="mb-4">Targeting 50-55 km altitude—Earth-like conditions—Cloudseeker validates habitation models, resource extraction and astrobiology. Launch: 2027. Data will fuel Venus colonies, securing multi-planetary survival.</p>
+        <p class="mb-4">Targeting 50–55 km altitude—Earth-like conditions—Cloudseeker validates habitation models, resource extraction and astrobiology. Launch: 2027. Data will fuel Venus colonies, securing multi-planetary survival.</p>
         <p>Be part of humanity's backup plan. Earth's risks demand action. Venus ensures life thrives across the solar system.</p>
       </div>
       <div>
-        <p class="mb-4">Venus offers abundant solar power, CO2 for fuel, nitrogen for breathable air. We seek less than $500,000 in crowdfunding for build, testing and launch. While our budget is modest compared to Rocket Lab's Venus Life Finder (&lt;$10M), it focuses on niche habitation validation. Volunteers needed! We accept: space enthusiasts, hobbyists, engineers, scientists, AI geeks, real estate investors, time travelers, aliens and more!</p>
-        <p>With our hypothetical VenusExpress service, leveraging state-of-the-art next-gen propulsion like nuclear electric or VASIMR plasma drives, travel time shrinks to 30-45 days—faster than current 3-6 months, enabling frequent resupply and human missions.</p>
+        <p class="mb-4">Venus offers abundant solar power, CO₂ for fuel, nitrogen for breathable air. We seek less than $500,000 in crowdfunding for build, testing and launch. While our budget is modest compared to Rocket Lab's Venus Life Finder (&lt;$10M), it focuses on niche habitation validation. Volunteers needed!</p>
+        <p>With our hypothetical VenusExpress service using advanced propulsion, travel time shrinks to 30–45 days—faster than current 3–6 months—enabling frequent resupply and human missions.</p>
       </div>
     </div>
   </section>
 
-  <!-- Gallery (bigger + uncropped + lightbox) -->
+  <!-- Δv & Mass Budget + Funding Progress -->
+  <section class="grid lg:grid-cols-2 gap-8" id="dv-mass">
+    <div class="content-panel p-8 rounded-lg">
+      <h2 class="text-2xl mb-4" style="color:var(--accent-orange);">Δv & Mass Budget</h2>
+      <div class="overflow-x-auto">
+        <table class="text-sm">
+          <thead><tr><th>Item</th><th>Mass (kg)</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Probe + Sensors</td><td>6.2</td><td>camera, spectrometers, avionics</td></tr>
+            <tr><td>Balloon & Gas</td><td>2.1</td><td>fluoropolymer film + inflation gas</td></tr>
+            <tr><td>3U Relay (bus)</td><td>2.0</td><td>orbiting comms</td></tr>
+            <tr><td>Propellant</td><td>1.0</td><td>150–200 m/s TCM margin</td></tr>
+            <tr><td><strong>Total (target)</strong></td><td><strong>11.3</strong></td><td>±15% growth allowed</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="tiny mt-3">LEO→TVI Δv (~3.5 km/s) is purchased via rideshare/kick-stage; onboard Δv only for TCMs and margin.</p>
+    </div>
+    <div class="content-panel p-8 rounded-lg">
+      <h2 class="text-2xl mb-4" style="color:var(--accent-orange);">Budget & Progress</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <canvas id="pie" width="240" height="240" class="w-full h-auto"></canvas>
+        <div>
+          <ul class="text-sm text-gray-300 mb-4">
+            <li>Hardware: <b>$170k</b></li>
+            <li>Testing & Facilities: <b>$90k</b></li>
+            <li>Launch/Kick-stage: <b>$170k</b></li>
+            <li>Ops/Comms: <b>$40k</b></li>
+            <li>Contingency: <b>$30k</b></li>
+          </ul>
+          <div class="bar" aria-label="Funding progress"><span id="progress"></span></div>
+          <p class="tiny mt-2">Raised: <b id="raised">$0</b> / Target: <b>$500,000</b></p>
+          <div class="mt-3 space-x-2">
+            <a class="btn" href="#funding">Sponsor a Panel</a>
+            <a class="btn" href="#funding">Send a DNA Capsule</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technology Section (kept) -->
+  <section id="tech" class="grid md:grid-cols-2 gap-8 items-center">
+    <div class="content-panel p-8 rounded-lg">
+      <h2 class="text-3xl mb-4" style="color: var(--accent-orange);">Technology: Cloudseeker</h2>
+      <p class="mb-4">Cloudseeker uses miniaturized tech for Venus's extremes, enabling future life-sustaining outposts.</p>
+      <ul class="list-disc list-inside space-y-2 text-gray-300">
+        <li><strong>Acid-Resistant Aerostat:</strong> Fluoropolymer balloon resists sulfuric acid; floats at 50–55 km.</li>
+        <li><strong>Integrated Sensor Suite:</strong> ~1 kg payload; imagery + mass spectrometry + aerosol/bio-sensors.</li>
+        <li><strong>3U CubeSat Relay:</strong> Orbits Venus, transmits high-bandwidth data.</li>
+        <li><strong>AI-Optimized Navigation:</strong> autonomous ops in a dynamic atmosphere.</li>
+      </ul>
+    </div>
+    <img src="probe.jpg" alt="Cloudseeker Probe Technology" class="rounded-lg w-full h-auto" loading="lazy">
+  </section>
+
+  <!-- Astrophysics & Interactives -->
+  <section id="astro" class="content-panel p-8 rounded-lg">
+    <h2 class="text-3xl mb-4" style="color: var(--accent-orange);">Astrophysics & Trajectory</h2>
+    <div class="grid lg:grid-cols-3 gap-8 text-gray-300">
+      <div>
+        <h3 class="text-xl mb-2">Transfer & Timing</h3>
+        <ul class="list-disc list-inside space-y-2">
+          <li><b>Profile:</b> Earth→Venus Hohmann-like transfer</li>
+          <li><b>Time of Flight:</b> ~146 days (≈4.8 months)</li>
+          <li><b>LEO→TVI Δv:</b> ~3.5 km/s (purchased)</li>
+          <li><b>Onboard Δv:</b> ~150–200 m/s for TCMs/margin</li>
+          <li><b>Arrival:</b> v∞ ~2.7 km/s; entry ~10.7 km/s; deploy balloon ~55 km</li>
+        </ul>
+        <h3 class="text-xl mt-6 mb-2">Link Budget (nominal)</h3>
+        <ul class="list-disc list-inside tiny space-y-1">
+          <li>UHF/X-band relay → DTE gateway; 1–5 Mbps peak relay; direct fallback beacon ≤1 kbps</li>
+          <li>Expected downlink/day: 0.5–2 GB (geometry & power dependent)</li>
+        </ul>
+        <h3 class="text-xl mt-6 mb-2">Power/Thermal</h3>
+        <ul class="list-disc list-inside tiny space-y-1">
+          <li>Solar input (TOA) ~1.9× Earth; in-cloud diffuse: 0.6–1.2× Earth equivalent</li>
+          <li>Panel area target: 0.06–0.1 m²; battery 60–100 Wh; duty-cycle instruments</li>
+        </ul>
+      </div>
+
+      <!-- Tools -->
+      <div>
+        <h3 class="text-xl mb-2">Trajectory Mini-Planner</h3>
+        <label class="tiny">Launch date offset (days): <span id="dOffsetVal">0</span></label>
+        <input type="range" min="-30" max="30" value="0" step="1" id="dOffset" class="w-full">
+        <div class="card mt-2 tiny">
+          <div>Phase angle: <b id="phaseOut">—</b></div>
+          <div>Time of flight: <b id="tofOut">—</b></div>
+          <div>Injection Δv (est.): <b id="dvOut">—</b></div>
+        </div>
+        <canvas id="evCanvas" width="500" height="380" class="w-full h-auto mt-3" aria-label="Earth to Venus transfer visualization"></canvas>
+      </div>
+
+      <div>
+        <h3 class="text-xl mb-2">Atmosphere Model</h3>
+        <label class="tiny">Altitude (45–60 km): <span id="altVal">55</span> km</label>
+        <input type="range" min="45" max="60" value="55" step="0.5" id="alt" class="w-full">
+        <div class="card tiny mt-2" id="atmOut">—</div>
+
+        <h3 class="text-xl mt-6 mb-2">Comms/Day Estimator</h3>
+        <label class="tiny">Relay altitude: <span id="relayVal">350</span> km</label>
+        <input type="range" min="200" max="800" value="350" step="10" id="relay" class="w-full">
+        <div class="card tiny mt-2" id="commsOut">—</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
   <section id="gallery" class="content-panel p-8 rounded-lg">
-    <h2 class="text-3xl mb-4 text-center" style="color:var(--accent-orange);">Envisioning Venus</h2>
+    <h2 class="text-3xl mb-4 text-center" style="color: var(--accent-orange);">Envisioning Venus</h2>
     <div class="slideshow-container rounded-lg" id="slideshow">
       <div class="slide" data-full="a.jpg" style="background-image:url('a.jpg')"></div>
       <div class="slide" data-full="b.jpg" style="background-image:url('b.jpg')"></div>
@@ -133,129 +302,26 @@
       <div class="slide" data-full="f.jpg" style="background-image:url('f.jpg')"></div>
     </div>
     <!-- Lightbox -->
-    <div class="lightbox" id="lightbox">
-      <span class="close" id="lbClose">✕</span>
-      <span class="nav prev" id="lbPrev">‹</span>
-      <img id="lbImg" src="" alt="Gallery image">
-      <span class="nav next" id="lbNext">›</span>
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+      <button class="close" id="lbClose" aria-label="Close image viewer">✕</button>
+      <button class="nav prev" id="lbPrev" aria-label="Previous image">‹</button>
+      <img id="lbImg" src="" alt="">
+      <button class="nav next" id="lbNext" aria-label="Next image">›</button>
     </div>
   </section>
 
-  <!-- Technology -->
-  <section id="tech" class="grid md:grid-cols-2 gap-8 items-center">
-    <div class="content-panel p-8 rounded-lg">
-      <h2 class="text-3xl mb-4" style="color:var(--accent-orange);">Technology: Cloudseeker</h2>
-      <p class="mb-4">Cloudseeker uses miniaturized tech for Venus's extremes, enabling future life-sustaining outposts. We acknowledge risks like sulfuric acid corrosion, mitigated by advanced materials, but probes may have short lifetimes.</p>
-      <ul class="list-disc list-inside space-y-2 text-gray-300">
-        <li><strong>Acid-Resistant Aerostat:</strong> Fluoropolymer balloon resists sulfuric acid, floats in habitable zone—basis for human/AI habitats.</li>
-        <li><strong>Integrated Sensor Suite:</strong> 1kg pod with 4K camera, mass spectrometers, bio-sensors (updated for ammonia/phosphine)—detects resources, life signs.</li>
-        <li><strong>3U CubeSat Relay:</strong> Orbits Venus, transmits high-bandwidth data—essential for colony comms, though cloud opacity may challenge.</li>
-        <li><strong>AI-Optimized Navigation:</strong> xAI models enable autonomous ops in dynamic atmosphere—key for AI-human synergy off-Earth.</li>
-      </ul>
-    </div>
-    <img src="probe.jpg" alt="Cloudseeker Probe Technology" class="rounded-lg w-full h-auto">
-  </section>
-
-  <!-- Astrophysics -->
-  <section id="astro" class="content-panel p-8 rounded-lg">
-    <h2 class="text-3xl mb-4" style="color:var(--accent-orange);">Astrophysics & Trajectory</h2>
-    <div class="grid md:grid-cols-2 gap-8 text-gray-300">
-      <div>
-        <h3 class="text-xl mb-2">Transfer & Timing</h3>
-        <ul class="list-disc list-inside space-y-2">
-          <li><b>Profile:</b> Earth→Venus Hohmann-like transfer.</li>
-          <li><b>Time of Flight:</b> ~<b>146 days</b> (≈4.8 months).</li>
-          <li><b>LEO → TVI Δv:</b> ~<b>3.5 km/s</b> — purchased via rideshare/kick-stage.</li>
-          <li><b>Onboard Δv:</b> ~<b>150–200 m/s</b> for course corrections/margin.</li>
-          <li><b>Arrival:</b> v∞ ~2.7 km/s; atmospheric entry ~<b>10.7 km/s</b>; balloon deploy near <b>55 km</b>.</li>
-        </ul>
-        <h3 class="text-xl mt-6 mb-2">Mass Targets</h3>
-        <ul class="list-disc list-inside space-y-2">
-          <li><b>Cloudseeker + 3U relay dry mass:</b> <b>10–12 kg</b> total.</li>
-          <li>Buying injection keeps the spacecraft light and costs sane.</li>
-        </ul>
-        <h3 class="text-xl mt-6 mb-2">Logistics Quick Facts</h3>
-        <ul class="list-disc list-inside space-y-2">
-          <li><b>Launch windows:</b> Earth–Venus synodic cycle ≈ <b>584 days</b> (~19 months).</li>
-          <li><b>Comms light-time:</b> ~<b>2–15 minutes</b> one-way depending on geometry.</li>
-          <li><b>Float regime:</b> 50–55 km | 0.5–1.0 bar | 0–30 °C | acid droplets present.</li>
-          <li><b>Ops lifetime target:</b> <b>30–90 days</b> (materials/power limited).</li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="text-xl mb-2">Propellant Calculator</h3>
-        <p class="text-gray-400 mb-3 tiny">Tsiolkovsky single-burn estimate (g₀=9.80665 m/s²). Use for onboard course-correction sizing; EP multi-burns differ.</p>
-        <div class="calc-grid">
-          <label><span class="tiny">Δv (m/s)</span><input id="dv" class="input" type="number" value="200"></label>
-          <label><span class="tiny">Isp (s)</span><input id="isp" class="input" type="number" value="235"></label>
-          <label><span class="tiny">Dry Mass (kg)</span><input id="mdry" class="input" type="number" value="12"></label>
-        </div>
-        <div class="mt-3"><a href="#" class="btn" onclick="calc();return false;">Compute</a></div>
-        <div class="content-panel rounded-lg p-4 mt-3"><div id="out" class="tiny">Mass ratio (m₀/m_dry): —<br>Propellant needed: — kg</div></div>
-        <h3 class="text-xl mt-6 mb-2">Propulsion Options (Context)</h3>
-        <ul class="list-disc list-inside tiny space-y-1">
-          <li><b>Buy injection:</b> ~0.8–1.1 kg monoprop for 150–200 m/s — our baseline.</li>
-          <li><b>Chemical self-injection:</b> 25–50+ kg prop (impractical at this scale).</li>
-          <li><b>Electric (xenon):</b> ~3 kg prop but months of thrusting, higher power/ops complexity.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- Funding -->
-  <section id="funding" class="content-panel p-8 rounded-lg">
-    <h2 class="text-3xl mb-4" style="color:var(--accent-orange);">Funding & Business Model</h2>
-    <div class="grid md:grid-cols-2 gap-8 text-gray-300">
-      <div>
-        <h3 class="text-xl mb-2">1) Ad Space on the Probe</h3>
-        <ul class="list-disc list-inside space-y-2">
-          <li><b>Logos/messages</b> on balloon film panels (mass/drag-neutral zones) and CubeSat side panels.</li>
-          <li><b>Livestream/data overlays</b> for dashboards and mission updates.</li>
-          <li>Placement avoids thermal/optical interference; preserves link budgets.</li>
-          <li><b>Tiers:</b> Personal → Legacy → Institutional.</li>
-        </ul>
-        <h3 class="text-xl mt-6 mb-2">3) Data & Access</h3>
-        <ul class="list-disc list-inside space-y-2">
-          <li><b>Data licenses</b>: telemetry, imagery, aerosol/gas spectra for labs/startups.</li>
-          <li><b>Ops observer seats</b> during key events.</li>
-          <li><b>Artifacts</b>: flight-qualified swatches and coupon sets for education.</li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="text-xl mb-2">2) “Go to Venus” DNA Capsules (Symbolic)</h3>
-        <ul class="list-disc list-inside space-y-2">
-          <li>Backers can send a sealed <b>micro-capsule</b> with trace DNA (hair/nail clippings).</li>
-          <li>Capsules mount in a <b>bio-sealed bay</b> with strict gram caps by tier.</li>
-          <li>All capsules are inert, dry, hermetically sealed; <b>no biological release</b>.</li>
-        </ul>
-        <h3 class="text-xl mt-6 mb-2">Policies & Constraints</h3>
-        <ul class="list-disc list-inside tiny space-y-1">
-          <li><b>Planetary protection:</b> Sealed inert artifacts only; no release.</li>
-          <li><b>Export/ITAR:</b> Only non-functional graphics or sealed inert capsules; US handling where practical.</li>
-          <li><b>Mass budget:</b> Strict per-tier gram caps; cumulative sponsor mass included in dry mass.</li>
-          <li><b>Brand safety:</b> No hateful/illegal content; final placement at team discretion.</li>
-        </ul>
-        <div class="mt-3"><a class="btn" href="mailto:info@nephelisindustries.com?subject=Sponsorship%20Inquiry%20-%20Project%20AETHER">Request Sponsor Kit (PDF)</a></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Diagrams -->
+  <!-- Mission Diagrams -->
   <section id="diagrams" class="content-panel p-8 rounded-lg">
-    <h2 class="text-3xl mb-6" style="color:var(--accent-orange);">Mission Diagrams</h2>
+    <h2 class="text-3xl mb-6" style="color: var(--accent-orange);">Mission Diagrams</h2>
     <div class="grid md:grid-cols-3 gap-8">
-
-      <!-- 1) Earth→Venus Journey (animated & phase-aligned) -->
       <div class="diagram p-4">
         <h3 class="text-xl mb-2">Earth → Venus Journey</h3>
-        <canvas id="evCanvas" width="500" height="380" class="w-full h-auto"></canvas>
-        <p class="tiny mt-2">Hohmann-like, coplanar, circular orbits—visual outreach model. Craft (white) reaches Venus at ellipse–orbit intersection.</p>
+        <canvas id="evCanvasStatic" width="500" height="380" class="w-full h-auto"></canvas>
+        <p class="tiny mt-2">Hohmann-like; craft (white) leaves Earth at aphelion and meets Venus at perihelion (CCW).</p>
       </div>
-
-      <!-- 2) Venus Orbit & Entry (static SVG kept) -->
       <div class="diagram p-4">
         <h3 class="text-xl mb-2">Venus Orbit & Entry</h3>
-        <svg viewBox="0 0 500 380" class="w-full h-auto">
+        <svg viewBox="0 0 500 380" class="w-full h-auto" aria-hidden="true">
           <circle cx="250" cy="190" r="14" fill="#ff9c6a" stroke="#ffd7c1"/>
           <text x="270" y="195" font-size="12" fill="#ffd7c1">Venus</text>
           <circle cx="250" cy="190" r="70" fill="none" stroke="rgba(255,156,106,.6)" stroke-dasharray="4 6"/>
@@ -268,11 +334,9 @@
           <text x="252" y="218" font-size="12" fill="#ffd1bf">Balloon deploy ~55 km</text>
         </svg>
       </div>
-
-      <!-- 3) Venus Cloud Layers (static SVG kept) -->
       <div class="diagram p-4">
         <h3 class="text-xl mb-2">Venus Cloud Layers</h3>
-        <svg viewBox="0 0 500 380" class="w-full h-auto">
+        <svg viewBox="0 0 500 380" class="w-full h-auto" aria-hidden="true">
           <line x1="60" y1="30" x2="60" y2="340" stroke="#666"/>
           <text x="20" y="35" font-size="12" fill="#bbb">Altitude</text>
           <text x="20" y="65" font-size="12" fill="#bbb">70 km</text>
@@ -291,77 +355,128 @@
           <text x="436" y="148" font-size="12" fill="#ffd7c1">Probe</text>
         </svg>
       </div>
-
     </div>
   </section>
 
-  <!-- Why Venus, History, Timeline (unchanged) -->
+  <!-- Funding & Business Model (with tiers & availability counters) -->
+  <section id="funding" class="content-panel p-8 rounded-lg">
+    <h2 class="text-3xl mb-4" style="color: var(--accent-orange);">Funding & Business Model</h2>
+    <div class="grid md:grid-cols-2 gap-8 text-gray-300">
+      <div>
+        <h3 class="text-xl mb-2">1) Ad Space on the Probe</h3>
+        <ul class="list-disc list-inside space-y-2">
+          <li>Logos/messages on balloon film panels and CubeSat side panels (mass/drag-neutral zones).</li>
+          <li>Livestream/data overlays for dashboards and mission updates.</li>
+          <li>Placement avoids thermal/optical interference; preserves link budgets.</li>
+          <li><b>Tiers:</b> Personal → Legacy → Institutional.</li>
+        </ul>
+        <h3 class="text-xl mt-6 mb-2">3) Data & Access</h3>
+        <ul class="list-disc list-inside space-y-2">
+          <li>Data licenses: telemetry, imagery, aerosol/gas spectra.</li>
+          <li>Ops observer seats during key events.</li>
+          <li>Artifacts: flight-qualified swatches and coupon sets.</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-xl mb-2">2) “Go to Venus” DNA Capsules (Symbolic)</h3>
+        <ul class="list-disc list-inside space-y-2">
+          <li>Backers can send a sealed micro-capsule with trace DNA (hair/nail clippings).</li>
+          <li>Capsules mount in a bio-sealed bay with strict gram caps by tier.</li>
+          <li>All capsules are inert, dry, hermetically sealed; no biological release.</li>
+        </ul>
+        <h3 class="text-xl mt-6 mb-2">Policies & Constraints</h3>
+        <ul class="list-disc list-inside tiny space-y-1">
+          <li><b>Planetary protection:</b> sealed inert artifacts only; no release; deorbit/disposal plan.</li>
+          <li><b>Export/ITAR:</b> non-functional graphics or sealed inert capsules; US handling.</li>
+          <li><b>Mass budget:</b> strict per-tier gram caps; included in dry mass.</li>
+          <li><b>Brand safety:</b> no hateful/illegal content; final placement at team discretion.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Tiers -->
+    <div class="grid md:grid-cols-3 gap-4 mt-6">
+      <div class="content-panel p-6 rounded-lg">
+        <h3 class="text-xl mb-1">Personal</h3>
+        <p class="text-gray-400 mb-2">Name etched + mission patch.</p>
+        <p class="tiny">Available: <b id="tier-personal">—</b> / 500</p>
+        <a class="btn" href="#support" data-tier="personal">Reserve</a>
+      </div>
+      <div class="content-panel p-6 rounded-lg border-2" style="border-color:var(--accent-orange);">
+        <h3 class="text-xl mb-1">Legacy</h3>
+        <p class="text-gray-400 mb-2">Small logo + data room access + artifact coupon.</p>
+        <p class="tiny">Available: <b id="tier-legacy">—</b> / 150</p>
+        <a class="btn" href="#support" data-tier="legacy">Reserve</a>
+      </div>
+      <div class="content-panel p-6 rounded-lg">
+        <h3 class="text-xl mb-1">Institutional</h3>
+        <p class="text-gray-400 mb-2">Panel logo + comms slot + classroom kit.</p>
+        <p class="tiny">Available: <b id="tier-institutional">—</b> / 25</p>
+        <a class="btn" href="mailto:info@nephelisindustries.com?subject=Sponsorship%20Inquiry%20-%20Institutional">Contact</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDL & Risks -->
+  <section class="grid lg:grid-cols-2 gap-8">
+    <div class="content-panel p-8 rounded-lg">
+      <h2 class="text-2xl mb-4" style="color:var(--accent-orange);">Entry–Descent–Float (EDL) Sequence</h2>
+      <ol class="list-decimal list-inside text-gray-300 space-y-2">
+        <li>Kick-stage separation → cruise TCMs</li>
+        <li>Guided entry; heatshield shed</li>
+        <li>Balloon deploy & inflation at ~55 km</li>
+        <li>Commissioning: link check → sensor bring-up</li>
+        <li>Science ops + daily downlink windows</li>
+      </ol>
+    </div>
+    <div class="content-panel p-8 rounded-lg">
+      <h2 class="text-2xl mb-4" style="color:var(--accent-orange);">Risks & Mitigation</h2>
+      <ul class="list-disc list-inside text-sm text-gray-300">
+        <li><b>Acid corrosion</b> → fluoropolymer film, coated fasteners, coupon tests, 30–90 day ops target.</li>
+        <li><b>Relay loss</b> → low-rate direct beacon fallback; store-and-dump next pass.</li>
+        <li><b>Power shortfall</b> → duty-cycled instruments; prioritized telemetry; dark-period survival plan.</li>
+        <li><b>Balloon leak</b> → dual inflation bladders, pressure decay monitoring, controlled descent mode.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Why Venus Section (kept) -->
   <section id="why-venus" class="content-panel p-8 rounded-lg">
-    <h2 class="text-3xl mb-4" style="color:var(--accent-orange);">Why Venus? The Smart Bet</h2>
-    <p class="text-gray-300 mb-4">It's not competition—it's complementarity. But Venus edges out for life extension, though we acknowledge challenges like cloud-reduced solar power, acid-complicated resources and radiation in clouds.</p>
+    <h2 class="text-3xl mb-4" style="color: var(--accent-orange);">Why Venus? The Smart Bet</h2>
+    <p class="text-gray-300 mb-4">Venus complements other destinations but offers near-Earth gravity and Earth-like conditions at 50–55 km, enabling practical habitation tests.</p>
     <div class="overflow-x-auto mb-6">
       <table class="text-sm">
         <thead><tr><th>Aspect</th><th>Venus</th><th>Mars</th></tr></thead>
         <tbody>
           <tr><td>Travel Time (Current)</td><td>3–6 months</td><td>6–9 months</td></tr>
-          <tr><td>Travel Time (Advanced)</td><td>30–45 days (nuclear electric/VASIMR)</td><td>~3–4 months (similar tech)</td></tr>
-          <tr><td>Gravity</td><td>0.903g (90.3% Earth)</td><td>0.38g (health risks)</td></tr>
-          <tr><td>Atmosphere</td><td>Dense, resource-rich; habitable altitude 50–55km: 0–30°C, 0.5–1 bar</td><td>Thin, cold; needs domes (−60°C avg, 0.006 bar)</td></tr>
-          <tr><td>Solar Irradiance</td><td>~1.9× Earth at TOA (reduced in clouds)</td><td>~0.43× Earth</td></tr>
-          <tr><td>Resources</td><td>CO₂ 96.5%, N₂ 3.5%, SO₂/acid droplets—abundant for ISRU</td><td>Water ice pockets; thin CO₂ atm</td></tr>
-          <tr><td>Challenges</td><td>Acid corrosion; link geometry; radiation in clouds</td><td>Radiation; dust storms; low gravity</td></tr>
-          <tr><td>Life Potential</td><td>Cloud microbe hypothesis (debated)</td><td>Possible past life</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <h3 class="text-2xl mb-4 text-white">Venus Facts</h3>
-    <ul class="grid md:grid-cols-2 gap-4 text-sm list-disc list-inside">
-      <li><strong>Gravity:</strong> 0.903g—near-ideal for long-term human health.</li>
-      <li><strong>Habitable Layer:</strong> At 50–55km, Earth-like temperature and pressure.</li>
-      <li><strong>Resource Rich:</strong> Atmosphere is 96.5% CO₂ and 3.5% N₂.</li>
-      <li><strong>Solar Irradiance:</strong> ~1.9× Earth at TOA; diffuse in-cloud but workable.</li>
-      <li><strong>Proximity:</strong> Faster travel and resupply compared to Mars.</li>
-      <li><strong>Astrobiology Hotspot:</strong> Phosphine/ammonia lines motivate deeper study.</li>
-    </ul>
-  </section>
-
-  <section id="history" class="content-panel p-8 rounded-lg">
-    <h2 class="text-3xl mb-4" style="color:var(--accent-orange);">History & Context</h2>
-    <p class="text-gray-300 mb-4">Our crowd-funded approach democratizes space, accelerating practical colonization prep where others overlook.</p>
-    <div class="overflow-x-auto">
-      <table class="text-sm">
-        <thead><tr><th>Mission</th><th>Type/Funder</th><th>Cost</th><th>Focus</th><th>Launch</th></tr></thead>
-        <tbody>
-          <tr><td>Rocket Lab Venus Life Finder</td><td>Private</td><td>&lt;$10M</td><td>Astrobiology in clouds</td><td>2025</td></tr>
-          <tr><td>NASA DAVINCI</td><td>Government</td><td>~$500M</td><td>Atmosphere chemistry</td><td>2029</td></tr>
-          <tr><td>NASA VERITAS</td><td>Government</td><td>~$500M</td><td>Surface mapping</td><td>2031</td></tr>
-          <tr><td>ESA EnVision</td><td>Government</td><td>~$383M</td><td>Orbiter studies</td><td>2031</td></tr>
-          <tr><td><strong>Project AETHER (Ours)</strong></td><td><strong>Crowd-funded</strong></td><td><strong>$0.5M</strong></td><td><strong>Habitation validation, ISRU</strong></td><td><strong>2027</strong></td></tr>
+          <tr><td>Travel Time (Advanced)</td><td>30–45 days</td><td>~3–4 months</td></tr>
+          <tr><td>Gravity</td><td>0.903g</td><td>0.38g</td></tr>
+          <tr><td>Atmosphere</td><td>50–55 km: 0–30°C, 0.5–1 bar</td><td>−60°C avg, 0.006 bar</td></tr>
+          <tr><td>Solar Irradiance</td><td>~1.9× Earth (TOA)</td><td>~0.43× Earth</td></tr>
+          <tr><td>Resources</td><td>CO₂ 96.5%, N₂ 3.5%</td><td>Water ice pockets; thin CO₂</td></tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <section id="timeline" class="content-panel p-8 rounded-lg">
-    <h2 class="text-3xl mb-4" style="color:var(--accent-orange);">Timeline</h2>
-    <div class="grid md:grid-cols-2 gap-8">
-      <div><h3 class="text-xl font-bold text-white">2025: Crowdfunding & Development</h3><p class="text-gray-400">Secure initial funding, design and build prototypes of the Cloudseeker probe and CubeSat relay, integrate xAI models, and assemble core team.</p></div>
-      <div><h3 class="text-xl font-bold text-white">2026: Testing & Integration</h3><p class="text-gray-400">Perform rigorous ground-based simulations, integrate sensor suite with aerostat, validate AI navigation, and iterate on designs based on test results.</p></div>
-      <div><h3 class="text-xl font-bold text-white">2027: Launch & Deployment</h3><p class="text-gray-400">Finalize launch partnerships, deploy Cloudseeker into atmosphere, activate CubeSat relay, and monitor real-time data streams.</p></div>
-      <div><h3 class="text-xl font-bold text-white">Beyond: Habitat Buildout</h3><p class="text-gray-400">Utilize probe data to design scalable floating outposts, develop AI-human symbiotic systems, and plan crewed missions using VenusExpress tech.</p></div>
-    </div>
+  <!-- FAQ -->
+  <section id="faq" class="content-panel p-8 rounded-lg">
+    <h2 class="text-3xl mb-4" style="color: var(--accent-orange);">FAQ</h2>
+    <details class="mb-2"><summary class="font-bold">How can a modest-budget probe survive Venus?</summary><p class="mt-2 text-gray-300 tiny">We operate in the temperate cloud layer (50–55 km) with Earth-like pressure/temperature. Acid exposure is the main hazard → resistant films/coatings, limited ops duration, and fast validation goals.</p></details>
+    <details class="mb-2"><summary class="font-bold">What fails first?</summary><p class="mt-2 text-gray-300 tiny">Likely seal degradation or power-limited thermal control. We prioritize early high-value data and implement graceful degradation.</p></details>
+    <details class="mb-2"><summary class="font-bold">What’s plan-B if the relay dies?</summary><p class="mt-2 text-gray-300 tiny">A low-rate beacon transmits critical telemetry direct-to-Earth; we store data for later dump when geometry improves.</p></details>
   </section>
 
   <!-- X Feed -->
   <section id="x-feed" class="x-feed-container p-8 rounded-lg">
-    <h2 class="text-3xl mb-4 text-center" style="color:var(--accent-orange);">Latest From @NephelisCo</h2>
-    <svg class="bg" viewBox="0 0 100 100" preserveAspectRatio="none">
+    <h2 class="text-3xl mb-4 text-center" style="color: var(--accent-orange);">Latest From @NephelisCo</h2>
+    <svg class="bg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
       <rect x="0" y="0" width="100" height="100" fill="none"/>
       <polygon points="50,10 60,30 40,30" fill="none" stroke="var(--accent-orange)" stroke-width="0.5">
-        <animate attributeName="transform" values="translate(0,0) rotate(0 50 50) scale(1); translate(0,0) rotate(360 50 50) scale(1.2); translate(0,0) rotate(0 50 50) scale(1)" dur="60s" repeatCount="indefinite"/>
+        <animate attributeName="transform" values="translate(0,0) rotate(0 50 50) scale(1); translate(0,0) rotate(360 50 50) scale(1.2); translate(0,0) rotate(0 50 50) scale(1)" dur="60s" repeatCount="indefinite" />
       </polygon>
       <circle cx="80" cy="20" r="5" fill="none" stroke="var(--accent-orange)" stroke-width="0.4">
-        <animate attributeName="r" values="4;6;4" dur="15s" repeatCount="indefinite"/>
+        <animate attributeName="r" values="4;6;4" dur="15s" repeatCount="indefinite" />
       </circle>
     </svg>
     <div class="max-w-3xl mx-auto">
@@ -370,158 +485,305 @@
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   </section>
 
+  <!-- Volunteer + Email capture -->
+  <section class="content-panel p-8 rounded-lg" id="volunteer">
+    <h2 class="text-3xl mb-2" style="color:var(--accent-orange);">Join the Team</h2>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div>
+        <ol class="list-decimal list-inside text-gray-300 space-y-2">
+          <li>Pick a skill area: avionics, materials, software, outreach.</li>
+          <li>Grab a micro-task from our task board (coming soon).</li>
+          <li>Join our community chat for daily syncs.</li>
+        </ol>
+        <a href="mailto:volunteer@nephelisindustries.com?subject=Volunteer%20-%20Project%20AETHER" class="btn mt-3">Volunteer</a>
+      </div>
+      <form class="card" id="subscribe" aria-label="Email signup">
+        <label class="tiny">Get launch-window alerts & dev updates</label>
+        <div class="flex gap-2 mt-2">
+          <input type="email" required class="input" placeholder="you@domain.com" aria-label="Email address">
+          <button class="btn" type="submit">Subscribe</button>
+        </div>
+        <p class="tiny mt-2" id="subMsg"></p>
+      </form>
+    </div>
+  </section>
+
   <!-- Support -->
   <footer id="support" class="content-panel p-8 rounded-lg text-center">
-    <h2 class="text-3xl mb-2" style="color:var(--accent-orange);">Join The Mission</h2>
-    <p class="text-gray-300 mb-4 max-w-xl mx-auto">Our strength lies in community. We are looking for passionate engineers, AI specialists, and outreach coordinators. Your skills are our most valuable asset.</p>
-    <a href="mailto:volunteer@nephelisindustries.com" class="inline-block font-bold py-2 px-6 rounded text-lg text-black transition-transform hover:scale-105" style="background-color:var(--accent-orange);">Volunteer &rarr;</a>
+    <h2 class="text-3xl mb-2" style="color: var(--accent-orange);">Join The Mission</h2>
+    <p class="text-gray-300 mb-4 max-w-xl mx-auto">Our strength lies in community. Engineers, AI specialists, and outreach coordinators welcome.</p>
+    <a href="mailto:volunteer@nephelisindustries.com" class="inline-block font-bold py-2 px-6 rounded text-lg text-black transition-transform hover:scale-105" style="background-color: var(--accent-orange);">
+      Volunteer &rarr;
+    </a>
     <div class="text-center text-gray-600 text-sm pt-6">
       <p>&copy; 2026 Nephelis Industries. All Rights Reserved.</p>
       <div class="flex justify-center items-center space-x-4 mt-2">
         <a href="mailto:info@nephelisindustries.com" class="hover:text-orange-500">info@nephelisindustries.com</a>
         <span>&bull;</span>
-        <a href="https://x.com/NephelisCo" target="_blank" class="flex items-center space-x-2 hover:text-orange-500">
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 16 16"><path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.602.75zM11.437 13.98l1.04-1.18L4.12 2.16h-1.2l6.544 9.34z"/></svg><span>@NephelisCo</span>
+        <a href="https://x.com/NephelisCo" target="_blank" class="flex items-center space-x-2 hover:text-orange-500" aria-label="Nephelis on X">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 16 16"><path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.602.75zM11.437 13.98l1.04-1.18L4.12 2.16h-1.2l6.544 9.34z"/></svg>
+          <span>@NephelisCo</span>
         </a>
       </div>
     </div>
   </footer>
-
 </main>
 
+<!-- JSON-LD (basic org) -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Organization",
+  "name":"Nephelis Industries",
+  "url":"https://nephelisindustries.com/",
+  "sameAs":["https://twitter.com/NephelisCo"],
+  "logo":"https://nephelisindustries.com/logo.jpg",
+  "project":{
+    "@type":"Project",
+    "name":"Project AETHER",
+    "description":"Crowdfunded aerostat probe to Venus’s habitable cloud layer.",
+    "startDate":"2025"
+  }
+}
+</script>
+
 <script>
-  // Circular text + hover drift
-  document.addEventListener('DOMContentLoaded', () => {
+  // MOBILE NAV
+  const menuBtn = document.querySelector('.hamburger');
+  const nav = document.getElementById('main-nav');
+  if(menuBtn){
+    menuBtn.addEventListener('click',()=>{
+      const open = nav.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
+
+  // Circular Text CTA + hover drift
+  (function(){
     const textContainer=document.querySelector('.circular-text');
-    const text=" • Join The Mission • Join The Mission"; const chars=text.split(''); const angle=360/chars.length;
+    const text=" • Join The Mission • Join The Mission";
+    const chars=text.split(''); const angle=360/chars.length;
     chars.forEach((c,i)=>{ const s=document.createElement('span'); s.innerText=c; s.style.transform=`rotate(${angle*i}deg)`; textContainer.appendChild(s); });
     const cta=document.querySelector('.circular-cta');
-    window.addEventListener('mousemove', e=>{
+    window.addEventListener('mousemove', (e)=>{
       const x=e.clientX,y=e.clientY,w=innerWidth,h=innerHeight;
       const d=Math.hypot(x-(cta.offsetLeft+75), y-(cta.offsetTop+75));
       cta.style.transform = d<150 ? `translate(${x>w/2?-30:30}px, ${y>h/2?-30:30}px)` : 'translate(0,0)';
     });
-  });
+  })();
 
-  // Rocket equation calc
-  const g0=9.80665, fmt=x=>(Math.round(x*100)/100).toLocaleString();
-  function calc(){
-    const dv=Number(document.getElementById('dv').value||0);
-    const isp=Number(document.getElementById('isp').value||0);
-    const mdry=Number(document.getElementById('mdry').value||0);
-    const out=document.getElementById('out');
-    if(dv<=0||isp<=0||mdry<=0){ out.innerHTML='Mass ratio (m₀/m_dry): —<br>Propellant needed: — kg'; return; }
-    const mr=Math.exp(dv/(isp*g0)), m0=mdry*mr, mpr=m0-mdry;
-    out.innerHTML=`Mass ratio (m₀/m_dry): <b>${fmt(mr)}</b><br>Propellant needed: <b>${fmt(mpr)}</b> kg`;
-  }
-  calc();
-
-  // Lightbox
+  // Lightbox (accessibility: focus trap)
   (()=>{ const slides=[...document.querySelectorAll('#slideshow .slide')];
     const lb=document.getElementById('lightbox'), img=document.getElementById('lbImg');
     const prev=document.getElementById('lbPrev'), next=document.getElementById('lbNext'), close=document.getElementById('lbClose');
-    let idx=0; function open(i){ idx=i; img.src=slides[idx].dataset.full; lb.classList.add('open'); document.body.style.overflow='hidden'; }
+    let idx=0, lastFocus=null;
+    function open(i){ idx=i; img.src=slides[idx].dataset.full; lb.classList.add('open'); lastFocus=document.activeElement; close.focus(); document.body.style.overflow='hidden'; }
     function nav(d){ idx=(idx+d+slides.length)%slides.length; img.src=slides[idx].dataset.full; }
-    function hide(){ lb.classList.remove('open'); document.body.style.overflow=''; }
+    function hide(){ lb.classList.remove('open'); document.body.style.overflow=''; if(lastFocus) lastFocus.focus(); }
     slides.forEach((s,i)=> s.addEventListener('click',()=>open(i))); prev.onclick=()=>nav(-1); next.onclick=()=>nav(1); close.onclick=hide;
     lb.addEventListener('click',e=>{ if(e.target===lb) hide(); });
-    window.addEventListener('keydown',e=>{ if(!lb.classList.contains('open')) return; if(e.key==='Escape') hide(); if(e.key==='ArrowLeft') nav(-1); if(e.key==='ArrowRight') nav(1); });
+    window.addEventListener('keydown',e=>{ if(!lb.classList.contains('open')) return; if(e.key==='Escape') hide(); if(e.key==='ArrowLeft') nav(-1); if(e.key==='ArrowRight') nav(1); if(e.key==='Tab'){ const focusables=[close,prev,next]; const i=focusables.indexOf(document.activeElement); e.preventDefault(); focusables[(i+1)%focusables.length].focus(); } });
   })();
 
-  // Earth→Venus Journey (animated & phase-aligned so the craft meets Venus)
-  (()=>{
-    const canvas=document.getElementById('evCanvas'), ctx=canvas.getContext('2d');
-    const W=canvas.width, H=canvas.height, cx=W/2, cy=H/2;
-    // Scaled radii in "SVG units"
-    const rE=120;                 // Earth orbit radius
-    const rV=86.8;                // Venus orbit radius (0.723 * rE)
-    const aT=(rE+rV)/2;           // semi-major (transfer)
-    const eT=(rE-rV)/(rE+rV);     // eccentricity
-    const Te=365.25, Tv=224.701;  // days
-    const Tt=0.5*Te*Math.pow(aT/rE,1.5); // ~146 d (scaled Kepler)
-    const nV=2*Math.PI/Tv;
+  // Budget pie + progress (simple canvas)
+  (function(){
+    const ctx = document.getElementById('pie').getContext('2d');
+    const parts = [
+      {label:'Hardware', val:170},
+      {label:'Testing', val:90},
+      {label:'Launch', val:170},
+      {label:'Ops', val:40},
+      {label:'Contingency', val:30}
+    ];
+    const total = parts.reduce((a,b)=>a+b.val,0);
+    let start = -Math.PI/2;
+    parts.forEach((p,i)=>{
+      const ang = 2*Math.PI*(p.val/total);
+      ctx.beginPath(); ctx.moveTo(120,120);
+      ctx.arc(120,120,110,start,start+ang);
+      start += ang;
+      ctx.closePath();
+      // auto hues
+      const hue = (i*72)%360; ctx.fillStyle = `hsl(${hue} 80% 55% / .9)`; ctx.fill();
+    });
+    // Progress (stub). Replace with live value.
+    const target = 500000;
+    const raised = Number(localStorage.getItem('raised')|| 137500); // demo seed
+    document.getElementById('raised').textContent = `$${raised.toLocaleString()}`;
+    const pct = Math.min(100, (raised/target)*100);
+    document.getElementById('progress').style.width = pct + '%';
+  })();
 
-    // Departure geometry: Earth at angle 0 (to the right).
-    // Choose Venus initial angle so that after Tt it is exactly at the ellipse periapsis (arrival),
-    // which is at angle π from Earth’s departure line in this simple layout.
-    const thE0=0;
-    const thV0=(Math.PI - nV*Tt) % (2*Math.PI);
-
-    // Helper conversions
-    const wrap=a=>{ a%=2*Math.PI; return a<0?a+2*Math.PI:a; }
-    const polar=(r,th)=>[cx+r*Math.cos(th), cy+r*Math.sin(th)];
-    const drawOrbit = (r,color)=>{ ctx.strokeStyle=color; ctx.lineWidth=1.2; ctx.beginPath();
-      for(let i=0;i<=360;i++){ const th=i*Math.PI/180; const [x,y]=polar(r,th); i?ctx.lineTo(x,y):ctx.moveTo(x,y) } ctx.stroke(); };
-
-    // Craft position along transfer by time t (0→Tt)
-    function craftOnTransfer(tDays){
-      // Mean anomaly M from 0→π
-      const M=Math.PI*(tDays/Tt); // half-ellipse
-      // Solve Kepler for eccentric anomaly E (ellipse with eccentricity eT)
-      let E=M; for(let i=0;i<6;i++){ const f=E-eT*Math.sin(E)-M, fp=1-eT*Math.cos(E); E-=f/fp; }
-      // True anomaly f and radius r (focus at Sun)
-      const f=2*Math.atan2(Math.sqrt(1+eT)*Math.sin(E/2), Math.sqrt(1-eT)*Math.cos(E/2));
-      const r=(aT*(1-eT*eT))/(1+eT*Math.cos(f));
-      // Place periapsis (arrival) at angle π from Earth departure line
-      const theta = wrap(thE0 + f);
-      return { r, theta };
+  // Sponsor tier counters (localStorage stub)
+  (function(){
+    const caps = { personal:500, legacy:150, institutional:25 };
+    const used = JSON.parse(localStorage.getItem('tiers') || '{"personal":112,"legacy":18,"institutional":4}');
+    function update(){
+      document.getElementById('tier-personal').textContent = String(caps.personal - (used.personal||0));
+      document.getElementById('tier-legacy').textContent = String(caps.legacy - (used.legacy||0));
+      document.getElementById('tier-institutional').textContent = String(caps.institutional - (used.institutional||0));
     }
+    document.querySelectorAll('[data-tier]').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const t = btn.getAttribute('data-tier');
+        used[t]=(used[t]||0)+1; localStorage.setItem('tiers', JSON.stringify(used)); update();
+      });
+    });
+    update();
+  })();
 
-    // Animation
-    let t=0, last=performance.now();
-    function frame(now){
-      const dt=(now-last)/1000; last=now;
-      t += dt*30;                        // 30 sim days per real second
-      if(t>Tt) t=Tt;                     // stop at arrival for clarity
+  // Email subscribe (local-only demo)
+  document.getElementById('subscribe').addEventListener('submit', e=>{
+    e.preventDefault();
+    document.getElementById('subMsg').textContent = 'Thanks! We\'ll keep you posted.';
+    e.target.reset();
+  });
 
-      ctx.clearRect(0,0,W,H);
-      // Sun
-      ctx.fillStyle='#ffb48f'; ctx.beginPath(); ctx.arc(cx,cy,8,0,2*Math.PI); ctx.fill();
+  // Atmosphere model (very simple parameterization)
+  (function(){
+    const alt = document.getElementById('alt'), out = document.getElementById('atmOut'), v=document.getElementById('altVal');
+    function update(){
+      const z = Number(alt.value); v.textContent = z.toFixed(1);
+      // toy curves near 50–60 km, just for outreach visuals
+      const T = 20 - (z-55)*2.2;           // °C (approx)
+      const P = 1.0 - (z-50)*0.04;         // bar (0.5–1.0)
+      const rho = 1.2 * P / ((T+273)/293); // kg/m^3 scaled
+      const irradiance = 1000 * (1.1 - Math.abs(z-55)/25); // W/m² rough
+      out.innerHTML = `Temp: <b>${T.toFixed(1)} °C</b><br>Pressure: <b>${P.toFixed(2)} bar</b><br>Density (scaled): <b>${rho.toFixed(2)} kg/m³</b><br>Solar (diffuse est.): <b>${irradiance.toFixed(0)} W/m²</b>`;
+    }
+    alt.addEventListener('input',update); update();
+  })();
 
-      // Orbits
-      drawOrbit(rE,'rgba(106,180,255,.65)');
-      drawOrbit(rV,'rgba(255,156,106,.65)');
+  // Comms/day estimator (toy)
+  (function(){
+    const r = document.getElementById('relay'), out = document.getElementById('commsOut'), v=document.getElementById('relayVal');
+    function update(){
+      const h = Number(r.value); v.textContent=h;
+      const passes = Math.round(12 + (400-h)/40);      // ~10–20 passes/day
+      const minutes = Math.round(6 + (h-200)/30);      // 6–12 min/pass
+      const downlink = Math.round(passes*minutes*2);   // Mbps→MB (toy)
+      out.innerHTML = `Passes/day: <b>${passes}</b><br>Avg pass length: <b>${minutes} min</b><br>Estimated downlink/day: <b>${(downlink/1000).toFixed(2)} GB</b>`;
+    }
+    r.addEventListener('input',update); update();
+  })();
 
-      // Transfer ellipse (draw param)
-      ctx.strokeStyle='rgba(255,69,0,.7)'; ctx.lineWidth=2; ctx.beginPath();
-      for(let i=0;i<=180;i++){
-        const f=i*Math.PI/180; // 0..π
-        const r=(aT*(1-eT*eT))/(1+eT*Math.cos(f));
-        const th=wrap(thE0+f);
-        const [x,y]=polar(r,th);
-        i?ctx.lineTo(x,y):ctx.moveTo(x,y);
+  // Trajectory mini-planner + main animated canvas
+  (function(){
+    const dSlider = document.getElementById('dOffset');
+    const dVal = document.getElementById('dOffsetVal');
+    const phaseOut = document.getElementById('phaseOut');
+    const tofOut = document.getElementById('tofOut');
+    const dvOut = document.getElementById('dvOut');
+
+    const W=500,H=380, cx=W/2, cy=H/2;
+    const rE=120, rV=0.723*rE;
+    const aT=(rE+rV)/2, eT=(rE-rV)/(rE+rV);
+    const Te=365.25, Tv=224.701;
+    const nE=2*Math.PI/Te, nV=2*Math.PI/Tv;
+    const Tt = Math.PI * Math.sqrt(Math.pow(aT/rE,3)) * Te/(2*Math.PI); // ~146d
+    const thE0=0, thAp=thE0, thPe=thAp+Math.PI;
+
+    // Static canvas in diagrams:
+    drawEV(document.getElementById('evCanvasStatic'), true);
+
+    // Interactive canvas in planner:
+    drawEV(document.getElementById('evCanvas'), false);
+
+    function drawEV(canvas, staticOnly){
+      const ctx = canvas.getContext('2d');
+      const DPR = Math.max(1, Math.floor(window.devicePixelRatio||1));
+      canvas.width=W*DPR; canvas.height=H*DPR; canvas.style.width=W+'px'; canvas.style.height=H+'px'; ctx.scale(DPR,DPR);
+
+      let t=0,last=performance.now(), running=true;
+
+      const io = new IntersectionObserver(([ent])=>{ running = ent.isIntersecting; if(running) last=performance.now(); });
+      io.observe(canvas);
+
+      function wrap(a){ a%=2*Math.PI; return a<0?a+2*Math.PI:a; }
+      const polar=(r,th)=>[cx+r*Math.cos(th), cy+r*Math.sin(th)];
+      function drawOrbit(r,color){ ctx.strokeStyle=color; ctx.lineWidth=1.2; ctx.beginPath(); for(let i=0;i<=360;i++){ const th=i*Math.PI/180; const [x,y]=polar(r,th); i?ctx.lineTo(x,y):ctx.moveTo(x,y);} ctx.stroke(); }
+      function craftOnTransfer(tDays){
+        const M=Math.PI*(tDays/Tt);
+        let E=M||1e-6; for(let i=0;i<6;i++){ const f=E-eT*Math.sin(E)-M, fp=1-eT*Math.cos(E); E-=f/fp; }
+        const fTrue=2*Math.atan2(Math.sqrt(1+eT)*Math.sin(E/2), Math.sqrt(1-eT)*Math.cos(E/2));
+        const r=(aT*(1-eT*eT))/(1+eT*Math.cos(fTrue));
+        const th=wrap(thAp+fTrue); return {r,th};
       }
-      ctx.stroke();
+      function arrow(x,y,th,size=7){
+        ctx.save(); ctx.translate(x,y); ctx.rotate(th);
+        ctx.fillStyle='#ffffff'; ctx.beginPath(); ctx.moveTo(size,0); ctx.lineTo(-size*0.6, size*0.5); ctx.lineTo(-size*0.6,-size*0.5); ctx.closePath(); ctx.fill(); ctx.restore();
+      }
 
-      // Earth (moves but we keep it simple at 0° for this outreach card)
-      const [xE,yE]=polar(rE, thE0);
-      ctx.fillStyle='#6ab4ff'; ctx.strokeStyle='#bfe0ff'; ctx.beginPath(); ctx.arc(xE,yE,4.5,0,2*Math.PI); ctx.fill(); ctx.stroke();
-      ctx.fillStyle='#cfe3ff'; ctx.font='12px Inter, sans-serif'; ctx.fillText('Earth', xE+8, yE-8);
+      function render(now){
+        if(!running && !staticOnly){ requestAnimationFrame(render); return; }
+        const dt=(now-last)/1000; last=now;
+        if(!staticOnly){ t += dt*30; if(t>Tt) t=Tt; }
 
-      // Venus (moves from thV0 at rate nV)
-      const thV = wrap(thV0 + nV*t);
-      const [xV,yV]=polar(rV, thV);
-      ctx.fillStyle='#ff9c6a'; ctx.strokeStyle='#ffd7c1'; ctx.beginPath(); ctx.arc(xV,yV,4.5,0,2*Math.PI); ctx.fill(); ctx.stroke();
-      ctx.fillStyle='#ffd7c1'; ctx.fillText('Venus', xV+8, yV-8);
+        // recompute Venus phase from user slider
+        const dOff = Number(dSlider?.value || 0);
+        const thV0 = thPe - nV*Tt - nV*dOff;   // slide changes initial Venus angle
+        dVal && (dVal.textContent = dOff);
 
-      // Craft along the transfer
-      const c=craftOnTransfer(t);
-      const [xc,yc]=polar(c.r, c.theta);
-      ctx.fillStyle='#ffffff'; ctx.strokeStyle='rgba(255,255,255,.6)'; ctx.beginPath(); ctx.arc(xc,yc,3,0,2*Math.PI); ctx.fill(); ctx.stroke();
+        ctx.clearRect(0,0,W,H);
+        // Sun
+        ctx.fillStyle='#ffb48f'; ctx.beginPath(); ctx.arc(cx,cy,8,0,2*Math.PI); ctx.fill();
 
-      // Arrival marker at perihelion (at t=Tt)
-      const carr=craftOnTransfer(Tt); const [xa,ya]=polar(carr.r, carr.theta);
-      ctx.strokeStyle='rgba(255,255,255,.35)'; ctx.beginPath(); ctx.arc(xa,ya,6,0,2*Math.PI); ctx.stroke();
+        // Orbits
+        drawOrbit(rE,'rgba(106,180,255,.65)');
+        drawOrbit(rV,'rgba(255,156,106,.65)');
 
-      // Info text
-      ctx.fillStyle='#bbb'; ctx.font='12px Inter, sans-serif';
-      ctx.fillText(`TOF ~ ${Tt.toFixed(1)} days`, 14, H-34);
-      ctx.fillText(`Ellipse e=${eT.toFixed(3)}`, 14, H-18);
+        // Transfer ellipse
+        ctx.strokeStyle='rgba(255,69,0,.75)'; ctx.lineWidth=2; ctx.beginPath();
+        for(let i=0;i<=180;i++){ const f=i*Math.PI/180; const r=(aT*(1-eT*eT))/(1+eT*Math.cos(f)); const th=thAp+f; const [x,y]=polar(r,th); i?ctx.lineTo(x,y):ctx.moveTo(x,y); } ctx.stroke();
 
-      requestAnimationFrame(frame);
+        // Earth
+        const thE = thE0 + nE*Math.max(0,t);
+        const [xE,yE]=polar(rE, thE);
+        ctx.fillStyle='#6ab4ff'; ctx.strokeStyle='#bfe0ff'; ctx.beginPath(); ctx.arc(xE,yE,4.5,0,2*Math.PI); ctx.fill(); ctx.stroke(); ctx.fillStyle='#cfe3ff'; ctx.font='12px Inter, sans-serif'; ctx.fillText('Earth', xE+8, yE-8);
+
+        // Venus
+        const thV = thV0 + nV*Math.max(0,t);
+        const [xV,yV]=polar(rV, thV);
+        ctx.fillStyle='#ff9c6a'; ctx.strokeStyle='#ffd7c1'; ctx.beginPath(); ctx.arc(xV,yV,4.5,0,2*Math.PI); ctx.fill(); ctx.stroke(); ctx.fillStyle='#ffd7c1'; ctx.fillText('Venus', xV+8, yV-8);
+
+        // Craft
+        const c=craftOnTransfer(Math.max(0,t)); const [xc,yc]=polar(c.r,c.th);
+        ctx.fillStyle='#fff'; ctx.strokeStyle='rgba(255,255,255,.6)'; ctx.beginPath(); ctx.arc(xc,yc,3,0,2*Math.PI); ctx.fill(); ctx.stroke();
+        const c2=craftOnTransfer(Math.min(Tt,Math.max(0,t)+2)); const [x2,y2]=polar(c2.r,c2.th);
+        arrow(xc,yc, Math.atan2(y2-yc,x2-xc), 7);
+
+        // Arrival ring
+        const carr=craftOnTransfer(Tt); const [xa,ya]=polar(carr.r,carr.th);
+        ctx.strokeStyle='rgba(255,255,255,.35)'; ctx.beginPath(); ctx.arc(xa,ya,6,0,2*Math.PI); ctx.stroke();
+
+        // Info
+        ctx.fillStyle='#bbb'; ctx.font='12px Inter, sans-serif';
+        ctx.fillText(`TOF ≈ ${Tt.toFixed(1)} days`, 14, H-34);
+        ctx.fillText(`Ellipse e=${eT.toFixed(3)}`, 14, H-18);
+
+        if(!staticOnly) requestAnimationFrame(render);
+      }
+      requestAnimationFrame(n=>{ last=n; render(n); });
+
+      // Planner outputs
+      if(!staticOnly && dSlider){
+        function recompute(){
+          const off = Number(dSlider.value);
+          const phase = ((180/Math.PI)*((thPe - (thPe - nV*Tt - nV*off)))).toFixed(1);
+          const tof = Tt.toFixed(1);
+          // crude Δv deviation estimate with offset
+          const dv = (3.5 + Math.abs(off)*0.01).toFixed(2);
+          phaseOut.textContent = `${phase}°`;
+          tofOut.textContent = `${tof} days`;
+          dvOut.textContent = `${dv} km/s (TVI, est.)`;
+        }
+        dSlider.addEventListener('input', recompute); recompute();
+      }
     }
-    requestAnimationFrame(now=>{ last=now; frame(now); });
   })();
 </script>
+
+<!-- (Optional) Privacy-friendly analytics could go here -->
+
 </body>
 </html>
