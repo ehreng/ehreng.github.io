@@ -17,9 +17,7 @@
             --bg: #0A0A0A;
             --fg: #e0e0e0;
         }
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Roboto Mono', monospace;
             background-color: var(--bg);
@@ -82,38 +80,19 @@
             cursor: pointer;
             transition: transform 0.3s;
         }
-        .cta-center:hover {
-            transform: translate(-50%, -50%) scale(1.1);
-        }
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
+        .cta-center:hover { transform: translate(-50%, -50%) scale(1.1); }
+        @keyframes rotate { from { transform: rotate(0deg);} to { transform: rotate(360deg);} }
         /* Slideshow */
         .slideshow-container {
-            position: relative;
-            width: 100%;
-            padding-top: 56.25%;
-            overflow: hidden;
+            position: relative; width: 100%; padding-top: 56.25%; overflow: hidden;
         }
         .slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
-            opacity: 0;
-            animation: fadeAnimation 36s infinite;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-size: contain; background-position: center; background-repeat: no-repeat;
+            opacity: 0; animation: fadeAnimation 36s infinite;
         }
         @keyframes fadeAnimation {
-            0% { opacity: 0; }
-            4% { opacity: 1; }
-            16% { opacity: 1; }
-            20% { opacity: 0; }
-            100% { opacity: 0; }
+            0% { opacity: 0; } 4% { opacity: 1; } 16% { opacity: 1; } 20% { opacity: 0; } 100% { opacity: 0; }
         }
         .slide:nth-child(1) { animation-delay: 0s; }
         .slide:nth-child(2) { animation-delay: 6s; }
@@ -122,47 +101,29 @@
         .slide:nth-child(5) { animation-delay: 24s; }
         .slide:nth-child(6) { animation-delay: 30s; }
         /* X Feed Section */
-        .x-feed-container {
-            position: relative;
-            background: var(--bg);
-            overflow: hidden;
-            border: none !important;
-            box-shadow: none !important;
-        }
+        .x-feed-container { position: relative; background: var(--bg); overflow: hidden; border: none !important; box-shadow: none !important; }
         .x-feed-container svg.bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            mix-blend-mode: overlay;
-            opacity: 0.2;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; mix-blend-mode: overlay; opacity: 0.2;
         }
-        #x-feed {
-            max-width: 600px;
-            margin: 0 auto;
-            border: none !important;
-        }
-        #x-feed .twitter-timeline {
-            border: none !important;
-            background: transparent !important;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 0.5rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-        th {
-            color: var(--accent-orange);
-        }
+        #x-feed { max-width: 600px; margin: 0 auto; border: none !important; }
+        #x-feed .twitter-timeline { border: none !important; background: transparent !important; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 0.5rem; border-bottom: 1px solid var(--border-color); }
+        th { color: var(--accent-orange); }
         @media (prefers-reduced-motion: reduce) {
             svg.bg { animation: none; opacity: 0.15; }
             .circular-text { animation: none; }
         }
+        /* Inputs (calc) */
+        .input { width: 100%; background: #0e0e0e; border: 1px solid #292929; border-radius: 10px; color: var(--fg); padding: 10px 12px; }
+        .calc-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
+        @media (max-width: 900px){ .calc-grid { grid-template-columns: 1fr; } }
+        .btn {
+            display:inline-block; border:1px solid rgba(255,255,255,.15); border-radius:10px; padding:10px 14px; background:#141414;
+            transition:transform .08s ease, box-shadow .2s ease, border-color .2s ease;
+        }
+        .btn:hover { transform: translateY(-1px); box-shadow: 0 0 18px -6px rgba(255,69,0,.55); border-color: var(--accent-orange); }
+        .tiny { font-size: .9rem; color:#b3b3b3; }
     </style>
 </head>
 <body class="antialiased">
@@ -184,6 +145,8 @@
             <nav id="main-nav" class="hidden md:flex space-x-6 text-sm">
                 <a href="#mission" class="hover:text-orange-500 transition-colors">Mission</a>
                 <a href="#tech" class="hover:text-orange-500 transition-colors">Technology</a>
+                <a href="#astro" class="hover:text-orange-500 transition-colors">Astrophysics</a>
+                <a href="#funding" class="hover:text-orange-500 transition-colors">Funding</a>
                 <a href="#why-venus" class="hover:text-orange-500 transition-colors">Why Venus?</a>
                 <a href="#history" class="hover:text-orange-500 transition-colors">History</a>
                 <a href="#timeline" class="hover:text-orange-500 transition-colors">Timeline</a>
@@ -220,7 +183,7 @@
                     <p>Be part of humanity's backup plan. Earth's risks demand action. Venus ensures life thrives across the solar system.</p>
                 </div>
                 <div>
-                    <p class="mb-4">Venus offers abundant solar power, CO2 for fuel, nitrogen for breathable air. We seek less than $500,000 in crowdfunding for build, testing and launch. While our budget is modest compared to Rocket Lab's Venus Life Finder (<$10M), it focuses on niche habitation validation. Volunteers needed! We accept: space enthusiasts, hobbyists, engineers, scientists, AI geeks, real estate investors, time travelers, aliens and more!</p>
+                    <p class="mb-4">Venus offers abundant solar power, CO2 for fuel, nitrogen for breathable air. We seek less than $500,000 in crowdfunding for build, testing and launch. While our budget is modest compared to Rocket Lab's Venus Life Finder (&lt;$10M), it focuses on niche habitation validation. Volunteers needed! We accept: space enthusiasts, hobbyists, engineers, scientists, AI geeks, real estate investors, time travelers, aliens and more!</p>
                     <p>With our hypothetical VenusExpress service, leveraging state-of-the-art next-gen propulsion like nuclear electric or VASIMR plasma drives, travel time shrinks to 30-45 days—faster than current 3-6 months, enabling frequent resupply and human missions.</p>
                 </div>
             </div>
@@ -254,6 +217,110 @@
             <img src="probe.jpg" alt="Cloudseeker Probe Technology" class="rounded-lg w-full h-auto">
         </section>
 
+        <!-- NEW: Astrophysics & Trajectory -->
+        <section id="astro" class="content-panel p-8 rounded-lg">
+            <h2 class="text-3xl mb-4" style="color: var(--accent-orange);">Astrophysics & Trajectory</h2>
+            <div class="grid md:grid-cols-2 gap-8 text-gray-300">
+                <div>
+                    <h3 class="text-xl mb-2">Transfer & Timing</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><b>Profile:</b> Earth→Venus Hohmann-like transfer.</li>
+                        <li><b>Time of Flight:</b> ~<b>146 days</b> (≈4.8 months).</li>
+                        <li><b>LEO → TVI Δv:</b> ~<b>3.5 km/s</b> from ~200 km LEO — purchased via rideshare/kick-stage.</li>
+                        <li><b>Onboard Δv:</b> ~<b>150–200 m/s</b> for course corrections and margin.</li>
+                        <li><b>Arrival:</b> v∞ ~2.7 km/s; atmospheric entry ~<b>10.7 km/s</b>; balloon deploy near <b>55 km</b>.</li>
+                    </ul>
+
+                    <h3 class="text-xl mt-6 mb-2">Mass Targets</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><b>Cloudseeker + 3U relay dry mass:</b> <b>10–12 kg</b> total.</li>
+                        <li>Buying injection keeps the spacecraft light and costs sane.</li>
+                    </ul>
+
+                    <h3 class="text-xl mt-6 mb-2">Logistics Quick Facts</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><b>Launch windows:</b> Earth–Venus synodic cycle ≈ <b>584 days</b> (~19 months).</li>
+                        <li><b>Comms light-time:</b> ~<b>2–15 minutes</b> one-way depending on geometry.</li>
+                        <li><b>Float regime:</b> 50–55 km | 0.5–1.0 bar | 0–30 °C | acid droplets present.</li>
+                        <li><b>Ops lifetime target:</b> <b>30–90 days</b> (materials/power limited).</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl mb-2">Propellant Calculator</h3>
+                    <p class="text-gray-400 mb-3 tiny">Tsiolkovsky single-burn estimate (g₀=9.80665 m/s²). Use for onboard course-correction sizing; EP multi-burns differ.</p>
+                    <div class="calc-grid">
+                        <label>
+                            <span class="tiny">Δv (m/s)</span>
+                            <input id="dv" class="input" type="number" value="200">
+                        </label>
+                        <label>
+                            <span class="tiny">Isp (s)</span>
+                            <input id="isp" class="input" type="number" value="235">
+                        </label>
+                        <label>
+                            <span class="tiny">Dry Mass (kg)</span>
+                            <input id="mdry" class="input" type="number" value="12">
+                        </label>
+                    </div>
+                    <div class="mt-3">
+                        <a href="#" class="btn" onclick="calc();return false;">Compute</a>
+                    </div>
+                    <div class="content-panel rounded-lg p-4 mt-3">
+                        <div id="out" class="tiny">Mass ratio (m₀/m_dry): —<br>Propellant needed: — kg</div>
+                    </div>
+
+                    <h3 class="text-xl mt-6 mb-2">Propulsion Options (Context)</h3>
+                    <ul class="list-disc list-inside tiny space-y-1">
+                        <li><b>Buy injection:</b> spacecraft carries ~0.8–1.1 kg monoprop for 150–200 m/s — our baseline.</li>
+                        <li><b>Self-inject chemically:</b> impractical at this scale (25–50+ kg prop).</li>
+                        <li><b>Electric (xenon):</b> ~3 kg prop but months of thrusting and higher power/ops complexity.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW: Funding & Business Model -->
+        <section id="funding" class="content-panel p-8 rounded-lg">
+            <h2 class="text-3xl mb-4" style="color: var(--accent-orange);">Funding & Business Model</h2>
+            <div class="grid md:grid-cols-2 gap-8 text-gray-300">
+                <div>
+                    <h3 class="text-xl mb-2">1) Ad Space on the Probe</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><b>Logos/messages</b> on balloon film panels (mass/drag-neutral zones) and CubeSat side panels.</li>
+                        <li><b>Livestream/data overlays</b> for dashboards and mission updates.</li>
+                        <li>Placement avoids thermal/optical interference; preserves link budgets.</li>
+                        <li><b>Tiers:</b> Personal → Legacy → Institutional.</li>
+                    </ul>
+
+                    <h3 class="text-xl mt-6 mb-2">3) Data & Access</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><b>Data licenses</b>: telemetry, imagery, aerosol/gas spectra for labs/startups.</li>
+                        <li><b>Ops observer seats</b> during key events.</li>
+                        <li><b>Artifacts</b>: flight-qualified swatches and coupon sets for education.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl mb-2">2) “Go to Venus” DNA Capsules (Symbolic)</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>Backers can send a sealed <b>micro-capsule</b> with trace DNA (hair/nail clippings).</li>
+                        <li>Capsules mount in a <b>bio-sealed bay</b> with strict gram caps by tier.</li>
+                        <li>All capsules are inert, dry, hermetically sealed; <b>no biological release</b>.</li>
+                    </ul>
+
+                    <h3 class="text-xl mt-6 mb-2">Policies & Constraints</h3>
+                    <ul class="list-disc list-inside tiny space-y-1">
+                        <li><b>Planetary protection:</b> Sealed inert artifacts only; no release.</li>
+                        <li><b>Export/ITAR:</b> Only non-functional graphics or sealed inert capsules; US handling where practical.</li>
+                        <li><b>Mass budget:</b> Strict per-tier gram caps; cumulative sponsor mass included in dry mass.</li>
+                        <li><b>Brand safety:</b> No hateful/illegal content; final placement at team discretion.</li>
+                    </ul>
+                    <div class="mt-3">
+                        <a class="btn" href="mailto:info@nephelisindustries.com?subject=Sponsorship%20Inquiry%20-%20Project%20AETHER">Request Sponsor Kit (PDF)</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Why Venus Section -->
         <section id="why-venus" class="content-panel p-8 rounded-lg">
             <h2 class="text-3xl mb-4" style="color: var(--accent-orange);">Why Venus? The Smart Bet</h2>
@@ -262,25 +329,25 @@
                 <table class="text-sm">
                     <thead><tr><th>Aspect</th><th>Venus</th><th>Mars</th></tr></thead>
                     <tbody>
-                        <tr><td>Travel Time (Current)</td><td>3-6 months</td><td>6-9 months</td></tr>
-                        <tr><td>Travel Time (Advanced)</td><td>30-45 days (nuclear electric/VASIMR)</td><td>~3-4 months (similar tech)</td></tr>
+                        <tr><td>Travel Time (Current)</td><td>3–6 months</td><td>6–9 months</td></tr>
+                        <tr><td>Travel Time (Advanced)</td><td>30–45 days (nuclear electric/VASIMR)</td><td>~3–4 months (similar tech)</td></tr>
                         <tr><td>Gravity</td><td>0.903g (90.3% Earth)</td><td>0.38g (health risks)</td></tr>
-                        <tr><td>Atmosphere</td><td>Dense, resource-rich; habitable altitude 50-55km: 0-75°C, 0.5-1 bar</td><td>Thin, cold; needs domes (-60°C avg, 0.006 bar)</td></tr>
-                        <tr><td>Solar Irradiance</td><td>2601 W/m² (1.91x Earth), but reduced by clouds</td><td>590 W/m² (0.43x Earth)</td></tr>
-                        <tr><td>Resources</td><td>CO2 96.5%, N2 3.5%, SO2 150ppm, acids—abundant for ISRU</td><td>Water ice, but sparse; thin CO2 atm</td></tr>
-                        <tr><td>Challenges</td><td>Acid clouds (mitigated by altitude/materials), radiation</td><td>Radiation, dust storms, low gravity</td></tr>
-                        <tr><td>Life Potential</td><td>Possible cloud microbes (phosphine, under debate)</td><td>Past life evidence</td></tr>
+                        <tr><td>Atmosphere</td><td>Dense, resource-rich; habitable altitude 50–55km: 0–30°C, 0.5–1 bar</td><td>Thin, cold; needs domes (−60°C avg, 0.006 bar)</td></tr>
+                        <tr><td>Solar Irradiance</td><td>~1.9× Earth at TOA (reduced in clouds)</td><td>~0.43× Earth</td></tr>
+                        <tr><td>Resources</td><td>CO₂ 96.5%, N₂ 3.5%, SO₂/acid droplets—abundant for ISRU</td><td>Water ice pockets; thin CO₂ atm</td></tr>
+                        <tr><td>Challenges</td><td>Acid corrosion; link geometry; radiation in clouds</td><td>Radiation; dust storms; low gravity</td></tr>
+                        <tr><td>Life Potential</td><td>Cloud microbe hypothesis (debated)</td><td>Possible past life</td></tr>
                     </tbody>
                 </table>
             </div>
             <h3 class="text-2xl mb-4 text-white">Venus Facts</h3>
             <ul class="grid md:grid-cols-2 gap-4 text-sm list-disc list-inside">
                 <li><strong>Gravity:</strong> 0.903g—near-ideal for long-term human health.</li>
-                <li><strong>Habitable Layer:</strong> At 50-55km, Earth-like temperature and pressure.</li>
-                <li><strong>Resource Rich:</strong> Atmosphere is 96.5% CO2 and 3.5% N2.</li>
-                <li><strong>Solar Irradiance:</strong> 1.91x Earth's, immense potential for solar power.</li>
-                <li><strong>Proximity:</strong> Closer orbit means faster travel and resupply.</li>
-                <li><strong>Astrobiology Hotspot:</strong> Phosphine detection suggests possible microbial life.</li>
+                <li><strong>Habitable Layer:</strong> At 50–55km, Earth-like temperature and pressure.</li>
+                <li><strong>Resource Rich:</strong> Atmosphere is 96.5% CO₂ and 3.5% N₂.</li>
+                <li><strong>Solar Irradiance:</strong> ~1.9× Earth at TOA; diffuse in-cloud but workable.</li>
+                <li><strong>Proximity:</strong> Faster travel and resupply compared to Mars.</li>
+                <li><strong>Astrobiology Hotspot:</strong> Phosphine/ammonia lines motivate deeper study.</li>
             </ul>
         </section>
 
@@ -351,25 +418,25 @@
             <a href="mailto:volunteer@nephelisindustries.com" class="inline-block font-bold py-2 px-6 rounded text-lg text-black transition-transform hover:scale-105" style="background-color: var(--accent-orange);">
                 Volunteer &rarr;
             </a>
-        </footer>
-        <div class="text-center text-gray-600 text-sm pb-8">
-            <p>&copy; 2026 Nephelis Industries. All Rights Reserved.</p>
-            <div class="flex justify-center items-center space-x-4 mt-2">
-                <a href="mailto:info@nephelisindustries.com" class="hover:text-orange-500">info@nephelisindustries.com</a>
-                <span>&bull;</span>
-                <a href="https://x.com/NephelisCo" target="_blank" class="flex items-center space-x-2 hover:text-orange-500">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.602.75zM11.437 13.98l1.04-1.18L4.12 2.16h-1.2l6.544 9.34z"/>
-                    </svg>
-                    <span>@NephelisCo</span>
-                </a>
+            <div class="text-center text-gray-600 text-sm pt-6">
+                <p>&copy; 2026 Nephelis Industries. All Rights Reserved.</p>
+                <div class="flex justify-center items-center space-x-4 mt-2">
+                    <a href="mailto:info@nephelisindustries.com" class="hover:text-orange-500">info@nephelisindustries.com</a>
+                    <span>&bull;</span>
+                    <a href="https://x.com/NephelisCo" target="_blank" class="flex items-center space-x-2 hover:text-orange-500">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.602.75zM11.437 13.98l1.04-1.18L4.12 2.16h-1.2l6.544 9.34z"/>
+                        </svg>
+                        <span>@NephelisCo</span>
+                    </a>
+                </div>
             </div>
-        </div>
+        </footer>
     </main>
 
     <script>
+        // Circular Text CTA
         document.addEventListener('DOMContentLoaded', () => {
-            // Circular Text CTA
             const textContainer = document.querySelector('.circular-text');
             const text = " • Join The Mission • Join The Mission";
             const chars = text.split('');
@@ -385,21 +452,38 @@
             // Mouse follow effect for CTA
             const cta = document.querySelector('.circular-cta');
             window.addEventListener('mousemove', (e) => {
-                const x = e.clientX;
-                const y = e.clientY;
-                const windowWidth = window.innerWidth;
-                const windowHeight = window.innerHeight;
-                
+                const x = e.clientX, y = e.clientY;
+                const w = window.innerWidth, h = window.innerHeight;
                 const distance = Math.sqrt(Math.pow(x - (cta.offsetLeft + 75), 2) + Math.pow(y - (cta.offsetTop + 75), 2));
                 if (distance < 150) {
-                    const moveX = (x > windowWidth / 2) ? -30 : 30;
-                    const moveY = (y > windowHeight / 2) ? -30 : 30;
+                    const moveX = (x > w / 2) ? -30 : 30;
+                    const moveY = (y > h / 2) ? -30 : 30;
                     cta.style.transform = `translate(${moveX}px, ${moveY}px)`;
                 } else {
                     cta.style.transform = 'translate(0, 0)';
                 }
             });
         });
+
+        // Rocket Equation Calculator (Tsiolkovsky)
+        const g0 = 9.80665;
+        const fmt = x => (Math.round(x * 100) / 100).toLocaleString();
+        function calc(){
+            const dv   = Number(document.getElementById('dv').value || 0);
+            const isp  = Number(document.getElementById('isp').value || 0);
+            const mdry = Number(document.getElementById('mdry').value || 0);
+            const out  = document.getElementById('out');
+            if (dv<=0 || isp<=0 || mdry<=0){
+                out.innerHTML = 'Mass ratio (m₀/m_dry): —<br>Propellant needed: — kg';
+                return;
+            }
+            const mr  = Math.exp(dv/(isp*g0));
+            const m0  = mdry * mr;
+            const mpr = m0 - mdry;
+            out.innerHTML = `Mass ratio (m₀/m_dry): <b>${fmt(mr)}</b><br>Propellant needed: <b>${fmt(mpr)}</b> kg`;
+        }
+        // Prime initial output
+        calc();
     </script>
 </body>
 </html>
