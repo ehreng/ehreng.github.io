@@ -41,79 +41,30 @@
         }
         /* Circular Text CTA */
         .circular-cta {
-            position: fixed;
-            bottom: 40px;
-            right: 40px;
-            width: 150px;
-            height: 150px;
-            z-index: 1000;
+            position: fixed; bottom: 40px; right: 40px; width: 150px; height: 150px; z-index: 1000;
             transition: transform 0.3s ease-out;
         }
-        .circular-text {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            border-radius: 50%;
-            animation: rotate 20s linear infinite;
-        }
-        .circular-text span {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            height: 75px;
-            transform-origin: 0 100%;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-        }
-        .cta-center {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80px;
-            height: 80px;
-            background-color: var(--accent-orange);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
+        .circular-text { width: 100%; height: 100%; position: relative; border-radius: 50%; animation: rotate 20s linear infinite; }
+        .circular-text span { position: absolute; left: 50%; top: 50%; height: 75px; transform-origin: 0 100%; font-size: 1.1rem; text-transform: uppercase; }
+        .cta-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background-color: var(--accent-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.3s; }
         .cta-center:hover { transform: translate(-50%, -50%) scale(1.1); }
         @keyframes rotate { from { transform: rotate(0deg);} to { transform: rotate(360deg);} }
-        /* Slideshow */
-        .slideshow-container {
-            position: relative; width: 100%; padding-top: 56.25%; overflow: hidden;
-        }
-        .slide {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-size: contain; background-position: center; background-repeat: no-repeat;
-            opacity: 0; animation: fadeAnimation 36s infinite;
-        }
-        @keyframes fadeAnimation {
-            0% { opacity: 0; } 4% { opacity: 1; } 16% { opacity: 1; } 20% { opacity: 0; } 100% { opacity: 0; }
-        }
-        .slide:nth-child(1) { animation-delay: 0s; }
-        .slide:nth-child(2) { animation-delay: 6s; }
-        .slide:nth-child(3) { animation-delay: 12s; }
-        .slide:nth-child(4) { animation-delay: 18s; }
-        .slide:nth-child(5) { animation-delay: 24s; }
-        .slide:nth-child(6) { animation-delay: 30s; }
+        /* Slideshow (bigger + faster) */
+        .slideshow-container{ position: relative; width: 100%; padding-top: 56.25%; overflow: hidden; border-radius: .5rem; }
+        @media (min-width: 1024px){ .slideshow-container{ padding-top: 0; height: 72vh; } }
+        .slide{ position:absolute; top:0; left:0; width:100%; height:100%; background-size: cover; background-position:center; background-repeat:no-repeat; opacity:0; animation: fadeAnimation 18s infinite; }
+        .slide:nth-child(1){ animation-delay: 0s; } .slide:nth-child(2){ animation-delay: 3s; } .slide:nth-child(3){ animation-delay: 6s; }
+        .slide:nth-child(4){ animation-delay: 9s; } .slide:nth-child(5){ animation-delay: 12s; } .slide:nth-child(6){ animation-delay: 15s; }
+        @keyframes fadeAnimation{ 0%{opacity:0;} 6%{opacity:1;} 22%{opacity:1;} 28%{opacity:0;} 100%{opacity:0;} }
         /* X Feed Section */
         .x-feed-container { position: relative; background: var(--bg); overflow: hidden; border: none !important; box-shadow: none !important; }
-        .x-feed-container svg.bg {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; mix-blend-mode: overlay; opacity: 0.2;
-        }
+        .x-feed-container svg.bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; mix-blend-mode: overlay; opacity: 0.2; }
         #x-feed { max-width: 600px; margin: 0 auto; border: none !important; }
         #x-feed .twitter-timeline { border: none !important; background: transparent !important; }
         table { width: 100%; border-collapse: collapse; }
         th, td { padding: 0.5rem; border-bottom: 1px solid var(--border-color); }
         th { color: var(--accent-orange); }
-        @media (prefers-reduced-motion: reduce) {
-            svg.bg { animation: none; opacity: 0.15; }
-            .circular-text { animation: none; }
-        }
+        @media (prefers-reduced-motion: reduce) { svg.bg { animation: none; opacity: 0.15; } .circular-text { animation: none; } }
         /* Inputs (calc) */
         .input { width: 100%; background: #0e0e0e; border: 1px solid #292929; border-radius: 10px; color: var(--fg); padding: 10px 12px; }
         .calc-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
@@ -124,6 +75,15 @@
         }
         .btn:hover { transform: translateY(-1px); box-shadow: 0 0 18px -6px rgba(255,69,0,.55); border-color: var(--accent-orange); }
         .tiny { font-size: .9rem; color:#b3b3b3; }
+        /* Lightbox */
+        .lightbox{ position:fixed; inset:0; background: rgba(0,0,0,.85); display:none; align-items:center; justify-content:center; z-index: 10000; }
+        .lightbox.open{ display:flex; }
+        .lightbox img{ max-width: 92vw; max-height: 92vh; border-radius: 10px; border:1px solid var(--border-color); }
+        .lightbox .close{ position:absolute; top:20px; right:24px; color:#fff; font-size:28px; cursor:pointer; }
+        .lightbox .nav{ position:absolute; top:50%; transform: translateY(-50%); font-size:38px; color:#fff; cursor:pointer; user-select:none; padding:10px 16px; }
+        .lightbox .prev{ left:20px; } .lightbox .next{ right:20px; }
+        /* Diagram panels */
+        .diagram{ width:100%; background:#0e0e0e; border:1px solid #292929; border-radius: 10px; }
     </style>
 </head>
 <body class="antialiased">
@@ -147,6 +107,8 @@
                 <a href="#tech" class="hover:text-orange-500 transition-colors">Technology</a>
                 <a href="#astro" class="hover:text-orange-500 transition-colors">Astrophysics</a>
                 <a href="#funding" class="hover:text-orange-500 transition-colors">Funding</a>
+                <a href="#gallery" class="hover:text-orange-500 transition-colors">Gallery</a>
+                <a href="#diagrams" class="hover:text-orange-500 transition-colors">Diagrams</a>
                 <a href="#why-venus" class="hover:text-orange-500 transition-colors">Why Venus?</a>
                 <a href="#history" class="hover:text-orange-500 transition-colors">History</a>
                 <a href="#timeline" class="hover:text-orange-500 transition-colors">Timeline</a>
@@ -189,16 +151,23 @@
             </div>
         </section>
 
-        <!-- Gallery Section -->
+        <!-- Gallery Section (bigger + faster; now supports lightbox) -->
         <section id="gallery" class="content-panel p-8 rounded-lg">
             <h2 class="text-3xl mb-4 text-center" style="color: var(--accent-orange);">Envisioning Venus</h2>
-            <div class="slideshow-container rounded-lg">
-                <div class="slide" style="background-image: url('a.jpg');"></div>
-                <div class="slide" style="background-image: url('b.jpg');"></div>
-                <div class="slide" style="background-image: url('c.jpg');"></div>
-                <div class="slide" style="background-image: url('d.jpg');"></div>
-                <div class="slide" style="background-image: url('e.jpg');"></div>
-                <div class="slide" style="background-image: url('f.jpg');"></div>
+            <div class="slideshow-container rounded-lg" id="slideshow">
+                <div class="slide" data-full="a.jpg" style="background-image: url('a.jpg');"></div>
+                <div class="slide" data-full="b.jpg" style="background-image: url('b.jpg');"></div>
+                <div class="slide" data-full="c.jpg" style="background-image: url('c.jpg');"></div>
+                <div class="slide" data-full="d.jpg" style="background-image: url('d.jpg');"></div>
+                <div class="slide" data-full="e.jpg" style="background-image: url('e.jpg');"></div>
+                <div class="slide" data-full="f.jpg" style="background-image: url('f.jpg');"></div>
+            </div>
+            <!-- Lightbox -->
+            <div class="lightbox" id="lightbox">
+                <span class="close" id="lbClose">✕</span>
+                <span class="nav prev" id="lbPrev">‹</span>
+                <img id="lbImg" src="" alt="Gallery image">
+                <span class="nav next" id="lbNext">›</span>
             </div>
         </section>
 
@@ -217,7 +186,7 @@
             <img src="probe.jpg" alt="Cloudseeker Probe Technology" class="rounded-lg w-full h-auto">
         </section>
 
-        <!-- NEW: Astrophysics & Trajectory -->
+        <!-- Astrophysics & Trajectory -->
         <section id="astro" class="content-panel p-8 rounded-lg">
             <h2 class="text-3xl mb-4" style="color: var(--accent-orange);">Astrophysics & Trajectory</h2>
             <div class="grid md:grid-cols-2 gap-8 text-gray-300">
@@ -226,8 +195,8 @@
                     <ul class="list-disc list-inside space-y-2">
                         <li><b>Profile:</b> Earth→Venus Hohmann-like transfer.</li>
                         <li><b>Time of Flight:</b> ~<b>146 days</b> (≈4.8 months).</li>
-                        <li><b>LEO → TVI Δv:</b> ~<b>3.5 km/s</b> from ~200 km LEO — purchased via rideshare/kick-stage.</li>
-                        <li><b>Onboard Δv:</b> ~<b>150–200 m/s</b> for course corrections and margin.</li>
+                        <li><b>LEO → TVI Δv:</b> ~<b>3.5 km/s</b> — purchased via rideshare/kick-stage.</li>
+                        <li><b>Onboard Δv:</b> ~<b>150–200 m/s</b> for course corrections/margin.</li>
                         <li><b>Arrival:</b> v∞ ~2.7 km/s; atmospheric entry ~<b>10.7 km/s</b>; balloon deploy near <b>55 km</b>.</li>
                     </ul>
 
@@ -249,37 +218,23 @@
                     <h3 class="text-xl mb-2">Propellant Calculator</h3>
                     <p class="text-gray-400 mb-3 tiny">Tsiolkovsky single-burn estimate (g₀=9.80665 m/s²). Use for onboard course-correction sizing; EP multi-burns differ.</p>
                     <div class="calc-grid">
-                        <label>
-                            <span class="tiny">Δv (m/s)</span>
-                            <input id="dv" class="input" type="number" value="200">
-                        </label>
-                        <label>
-                            <span class="tiny">Isp (s)</span>
-                            <input id="isp" class="input" type="number" value="235">
-                        </label>
-                        <label>
-                            <span class="tiny">Dry Mass (kg)</span>
-                            <input id="mdry" class="input" type="number" value="12">
-                        </label>
+                        <label><span class="tiny">Δv (m/s)</span><input id="dv" class="input" type="number" value="200"></label>
+                        <label><span class="tiny">Isp (s)</span><input id="isp" class="input" type="number" value="235"></label>
+                        <label><span class="tiny">Dry Mass (kg)</span><input id="mdry" class="input" type="number" value="12"></label>
                     </div>
-                    <div class="mt-3">
-                        <a href="#" class="btn" onclick="calc();return false;">Compute</a>
-                    </div>
-                    <div class="content-panel rounded-lg p-4 mt-3">
-                        <div id="out" class="tiny">Mass ratio (m₀/m_dry): —<br>Propellant needed: — kg</div>
-                    </div>
-
+                    <div class="mt-3"><a href="#" class="btn" onclick="calc();return false;">Compute</a></div>
+                    <div class="content-panel rounded-lg p-4 mt-3"><div id="out" class="tiny">Mass ratio (m₀/m_dry): —<br>Propellant needed: — kg</div></div>
                     <h3 class="text-xl mt-6 mb-2">Propulsion Options (Context)</h3>
                     <ul class="list-disc list-inside tiny space-y-1">
-                        <li><b>Buy injection:</b> spacecraft carries ~0.8–1.1 kg monoprop for 150–200 m/s — our baseline.</li>
-                        <li><b>Self-inject chemically:</b> impractical at this scale (25–50+ kg prop).</li>
-                        <li><b>Electric (xenon):</b> ~3 kg prop but months of thrusting and higher power/ops complexity.</li>
+                        <li><b>Buy injection:</b> ~0.8–1.1 kg monoprop for 150–200 m/s — our baseline.</li>
+                        <li><b>Chemical self-injection:</b> 25–50+ kg prop (impractical at this scale).</li>
+                        <li><b>Electric (xenon):</b> ~3 kg prop but months of thrusting, higher power/ops complexity.</li>
                     </ul>
                 </div>
             </div>
         </section>
 
-        <!-- NEW: Funding & Business Model -->
+        <!-- Funding & Business Model -->
         <section id="funding" class="content-panel p-8 rounded-lg">
             <h2 class="text-3xl mb-4" style="color: var(--accent-orange);">Funding & Business Model</h2>
             <div class="grid md:grid-cols-2 gap-8 text-gray-300">
@@ -291,7 +246,6 @@
                         <li>Placement avoids thermal/optical interference; preserves link budgets.</li>
                         <li><b>Tiers:</b> Personal → Legacy → Institutional.</li>
                     </ul>
-
                     <h3 class="text-xl mt-6 mb-2">3) Data & Access</h3>
                     <ul class="list-disc list-inside space-y-2">
                         <li><b>Data licenses</b>: telemetry, imagery, aerosol/gas spectra for labs/startups.</li>
@@ -306,7 +260,6 @@
                         <li>Capsules mount in a <b>bio-sealed bay</b> with strict gram caps by tier.</li>
                         <li>All capsules are inert, dry, hermetically sealed; <b>no biological release</b>.</li>
                     </ul>
-
                     <h3 class="text-xl mt-6 mb-2">Policies & Constraints</h3>
                     <ul class="list-disc list-inside tiny space-y-1">
                         <li><b>Planetary protection:</b> Sealed inert artifacts only; no release.</li>
@@ -314,9 +267,83 @@
                         <li><b>Mass budget:</b> Strict per-tier gram caps; cumulative sponsor mass included in dry mass.</li>
                         <li><b>Brand safety:</b> No hateful/illegal content; final placement at team discretion.</li>
                     </ul>
-                    <div class="mt-3">
-                        <a class="btn" href="mailto:info@nephelisindustries.com?subject=Sponsorship%20Inquiry%20-%20Project%20AETHER">Request Sponsor Kit (PDF)</a>
-                    </div>
+                    <div class="mt-3"><a class="btn" href="mailto:info@nephelisindustries.com?subject=Sponsorship%20Inquiry%20-%20Project%20AETHER">Request Sponsor Kit (PDF)</a></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- New: Diagram Mockups (pure SVG/Canvas) -->
+        <section id="diagrams" class="content-panel p-8 rounded-lg">
+            <h2 class="text-3xl mb-6" style="color: var(--accent-orange);">Mission Diagrams</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- 1) Earth→Venus Journey -->
+                <div class="diagram p-4">
+                    <h3 class="text-xl mb-2">Earth → Venus Journey</h3>
+                    <svg viewBox="0 0 500 380" class="w-full h-auto">
+                        <!-- Sun -->
+                        <circle cx="250" cy="190" r="12" fill="#ffb48f" stroke="#ffcfb8"/>
+                        <!-- Orbits -->
+                        <circle cx="250" cy="190" r="120" fill="none" stroke="rgba(106,180,255,.6)" stroke-width="1.5"/>
+                        <circle cx="250" cy="190" r="86.8" fill="none" stroke="rgba(255,156,106,.7)" stroke-width="1.5"/>
+                        <!-- Transfer ellipse (approx) -->
+                        <ellipse cx="250" cy="190" rx="103.4" ry="120" fill="none" stroke="rgba(255,69,0,.75)" stroke-width="2" transform="rotate(-18 250 190)"/>
+                        <!-- Bodies -->
+                        <circle cx="250" cy="70" r="5" fill="#6ab4ff" stroke="#bfe0ff"/>
+                        <text x="262" y="70" font-size="12" fill="#cfe3ff">Earth</text>
+                        <circle cx="250" cy="103.2" r="5" fill="#ff9c6a" stroke="#ffd7c1"/>
+                        <text x="262" y="103" font-size="12" fill="#ffd7c1">Venus</text>
+                        <!-- Labels -->
+                        <text x="20" y="350" font-size="12" fill="#bbb">Hohmann-like transfer (~146 days)</text>
+                        <text x="20" y="365" font-size="12" fill="#bbb">LEO→TVI Δv ~3.5 km/s (via rideshare/kick-stage)</text>
+                    </svg>
+                </div>
+
+                <!-- 2) Venus Orbit & Atmospheric Entry -->
+                <div class="diagram p-4">
+                    <h3 class="text-xl mb-2">Venus Orbit & Entry</h3>
+                    <svg viewBox="0 0 500 380" class="w-full h-auto">
+                        <!-- Venus -->
+                        <circle cx="250" cy="190" r="14" fill="#ff9c6a" stroke="#ffd7c1"/>
+                        <text x="270" y="195" font-size="12" fill="#ffd7c1">Venus</text>
+                        <!-- Orbit + Relay -->
+                        <circle cx="250" cy="190" r="70" fill="none" stroke="rgba(255,156,106,.6)" stroke-dasharray="4 6"/>
+                        <circle cx="250" cy="120" r="4" fill="#9ad1ff" stroke="#d3ecff"/>
+                        <text x="264" y="120" font-size="12" fill="#cfe3ff">3U CubeSat Relay</text>
+                        <!-- Entry path -->
+                        <path d="M120,40 C160,140 180,200 230,220" fill="none" stroke="rgba(255,69,0,.85)" stroke-width="2"/>
+                        <polygon points="230,220 222,216 230,235" fill="rgba(255,69,0,.85)"/>
+                        <text x="120" y="36" font-size="12" fill="#bbb">Atmospheric Entry (~10.7 km/s)</text>
+                        <!-- Balloon deploy marker -->
+                        <circle cx="240" cy="214" r="5" fill="#ffd1bf" stroke="#ffb48f"/>
+                        <text x="252" y="218" font-size="12" fill="#ffd1bf">Balloon deploy ~55 km</text>
+                    </svg>
+                </div>
+
+                <!-- 3) Venus Clouds: Float Layer -->
+                <div class="diagram p-4">
+                    <h3 class="text-xl mb-2">Venus Cloud Layers</h3>
+                    <svg viewBox="0 0 500 380" class="w-full h-auto">
+                        <!-- Altitude axis -->
+                        <line x1="60" y1="30" x2="60" y2="340" stroke="#666"/>
+                        <text x="20" y="35" font-size="12" fill="#bbb">Altitude</text>
+                        <text x="20" y="65" font-size="12" fill="#bbb">70 km</text>
+                        <text x="20" y="115" font-size="12" fill="#bbb">60 km</text>
+                        <text x="20" y="165" font-size="12" fill="#bbb">50 km</text>
+                        <text x="20" y="215" font-size="12" fill="#bbb">40 km</text>
+                        <!-- Cloud bands -->
+                        <rect x="80" y="60" width="380" height="40" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.12)"/>
+                        <text x="90" y="85" font-size="12" fill="#bbb">Upper clouds (~60–70 km)</text>
+                        <rect x="80" y="110" width="380" height="50" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.12)"/>
+                        <text x="90" y="140" font-size="12" fill="#bbb">Middle clouds (~50–60 km)</text>
+                        <rect x="80" y="165" width="380" height="55" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.12)"/>
+                        <text x="90" y="195" font-size="12" fill="#bbb">Lower clouds (~45–50 km)</text>
+                        <!-- Float layer -->
+                        <rect x="80" y="130" width="380" height="30" fill="rgba(255,69,0,.15)" stroke="rgba(255,69,0,.35)"/>
+                        <text x="90" y="148" font-size="12" fill="#ffb48f"><tspan>Cloudseeker float: ~50–55 km</tspan> • 0.5–1.0 bar • 0–30 °C</text>
+                        <!-- Probe icon -->
+                        <circle cx="420" cy="145" r="6" fill="#ffb48f" stroke="#ffcaa9"/>
+                        <text x="436" y="148" font-size="12" fill="#ffd7c1">Probe</text>
+                    </svg>
                 </div>
             </div>
         </section>
@@ -373,41 +400,38 @@
         <section id="timeline" class="content-panel p-8 rounded-lg">
             <h2 class="text-3xl mb-4" style="color: var(--accent-orange);">Timeline</h2>
             <div class="grid md:grid-cols-2 gap-8">
-                <div>
-                    <h3 class="text-xl font-bold text-white">2025: Crowdfunding & Development</h3>
-                    <p class="text-gray-400">Secure initial funding, design and build prototypes of the Cloudseeker probe and CubeSat relay, integrate xAI models, and assemble core team.</p>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold text-white">2026: Testing & Integration</h3>
-                    <p class="text-gray-400">Perform rigorous ground-based simulations, integrate sensor suite with aerostat, validate AI navigation, and iterate on designs based on test results.</p>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold text-white">2027: Launch & Deployment</h3>
-                    <p class="text-gray-400">Finalize launch partnerships, deploy Cloudseeker into atmosphere, activate CubeSat relay, and monitor real-time data streams.</p>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold text-white">Beyond: Habitat Buildout</h3>
-                    <p class="text-gray-400">Utilize probe data to design scalable floating outposts, develop AI-human symbiotic systems, and plan crewed missions using VenusExpress tech.</p>
-                </div>
+                <div><h3 class="text-xl font-bold text-white">2025: Crowdfunding & Development</h3><p class="text-gray-400">Secure initial funding, design and build prototypes of the Cloudseeker probe and CubeSat relay, integrate xAI models, and assemble core team.</p></div>
+                <div><h3 class="text-xl font-bold text-white">2026: Testing & Integration</h3><p class="text-gray-400">Perform rigorous ground-based simulations, integrate sensor suite with aerostat, validate AI navigation, and iterate on designs based on test results.</p></div>
+                <div><h3 class="text-xl font-bold text-white">2027: Launch & Deployment</h3><p class="text-gray-400">Finalize launch partnerships, deploy Cloudseeker into atmosphere, activate CubeSat relay, and monitor real-time data streams.</p></div>
+                <div><h3 class="text-xl font-bold text-white">Beyond: Habitat Buildout</h3><p class="text-gray-400">Utilize probe data to design scalable floating outposts, develop AI-human symbiotic systems, and plan crewed missions using VenusExpress tech.</p></div>
             </div>
         </section>
 
-        <!-- X Feed Section -->
+        <!-- X Feed (embedded timeline) -->
         <section id="x-feed" class="x-feed-container p-8 rounded-lg">
             <h2 class="text-3xl mb-4 text-center" style="color: var(--accent-orange);">Latest From @NephelisCo</h2>
             <svg class="bg" viewBox="0 0 100 100" preserveAspectRatio="none">
                 <rect x="0" y="0" width="100" height="100" fill="none"/>
                 <polygon points="50,10 60,30 40,30" fill="none" stroke="var(--accent-orange)" stroke-width="0.5">
                     <animate attributeName="transform" values="translate(0,0) rotate(0 50 50) scale(1);
-                                                            translate(0,0) rotate(360 50 50) scale(1.2);
-                                                            translate(0,0) rotate(0 50 50) scale(1)"
+                                                                translate(0,0) rotate(360 50 50) scale(1.2);
+                                                                translate(0,0) rotate(0 50 50) scale(1)"
                              dur="60s" repeatCount="indefinite" />
                 </polygon>
                 <circle cx="80" cy="20" r="5" fill="none" stroke="var(--accent-orange)" stroke-width="0.4">
                     <animate attributeName="r" values="4;6;4" dur="15s" repeatCount="indefinite" />
                 </circle>
             </svg>
-            <a class="twitter-timeline" data-height="600" data-theme="dark" href="https://x.com/NephelisCo?ref_src=twsrc%5Etfw">Tweets by NephelisCo</a>
+            <div class="max-w-3xl mx-auto">
+                <a class="twitter-timeline"
+                   data-theme="dark"
+                   data-chrome="noheader nofooter noborders transparent"
+                   data-width="100%"
+                   data-height="700"
+                   href="https://twitter.com/NephelisCo">
+                   Tweets by NephelisCo
+                </a>
+            </div>
             <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </section>
 
@@ -424,9 +448,7 @@
                     <a href="mailto:info@nephelisindustries.com" class="hover:text-orange-500">info@nephelisindustries.com</a>
                     <span>&bull;</span>
                     <a href="https://x.com/NephelisCo" target="_blank" class="flex items-center space-x-2 hover:text-orange-500">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 16 16">
-                            <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.602.75zM11.437 13.98l1.04-1.18L4.12 2.16h-1.2l6.544 9.34z"/>
-                        </svg>
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 16 16"><path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.602.75zM11.437 13.98l1.04-1.18L4.12 2.16h-1.2l6.544 9.34z"/></svg>
                         <span>@NephelisCo</span>
                     </a>
                 </div>
@@ -435,55 +457,46 @@
     </main>
 
     <script>
-        // Circular Text CTA
+        // Circular Text CTA + hover drift
         document.addEventListener('DOMContentLoaded', () => {
             const textContainer = document.querySelector('.circular-text');
             const text = " • Join The Mission • Join The Mission";
-            const chars = text.split('');
-            const angle = 360 / chars.length;
-
-            chars.forEach((char, i) => {
-                const span = document.createElement('span');
-                span.innerText = char;
-                span.style.transform = `rotate(${angle * i}deg)`;
-                textContainer.appendChild(span);
-            });
-
-            // Mouse follow effect for CTA
+            const chars = text.split(''); const angle = 360 / chars.length;
+            chars.forEach((c,i)=>{ const s=document.createElement('span'); s.innerText=c; s.style.transform=`rotate(${angle*i}deg)`; textContainer.appendChild(s); });
             const cta = document.querySelector('.circular-cta');
             window.addEventListener('mousemove', (e) => {
-                const x = e.clientX, y = e.clientY;
-                const w = window.innerWidth, h = window.innerHeight;
-                const distance = Math.sqrt(Math.pow(x - (cta.offsetLeft + 75), 2) + Math.pow(y - (cta.offsetTop + 75), 2));
-                if (distance < 150) {
-                    const moveX = (x > w / 2) ? -30 : 30;
-                    const moveY = (y > h / 2) ? -30 : 30;
-                    cta.style.transform = `translate(${moveX}px, ${moveY}px)`;
-                } else {
-                    cta.style.transform = 'translate(0, 0)';
-                }
+                const x=e.clientX, y=e.clientY, w=innerWidth, h=innerHeight;
+                const d = Math.hypot(x-(cta.offsetLeft+75), y-(cta.offsetTop+75));
+                if(d<150){ cta.style.transform=`translate(${x>w/2?-30:30}px, ${y>h/2?-30:30}px)`; } else { cta.style.transform='translate(0,0)'; }
             });
         });
 
         // Rocket Equation Calculator (Tsiolkovsky)
-        const g0 = 9.80665;
-        const fmt = x => (Math.round(x * 100) / 100).toLocaleString();
+        const g0 = 9.80665, fmt = x => (Math.round(x*100)/100).toLocaleString();
         function calc(){
             const dv   = Number(document.getElementById('dv').value || 0);
             const isp  = Number(document.getElementById('isp').value || 0);
             const mdry = Number(document.getElementById('mdry').value || 0);
             const out  = document.getElementById('out');
-            if (dv<=0 || isp<=0 || mdry<=0){
-                out.innerHTML = 'Mass ratio (m₀/m_dry): —<br>Propellant needed: — kg';
-                return;
-            }
-            const mr  = Math.exp(dv/(isp*g0));
-            const m0  = mdry * mr;
-            const mpr = m0 - mdry;
-            out.innerHTML = `Mass ratio (m₀/m_dry): <b>${fmt(mr)}</b><br>Propellant needed: <b>${fmt(mpr)}</b> kg`;
+            if (dv<=0 || isp<=0 || mdry<=0){ out.innerHTML='Mass ratio (m₀/m_dry): —<br>Propellant needed: — kg'; return; }
+            const mr=Math.exp(dv/(isp*g0)), m0=mdry*mr, mpr=m0-mdry;
+            out.innerHTML=`Mass ratio (m₀/m_dry): <b>${fmt(mr)}</b><br>Propellant needed: <b>${fmt(mpr)}</b> kg`;
         }
-        // Prime initial output
         calc();
+
+        // Lightbox for gallery (zero deps)
+        (() => {
+            const slides = [...document.querySelectorAll('#slideshow .slide')];
+            const lb = document.getElementById('lightbox'), img = document.getElementById('lbImg');
+            const prev = document.getElementById('lbPrev'), next = document.getElementById('lbNext'), close = document.getElementById('lbClose');
+            let idx = 0;
+            function open(i){ idx=i; img.src = slides[idx].dataset.full; lb.classList.add('open'); document.body.style.overflow='hidden'; }
+            function nav(dir){ idx=(idx+dir+slides.length)%slides.length; img.src=slides[idx].dataset.full; }
+            function hide(){ lb.classList.remove('open'); document.body.style.overflow=''; }
+            slides.forEach((s,i)=> s.addEventListener('click', ()=>open(i)));
+            prev.onclick=()=>nav(-1); next.onclick=()=>nav(1); close.onclick=hide; lb.addEventListener('click', (e)=>{ if(e.target===lb) hide(); });
+            window.addEventListener('keydown', (e)=>{ if(!lb.classList.contains('open')) return; if(e.key==='Escape') hide(); if(e.key==='ArrowLeft') nav(-1); if(e.key==='ArrowRight') nav(1); });
+        })();
     </script>
 </body>
 </html>
