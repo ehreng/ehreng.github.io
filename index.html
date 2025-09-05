@@ -372,12 +372,12 @@
             <h3 class="text-xl" style="color:var(--accent-orange);">ETCH YOUR LEGACY ON A SOLAR PANEL</h3>
             <p class="text-gray-300 text-sm my-3 flex-grow">From a personal message ($100) to a corporate logo ($10k), your support will be physically integrated into the Cloudseeker probe, orbiting Venus for decades to come.</p>
             <p class="text-2xl font-bold my-2"><span id="panel-counter">427</span> of 500 panels left</p>
-            <button class="sponsor-btn inline-block font-bold py-2 px-6 rounded text-lg text-black transition-transform hover:scale-105 mt-2" style="background-color:var(--accent-orange);">Sponsor Now! &rarr;</button>
+            <button data-modal-target="panel-modal" class="sponsor-btn inline-block font-bold py-2 px-6 rounded text-lg text-black transition-transform hover:scale-105 mt-2" style="background-color:var(--accent-orange);">Sponsor Now! &rarr;</button>
         </div>
         <div class="border border-[var(--border-color)] rounded-lg p-6 bg-black/20 flex flex-col justify-between">
             <h3 class="text-xl" style="color:var(--accent-orange);">IMMORTALIZE YOUR DNA ON VENUS</h3>
             <p class="text-gray-300 text-sm my-3 flex-grow">For a $500 contribution, send us a hair or nail sample. We'll seal it in an inert time capsule aboard the probe, making your biological signature part of an eternal cosmic journey.</p>
-            <button class="sponsor-btn inline-block font-bold py-2 px-6 rounded text-lg text-black transition-transform hover:scale-105 mt-2" style="background-color:var(--accent-orange);">Send Your DNA to Venus! &rarr;</button>
+            <button data-modal-target="dna-modal" class="sponsor-btn inline-block font-bold py-2 px-6 rounded text-lg text-black transition-transform hover:scale-105 mt-2" style="background-color:var(--accent-orange);">Send Your DNA to Venus! &rarr;</button>
         </div>
     </div>
     <div class="mt-8 pt-6 border-t border-[var(--border-color)]">
@@ -419,14 +419,38 @@
   </footer>
 </main>
 
-<!-- Sponsorship Modal -->
-<div id="sponsor-modal" class="modal">
+<!-- Panel Sponsorship Modal -->
+<div id="panel-modal" class="modal">
     <div class="modal-content relative">
-        <button id="modal-close" class="close-btn">✕</button>
-        <h2 class="text-2xl mb-4" style="color:var(--accent-orange);">Thank You For Your Interest!</h2>
-        <p class="text-gray-300">This is a conceptual project, but your enthusiasm fuels the dream of interplanetary exploration. To learn more about real space missions, consider visiting NASA or SpaceX's official websites.</p>
+        <button class="close-btn" data-modal-close="panel-modal">✕</button>
+        <h2 class="text-2xl mb-4" style="color:var(--accent-orange);">Sponsor a Solar Panel</h2>
+        <p class="text-gray-300 mb-4">Enter your email below to be notified when sponsorship tiers go live. Your support will etch your legacy onto the Cloudseeker probe itself.</p>
+        <form id="panel-form" class="w-full">
+            <div class="form-content">
+                <input type="email" placeholder="your.email@example.com" class="input w-full mb-3" required>
+                <button type="submit" class="w-full font-bold py-2 px-6 rounded text-lg text-black transition-transform hover:scale-105" style="background-color:var(--accent-orange);">Register Interest &rarr;</button>
+            </div>
+            <p class="text-xs text-gray-500 mt-4">For the latest mission updates, <a href="https://x.com/NephelisCo" target="_blank" class="underline hover:text-orange-500">follow us on X</a>.</p>
+        </form>
     </div>
 </div>
+
+<!-- DNA Sponsorship Modal -->
+<div id="dna-modal" class="modal">
+    <div class="modal-content relative">
+        <button class="close-btn" data-modal-close="dna-modal">✕</button>
+        <h2 class="text-2xl mb-4" style="color:var(--accent-orange);">Immortalize Your DNA on Venus</h2>
+        <p class="text-gray-300 mb-4">You are one step closer to sending your biological signature on an eternal cosmic journey. Enter your email to receive the DNA sample kit and instructions when available.</p>
+        <form id="dna-form" class="w-full">
+            <div class="form-content">
+                <input type="email" placeholder="your.email@example.com" class="input w-full mb-3" required>
+                <button type="submit" class="w-full font-bold py-2 px-6 rounded text-lg text-black transition-transform hover:scale-105" style="background-color:var(--accent-orange);">Request Kit Info &rarr;</button>
+            </div>
+            <p class="text-xs text-gray-500 mt-4">For the latest mission updates, <a href="https://x.com/NephelisCo" target="_blank" class="underline hover:text-orange-500">follow us on X</a>.</p>
+        </form>
+    </div>
+</div>
+
 
 <!-- ---------- Scripts ---------- -->
 <script>
@@ -502,17 +526,68 @@
 
   /* Sponsorship Modal Logic */
   (function() {
-      const modal = document.getElementById('sponsor-modal');
-      const closeBtn = document.getElementById('modal-close');
+      // --- General Modal Logic ---
+      const openTriggers = document.querySelectorAll('[data-modal-target]');
+      const closeTriggers = document.querySelectorAll('.close-btn[data-modal-close]');
+      
+      const openModal = (modalId) => {
+          const modal = document.getElementById(modalId);
+          if (modal) modal.classList.add('open');
+      };
+
+      const closeModal = (modal) => {
+          if (modal) modal.classList.remove('open');
+      };
+
+      openTriggers.forEach(trigger => {
+          trigger.addEventListener('click', (e) => {
+              e.preventDefault();
+              openModal(trigger.dataset.modalTarget);
+          });
+      });
+
+      closeTriggers.forEach(trigger => {
+          trigger.addEventListener('click', () => {
+              closeModal(trigger.closest('.modal'));
+          });
+      });
+
+      document.querySelectorAll('.modal').forEach(modal => {
+          modal.addEventListener('click', (e) => {
+              if (e.target === modal) closeModal(modal);
+          });
+      });
+
+      // --- Form Submission Logic ---
+      const handleFormSubmit = (e) => {
+          e.preventDefault();
+          const form = e.target;
+          const modal = form.closest('.modal');
+          const formContent = form.querySelector('.form-content');
+          const originalContent = formContent.innerHTML;
+          
+          if (formContent) {
+              formContent.innerHTML = `<p class="text-lg text-gray-200">Thank you! Your interest has been registered.</p>`;
+          }
+
+          setTimeout(() => {
+              closeModal(modal);
+               // Restore form content after a delay so it's ready for next open
+              setTimeout(() => {
+                if(formContent) formContent.innerHTML = originalContent;
+              }, 500);
+          }, 3500);
+      };
+
+      document.getElementById('panel-form')?.addEventListener('submit', handleFormSubmit);
+      document.getElementById('dna-form')?.addEventListener('submit', handleFormSubmit);
+      
+      // Add data-modal-target to the buttons
       const sponsorBtns = document.querySelectorAll('.sponsor-btn');
-      if (!modal || !closeBtn || sponsorBtns.length === 0) return;
-
-      const openModal = () => modal.classList.add('open');
-      const closeModal = () => modal.classList.remove('open');
-
-      sponsorBtns.forEach(btn => btn.addEventListener('click', openModal));
-      closeBtn.addEventListener('click', closeModal);
-      modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+      if (sponsorBtns.length === 2) {
+          sponsorBtns[0].dataset.modalTarget = 'panel-modal';
+          sponsorBtns[1].dataset.modalTarget = 'dna-modal';
+      }
   })();
 
   /* Rocket equation */
