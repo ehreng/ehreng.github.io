@@ -34,7 +34,7 @@
   /* --- Gallery (large, uncropped) --- */
   .slideshow-container{ position:relative; width:100%; padding-top:56.25%; overflow:hidden; background:#000; border-radius:.5rem }
   @media (min-width:1024px){ .slideshow-container{ padding-top:0; height:82vh; } }
-  .slide{ position:absolute; inset:0; background-size:contain; background-position:center; background-repeat:no-repeat; opacity:0; animation:fadeAnimation 18s infinite }
+  .slide{ position:absolute; inset:0; background-size:contain; background-position:center; background-repeat:no-repeat; opacity:0; animation:fadeAnimation 18s infinite; cursor: pointer; }
   .slide:nth-child(1){animation-delay:0s}
   .slide:nth-child(2){animation-delay:3s}
   .slide:nth-child(3){animation-delay:6s}
@@ -59,8 +59,8 @@
   .bar>span{ display:block; height:100%; background:linear-gradient(90deg,var(--accent-red),var(--accent-red2)); width:0% }
 
   /* --- Canvases --- */
-  canvas.evc{ display:block; width:100%; max-width:100%; height:auto; max-height:320px; margin:0 auto; }
-  @media (max-width:640px){ canvas.evc{ max-height:240px } }
+  canvas.evc{ display:block; width:100%; max-width:100%; height:auto; max-height:400px; margin:0 auto; }
+  @media (max-width:640px){ canvas.evc{ max-height:280px } }
 
   /* --- Lightbox --- */
   .lightbox{ position:fixed; inset:0; background:rgba(0,0,0,.85); display:none; align-items:center; justify-content:center; z-index:10000 }
@@ -68,6 +68,8 @@
   .lightbox .close{ position:absolute; top:20px; right:24px; color:#fff; font-size:28px; cursor:pointer }
   .lightbox .nav{ position:absolute; top:50%; transform:translateY(-50%); font-size:38px; color:#fff; cursor:pointer; user-select:none; padding:10px 16px }
   .lightbox .prev{ left:20px } .lightbox .next{ right:20px }
+
+  .diagram-svg{ width:100%; height:auto; max-height:450px; }
 
   @media (prefers-reduced-motion:reduce){ .circular-text{animation:none} .slide{animation:none;opacity:1} }
 </style>
@@ -85,7 +87,7 @@
 <!-- Header -->
 <header class="header sticky top-0 z-50">
   <div class="container mx-auto flex justify-between items-center p-4">
-    <img src="logo.jpg" alt="Nephelis Logo" class="h-10">
+    <img src="https://placehold.co/160x40/0a0a0a/ff4500?text=NEPHELIS" alt="Nephelis Logo" class="h-10">
     <nav class="hidden md:flex space-x-6 text-sm">
       <a href="#mission" class="hover:text-orange-500">Mission</a>
       <a href="#tech" class="hover:text-orange-500">Technology</a>
@@ -93,10 +95,10 @@
       <a href="#gallery" class="hover:text-orange-500">Gallery</a>
       <a href="#diagrams" class="hover:text-orange-500">Diagrams</a>
       <a href="#why-venus" class="hover:text-orange-500">Why Venus?</a>
-      <a href="#timeline" class="hover:text-orange-500">Timeline</a>
-      <a href="#faq" class="hover:text-orange-500">FAQ</a>
+      <a href="#venus-today" class="hover:text-orange-500">Venus Today</a>
       <a href="#budget" class="hover:text-orange-500">Budget</a>
       <a href="#x-feed" class="hover:text-orange-500">X Feed</a>
+      <a href="#faq" class="hover:text-orange-500">FAQ</a>
     </nav>
   </div>
 </header>
@@ -114,9 +116,7 @@
       <p class="mt-4 text-gray-300">AETHER is a crowd-funded aerostat probe to Venus, floating where temperature and pressure are Earth-like (50–55 km) to stream back images and data for 30–90 days.</p>
     </div>
     <div class="content-panel overflow-hidden">
-      <video autoplay loop muted playsinline class="w-full h-full object-cover">
-        <source src="video.mov" type="video/mp4">Your browser does not support the video tag.
-      </video>
+        <img src="https://placehold.co/600x400/000000/ff4500?text=AETHER+Mission" alt="AETHER Mission concept art" class="w-full h-full object-cover">
     </div>
   </section>
 
@@ -147,7 +147,7 @@
         <li><b>AI-Optimized Navigation:</b> autonomous ops in dynamic atmosphere.</li>
       </ul>
     </div>
-    <img src="probe.jpg" alt="Cloudseeker Probe" class="rounded-lg w-full h-auto" loading="lazy">
+    <img src="https://placehold.co/600x400/1a1a1a/e0e0e0?text=Cloudseeker+Probe" alt="Cloudseeker Probe" class="rounded-lg w-full h-auto" loading="lazy">
   </section>
 
   <!-- ASTROPHYSICS (with fixed mobile tool cards) -->
@@ -168,7 +168,7 @@
           <h4 class="font-bold mb-1">Trajectory Mini-Planner</h4>
           <label class="tiny block mb-1">Launch date offset (days): <span id="dOffsetVal">0</span></label>
           <input id="dOffset" type="range" min="-30" max="30" step="1" value="0" />
-          <label class="tiny block mt-3 mb-1">Progress to arrival: <span id="progVal">0</span>%</label>
+          <label class="tiny block mt-3 mb-1">Progress to arrival: <span id="progVal">0</span>% (<span id="dayVal">0</span> days)</label>
           <input id="progressPct" type="range" min="0" max="100" step="1" value="0" />
           <div class="grid grid-cols-3 gap-2 mt-2 tiny">
             <div>Phase: <b id="phaseOut">—</b></div>
@@ -196,12 +196,22 @@
 
         <div class="tool-card">
           <h4 class="font-bold mb-1">Rocket Equation</h4>
+          <p class="tiny mb-2">The Tsiolkovsky rocket equation calculates the propellant needed for a given change in velocity (Δv), based on engine efficiency (Isp) and mass.</p>
           <div class="grid grid-cols-3 gap-2">
-            <input id="dv" class="input tiny" type="number" value="200" placeholder="Δv (m/s)" />
-            <input id="isp" class="input tiny" type="number" value="235" placeholder="Isp (s)" />
-            <input id="mdry" class="input tiny" type="number" value="12" placeholder="Dry (kg)" />
+            <div>
+                <label for="dv" class="tiny block">Δv (m/s)</label>
+                <input id="dv" class="input tiny" type="number" value="200" />
+            </div>
+            <div>
+                <label for="isp" class="tiny block">Isp (s)</label>
+                <input id="isp" class="input tiny" type="number" value="235" />
+            </div>
+            <div>
+                <label for="mdry" class="tiny block">Dry Mass (kg)</label>
+                <input id="mdry" class="input tiny" type="number" value="12" />
+            </div>
           </div>
-          <a class="btn mt-2 tiny" href="#" onclick="calc();return false;">Compute</a>
+          <a class="btn mt-2 tiny" href="#" onclick="calc();return false;">Compute Propellant</a>
           <div class="tiny mt-2" id="out">—</div>
         </div>
       </div>
@@ -212,12 +222,12 @@
   <section id="gallery" class="content-panel p-8">
     <h2 class="text-3xl mb-4 text-center" style="color:var(--accent-orange);">Envisioning a Future on Venus</h2>
     <div id="slideshow" class="slideshow-container">
-      <div class="slide" data-full="a.jpg" style="background-image:url('a.jpg')"></div>
-      <div class="slide" data-full="b.jpg" style="background-image:url('b.jpg')"></div>
-      <div class="slide" data-full="c.jpg" style="background-image:url('c.jpg')"></div>
-      <div class="slide" data-full="d.jpg" style="background-image:url('d.jpg')"></div>
-      <div class="slide" data-full="e.jpg" style="background-image:url('e.jpg')"></div>
-      <div class="slide" data-full="f.jpg" style="background-image:url('f.jpg')"></div>
+      <div class="slide" data-full="https://placehold.co/1200x800/000000/FFFFFF?text=Venus+Colony+1" style="background-image:url('https://placehold.co/1200x800/000000/FFFFFF?text=Venus+Colony+1')"></div>
+      <div class="slide" data-full="https://placehold.co/1200x800/000000/FFFFFF?text=Venus+Colony+2" style="background-image:url('https://placehold.co/1200x800/000000/FFFFFF?text=Venus+Colony+2')"></div>
+      <div class="slide" data-full="https://placehold.co/1200x800/000000/FFFFFF?text=Venus+Colony+3" style="background-image:url('https://placehold.co/1200x800/000000/FFFFFF?text=Venus+Colony+3')"></div>
+      <div class="slide" data-full="https://placehold.co/1200x800/000000/FFFFFF?text=Venus+Colony+4" style="background-image:url('https://placehold.co/1200x800/000000/FFFFFF?text=Venus+Colony+4')"></div>
+      <div class="slide" data-full="https://placehold.co/1200x800/000000/FFFFFF?text=Venus+Colony+5" style="background-image:url('https://placehold.co/1200x800/000000/FFFFFF?text=Venus+Colony+5')"></div>
+      <div class="slide" data-full="https://placehold.co/1200x800/000000/FFFFFF?text=Venus+Colony+6" style="background-image:url('https://placehold.co/1200x800/000000/FFFFFF?text=Venus+Colony+6')"></div>
     </div>
     <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
       <button id="lbClose" class="close" aria-label="Close image viewer">✕</button>
@@ -230,55 +240,83 @@
   <!-- DIAGRAMS -->
   <section id="diagrams" class="content-panel p-8">
     <h2 class="text-3xl mb-6" style="color:var(--accent-orange);">Mission Diagrams</h2>
-    <div class="grid md:grid-cols-3 gap-8">
+    <div class="grid md:grid-cols-2 gap-8">
       <div class="content-panel p-4">
-        <h3 class="text-xl mb-2">Earth → Venus Journey</h3>
-        <canvas id="evCanvasStatic" width="500" height="360" class="evc"></canvas>
-        <p class="tiny mt-2">Clockwise system: craft leaves Earth and meets Venus at perihelion.</p>
-      </div>
-      <div class="content-panel p-4">
-        <h3 class="text-xl mb-2">Venus Orbit & Entry</h3>
-        <svg viewBox="0 0 500 360" class="w-full h-auto">
-          <circle cx="250" cy="180" r="14" fill="#ff9c6a" stroke="#ffd7c1"/>
-          <text x="270" y="185" font-size="12" fill="#ffd7c1">Venus</text>
-          <circle cx="250" cy="180" r="70" fill="none" stroke="rgba(255,156,106,.6)" stroke-dasharray="4 6"/>
-          <circle cx="250" cy="110" r="4" fill="#9ad1ff" stroke="#d3ecff"/>
-          <text x="264" y="110" font-size="12" fill="#cfe3ff">3U CubeSat Relay</text>
-          <path d="M120,40 C160,140 180,200 230,220" fill="none" stroke="rgba(255,69,0,.85)" stroke-width="2"/>
-          <polygon points="230,220 222,216 230,235" fill="rgba(255,69,0,.85)"/>
-          <text x="120" y="36" font-size="12" fill="#bbb">Atmospheric Entry (~10.7 km/s)</text>
-          <circle cx="240" cy="214" r="5" fill="#ffd1bf" stroke="#ffb48f"/>
-          <text x="252" y="218" font-size="12" fill="#ffd1bf">Balloon deploy ~55 km</text>
+        <h3 class="text-xl mb-2 text-center">Venus Orbit & Entry</h3>
+        <svg viewBox="0 0 500 400" class="diagram-svg">
+            <defs>
+                <radialGradient id="venusGlow" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                    <stop offset="0%" style="stop-color:#ffca9a;stop-opacity:0.8" />
+                    <stop offset="100%" style="stop-color:#ff9c6a;stop-opacity:0" />
+                </radialGradient>
+                 <filter id="glow">
+                    <feGaussianBlur stdDeviation="3.5" result="coloredBlur"/>
+                    <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+            </defs>
+            <circle cx="250" cy="200" r="50" fill="url(#venusGlow)"/>
+            <circle cx="250" cy="200" r="24" fill="#ff9c6a" stroke="#ffd7c1"/>
+            <text x="250" y="205" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="bold">Venus</text>
+            <circle cx="250" cy="200" r="100" fill="none" stroke="#ff9c6a" stroke-width="1.5" stroke-dasharray="5 8"/>
+            <text x="355" y="205" font-size="12" fill="#ffd7c1">Atmosphere</text>
+            
+            <circle cx="250" cy="100" r="6" fill="#9ad1ff" stroke="#d3ecff" filter="url(#glow)"/>
+            <text x="264" y="104" font-size="14" fill="#cfe3ff">3U CubeSat Relay</text>
+            
+            <path d="M50,50 C150,150 200,220 235,245" fill="none" stroke="url(#venusGlow)" stroke-width="3" filter="url(#glow)"/>
+            <polygon points="235,245 225,240 235,258" fill="var(--accent-orange)"/>
+            <text x="50" y="46" font-size="14" fill="#eee">Atmospheric Entry (~10.7 km/s)</text>
+            
+            <circle cx="242" cy="239" r="7" fill="#ffd1bf" stroke="#ffb48f" filter="url(#glow)"/>
+            <text x="256" y="243" font-size="14" fill="#ffd1bf">Balloon deploy ~55 km</text>
         </svg>
       </div>
       <div class="content-panel p-4">
-        <h3 class="text-xl mb-2">Venus Cloud Layers</h3>
-        <svg viewBox="0 0 500 360" class="w-full h-auto">
-          <line x1="60" y1="30" x2="60" y2="330" stroke="#666"/>
-          <text x="20" y="35" font-size="12" fill="#bbb">Altitude</text>
-          <text x="20" y="65" font-size="12" fill="#bbb">70 km</text>
-          <text x="20" y="115" font-size="12" fill="#bbb">60 km</text>
-          <text x="20" y="165" font-size="12" fill="#bbb">50 km</text>
-          <text x="20" y="215" font-size="12" fill="#bbb">40 km</text>
-          <rect x="80" y="60" width="380" height="40" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.12)"/>
-          <text x="90" y="85" font-size="12" fill="#bbb">Upper (60–70 km)</text>
-          <rect x="80" y="110" width="380" height="50" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.12)"/>
-          <text x="90" y="140" font-size="12" fill="#bbb">Middle (50–60 km)</text>
-          <rect x="80" y="165" width="380" height="55" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.12)"/>
-          <text x="90" y="195" font-size="12" fill="#bbb">Lower (45–50 km)</text>
-          <rect x="80" y="130" width="380" height="30" fill="rgba(255,69,0,.15)" stroke="rgba(255,69,0,.35)"/>
-          <text x="90" y="148" font-size="12" fill="#ffb48f">Cloudseeker float: 50–55 km • 0.5–1.0 bar • 0–30 °C</text>
-          <circle cx="420" cy="145" r="6" fill="#ffb48f" stroke="#ffcaa9"/>
-          <text x="436" y="148" font-size="12" fill="#ffd7c1">Probe</text>
+        <h3 class="text-xl mb-2 text-center">Venus Cloud Layers</h3>
+        <svg viewBox="0 0 500 400" class="diagram-svg">
+            <defs>
+                <linearGradient id="cloudGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" style="stop-color:rgba(255,255,255,.15)" />
+                    <stop offset="100%" style="stop-color:rgba(255,255,255,.02)" />
+                </linearGradient>
+            </defs>
+            <line x1="80" y1="50" x2="80" y2="350" stroke="#666" stroke-width="2"/>
+            <text x="40" y="55" font-size="14" fill="#bbb" text-anchor="middle">Altitude</text>
+            <text x="40" y="85" font-size="14" fill="#eee" text-anchor="middle">70 km</text>
+            <text x="40" y="165" font-size="14" fill="#eee" text-anchor="middle">60 km</text>
+            <text x="40" y="245" font-size="14" fill="#eee" text-anchor="middle">50 km</text>
+            <text x="40" y="325" font-size="14" fill="#eee" text-anchor="middle">45 km</text>
+
+            <rect x="100" y="80" width="380" height="80" fill="url(#cloudGrad)"/>
+            <text x="290" y="120" font-size="14" fill="#ccc" text-anchor="middle">Upper Haze (H₂SO₄)</text>
+
+            <rect x="100" y="160" width="380" height="80" fill="url(#cloudGrad)"/>
+            <text x="290" y="200" font-size="14" fill="#ccc" text-anchor="middle">Middle Cloud</text>
+            
+            <rect x="100" y="240" width="380" height="80" fill="url(#cloudGrad)"/>
+            <text x="290" y="280" font-size="14" fill="#ccc" text-anchor="middle">Lower Cloud</text>
+
+            <rect x="100" y="200" width="380" height="40" fill="rgba(255,69,0,.25)" stroke="var(--accent-orange)" stroke-width="1.5"/>
+            <text x="290" y="225" font-size="14" fill="#ffb48f" text-anchor="middle">Cloudseeker Habitable Zone: 50–55 km</text>
+            <circle cx="420" cy="220" r="8" fill="#ffb48f" stroke="#ffcaa9" filter="url(#glow)"/>
         </svg>
       </div>
     </div>
   </section>
 
-  <!-- WHY VENUS / TIMELINE / FAQ (kept concise) -->
+  <!-- WHY VENUS? -->
   <section id="why-venus" class="content-panel p-8">
     <h2 class="text-3xl mb-4" style="color:var(--accent-orange);">Why Venus?</h2>
-    <p class="text-gray-300 mb-4">Near-Earth gravity and an Earth-like layer at 50–55 km make Venus ideal for practical habitation tests.</p>
+    <p class="text-gray-300">With Earth-like gravity and a temperate, 1-bar pressure layer at 50–55 km altitude, Venus isn't just a potential habitat—it's the most practical and resource-rich destination for off-world colonization in our solar system.</p>
+  </section>
+  
+  <!-- NEW: VENUS TODAY -->
+  <section id="venus-today" class="content-panel p-8">
+    <h2 class="text-3xl mb-4" style="color:var(--accent-orange);">Venus Today: Daily Fact</h2>
+    <p id="venus-fact" class="text-gray-300 text-lg italic">Loading today's fascinating fact about Venus...</p>
   </section>
 
   <!-- BUDGET (near bottom) -->
@@ -300,9 +338,25 @@
   <!-- X Feed -->
   <section id="x-feed" class="content-panel p-8">
     <h2 class="text-3xl mb-4 text-center" style="color:var(--accent-orange);">Latest From @NephelisCo</h2>
-    <a class="twitter-timeline" data-theme="dark" data-chrome="noheader nofooter noborders transparent" data-width="100%" data-height="700" href="https://twitter.com/NephelisCo">Tweets by NephelisCo</a>
+    <a class="twitter-timeline" data-theme="dark" data-chrome="noheader nofooter noborders transparent" data-width="100%" data-height="700" href="https://twitter.com/NephelisCo?ref_src=twsrc%5Etfw">Tweets by NephelisCo</a> 
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   </section>
+
+  <!-- FAQ Section (placeholder) -->
+  <section id="faq" class="content-panel p-8">
+      <h2 class="text-3xl mb-4" style="color:var(--accent-orange);">Frequently Asked Questions</h2>
+      <div class="space-y-4 text-gray-300">
+          <div>
+              <h3 class="font-bold">Is this a real mission?</h3>
+              <p class="text-sm">Nephelis Industries and Project AETHER are a speculative fiction concept, designed to inspire and educate about the real scientific possibilities of Venus exploration.</p>
+          </div>
+          <div>
+              <h3 class="font-bold">Why not Mars?</h3>
+              <p class="text-sm">While Mars gets a lot of attention, Venus's upper atmosphere offers Earth-like pressure and temperature, plus better protection from solar radiation, making it a compelling alternative for floating habitats.</p>
+          </div>
+      </div>
+  </section>
+
 
   <!-- Support -->
   <footer id="support" class="content-panel p-8 text-center">
@@ -331,9 +385,41 @@
     [...text].forEach((c,i)=>{ const s=document.createElement('span'); s.textContent=c; s.style.transform=`rotate(${angle*i}deg)`; el.appendChild(s); });
   })();
 
+  /* Venus Fact of the Day */
+  (function(){
+    const facts = [
+      "A day on Venus is longer than a year on Venus. It takes 243 Earth days to rotate once, but only 225 Earth days to orbit the Sun.",
+      "Venus is the hottest planet in our solar system, with an average surface temperature of 462°C (864°F).",
+      "The atmospheric pressure on Venus is 92 times greater than Earth's at sea level.",
+      "Venus rotates on its axis backwards compared to most other planets in the solar system. This is known as retrograde rotation.",
+      "The clouds on Venus are made of sulfuric acid.",
+      "Venus is often called Earth's 'sister planet' due to their similar size, mass, proximity to the Sun, and bulk composition.",
+      "There are more volcanoes on Venus than on any other planet in our solar system.",
+      "The first spacecraft to successfully land on Venus and transmit data from the surface was the Soviet Venera 7 in 1970.",
+      "Despite its heat, scientists speculate about the possibility of microbial life existing in Venus's upper cloud layers, where temperatures are more Earth-like.",
+      "Venus has no moons or rings.",
+      "The thick, yellow-white clouds of Venus reflect about 75% of the sunlight that falls on them, making it one of the brightest objects in the sky.",
+      "Winds in Venus's upper atmosphere, in the 'habitable zone', can reach super-hurricane speeds of up to 360 km/h (224 mph).",
+      "Unlike Earth, Venus has no detectable magnetic field, likely due to its extremely slow rotation.",
+      "The surface of Venus is a dry desertscape interspersed with slab-like rocks and periodically resurfaced by volcanism.",
+      "If you could stand on Venus, the sky would appear to be a reddish-orange color due to the way the thick carbon dioxide atmosphere scatters sunlight."
+    ];
+    const today = new Date();
+    const start = new Date(today.getFullYear(), 0, 0);
+    const diff = today - start;
+    const oneDay = 1000 * 60 * 60 * 24;
+    const dayOfYear = Math.floor(diff / oneDay);
+    const factIndex = dayOfYear % facts.length;
+    const factElement = document.getElementById('venus-fact');
+    if(factElement) {
+      factElement.textContent = facts[factIndex];
+    }
+  })();
+
   /* Lightbox for gallery */
   (function(){
     const slides=[...document.querySelectorAll('#slideshow .slide')];
+    if (slides.length === 0) return;
     const lb=document.getElementById('lightbox'), img=document.getElementById('lbImg');
     const prev=document.getElementById('lbPrev'), next=document.getElementById('lbNext'), close=document.getElementById('lbClose');
     let idx=0, lastFocus=null;
@@ -353,12 +439,13 @@
     const dv=+document.getElementById('dv').value||0, isp=+document.getElementById('isp').value||0, mdry=+document.getElementById('mdry').value||0;
     const out=document.getElementById('out'); if(dv<=0||isp<=0||mdry<=0){ out.textContent='—'; return; }
     const mr=Math.exp(dv/(isp*g0)), m0=mdry*mr, prop=m0-mdry;
-    out.innerHTML=`Mass ratio <b>${fmt(mr)}</b> · Prop <b>${fmt(prop)}</b> kg`;
+    out.innerHTML=`Mass ratio <b>${fmt(mr)}</b> · Propellant <b>${fmt(prop)}</b> kg`;
   }
 
   /* Atmosphere toy model */
   (function(){
     const alt=document.getElementById('alt'), v=document.getElementById('altVal'), out=document.getElementById('atmOut');
+    if (!alt) return;
     function update(){ const z=+alt.value; v.textContent=z.toFixed(1);
       const T=20-(z-55)*2.2, P=1.0-(z-50)*0.04, rho=1.2*P/((T+273)/293), ir=1000*(1.1-Math.abs(z-55)/25);
       out.innerHTML=`Temp <b>${T.toFixed(1)}°C</b> · Pressure <b>${P.toFixed(2)} bar</b><br>Density <b>${rho.toFixed(2)} kg/m³</b> · Solar <b>${ir.toFixed(0)} W/m²</b>`; }
@@ -368,6 +455,7 @@
   /* Comms/day toy */
   (function(){
     const r=document.getElementById('relay'), v=document.getElementById('relayVal'), out=document.getElementById('commsOut');
+    if (!r) return;
     function update(){ const h=+r.value; v.textContent=h;
       const passes=Math.round(12+(400-h)/40), minutes=Math.round(6+(h-200)/30), dl=Math.round(passes*minutes*2);
       out.innerHTML=`Passes/day <b>${passes}</b> · Avg <b>${minutes} min</b> · Data/day <b>${(dl/1000).toFixed(2)} GB</b>`; }
@@ -376,7 +464,9 @@
 
   /* Budget pie + progress */
   (function(){
-    const ctx=document.getElementById('pie').getContext('2d'), parts=[170,90,170,40,30];
+    const pieEl = document.getElementById('pie');
+    if (!pieEl) return;
+    const ctx=pieEl.getContext('2d'), parts=[170,90,170,40,30];
     const colors=['#ff5a3d','#ff7a4b','#ff9864','#ffb482','#ffd0a6']; const total=parts.reduce((a,b)=>a+b,0);
     let start=-Math.PI/2; parts.forEach((v,i)=>{ const ang=2*Math.PI*(v/total); ctx.beginPath(); ctx.moveTo(130,130); ctx.arc(130,130,110,start,start+ang); ctx.closePath(); ctx.fillStyle=colors[i]; ctx.fill(); start+=ang; });
     const target=500000, raised=Number(localStorage.getItem('raised')||137500);
@@ -386,74 +476,71 @@
 
   /* Earth→Venus planner (scrubbable, no autoplay) */
   (function(){
+    const cvs=document.getElementById('evCanvas');
+    if (!cvs) return;
     const dSlider=document.getElementById('dOffset'), prog=document.getElementById('progressPct');
-    const dVal=document.getElementById('dOffsetVal'), pVal=document.getElementById('progVal');
+    const dVal=document.getElementById('dOffsetVal'), pVal=document.getElementById('progVal'), dayVal=document.getElementById('dayVal');
     const phaseOut=document.getElementById('phaseOut'), tofOut=document.getElementById('tofOut'), dvOut=document.getElementById('dvOut');
 
-    const cvs=document.getElementById('evCanvas'), ctx=cvs.getContext('2d'), DPR=Math.max(1,Math.floor(window.devicePixelRatio||1));
+    const ctx=cvs.getContext('2d'), DPR=Math.max(1,Math.floor(window.devicePixelRatio||1));
     const W=480,H=300; cvs.width=W*DPR; cvs.height=H*DPR; cvs.style.width=W+'px'; cvs.style.height=H+'px'; ctx.scale(DPR,DPR);
 
     const cx=W/2, cy=H/2, rE=120, rV=0.723*rE, aT=(rE+rV)/2, eT=(rE-rV)/(rE+rV);
     const Te=365.25, Tv=224.701, nE=-2*Math.PI/Te, nV=-2*Math.PI/Tv; // CW
-    const Tt=146.0; // days (fixed readout value)
+    const Tt=146.0;
 
     const thAp=0, thPe=thAp - Math.PI;
     const wrap=a=>(a%(2*Math.PI)+2*Math.PI)%(2*Math.PI);
     const polar=(r,th)=>[cx+r*Math.cos(th), cy+r*Math.sin(th)];
 
     function venusInitial(offsetDays){ return thPe - nV*Tt - nV*offsetDays; }
-    function craftOnTransfer(tDays){ const f=Math.PI*(tDays/Tt); const r=(aT*(1-eT*eT))/(1+eT*Math.cos(f)); const th=wrap(thAp - f); return {r,th}; }
-    function orbit(r,color){ ctx.strokeStyle=color; ctx.lineWidth=1.2; ctx.beginPath(); for(let i=0;i<=360;i++){ const th=i*Math.PI/180; const [x,y]=polar(r,th); i?ctx.lineTo(x,y):ctx.moveTo(x,y); } ctx.stroke(); }
+    function craftOnTransfer(tDays){ const phi=Math.PI*(tDays/Tt); const r=(aT*(1-eT*eT))/(1-eT*Math.cos(phi)); const th=wrap(thAp-phi); return {r,th}; }
+    function orbit(r,color,lineWidth=1.2){ ctx.strokeStyle=color; ctx.lineWidth=lineWidth; ctx.beginPath(); for(let i=0;i<=360;i++){ const th=i*Math.PI/180; const [x,y]=polar(r,th); i?ctx.lineTo(x,y):ctx.moveTo(x,y); } ctx.stroke(); }
 
     function draw(){
       const off=+dSlider.value, prog01=(+prog.value)/100;
-      dVal.textContent=off; pVal.textContent=(prog01*100).toFixed(0);
-      phaseOut.textContent=`${(off*1.0).toFixed(0)}°`; tofOut.textContent=`${Tt.toFixed(1)} d`; dvOut.textContent=`${(3.50+Math.abs(off)*0.01).toFixed(2)} km/s`;
-      const thV0=venusInitial(off); const t=prog01*Tt;
+      const t = prog01 * Tt;
+      dVal.textContent=off; 
+      pVal.textContent=(prog01*100).toFixed(0);
+      dayVal.textContent = t.toFixed(0);
+      phaseOut.textContent=`${(44 + off*1.0).toFixed(0)}°`; tofOut.textContent=`${Tt.toFixed(1)} d`; dvOut.textContent=`${(3.50+Math.abs(off)*0.01).toFixed(2)} km/s`;
+      const thV0=venusInitial(off);
 
       ctx.clearRect(0,0,W,H);
+      // Sun glow
+      const sunGrad = ctx.createRadialGradient(cx, cy, 1, cx, cy, 14);
+      sunGrad.addColorStop(0, "rgba(255,220,150,1)");
+      sunGrad.addColorStop(1, "rgba(255,180,80,0)");
+      ctx.fillStyle = sunGrad;
+      ctx.fillRect(cx-14, cy-14, 28, 28);
       ctx.fillStyle='#ffb48f'; ctx.beginPath(); ctx.arc(cx,cy,7,0,2*Math.PI); ctx.fill();
+
       orbit(rE,'rgba(106,180,255,.65)'); orbit(rV,'rgba(255,156,106,.65)');
 
-      // Transfer arc (aphelion->perihelion, CW)
-      ctx.strokeStyle='rgba(255,69,0,.75)'; ctx.lineWidth=2; ctx.beginPath();
-      for(let i=0;i<=180;i++){ const f=i*Math.PI/180; const r=(aT*(1-eT*eT))/(1+eT*Math.cos(f)); const th=thAp - f; const [x,y]=polar(r,th); i?ctx.lineTo(x,y):ctx.moveTo(x,y); } ctx.stroke();
+      // Transfer arc with glow
+      ctx.strokeStyle='rgba(255,69,0,1)'; ctx.lineWidth=2.5; ctx.shadowColor = 'rgba(255,69,0,0.7)'; ctx.shadowBlur = 10;
+      ctx.beginPath();
+      for(let i=0;i<=180;i++){ const phi=i*Math.PI/180; const r=(aT*(1-eT*eT))/(1-eT*Math.cos(phi)); const th=thAp-phi; const [x,y]=polar(r,th); i?ctx.lineTo(x,y):ctx.moveTo(x,y); } 
+      ctx.stroke();
+      ctx.shadowBlur = 0;
 
-      // Earth CW
       const thE=wrap(thAp + nE*t); const [xE,yE]=polar(rE,thE);
-      ctx.fillStyle='#6ab4ff'; ctx.beginPath(); ctx.arc(xE,yE,4.5,0,2*Math.PI); ctx.fill();
-      ctx.fillStyle='#cfe3ff'; ctx.font='12px Inter, sans-serif'; ctx.fillText('Earth', xE+8, yE-8);
+      ctx.fillStyle='#6ab4ff'; ctx.beginPath(); ctx.arc(xE,yE,5,0,2*Math.PI); ctx.fill();
+      ctx.fillStyle='#cfe3ff'; ctx.font='13px Inter, sans-serif'; ctx.fillText('Earth', xE+10, yE-10);
 
-      // Venus CW (phase-aligned to meet at t=Tt)
       const thV=wrap(thV0 + nV*t); const [xV,yV]=polar(rV,thV);
-      ctx.fillStyle='#ff9c6a'; ctx.beginPath(); ctx.arc(xV,yV,4.5,0,2*Math.PI); ctx.fill();
-      ctx.fillStyle='#ffd7c1'; ctx.fillText('Venus', xV+8, yV-8);
+      ctx.fillStyle='#ff9c6a'; ctx.beginPath(); ctx.arc(xV,yV,5,0,2*Math.PI); ctx.fill();
+      ctx.fillStyle='#ffd7c1'; ctx.fillText('Venus', xV+10, yV-10);
 
-      // Craft
       const c=craftOnTransfer(t); const [xc,yc]=polar(c.r,c.th);
-      ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(xc,yc,3,0,2*Math.PI); ctx.fill();
-
-      // Arrival marker
-      const carr=craftOnTransfer(Tt); const [xa,ya]=polar(carr.r,carr.th);
-      ctx.strokeStyle='rgba(255,255,255,.35)'; ctx.beginPath(); ctx.arc(xa,ya,6,0,2*Math.PI); ctx.stroke();
+      ctx.fillStyle='#fff'; ctx.shadowColor = '#fff'; ctx.shadowBlur = 8;
+      ctx.beginPath(); ctx.arc(xc,yc,4,0,2*Math.PI); ctx.fill();
+      ctx.shadowBlur = 0;
     }
 
     dSlider.addEventListener('input',draw); prog.addEventListener('input',draw); draw();
-
-    // Static diagram reuse
-    (function(){
-      const cvs2=document.getElementById('evCanvasStatic'); if(!cvs2) return;
-      const ctx2=cvs2.getContext('2d'); const DPR2=Math.max(1,Math.floor(window.devicePixelRatio||1));
-      const W2=500,H2=360, cx2=W2/2, cy2=H2/2;
-      cvs2.width=W2*DPR2; cvs2.height=H2*DPR2; cvs2.style.width=W2+'px'; cvs2.style.height=H2+'px'; ctx2.scale(DPR2,DPR2);
-      function polar2(r,th){ return [cx2+r*Math.cos(th), cy2+r*Math.sin(th)]; }
-      function orbit2(r,c){ ctx2.strokeStyle=c; ctx2.lineWidth=1.2; ctx2.beginPath(); for(let i=0;i<=360;i++){ const th=i*Math.PI/180; const [x,y]=polar2(r,th); i?ctx2.lineTo(x,y):ctx2.moveTo(x,y);} ctx2.stroke();}
-      ctx2.fillStyle='#ffb48f'; ctx2.beginPath(); ctx2.arc(cx2,cy2,7,0,2*Math.PI); ctx2.fill();
-      orbit2(rE,'rgba(106,180,255,.65)'); orbit2(rV,'rgba(255,156,106,.65)');
-      ctx2.strokeStyle='rgba(255,69,0,.75)'; ctx2.lineWidth=2; ctx2.beginPath();
-      for(let i=0;i<=180;i++){ const f=i*Math.PI/180; const r=(aT*(1-eT*eT))/(1+eT*Math.cos(f)); const th=thAp - f; const [x,y]=polar2(r,th); i?ctx2.lineTo(x,y):ctx2.moveTo(x,y);} ctx2.stroke();
-    })();
   })();
 </script>
 </body>
 </html>
+
