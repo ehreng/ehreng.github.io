@@ -114,7 +114,6 @@
       <a href="#astro" class="hover:text-orange-500">Astrophysics</a>
       <a href="#gallery" class="hover:text-orange-500">Gallery</a>
       <a href="#why-venus" class="hover:text-orange-500">Why Venus?</a>
-      <a href="#timeline" class="hover:text-orange-500">Timeline</a>
       <a href="#venus-today" class="hover:text-orange-500">Venus Today</a>
       <a href="#budget" class="hover:text-orange-500">Budget</a>
       <a href="#team" class="hover:text-orange-500">Team</a>
@@ -134,7 +133,6 @@
     <a href="#astro" class="mobile-link hover:text-orange-500">Astrophysics</a>
     <a href="#gallery" class="mobile-link hover:text-orange-500">Gallery</a>
     <a href="#why-venus" class="mobile-link hover:text-orange-500">Why Venus?</a>
-    <a href="#timeline" class="mobile-link hover:text-orange-500">Timeline</a>
     <a href="#venus-today" class="mobile-link hover:text-orange-500">Venus Today</a>
     <a href="#budget" class="mobile-link hover:text-orange-500">Budget</a>
     <a href="#team" class="mobile-link hover:text-orange-500">Team</a>
@@ -349,20 +347,7 @@
     </ul>
     <h4 class="text-xl mb-2 text-gray-200">Nephelis's Role: Building of a New World</h4>
     <p class="text-gray-300 mb-4">Our roadmap is clear. Phase I is Exploration with Project AETHER. Phase II involves launching larger robotic aerostats to prove ISRU technologies at scale. Phase III is the construction of the first modular, human-capable habitat, establishing a permanent scientific and industrial outpost in the clouds of Venus.</p>
-  </section>
-  <!-- TIMELINE -->
-  <section id="timeline" class="content-panel p-8 fade-in">
-  <h2 class="text-3xl mb-6" style="color: var(--accent-orange);">Mission Timeline</h2>
-  <div class="relative">
-    <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-800 border border-gray-700">
-      <div id="timeline-progress" style="width: 33%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-orange-500 transition-all duration-1000"></div>
-    </div>
-    <div id="milestones-container" class="relative space-y-6 pt-4">
-      <!-- Milestones will be populated by JS -->
-    </div>
-  </div>
-</section>
-         <!-- Milestones will be populated by JS -->
+
       </div>
     </div>
     <h2 class="text-3xl mt-6 mb-6" style="color:var(--accent-orange);">Mission Diagrams</h2>
@@ -751,47 +736,7 @@
     document.getElementById('progress').style.width=Math.min(100,(raised/target)*100)+'%';
   })();
  
-  /* Timeline Progress */
-  (function() {
-      const timelineProgress = document.getElementById('timeline-progress');
-      const milestonesContainer = document.getElementById('milestones-container');
-      if (!timelineProgress || !milestonesContainer) return;
-      const startDate = new Date('2025-07-01T00:00:00Z');
-      const launchDate = new Date('2027-04-01T00:00:00Z');
-      const currentDate = new Date(); // Use client's current date
-      const totalDuration = launchDate.getTime() - startDate.getTime();
-      const elapsedDuration = Math.max(0, currentDate.getTime() - startDate.getTime());
-      const progressPercentage = Math.min(100, (elapsedDuration / totalDuration) * 100);
-     
-      setTimeout(() => {
-        timelineProgress.style.width = progressPercentage + '%';
-      }, 100);
-      const milestones = [
-          { name: 'Project Kickoff', date: '2025-07-01' },
-          { name: 'PDR', date: '2025-12-01' },
-          { name: 'Design Lock (CDR)', date: '2026-04-01' },
-          { name: 'Assembly & Integration', date: '2026-09-01' },
-          { name: 'Final Testing', date: '2027-01-15' },
-          { name: 'Launch', date: '2027-04-01' },
-      ];
-      milestones.forEach(milestone => {
-          const milestoneDate = new Date(milestone.date + 'T00:00:00Z');
-          const milestoneElapsed = milestoneDate.getTime() - startDate.getTime();
-          const milestonePercentage = (milestoneElapsed / totalDuration) * 100;
-          const isPassed = milestoneDate <= currentDate;
-          const milestoneEl = document.createElement('div');
-          milestoneEl.className = 'absolute transform -translate-x-1/2';
-          milestoneEl.style.left = milestonePercentage + '%';
-          milestoneEl.innerHTML = `
-              <div class="w-4 h-4 rounded-full ${isPassed ? 'bg-orange-500' : 'bg-gray-600'} border-2 ${isPassed ? 'border-orange-300' : 'border-gray-400'}"></div>
-              <div class="absolute text-center -ml-10 mt-2 w-28">
-                  <p class="text-sm font-bold whitespace-nowrap ${isPassed ? 'text-orange-400' : 'text-gray-400'}">${milestone.name}</p>
-                  <p class="text-sm whitespace-nowrap text-gray-500">${milestone.date.substring(0,7)}</p>
-              </div>
-          `;
-          milestonesContainer.appendChild(milestoneEl);
-      });
-  })();
+  
   /* Scroll Observer for Animations */
   (function() {
       const observer = new IntersectionObserver((entries) => {
