@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0D5C7VZD35"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0D5C7VZD35');
+</script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Nephelis Industries | Project AETHER</title>
@@ -670,28 +679,7 @@
               if (e.target === modal) closeModal(modal);
           });
       });
-      // --- Form Submission Logic ---
-      const handleFormSubmit = (e) => {
-          e.preventDefault();
-          const form = e.target;
-          const modal = form.closest('.modal');
-          const formContent = form.querySelector('.form-content');
-          const originalContent = formContent.innerHTML;
-         
-          if (formContent) {
-              formContent.innerHTML = `<p class="text-lg text-gray-200">Thank you! Your interest has been registered.</p>`;
-          }
-          setTimeout(() => {
-              closeModal(modal);
-               // Restore form content after a delay so it's ready for next open
-              setTimeout(() => {
-                if(formContent) formContent.innerHTML = originalContent;
-              }, 500);
-          }, 3500);
-      };
-      document.getElementById('panel-form')?.addEventListener('submit', handleFormSubmit);
-      document.getElementById('dna-form')?.addEventListener('submit', handleFormSubmit);
-     
+      
       // Add data-modal-target to the buttons
       const sponsorBtns = document.querySelectorAll('.sponsor-btn');
       if (sponsorBtns.length === 2) {
