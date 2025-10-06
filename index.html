@@ -750,21 +750,6 @@
     document.getElementById('progress').style.width=Math.min(100,(raised/target)*100)+'%';
   })();
  
-  /* Panel Counter */
-  (function() {
-    const counterEl = document.getElementById('panel-counter');
-    if (!counterEl) return;
-    let currentCount = parseInt(localStorage.getItem('panelCount') || '427');
-    counterEl.textContent = currentCount;
-    setInterval(() => {
-        if (Math.random() > 0.85 && currentCount > 350) { // Random chance to decrement (less frequent)
-            currentCount--;
-            localStorage.setItem('panelCount', currentCount);
-            counterEl.textContent = currentCount;
-        }
-    }, 4500); // Update every 4.5 seconds
-  })();
- 
   /* Timeline Progress */
   (function() {
       const timelineProgress = document.getElementById('timeline-progress');
