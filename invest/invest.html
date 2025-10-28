@@ -1,1 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0D5C7VZD35"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'G-0D5C7VZD35');
+</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nephelis Industries | Invest in Project AETHER</title>
+<meta name="description" content="Investment and Sponsorship Opportunities for Venus Cloud Probe.">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  /* --- Base / Theme --- */
+  :root{ --accent-orange:#FF4500; --border-color:rgba(255,69,0,.2); --bg:#0A0A0A; --fg:#e0e0e0; --accent-red:#ff5a3d; --accent-red2:#ff866b; }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth }
+  body{ font-family:'Roboto Mono',monospace; background:var(--bg); color:var(--fg); overflow-x:hidden; }
+  h1,h2,h3{ font-family:'Inter',sans-serif; font-weight:900; text-transform:uppercase }
+  .content-panel{ border:1px solid var(--border-color); background:rgba(10,10,10,.4); border-radius:12px; overflow:hidden; }
+  .header{ background:rgba(10,10,10,.8); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-bottom:1px solid var(--border-color) }
+  a:focus{ outline:2px dashed var(--accent-orange); outline-offset:2px }
+ 
+  /* --- Mobile Nav --- */
+  #mobile-menu { transition: opacity 0.3s ease-in-out; }
+  .menu-hidden { opacity: 0; pointer-events: none; }
+  .menu-visible { opacity: 1; pointer-events: auto; }
+  /* --- Tooltips --- */
+  .tooltip { position: relative; display: inline-block; border-bottom: 1px dotted var(--fg); cursor: help; }
+  .tooltip .tooltip-text { visibility: hidden; width: 220px; background-color: #1a1a1a; color: #fff; text-align: center; border-radius: 6px; padding: 8px; position: absolute; z-index: 1; bottom: 125%; left: 50%; margin-left: -110px; opacity: 0; transition: opacity 0.3s; font-size: 0.8rem; border: 1px solid var(--border-color); }
+  .tooltip:hover .tooltip-text { visibility: visible; opacity: 1; }
+  /* --- Scroll Animations --- */
+  .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+  .fade-in.is-visible { opacity: 1; transform: translateY(0); }
+  /* --- SVG Path Animation --- */
+  #entry-path { stroke-dasharray: 500; stroke-dashoffset: 500; transition: stroke-dashoffset 2s ease-out; }
+  .is-visible #entry-path { stroke-dashoffset: 0; }
+  /* --- Circular CTA (hidden on mobile) --- */
+  .circular-cta{ position:fixed; bottom:40px; right:40px; width:150px; height:150px; z-index:1000; transition:transform .3s ease-out }
+  @media (max-width:640px){ .circular-cta{ display:none } }
+  .circular-text{ width:100%; height:100%; position:relative; border-radius:50%; animation:rotate 20s linear infinite }
+  .circular-text span{ position:absolute; left:50%; top:50%; height:75px; transform-origin:0 100%; font-size:1.1rem; text-transform:uppercase }
+  .cta-center{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:80px; height:80px; background:var(--accent-orange); border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:transform .3s }
+  .cta-center:hover{ transform:translate(-50%,-50%) scale(1.1) }
+  @keyframes rotate{ from{transform:rotate(0)} to{transform:rotate(360deg)} }
+ 
+  /* --- Gallery (large, uncropped) --- */
+  .slideshow-container{ position:relative; width:100%; padding-top:56.25%; overflow:hidden; background:#000; border-radius:.5rem }
+  @media (min-width:1024px){ .slideshow-container{ padding-top:0; height:82vh; } }
+  .slide{ position:absolute; inset:0; background-size:contain; background-position:center; background-repeat:no-repeat; opacity:0; animation:fadeAnimation 18s infinite; cursor: pointer; transition: transform 0.2s ease-out; }
+  .slide:hover { transform: scale(1.02); }
+  .slide:nth-child(1){animation-delay:0s}
+  .slide:nth-child(2){animation-delay:3s}
+  .slide:nth-child(3){animation-delay:6s}
+  .slide:nth-child(4){animation-delay:9s}
+  .slide:nth-child(5){animation-delay:12s}
+  .slide:nth-child(6){animation-delay:15s}
+  @keyframes fadeAnimation{ 0%{opacity:0} 6%{opacity:1} 22%{opacity:1} 28%{opacity:0} 100%{opacity:0} }
+ 
+  /* --- Tool cards (mobile-first) --- */
+  .tool-wrap{ display:grid; grid-template-columns:1fr; gap:1rem }
+  @media (min-width:640px){ .tool-wrap{ grid-template-columns:repeat(2,1fr) } }
+  @media (min-width:1024px){ .tool-wrap{ grid-template-columns:repeat(3,1fr) } }
+  .tool-card{ background:var(--bg); border:1px solid var(--border-color); border-radius:8px; overflow:hidden; transition:transform .2s }
+  .tool-card:hover{ transform:scale(1.02) }
+  .tool-img{ height:200px; background-size:cover; background-position:center }
+  .tool-content{ padding:1rem }
+  .tool-title{ font-size:1.1rem; font-weight:500; margin-bottom:.5rem }
+  .tool-desc{ font-size:.9rem; opacity:.8 }
+</style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header fixed top-0 left-0 w-full z-50">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <a href="/" class="text-xl font-bold text-var(--accent-orange)">Nephelis Industries</a>
+      <nav class="hidden md:flex space-x-6">
+        <a href="#pitch" class="hover:text-var(--accent-orange)">Pitch Deck</a>
+        <a href="#funds" class="hover:text-var(--accent-orange)">Use of Funds</a>
+        <a href="#tiers" class="hover:text-var(--accent-orange)">Sponsorship Tiers</a>
+        <a href="#book" class="hover:text-var(--accent-orange)">Book Briefing</a>
+      </nav>
+      <button id="mobile-menu-btn" class="md:hidden focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+    <div id="mobile-menu" class="menu-hidden md:hidden bg-var(--bg) px-4 py-3 space-y-2">
+      <a href="#pitch" class="block hover:text-var(--accent-orange)">Pitch Deck</a>
+      <a href="#funds" class="block hover:text-var(--accent-orange)">Use of Funds</a>
+      <a href="#tiers" class="block hover:text-var(--accent-orange)">Sponsorship Tiers</a>
+      <a href="#book" class="block hover:text-var(--accent-orange)">Book Briefing</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="pt-24 pb-12 px-4">
+    <div class="container mx-auto text-center fade-in">
+      <h1 class="text-5xl mb-4">Invest in the Future of Venus Exploration</h1>
+      <p class="text-xl mb-8">Join Nephelis Industries in launching Project AETHER: A probe to Venus’s habitable cloud layer.</p>
+      <a href="#book" class="bg-var(--accent-orange) text-white px-6 py-3 rounded-full hover:bg-var(--accent-red)">Book Investor Briefing</a>
+    </div>
+  </section>
+
+  <!-- Mini Pitch Deck -->
+  <section id="pitch" class="py-12 px-4 bg-var(--bg)">
+    <div class="container mx-auto">
+      <h2 class="text-4xl mb-8 text-center">Mini Pitch Deck</h2>
+      <div class="tool-wrap">
+        <div class="tool-card fade-in">
+          <div class="tool-img" style="background-image: url('../d.png');"></div>
+          <div class="tool-content">
+            <h3 class="tool-title">The Opportunity</h3>
+            <p class="tool-desc">Venus's clouds at 50-60km altitude offer Earth-like conditions: 1 atm pressure, 20-30°C temps. Potential for life and human habitation.</p>
+          </div>
+        </div>
+        <div class="tool-card fade-in">
+          <div class="tool-img" style="background-image: url('../e.png');"></div>
+          <div class="tool-content">
+            <h3 class="tool-title">Project AETHER</h3>
+            <p class="tool-desc">A balloon probe with sensors for atmospheric analysis, life detection, and imaging. Launch in 2026 via rideshare.</p>
+          </div>
+        </div>
+        <div class="tool-card fade-in">
+          <div class="tool-img" style="background-image: url('../firstspheres.png');"></div>
+          <div class="tool-content">
+            <h3 class="tool-title">Market Potential</h3>
+            <p class="tool-desc">Advancing space tech for Venus colonization. Partnerships with NASA, ESA. Revenue from data, tech licensing.</p>
+          </div>
+        </div>
+        <div class="tool-card fade-in">
+          <div class="tool-img" style="background-image: url('../image.jpg');"></div>
+          <div class="tool-content">
+            <h3 class="tool-title">Our Team</h3>
+            <p class="tool-desc">Experienced engineers from SpaceX, NASA. Led by founder with track record in aerospace startups.</p>
+          </div>
+        </div>
+        <div class="tool-card fade-in">
+          <div class="tool-img" style="background-image: url('../peopleofvenus.png');"></div>
+          <div class="tool-content">
+            <h3 class="tool-title">Traction</h3>
+            <p class="tool-desc">Prototype tested. Grants secured. Media coverage in space journals.</p>
+          </div>
+        </div>
+        <div class="tool-card fade-in">
+          <div class="tool-img" style="background-image: url('../spheres.png');"></div>
+          <div class="tool-content">
+            <h3 class="tool-title">Exit Strategy</h3>
+            <p class="tool-desc">Acquisition by major space firms or IPO in 5-7 years.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Use of Funds -->
+  <section id="funds" class="py-12 px-4">
+    <div class="container mx-auto">
+      <h2 class="text-4xl mb-8 text-center">$500k Funding Target: Use of Funds</h2>
+      <div class="content-panel p-6 fade-in">
+        <ul class="list-disc pl-6 space-y-4">
+          <li><span class="font-bold">$200k (40%) - Hardware & Prototyping:</span> Balloon systems, sensors, acid-resistant materials.</li>
+          <li><span class="font-bold">$150k (30%) - Testing & Validation:</span> High-altitude balloon tests, lab simulations of Venus conditions.</li>
+          <li><span class="font-bold">$100k (20%) - Team Expansion:</span> Hire engineers, scientists for mission control.</li>
+          <li><span class="font-bold">$50k (10%) - Launch Prep & Ops:</span> Rideshare integration, regulatory compliance.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sponsorship Tiers -->
+  <section id="tiers" class="py-12 px-4 bg-var(--bg)">
+    <div class="container mx-auto">
+      <h2 class="text-4xl mb-8 text-center">Corporate Sponsorship Tiers</h2>
+      <div class="tool-wrap">
+        <div class="tool-card fade-in">
+          <div class="tool-content p-6 text-center">
+            <h3 class="text-2xl mb-2">Bronze - $10k</h3>
+            <ul class="list-disc pl-6 text-left space-y-2">
+              <li>Logo on website</li>
+              <li>Mention in press releases</li>
+              <li>Access to mission updates</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tool-card fade-in">
+          <div class="tool-content p-6 text-center">
+            <h3 class="text-2xl mb-2">Silver - $25k</h3>
+            <ul class="list-disc pl-6 text-left space-y-2">
+              <li>All Bronze benefits</li>
+              <li>Logo on probe hardware</li>
+              <li>Exclusive data access</li>
+              <li>VIP event invite</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tool-card fade-in">
+          <div class="tool-content p-6 text-center">
+            <h3 class="text-2xl mb-2">Gold - $50k+</h3>
+            <ul class="list-disc pl-6 text-left space-y-2">
+              <li>All Silver benefits</li>
+              <li>Naming rights for components</li>
+              <li>Co-branded marketing</li>
+              <li>Board advisory role</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Book Briefing -->
+  <section id="book" class="py-12 px-4">
+    <div class="container mx-auto text-center fade-in">
+      <h2 class="text-4xl mb-8">Schedule a 30-Min Investor/Sponsor Briefing</h2>
+      <p class="mb-8">Discuss opportunities with the founder directly.</p>
+      <div class="calendly-inline-widget" data-url="https://calendly.com/nephelis-founder/30min-briefing" style="min-width:320px;height:630px;"></div>
+      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-6 px-4 border-t border-var(--border-color) text-center">
+    <p>&copy; 2025 Nephelis Industries. All rights reserved.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Mobile Menu Toggle
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('menu-hidden');
+      menu.classList.toggle('menu-visible');
+    });
+
+    // Scroll Observer for Animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
