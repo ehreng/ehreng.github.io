@@ -1,811 +1,1100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0D5C7VZD35"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!-- Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0D5C7VZD35"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-0D5C7VZD35');
+    </script>
 
-  gtag('config', 'G-0D5C7VZD35');
-</script>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Nephelis Industries | Project AETHER</title>
-<meta name="description" content="A probe to Venus’s habitable cloud layer.">
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<style>
-  /* --- Base / Theme --- */
-  :root{ --accent-orange:#FF4500; --border-color:rgba(255,69,0,.2); --bg:#0A0A0A; --fg:#e0e0e0; --accent-red:#ff5a3d; --accent-red2:#ff866b; }
-  *{ box-sizing:border-box; }
-  html{ scroll-behavior:smooth }
-  body{ font-family:'Roboto Mono',monospace; background:var(--bg); color:var(--fg); overflow-x:hidden; }
-  h1,h2,h3{ font-family:'Inter',sans-serif; font-weight:900; text-transform:uppercase }
-  .content-panel{ border:1px solid var(--border-color); background:rgba(10,10,10,.4); border-radius:12px; overflow:hidden; }
-  .header{ background:rgba(10,10,10,.8); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-bottom:1px solid var(--border-color) }
-  a:focus{ outline:2px dashed var(--accent-orange); outline-offset:2px }
- 
-  /* --- Mobile Nav --- */
-  #mobile-menu { transition: opacity 0.3s ease-in-out; }
-  .menu-hidden { opacity: 0; pointer-events: none; }
-  .menu-visible { opacity: 1; pointer-events: auto; }
-  /* --- Tooltips --- */
-  .tooltip { position: relative; display: inline-block; border-bottom: 1px dotted var(--fg); cursor: help; }
-  .tooltip .tooltip-text { visibility: hidden; width: 220px; background-color: #1a1a1a; color: #fff; text-align: center; border-radius: 6px; padding: 8px; position: absolute; z-index: 1; bottom: 125%; left: 50%; margin-left: -110px; opacity: 0; transition: opacity 0.3s; font-size: 0.8rem; border: 1px solid var(--border-color); }
-  .tooltip:hover .tooltip-text { visibility: visible; opacity: 1; }
-  /* --- Scroll Animations --- */
-  .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
-  .fade-in.is-visible { opacity: 1; transform: translateY(0); }
-  /* --- SVG Path Animation --- */
-  #entry-path { stroke-dasharray: 500; stroke-dashoffset: 500; transition: stroke-dashoffset 2s ease-out; }
-  .is-visible #entry-path { stroke-dashoffset: 0; }
-  /* --- Circular CTA (hidden on mobile) --- */
-  .circular-cta{ position:fixed; bottom:40px; right:40px; width:150px; height:150px; z-index:1000; transition:transform .3s ease-out }
-  @media (max-width:640px){ .circular-cta{ display:none } }
-  .circular-text{ width:100%; height:100%; position:relative; border-radius:50%; animation:rotate 20s linear infinite }
-  .circular-text span{ position:absolute; left:50%; top:50%; height:75px; transform-origin:0 100%; font-size:1.1rem; text-transform:uppercase }
-  .cta-center{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:80px; height:80px; background:var(--accent-orange); border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:transform .3s }
-  .cta-center:hover{ transform:translate(-50%,-50%) scale(1.1) }
-  @keyframes rotate{ from{transform:rotate(0)} to{transform:rotate(360deg)} }
- 
-  /* --- Gallery (large, uncropped) --- */
-  .slideshow-container{ position:relative; width:100%; padding-top:56.25%; overflow:hidden; background:#000; border-radius:.5rem }
-  @media (min-width:1024px){ .slideshow-container{ padding-top:0; height:82vh; } }
-  .slide{ position:absolute; inset:0; background-size:contain; background-position:center; background-repeat:no-repeat; opacity:0; animation:fadeAnimation 18s infinite; cursor: pointer; transition: transform 0.2s ease-out; }
-  .slide:hover { transform: scale(1.02); }
-  .slide:nth-child(1){animation-delay:0s}
-  .slide:nth-child(2){animation-delay:3s}
-  .slide:nth-child(3){animation-delay:6s}
-  .slide:nth-child(4){animation-delay:9s}
-  .slide:nth-child(5){animation-delay:12s}
-  .slide:nth-child(6){animation-delay:15s}
-  @keyframes fadeAnimation{ 0%{opacity:0} 6%{opacity:1} 22%{opacity:1} 28%{opacity:0} 100%{opacity:0} }
- 
-  /* --- Tool cards (mobile-first) --- */
-  .tool-wrap{ display:grid; grid-template-columns:1fr; gap:12px; width:100%; }
-  @media(min-width:768px){ .tool-wrap{ grid-template-columns:repeat(3,minmax(0,1fr)); } }
-  .tool-card{ width:100%; border:1px solid #292929; background:#0e0e0e; border-radius:12px; padding:12px; }
-  .tool-card .tiny{ font-size:.85rem; color:#bdbdbd; }
-  .tool-card input[type=range]{ width:100%; height:26px; margin:2px 0; }
-  .input{ width:100%; background:#0e0e0e; border:1px solid #292929; border-radius:10px; color:var(--fg); padding:8px 10px }
-  .btn{ display:inline-block; border:1px solid rgba(255,255,255,.15); border-radius:10px; padding:8px 12px; background:#141414; transition:.15s }
-  .btn:hover{ transform:translateY(-1px); box-shadow:0 0 18px -6px rgba(255,69,0,.55); border-color:var(--accent-orange) }
-  .tiny{ font-size:.9rem; color:#bdbdbd }
- 
-  /* --- Budget bar --- */
-  .bar{ height:10px; background:#1b1b1b; border:1px solid #2a2a2a; border-radius:999px; overflow:hidden }
-  .bar>span{ display:block; height:100%; background:linear-gradient(90deg,var(--accent-red),var(--accent-red2)); width:0% }
- 
-  /* --- Canvases --- */
-  canvas.evc{ display:block; width:100%; max-width:100%; height:auto; max-height:400px; margin:0 auto; }
-  @media (max-width:640px){ canvas.evc{ max-height:280px } }
- 
-  /* --- Lightbox / Modal --- */
-  .lightbox, .modal { position:fixed; inset:0; background:rgba(0,0,0,.85); display:none; align-items:center; justify-content:center; z-index:10000 }
-  .lightbox.open, .modal.open { display:flex }
-  .lightbox img{ max-width:92vw; max-height:92vh; border-radius:10px; border:1px solid var(--border-color) }
-  .modal-content { background: var(--bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 2rem; max-width: 500px; text-align: center; }
-  .close-btn { position:absolute; top:20px; right:24px; color:#fff; font-size:28px; cursor:pointer }
-  .lightbox .nav{ position:absolute; top:50%; transform:translateY(-50%); font-size:38px; color:#fff; cursor:pointer; user-select:none; padding:10px 16px }
-  .lightbox .prev{ left:20px } .lightbox .next{ right:20px }
-  .diagram-svg{ width:100%; height:auto; max-height:450px; }
-  @media (prefers-reduced-motion:reduce){ .circular-text{animation:none} .slide{animation:none;opacity:1} }
-</style>
-<link rel="icon" href="/favicon.ico" type="image/x-icon">
-<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png"> <link rel="manifest" href="/site.webmanifest"> <meta property="og:image" content="https://www.nephelisindustries.com/favicon.ico">
-<meta name="twitter:image" content="https://www.nephelisindustries.com/favicon.ico">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nephelis Industries | The Atmospheric Frontier</title>
+    <meta name="description" content="Project AETHER: A super-pressure balloon probe targeting Venus's habitable cloud layer. Launching 2027.">
+    <meta name="theme-color" content="#FF4500">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        venus: {
+                            DEFAULT: '#FF4500',
+                            dim: '#cc3700',
+                            glow: '#ff866b',
+                            dark: '#1a0500'
+                        },
+                        void: {
+                            DEFAULT: '#050505',
+                            panel: '#0f0f11',
+                            border: '#27272a'
+                        },
+                        tech: {
+                            DEFAULT: '#00f0ff', // Cyan for data contrast
+                            dim: 'rgba(0, 240, 255, 0.2)'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, #1f1f1f 1px, transparent 1px), linear-gradient(to bottom, #1f1f1f 1px, transparent 1px)",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+    <style>
+        /* --- Base Aesthetics --- */
+        :root {
+            --cursor-size: 20px;
+        }
+        
+        body {
+            background-color: #050505;
+            color: #e0e0e0;
+            overflow-x: hidden;
+            font-feature-settings: "ss01", "ss02";
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #FF4500; }
+
+        /* HUD/Glass Effect */
+        .glass-panel {
+            background: rgba(15, 15, 17, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .hud-border {
+            position: relative;
+            border: 1px solid #333;
+        }
+        .hud-border::after {
+            content: '';
+            position: absolute;
+            top: -1px; left: -1px;
+            width: 10px; height: 10px;
+            border-top: 2px solid #FF4500;
+            border-left: 2px solid #FF4500;
+        }
+        .hud-border::before {
+            content: '';
+            position: absolute;
+            bottom: -1px; right: -1px;
+            width: 10px; height: 10px;
+            border-bottom: 2px solid #FF4500;
+            border-right: 2px solid #FF4500;
+        }
+
+        /* Typography Utilities */
+        .text-glow { text-shadow: 0 0 20px rgba(255, 69, 0, 0.4); }
+        .text-tech-glow { text-shadow: 0 0 10px rgba(0, 240, 255, 0.3); }
+
+        /* Animations */
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        .scanline-overlay {
+            position: fixed; top: 0; left: 0; w-full; h-full;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.2) 51%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.15;
+        }
+        
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+        }
+        .animate-pulse-slow { animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+
+        /* Input Range Styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px; width: 16px;
+            background: #FF4500;
+            cursor: pointer;
+            margin-top: -6px;
+            box-shadow: 0 0 10px #FF4500;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%; height: 4px;
+            background: #333;
+        }
+
+        /* Tooltip */
+        .tooltip-container:hover .tooltip-content {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Logo Filtering for Dark Mode Compatibility */
+        .logo-filter-invert {
+            filter: invert(100%) grayscale(100%) brightness(1.5);
+            transition: all 0.3s ease;
+        }
+        .logo-filter-standard {
+            filter: grayscale(100%) brightness(1.2);
+            transition: all 0.3s ease;
+        }
+        
+        .logo-container:hover img {
+            filter: grayscale(0%) invert(0%) brightness(1);
+        }
+    </style>
 </head>
-<body class="antialiased">
-<!-- Floating CTA -->
-<a href="#support" class="circular-cta" aria-label="Jump to support section">
-  <div class="circular-text" aria-hidden="true"></div>
-  <div class="cta-center" aria-hidden="true">
-    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16"><path d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/></svg>
-  </div>
-</a>
-<!-- Header -->
-<header class="header sticky top-0 z-50">
-  <div class="container mx-auto flex justify-between items-center p-4">
-    <img src="logo.jpg" alt="Nephelis Logo" class="h-10">
-    <nav class="hidden md:flex space-x-6 text-sm">
-      <a href="#mission" class="hover:text-orange-500">Mission</a>
-      <a href="#tech" class="hover:text-orange-500">Technology</a>
-      <a href="#astro" class="hover:text-orange-500">Astrophysics</a>
-      <a href="#gallery" class="hover:text-orange-500">Gallery</a>
-      <a href="#why-venus" class="hover:text-orange-500">Why Venus?</a>
-      <a href="#funding" class="hover:text-orange-500">Funding</a>
-      <a href="#team" class="hover:text-orange-500">Team</a>
-      <a href="#faq" class="hover:text-orange-500">FAQ</a>
-    </nav>
-    <div class="md:hidden">
-        <button id="menu-btn" class="text-white focus:outline-none">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-        </button>
-    </div>
-  </div>
-</header>
-<!-- Mobile Menu -->
-<div id="mobile-menu" class="fixed inset-0 bg-black/90 z-40 flex flex-col items-center justify-center space-y-6 text-xl menu-hidden">
-    <a href="#mission" class="mobile-link hover:text-orange-500">Mission</a>
-    <a href="#tech" class="mobile-link hover:text-orange-500">Technology</a>
-    <a href="#astro" class="mobile-link hover:text-orange-500">Astrophysics</a>
-    <a href="#gallery" class="mobile-link hover:text-orange-500">Gallery</a>
-    <a href="#why-venus" class="mobile-link hover:text-orange-500">Why Venus?</a>
-    <a href="#funding" class="mobile-link hover:text-orange-500">Funding</a>
-    <a href="#team" class="mobile-link hover:text-orange-500">Team</a>
-    <a href="#faq" class="mobile-link hover:text-orange-500">FAQ</a>
-</div>
-<main class="container mx-auto p-4 space-y-8">
-  <!-- HERO -->
-  <section class="grid md:grid-cols-2 gap-8 items-center">
-    <div>
-      <h1 class="text-5xl md:text-6xl tracking-tighter leading-tight">
-        Dreamers and Builders<span style="color:var(--accent-orange);">.</span><br>
-        A Mission to Venus<span style="color:var(--accent-orange);">.</span><br>
-        We are NEPHELIS<span style="color:var(--accent-orange);">.</span>
-      </h1>
-      <p class="mt-4 text-gray-300">AETHER is a probe to Venus, floating where temperature and pressure are Earth-like (50–55 km) to stream back images and data for 30–90 days.</p>
-    </div>
-    <div class="content-panel overflow-hidden">
-        <video autoplay loop muted playsinline class="w-full h-full object-cover" poster="https://placehold.co/1200x800/0A0A0A/FF4500?text=Project+AETHER">
-          <source src="video.mov" type="video/mp4">Your browser does not support the video tag.
-        </video>
-    </div>
-  </section>
-  <!-- MISSION -->
-  <section id="mission" class="content-panel p-8 fade-in">
-    <h2 class="text-3xl mb-4" style="color:var(--accent-orange);">The Mission: Project AETHER</h2>
-    <div class="grid md:grid-cols-2 gap-8 text-gray-300">
-      <div>
-        <p class="mb-4">Project AETHER will send Cloudseeker to Venus. It unlocks energy and resources for floating habitats, extending human life and consciousness to another world.</p>
-        <p class="mb-4">Targeting 50–55 km altitude—Earth-like conditions—Cloudseeker validates habitation models, resource extraction and astrobiology. Launch: 2027.</p>
-        <p>Be part of humanity's backup plan. Venus ensures life thrives across the solar system.</p>
-      </div>
-      <div>
-        <p class="mb-4">Venus offers abundant solar power, CO₂ for fuel, nitrogen for breathable air. Join us!</p>
-        <p>Future VenusExpress concepts with advanced propulsion could cut travel time to 30–45 days (vs. today’s 3–6 months).</p>
-      </div>
-    </div>
-    <h3 class="text-2xl mt-6 mb-2" style="color:var(--accent-red);">PROJECT AETHER</h3>
-    <p class="text-gray-300 mb-4">The next great leap for humanity awaits in the clouds of Venus. Project AETHER's 'Cloudseeker' is a pioneering mission to explore the most Earth-like environment in our solar system beyond our own planet. At an altitude of 50-55 km, where the conditions are surprisingly temperate, our miniprobe will validate technologies for habitation, resource extraction, and the search for astrobiology. Launching in 2027, Project AETHER will not just send back data; it will send back a new perspective on our place in the cosmos.</p>
-    <h3 class="text-2xl mt-6 mb-2" style="color:var(--accent-red);">POWERED BY PURPOSE</h3>
-    <p class="text-gray-300 mb-4">Project AETHER is a testament to the power of collective passion and ingenuity. We believe that the exploration of space should not be limited to governments. That's why we've opened up this mission to everyone who shares our vision for a multi-planetary future. Your contribution, no matter the size, will be a part of this historic journey to Venus. Together, we can make this audacious dream a reality.</p>
-    <a href="mailto:info@nephelisindustries.com?subject=Join Us" class="inline-block font-bold py-2 px-6 rounded text-lg text-black transition-transform hover:scale-105 mt-2" style="background-color:var(--accent-orange);">JOIN US →</a>
-  </section>
-  <!-- TECHNOLOGY -->
-  <section id="tech" class="grid md:grid-cols-2 gap-8 items-center fade-in">
-    <div class="content-panel p-8">
-      <h2 class="text-3xl mb-4" style="color:var(--accent-orange);">Technology: Cloudseeker</h2>
-      <ul class="list-disc list-inside space-y-2 text-gray-300">
-        <li><b>Acid-Resistant Aerostat:</b> Fluoropolymer balloon; floats at 50–55 km.</li>
-        <li><b>Integrated Sensor Suite:</b> imagery + mass spectrometry + aerosol/bio-sensors.</li>
-        <li><b>3U CubeSat Relay:</b> high-bandwidth data relay in Venus orbit.</li>
-        <li><b>AI-Optimized Navigation:</b> autonomous ops in dynamic atmosphere.</li>
-      </ul>
-      <h3 class="text-2xl mt-6 mb-2" style="color:var(--accent-red);">TECHNOLOGY DEEP DIVE</h3>
-      <p class="text-gray-300 mb-4">Cloudseeker is built upon a foundation of robust, cutting-edge technologies designed to withstand the harsh Venusian environment and achieve its ambitious scientific goals.</p>
-      <h4 class="text-xl mb-2 text-gray-200">The Aerostat</h4>
-      <p class="text-gray-300 mb-4">An advanced, multi-layered fluoropolymer balloon designed for long-term resistance to sulfuric acid clouds. Its super-pressure design allows it to maintain a stable altitude within the habitable zone.</p>
-      <h4 class="text-xl mb-2 text-gray-200">Science Payload</h4>
-      <p class="text-gray-300 mb-4">A compact suite of instruments including a mass spectrometer for atmospheric analysis, nephelometer for cloud density, and specially designed biological sensors to search for complex molecules.</p>
-      <h4 class="text-xl mb-2 text-gray-200">Avionics & Power</h4>
-      <p class="text-gray-300 mb-4">A radiation-hardened system manages the AI-optimized navigation and data relay. High-efficiency solar panels woven into the aerostat's upper surface provide continuous power.</p>
-    </div>
-    <img src="probe.jpg" alt="Cloudseeker Probe" class="rounded-lg w-full h-auto" loading="lazy">
-  </section>
-  <!-- ASTROPHYSICS (with fixed mobile tool cards) -->
-  <section id="astro" class="content-panel p-8 fade-in">
-    <h2 class="text-3xl mb-4" style="color:var(--accent-orange);">Astrophysics & Trajectory</h2>
-    <div class="grid lg:grid-cols-2 gap-8 text-gray-300">
-      <div>
-        <h3 class="text-xl mb-2">Transfer & Timing</h3>
-        <ul class="list-disc list-inside space-y-1 tiny">
-          <li><b>Profile:</b> Earth→Venus Hohmann-like transfer (outreach model)</li>
-          <li><b>Time of Flight:</b> ~146 days</li>
-          <li><b>LEO→TVI <span class="tooltip">Δv<span class="tooltip-text">Delta-v: A measure of the impulse required to perform a maneuver. The 'change in velocity'.</span></span>:</b> ~3.5 km/s (purchased)</li>
-          <li><b>Onboard Δv:</b> 150–200 m/s (TCMs/margin)</li>
-          <li><b>Arrival:</b> <span class="tooltip">v∞<span class="tooltip-text">Hyperbolic excess velocity: the velocity of a spacecraft in excess of the escape velocity of a celestial body.</span></span> ~2.7 km/s; entry ~10.7 km/s; deploy balloon ~55 km</li>
-        </ul>
-        <div class="mt-4 tool-card">
-          <h4 class="font-bold mb-1">Trajectory Mini-Planner</h4>
-          <label class="tiny block mb-1">Launch date offset (days): <span id="dOffsetVal">0</span></label>
-          <input id="dOffset" type="range" min="-30" max="30" step="1" value="0" />
-          <label class="tiny block mt-3 mb-1">Progress to arrival: <span id="progVal">0</span>% (<span id="dayVal">0</span> days)</label>
-          <input id="progressPct" type="range" min="0" max="100" step="1" value="0" />
-          <div class="grid grid-cols-3 gap-2 mt-2 tiny">
-            <div>Phase: <b id="phaseOut">—</b></div>
-            <div>TOF: <b id="tofOut">146.0 d</b></div>
-            <div>Δv est.: <b id="dvOut">3.50 km/s</b></div>
-          </div>
-          <canvas id="evCanvas" width="480" height="300" class="evc mt-2" aria-label="Earth to Venus transfer"></canvas>
-        </div>
-      </div>
-      <div class="tool-wrap">
-        <div class="tool-card">
-          <h4 class="font-bold mb-1">Atmosphere Model</h4>
-          <label class="tiny">Altitude (45–60 km): <span id="altVal">55</span> km</label>
-          <input id="alt" type="range" min="45" max="60" step="0.5" value="55" />
-          <div class="tiny mt-2" id="atmOut">—</div>
-        </div>
-        <div class="tool-card">
-          <h4 class="font-bold mb-1">Comms/Day Estimator</h4>
-          <label class="tiny">Relay altitude: <span id="relayVal">350</span> km</label>
-          <input id="relay" type="range" min="200" max="800" step="10" value="350" />
-          <div class="tiny mt-2" id="commsOut">—</div>
-        </div>
-        <div class="tool-card">
-          <h4 class="font-bold mb-1">Rocket Equation</h4>
-          <p class="tiny mb-2">The Tsiolkovsky rocket equation calculates the propellant needed for a given change in velocity (Δv), based on engine efficiency (Isp) and mass.</p>
-          <div class="grid grid-cols-3 gap-2">
-            <div>
-                <label for="dv" class="tiny block">Δv (m/s)</label>
-                <input id="dv" class="input tiny" type="number" value="200" />
-            </div>
-            <div>
-                <label for="isp" class="tiny block"><span class="tooltip">Isp (s)<span class="tooltip-text">Specific Impulse: A measure of how efficiently a rocket engine uses propellant. Higher is better.</span></span></label>
-                <input id="isp" class="input tiny" type="number" value="235" />
-            </div>
-            <div>
-                <label for="mdry" class="tiny block">Dry Mass (kg)</label>
-                <input id="mdry" class="input tiny" type="number" value="12" />
-            </div>
-          </div>
-          <a class="btn mt-2 tiny" href="#" onclick="calc();return false;">Compute Propellant</a>
-          <div class="tiny mt-2" id="out">—</div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- GALLERY -->
-  <section id="gallery" class="content-panel p-8 fade-in">
-    <h2 class="text-3xl mb-4 text-center" style="color:var(--accent-orange);">Future on Venus</h2>
-    <div id="slideshow" class="slideshow-container">
-      <div class="slide" data-full="a.jpg" style="background-image:url('a.jpg')"></div>
-      <div class="slide" data-full="b.jpg" style="background-image:url('b.jpg')"></div>
-      <div class="slide" data-full="c.jpg" style="background-image:url('c.jpg')"></div>
-      <div class="slide" data-full="d.jpg" style="background-image:url('d.jpg')"></div>
-      <div class="slide" data-full="e.jpg" style="background-image:url('e.jpg')"></div>
-      <div class="slide" data-full="f.jpg" style="background-image:url('f.jpg')"></div>
-    </div>
-    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
-      <button id="lbClose" class="close-btn" aria-label="Close image viewer">✕</button>
-      <button id="lbPrev" class="nav prev" aria-label="Previous image">‹</button>
-      <img id="lbImg" src="" alt="">
-      <button id="lbNext" class="nav next" aria-label="Next image">›</button>
-    </div>
-  </section>
-  <!-- WHY VENUS? -->
-  <section id="why-venus" class="content-panel p-8 fade-in">
-    <h2 class="text-3xl mb-4" style="color:var(--accent-orange);">Why Venus?</h2>
-    <p class="text-gray-300 mb-4">With Earth-like gravity and a temperate, 1-bar pressure layer at 50–55 km altitude, Venus is the most practical and resource-rich destination for off-world colonization in our solar system.</p>
-    <p class="text-gray-300 mb-6">Venus complements Mars. At the right altitude, it offers near‑Earth pressure/temperature and abundant solar energy—balanced against acid clouds and power/radiation trade‑offs.</p>
-   
-    <div class="overflow-x-auto">
-        <table class="w-full text-sm text-left border-collapse">
-            <thead>
-                <tr class="border-b border-[var(--border-color)]">
-                    <th class="p-3">Aspect</th>
-                    <th class="p-3">Venus (Cloud Tops)</th>
-                    <th class="p-3">Mars (Surface)</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y divide-[var(--border-color)]">
-                <tr class="bg-black/10 hover:bg-black/30">
-                    <td class="p-3 font-semibold">Travel Time</td>
-                    <td class="p-3">~5 months (current) | 30-45 days (future concept)</td>
-                    <td class="p-3">~6-9 months (current)</td>
-                </tr>
-                <tr class="bg-black/10 hover:bg-black/30">
-                    <td class="p-3 font-semibold">Gravity</td>
-                    <td class="p-3">0.904 g (~90% Earth)</td>
-                    <td class="p-3">0.38 g (~38% Earth)</td>
-                </tr>
-                <tr class="bg-black/10 hover:bg-black/30">
-                    <td class="p-3 font-semibold">Habitable Zone Conditions</td>
-                    <td class="p-3">~30–70 °C; 0.5–1 bar pressure</td>
-                    <td class="p-3">~-60 °C; ~0.006 bar pressure (requires pressure suits/domes)</td>
-                </tr>
-                <tr class="bg-black/10 hover:bg-black/30">
-                    <td class="p-3 font-semibold">Solar Energy</td>
-                    <td class="p-3">~2601 W/m² (1.9x Earth), reduced in clouds</td>
-                    <td class="p-3">~590 W/m² (0.43x Earth)</td>
-                </tr>
-                 <tr class="bg-black/10 hover:bg-black/30">
-                    <td class="p-3 font-semibold">Resources</td>
-                    <td class="p-3">96.5% CO₂, 3.5% N₂, trace SO₂</td>
-                    <td class="p-3">CO₂ atmosphere, polar water ice</td>
-                </tr>
-                <tr class="bg-black/10 hover:bg-black/30">
-                    <td class="p-3 font-semibold">Key Challenges</td>
-                    <td class="p-3">Sulfuric acid clouds, material degradation</td>
-                    <td class="p-3">Cosmic radiation, dust storms, low gravity</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <h3 class="text-2xl mt-6 mb-2" style="color:var(--accent-red);">THE 'WHY NOW?' MOMENT</h3>
-    <p class="text-gray-300 mb-4">Project AETHER is a mission whose time has come. A convergence of technological and commercial breakthroughs makes private Venus exploration possible for the first time in history.</p>
-    <h4 class="text-xl mb-2 text-gray-200">The Launch Revolution</h4>
-    <p class="text-gray-300 mb-4">The rise of affordable and reliable commercial launch providers and their rideshare programs dramatically lowers the cost of access to deep space, making missions like ours financially feasible.</p>
-    <h4 class="text-xl mb-2 text-gray-200">Radical Miniaturization</h4>
-    <p class="text-gray-300 mb-4">Thanks to the CubeSat revolution, we can now package a powerful scientific suite, communication systems, and avionics into a small, cost-effective probe without sacrificing capability.</p>
-    <h4 class="text-xl mb-2 text-gray-200">Advances in Material Science</h4>
-    <p class="text-gray-300 mb-4">New developments in acid-resistant coatings, flexible solar cells, and lightweight composites are the final key, enabling us to build a probe that can survive for an extended period in the clouds of Venus.</p>
-    <h3 class="text-2xl mt-6 mb-2" style="color:var(--accent-red);">VENUSIAN FUTURE: OUR LONG-TERM HORIZON</h3>
-    <p class="text-gray-300 mb-4">Project AETHER is just the beginning. At Nephelis Industries, our vision extends beyond a single mission to the establishment of a permanent human presence in the skies of Venus. We see Venus not as a desolate wasteland, but as the solar system's most promising and resource-rich frontier for off-world development.</p>
-    <h4 class="text-xl mb-2 text-gray-200">Cities in the Clouds: A New Paradigm for Habitation</h4>
-    <p class="text-gray-300 mb-4">The future of humanity on Venus lies not on its scorching surface, but in its temperate, Earth-like upper atmosphere. At an altitude of 50-55 km, the pressure is a familiar 1-bar and temperatures range from 0°C to 50°C (32°F to 122°F). Here, we can build floating habitats—aerostats far grander than our initial probes—where humans could live and work, protected from surface extremes and cosmic radiation by the thick atmosphere. These "cloud cities" are not science fiction; they are a practical engineering destination.</p>
-    <h4 class="text-xl mb-2 text-gray-200">Building a Self-Sustaining Economy</h4>
-    <p class="text-gray-300 mb-4">A Venusian civilization must be self-sufficient. Nephelis Industries is developing business cases for a vibrant, in-sky economy based on In-Situ Resource Utilization (ISRU):</p>
-    <ul class="list-disc list-inside space-y-2 text-gray-300">
-      <li>Breathable Air: Cracking atmospheric CO₂ to produce oxygen, mixed with readily available nitrogen.</li>
-      <li>Water Production: Synthesizing water from atmospheric hydrogen and sulfuric acid.</li>
-      <li>Advanced Manufacturing: Leveraging abundant solar power and unique chemical feedstocks.</li>
-    </ul>
-    <h4 class="text-xl mb-2 text-gray-200">Nephelis's Role: Building of a New World</h4>
-    <p class="text-gray-300 mb-4">Our roadmap is clear. Phase I is Exploration with Project AETHER. Phase II involves launching larger robotic aerostats to prove ISRU technologies at scale. Phase III is the construction of the first modular, human-capable habitat, establishing a permanent scientific and industrial outpost in the clouds of Venus.</p>
+<body class="antialiased selection:bg-venus selection:text-white">
 
-      </div>
-    </div>
-    <h2 class="text-3xl mt-6 mb-6" style="color:var(--accent-orange);">Mission Diagrams</h2>
-    <div class="grid md:grid-cols-2 gap-8">
-      <div class="content-panel p-4">
-        <h3 class="text-xl mb-2 text-center">Venus Orbit & Entry</h3>
-        <svg viewBox="0 0 500 400" class="diagram-svg">
-            <defs>
-                <radialGradient id="venusGlow" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-                    <stop offset="0%" style="stop-color:#ffca9a;stop-opacity:0.8" />
-                    <stop offset="100%" style="stop-color:#ff9c6a;stop-opacity:0" />
-                </radialGradient>
-                 <filter id="glow">
-                    <feGaussianBlur stdDeviation="3.5" result="coloredBlur"/>
-                    <feMerge>
-                        <feMergeNode in="coloredBlur"/>
-                        <feMergeNode in="SourceGraphic"/>
-                    </feMerge>
-                </filter>
-            </defs>
-            <circle cx="250" cy="200" r="50" fill="url(#venusGlow)"/>
-            <circle cx="250" cy="200" r="24" fill="#ff9c6a" stroke="#ffd7c1"/>
-            <text x="250" y="205" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="bold">Venus</text>
-            <circle cx="250" cy="200" r="100" fill="none" stroke="#ff9c6a" stroke-width="1.5" stroke-dasharray="5 8"/>
-            <text x="355" y="205" font-size="12" fill="#ffd7c1">Atmosphere</text>
-           
-            <circle cx="250" cy="100" r="6" fill="#9ad1ff" stroke="#d3ecff" filter="url(#glow)"/>
-            <text x="264" y="104" font-size="14" fill="#cfe3ff">3U CubeSat Relay</text>
-           
-            <path id="entry-path" d="M50,50 C150,150 200,220 235,245" fill="none" stroke="var(--accent-orange)" stroke-width="3" filter="url(#glow)"/>
-            <polygon points="235,245 225,240 235,258" fill="var(--accent-orange)"/>
-            <text x="50" y="46" font-size="14" fill="#eee">Atmospheric Entry (~10.7 km/s)</text>
-           
-            <circle cx="242" cy="239" r="7" fill="#ffd1bf" stroke="#ffb48f" filter="url(#glow)"/>
-            <text x="256" y="243" font-size="14" fill="#ffd1bf">Balloon deploy ~55 km</text>
-        </svg>
-      </div>
-      <div class="content-panel p-4">
-        <h3 class="text-xl mb-2 text-center">Venus Cloud Layers</h3>
-        <svg viewBox="0 0 500 400" class="diagram-svg">
-            <defs>
-                <linearGradient id="cloudGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" style="stop-color:rgba(255,255,255,.15)" />
-                    <stop offset="100%" style="stop-color:rgba(255,255,255,.02)" />
-                </linearGradient>
-            </defs>
-            <line x1="80" y1="50" x2="80" y2="350" stroke="#666" stroke-width="2"/>
-            <text x="40" y="55" font-size="14" fill="#bbb" text-anchor="middle">Altitude</text>
-            <text x="40" y="85" font-size="14" fill="#eee" text-anchor="middle">70 km</text>
-            <text x="40" y="165" font-size="14" fill="#eee" text-anchor="middle">60 km</text>
-            <text x="40" y="245" font-size="14" fill="#eee" text-anchor="middle">50 km</text>
-            <text x="40" y="325" font-size="14" fill="#eee" text-anchor="middle">45 km</text>
-            <rect x="100" y="80" width="380" height="80" fill="url(#cloudGrad)"/>
-            <text x="290" y="120" font-size="14" fill="#ccc" text-anchor="middle">Upper Haze (H₂SO₄)</text>
-            <rect x="100" y="160" width="380" height="80" fill="url(#cloudGrad)"/>
-            <text x="290" y="200" font-size="14" fill="#ccc" text-anchor="middle">Middle Cloud</text>
-           
-            <rect x="100" y="240" width="380" height="80" fill="url(#cloudGrad)"/>
-            <text x="290" y="280" font-size="14" fill="#ccc" text-anchor="middle">Lower Cloud</text>
-            <rect x="100" y="200" width="380" height="40" fill="rgba(255,69,0,.25)" stroke="var(--accent-orange)" stroke-width="1.5"/>
-            <text x="290" y="225" font-size="14" fill="#ffb48f" text-anchor="middle">Cloudseeker Habitable Zone: 50–55 km</text>
-            <circle cx="420" cy="220" r="8" fill="#ffb48f" stroke="#ffcaa9" filter="url(#glow)"/>
-        </svg>
-      </div>
-    </div>
-    <h3 class="text-2xl mt-6 mb-2" style="color:var(--accent-red);">HUMANITY'S JOURNEY TO VENUS</h3>
-    <h4 class="text-xl mb-2 text-gray-200">The Pioneers: A Legacy of Venus Exploration</h4>
-    <p class="text-gray-300 mb-4">Humanity's fascination with Venus has led to a rich history of exploration. From the first successful flyby by NASA's Mariner 2 in 1962, to the first images from the surface sent back by the Soviet Venera 9 and 10 in 1975, we have been slowly peeling back the layers of our sister planet's mysteries.</p>
-    <h4 class="text-xl mb-2 text-gray-200">The New Wave: A Renewed Focus on Venus</h4>
-    <p class="text-gray-300 mb-6">We are at the dawn of a new era of Venus exploration. A fleet of missions is set to launch in the coming years, including NASA's DAVINCI and VERITAS, and the European Space Agency's EnVision. These missions will provide the most comprehensive study of Venus ever undertaken, and Project AETHER is poised to be a key part of this global effort.</p>
-    <div class="overflow-x-auto">
-        <table class="w-full text-sm text-left border-collapse">
-            <thead>
-                <tr class="border-b border-[var(--border-color)]">
-                    <th class="p-3">Mission</th>
-                    <th class="p-3">Agency</th>
-                    <th class="p-3">Year</th>
-                    <th class="p-3">Type</th>
-                    <th class="p-3">Key Achievement</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y divide-[var(--border-color)]">
-                <tr><td colspan="5" class="p-3 font-bold bg-black/20">Past Missions</td></tr>
-                <tr class="bg-black/10 hover:bg-black/30"><td class="p-3"><a href="https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1961-003A" target="_blank" rel="noopener noreferrer" class="hover:text-orange-500">Venera 1</a></td><td class="p-3">Soviet Union</td><td class="p-3">1961</td><td class="p-3">Flyby (failed)</td><td class="p-3">First spacecraft launched towards Venus.</td></tr>
-                <tr class="bg-black/10 hover:bg-black/30"><td class="p-3"><a href="https://solarsystem.nasa.gov/missions/mariner-2/in-depth/" target="_blank" rel="noopener noreferrer" class="hover:text-orange-500">Mariner 2</a></td><td class="p-3">NASA (USA)</td><td class="p-3">1962</td><td class="p-3">Flyby</td><td class="p-3">First successful planetary encounter; confirmed high surface temps.</td></tr>
-                <tr class="bg-black/10 hover:bg-black/30"><td class="p-3"><a href="https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1967-058A" target="_blank" rel="noopener noreferrer" class="hover:text-orange-500">Venera 4</a></td><td class="p-3">Soviet Union</td><td class="p-3">1967</td><td class="p-3">Atmospheric Probe</td><td class="p-3">First probe to enter another planet's atmosphere and return data.</td></tr>
-                <tr class="bg-black/10 hover:bg-black/30"><td class="p-3"><a href="https://solarsystem.nasa.gov/missions/mariner-5/in-depth/" target="_blank" rel="noopener noreferrer" class="hover:text-orange-500">Mariner 5</a></td><td class="p-3">NASA (USA)</td><td class="p-3">1967</td><td class="p-3">Flyby</td><td class="p-3">Collected atmospheric data to complement Venera 4.</td></tr>
-                <tr class="bg-black/10 hover:bg-black/30"><td class="p-3"><a href="https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1970-060A" target="_blank" rel="noopener noreferrer" class="hover:text-orange-500">Venera 7</a></td><td class="p-3">Soviet Union</td><td class="p-3">1970</td><td class="p-3">Lander</td><td class="p-3">First successful soft landing on another planet.</td></tr>
-                <tr class="bg-black/10 hover:bg-black/30"><td class="p-3"><a href="https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1975-054A" target="_blank" rel="noopener noreferrer" class="hover:text-orange-500">Venera 9 & 10</a></td><td class="p-3">Soviet Union</td><td class="p-3">1975</td><td class="p-3">Orbiter & Lander</td><td class="p-3">First to transmit images from the surface of Venus.</td></tr>
-                <tr class="bg-black/10 hover:bg-black/30"><td class="p-3"><a href="https://solarsystem.nasa.gov/missions/pioneer-venus-orbiter/in-depth/" target="_blank" rel="noopener noreferrer" class="hover:text-orange-500">Pioneer Venus 1 & 2</a></td><td class="p-3">NASA (USA)</td><td class="p-3">1978</td><td class="p-3">Orbiter & Probes</td><td class="p-3">Created the first detailed radar map of the Venusian surface.</td></tr>
-                <tr class="bg-black/10 hover:bg-black/30"><td class="p-3"><a href="https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1984-125A" target="_blank" rel="noopener noreferrer" class="hover:text-orange-500">Vega 1 & 2</a></td><td class="p-3">Soviet Union</td><td class="p-3">1984</td><td class="p-3">Balloons & Lander</td><td class="p-3">Deployed the first and only weather balloons in Venus's atmosphere.</td></tr>
-                <tr class="bg-black/10 hover:bg-black/30"><td class="p-3"><a href="https://solarsystem.nasa.gov/missions/magellan/in-depth/" target="_blank" rel="noopener noreferrer" class="hover:text-orange-500">Magellan</a></td><td class="p-3">NASA (USA)</td><td class="p-3">1989</td><td class="p-3">Orbiter</td><td class="p-3">Mapped over 98% of the planet's surface with high-resolution radar.</td></tr>
-                <tr class="bg-black/10 hover:bg-black/30"><td class="p-3"><a href="https://www.esa.int/Science_Exploration/Space_Science/Venus_Express" target="_blank" rel="noopener noreferrer" class="hover:text-orange-500">Venus Express</a></td><td class="p-3">ESA</td><td class="p-3">2005</td><td class="p-3">Orbiter</td><td class="p-3">Studied the atmosphere and plasma environment in detail for 8 years.</td></tr>
-                <tr class="bg-black/10 hover:bg-black/30"><td class="p-3"><a href="https://global.jaxa.jp/projects/sas/akatsuki/" target="_blank" rel="noopener noreferrer" class="hover:text-orange-500">Akatsuki</a></td><td class="p-3">JAXA (Japan)</td><td class="p-3">2010</td><td class="p-3">Orbiter</td><td class="p-3">First Japanese Venus probe; studies atmospheric dynamics.</td></tr>
-                <tr><td colspan="5" class="p-3 font-bold bg-black/20">Current & Future Missions</td></tr>
-                <tr class="bg-black/10 hover:bg-black/30"><td class="p-3"><a href="https://www.esa.int/Science_Exploration/Space_Science/BepiColombo" target="_blank" rel="noopener noreferrer" class="hover:text-orange-500">BepiColombo</a></td><td class="p-3">ESA/JAXA</td><td class="p-3">2018</td><td class="p-3">Flyby (en route)</td><td class="p-3">Mercury orbiter performing multiple Venus flybys for gravity assists.</td></tr>
-                <tr class="bg-black/10 hover:bg-black/30"><td class="p-3"><a href="https://solarsystem.nasa.gov/missions/veritas/in-depth/" target="_blank" rel="noopener noreferrer" class="hover:text-orange-500"><b>VERITAS</b></a></td><td class="p-3"><b>NASA (USA)</b></td><td class="p-3"><b>~2029</b></td><td class="p-3"><b>Orbiter</b></td><td class="p-3"><b>To map Venus's surface geology and understand its evolution.</b></td></tr>
-                <tr class="bg-black/10 hover:bg-black/30"><td class="p-3"><a href="https://ssed.gsfc.nasa.gov/davinci/" target="_blank" rel="noopener noreferrer" class="hover:text-orange-500"><b>DAVINCI</b></a></td><td class="p-3"><b>NASA (USA)</b></td><td class="p-3"><b>~2029-30</b></td><td class="p-3"><b>Probe & Orbiter</b></td><td class="p-3"><b>To analyze the atmospheric composition and surface.</b></td></tr>
-                <tr class="bg-black/10 hover:bg-black/30"><td class="p-3"><a href="https://www.envisionvenus.eu/" target="_blank" rel="noopener noreferrer" class="hover:text-orange-500"><b>EnVision</b></a></td><td class="p-3"><b>ESA</b></td><td class="p-3"><b>~2031</b></td><td class="p-3"><b>Orbiter</b></td><td class="p-3"><b>To study Venus from its inner core to its upper atmosphere.</b></td></tr>
-                <tr class="bg-black/10 hover:bg-black/30"><td class="p-3"><a href="https://www.isro.gov.in/Venus.html" target="_blank" rel="noopener noreferrer" class="hover:text-orange-500"><b>Shukrayaan-1</b></a></td><td class="p-3">ISRO (India)</td><td class="p-3"><b>TBD</b></td><td class="p-3">Orbiter</td><td class="p-3">Planned Indian mission to study the surface and atmosphere.</td></tr>
-            </tbody>
-        </table>
-    </div>
-    <h3 class="text-2xl mt-6 mb-2" style="color:var(--accent-red);">Project AETHER: Our Contribution to the Venusian Frontier</h3>
-    <p class="text-gray-300 mb-4">While major space agencies focus on orbital and atmospheric analysis, Project AETHER's 'Cloudseeker' probe will provide a unique, long-duration presence in the Venusian clouds, streaming back invaluable data and imagery that will complement and enhance the findings of these larger missions.</p>
-    <h3 class="text-2xl mt-6 mb-2" style="color:var(--accent-red);">MISSION UPDATES</h3>
-    <p class="text-gray-300 mb-4">Follow our journey to Venus. Here are the latest dispatches from the Nephelis team.</p>
-    <h4 class="text-xl mb-2 text-gray-200">Mission Trajectory Finalized</h4>
-    <p class="text-gray-300 text-sm">September 22, 2025 | Astrophysics</p>
-    <p class="text-gray-300 mb-4">Working with our partners, we have locked in the final trajectory for our 2027 launch window, optimizing for fuel efficiency and arrival timing.</p>
-  </section>
-  <!-- NEW: VENUS TODAY -->
-  <section id="venus-today" class="content-panel p-8 fade-in">
-    <h2 class="text-3xl mb-4" style="color:var(--accent-orange);">Venus Today: Daily Fact</h2>
-    <p id="venus-fact" class="text-gray-300 text-lg italic">Loading today's fascinating fact about Venus...</p>
-  </section>
-  <!-- BUDGET (near bottom) -->
-  <section id="funding" class="content-panel p-8 fade-in">
-    <h2 class="text-3xl mb-4" style="color:var(--accent-orange);">Funding</h2>
-    <div class="grid md:grid-cols-2 gap-8 items-center">
-      <div class="flex justify-center"><canvas id="pie" width="200" height="200"></canvas></div>
-      <div>
-        <ul id="budget-legend" class="text-sm text-gray-300 space-y-2">
-            <!-- Legend will be populated by JS -->
-        </ul>
-        <div class="bar mt-4" aria-label="Funding progress"><span id="progress"></span></div>
-        <p class="tiny mt-2">Raised: <b id="raised">$127,000</b> / Target: <b>$500,000</b></p>
-      </div>
-    </div>
-   
-    <!-- NEW SPONSORSHIP SECTION -->
-    <div class="mt-8 pt-6 border-t border-[var(--border-color)] grid md:grid-cols-2 gap-6 text-center">
-        <div class="border border-[var(--border-color)] rounded-lg p-6 bg-black/20 flex flex-col justify-between">
-            <h3 class="text-xl" style="color:var(--accent-orange);">ETCH YOUR LEGACY ON A PANEL</h3>
-            <p class="text-gray-300 text-sm my-3 flex-grow">From a personal message ($100) to a corporate logo ($10k), your support will be physically integrated into the Cloudseeker probe, orbiting Venus for decades to come.</p>
-            <p class="text-2xl font-bold my-2"><span id="panel-counter">427</span> of 500 panels left</p>
-           
-        </div>
-        <div class="border border-[var(--border-color)] rounded-lg p-6 bg-black/20 flex flex-col justify-between">
-            <h3 class="text-xl" style="color:var(--accent-orange);">IMMORTALIZE YOUR DNA ON VENUS</h3>
-            <p class="text-gray-300 text-sm my-3 flex-grow">For a $500 contribution, send us a hair or nail sample. We'll seal it in an inert time capsule aboard the probe, making your biological signature part of an eternal cosmic journey.</p>
-        </div>
-  
-    <a href="https://forms.gle/jBTkTGZUHhSyW7KQ7" class="inline-block font-bold py-2 px-6 rounded text-lg text-black transition-transform hover:scale-105 mt-2" style="background-color:var(--accent-orange);" target="_blank">Sponsor / Invest →</a>
-     </div>
-      <div class="mt-8 pt-6 border-t border-[var(--border-color)]">
-        <h3 class="text-xl mb-2" style="color:var(--accent-orange);">Vendors & Partners</h3>
-        <p class="text-gray-300 text-sm">Launch via&nbsp;SpaceX rideshare program. Testing: Acid chamber at TBD facility (e.g., Glenn Research Center analogs); thermal-vac at commercial labs. Additional partnerships to be announced soon.</p>
-    </div>
-  </section>
- 
-  <!-- TEAM -->
-  <section id="team" class="content-panel p-8 fade-in">
-    <h2 class="text-3xl mb-4" style="color:var(--accent-orange);">The Team</h2>
-    <p class="text-gray-300 mb-4">Nephelis Industries is driven by a passionate group of engineers, scientists and visionaries united by a common goal: to make humanity a multi-planetary species.</p>
-    <h3 class="text-lg mb-2" style="color:var(--accent-red);"><a href="https://x.com/ehreng" class="hover:text-orange-500">Ehren Goossens</a></h3>
-    <p class="text-gray-300 mb-4">Founder & Mission Architect</p>
-  </section>
- 
-  <!-- FAQ Section (placeholder) -->
-  <section id="faq" class="content-panel p-8 fade-in">
-      <h2 class="text-3xl mb-4" style="color:var(--accent-orange);">Frequently Asked Questions</h2>
-      <div class="space-y-4 text-gray-300">
-          <div>
-              <h3 class="font-bold">Is this a real mission?</h3>
-              <p class="text-sm">Yes! Nephelis Industries and Project AETHER are a real mission, designed to inspire and build a first step to Venus exploration.</p>
-          </div>
-          <div>
-              <h3 class="font-bold">Why not Mars?</h3>
-              <p class="text-sm">While Mars gets a lot of attention, Venus's upper atmosphere offers Earth-like pressure and temperature, plus better protection from solar radiation, making it a compelling alternative for floating habitats.</p>
-          </div>
-      </div>
-  </section>
-  <!-- Support -->
-  <footer id="support" class="content-panel p-8 text-center fade-in">
-    <h2 class="text-3xl mb-2" style="color:var(--accent-orange);">Join The Mission</h2>
-    <p class="text-gray-300 mb-4 max-w-xl mx-auto">space enthusiasts, hobbyists, engineers, explorers, philosophers and artists.</p>
-    <a href="mailto:info@nephelisindustries.com?subject=Join Us" class="inline-block font-bold py-2 px-6 rounded text-lg text-black transition-transform hover:scale-105" style="background-color:var(--accent-orange);">Join Us &rarr;</a>
-    <div class="text-center text-gray-600 text-sm pt-6">
-      © 2026 Nephelis Industries. All Rights Reserved.
-  
-  <a href="mailto:info@nephelisindustries.com">info@nephelisindustries.com</a>
-  •
-  <a href="https://x.com/NephelisCo" target="_blank" rel="noopener noreferrer"> @NephelisCo</a>
-      </div>
-    </div>
-  </footer>
-</main>
-<!-- Panel Sponsorship Modal -->
-<div id="panel-modal" class="modal">
-    <div class="modal-content relative">
-        <button class="close-btn" data-modal-close="panel-modal">✕</button>
-        <h2 class="text-2xl mb-4" style="color:var(--accent-orange);">Sponsor a Solar Panel</h2>
-        <p class="text-gray-300 mb-4">Enter your email below to be notified when sponsorship tiers go live. Your support will etch your legacy onto the Cloudseeker probe itself.</p>
-        <form id="panel-form" class="w-full">
-            <div class="form-content">
-                <input type="email" placeholder="your.email@example.com" class="input w-full mb-3" required>
-                <button type="submit" class="w-full font-bold py-2 px-6 rounded text-lg text-black transition-transform hover:scale-105" style="background-color:var(--accent-orange);">Register Interest &rarr;</button>
+    <!-- Scanline Overlay for Retro-Futurism Feel -->
+    <div class="scanline-overlay"></div>
+
+    <!-- Background Starfield Canvas -->
+    <canvas id="starfield" class="fixed inset-0 z-0 opacity-40"></canvas>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 border-b border-white/10 bg-black/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-3">
+                    <img src="logo.jpg" alt="Nephelis Industries Logo" class="h-8 w-auto">
+                    <span class="font-bold text-xl tracking-wider text-white uppercase font-sans">Nephelis Industries</span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8 font-mono text-xs uppercase tracking-widest">
+                        <a href="#mission" class="hover:text-venus transition-colors">Mission</a>
+                        <a href="#astrodynamics" class="hover:text-venus transition-colors">Trajectory</a>
+                        <a href="#thesis" class="hover:text-venus transition-colors">Thesis</a>
+                        <a href="#heritage" class="hover:text-venus transition-colors">History</a>
+                        <a href="#gallery" class="hover:text-venus transition-colors">Visuals</a>
+                        <a href="#funding" class="text-venus border border-venus/50 px-4 py-2 hover:bg-venus hover:text-black transition-all">Sponsor</a>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="-mr-2 flex md:hidden">
+                    <button id="mobile-menu-btn" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-white/10 focus:outline-none">
+                        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <path class="block" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
             </div>
-            <p class="text-xs text-gray-500 mt-4">For the latest mission updates, <a href="https://x.com/NephelisCo" target="_blank" class="underline hover:text-orange-500">follow us on X</a>.</p>
-        </form>
-    </div>
-</div>
-<!-- DNA Sponsorship Modal -->
-<div id="dna-modal" class="modal">
-    <div class="modal-content relative">
-        <button class="close-btn" data-modal-close="dna-modal">✕</button>
-        <h2 class="text-2xl mb-4" style="color:var(--accent-orange);">Immortalize Your DNA on Venus</h2>
-        <p class="text-gray-300 mb-4">You are one step closer to sending your biological signature on an eternal cosmic journey. Enter your email to receive the DNA sample kit and instructions when available.</p>
-        <form id="dna-form" class="w-full">
-            <div class="form-content">
-                <input type="email" placeholder="your.email@example.com" class="input w-full mb-3" required>
-                <button type="submit" class="w-full font-bold py-2 px-6 rounded text-lg text-black transition-transform hover:scale-105" style="background-color:var(--accent-orange);">Request Kit Info &rarr;</button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-black border-b border-white/10">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 font-mono text-sm uppercase">
+                <a href="#mission" class="block px-3 py-2 text-gray-300 hover:text-venus">Mission</a>
+                <a href="#astrodynamics" class="block px-3 py-2 text-gray-300 hover:text-venus">Trajectory</a>
+                <a href="#thesis" class="block px-3 py-2 text-gray-300 hover:text-venus">Why Venus?</a>
+                <a href="#heritage" class="block px-3 py-2 text-gray-300 hover:text-venus">History</a>
+                <a href="#funding" class="block px-3 py-2 text-venus font-bold">Invest / Sponsor</a>
             </div>
-            <p class="text-xs text-gray-500 mt-4">For the latest mission updates, <a href="https://x.com/NephelisCo" target="_blank" class="underline hover:text-orange-500">follow us on X</a>.</p>
-        </form>
+        </div>
+    </nav>
+
+    <main class="relative z-10 pt-16">
+
+        <!-- HERO SECTION -->
+        <section class="relative min-h-screen flex items-center justify-center border-b border-white/10 overflow-hidden">
+            <!-- Venus Atmospheric Gradient Effect -->
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-venus/5 to-venus/10 pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 right-0 h-1/2 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-venus/20 via-transparent to-transparent opacity-60"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 text-center">
+                <div class="inline-flex items-center space-x-2 border border-venus/30 bg-venus/10 rounded-full px-4 py-1 mb-8 animate-pulse-slow">
+                    <span class="w-2 h-2 rounded-full bg-venus"></span>
+                    <span class="text-venus font-mono text-xs uppercase tracking-widest">Launch Window: Q4 2027</span>
+                </div>
+                
+                <h1 class="text-5xl md:text-8xl font-black tracking-tighter text-white mb-6 uppercase leading-none">
+                    Earth's <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-venus via-orange-500 to-yellow-500 text-glow">Twin Sister</span>
+                </h1>
+                
+                <p class="mt-4 max-w-2xl mx-auto text-xl text-gray-400 font-mono leading-relaxed">
+                    Project AETHER is humanity's return to the clouds. <br>
+                    A long-duration aerostat probe targeting the <span class="text-white font-bold">55km habitable zone</span> of Venus.
+                </p>
+
+                <div class="mt-10 flex justify-center gap-4">
+                    <a href="#mission" class="px-8 py-4 bg-white text-black font-bold font-mono uppercase tracking-wider hover:bg-gray-200 transition-colors clip-path-slant">
+                        Mission Brief
+                    </a>
+                    <a href="#funding" class="px-8 py-4 border border-white/20 text-white font-bold font-mono uppercase tracking-wider hover:border-venus hover:text-venus transition-all clip-path-slant bg-black/50 backdrop-blur">
+                        Join Flight Crew
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Hero Decorative Graphic -->
+            <div class="absolute bottom-10 left-10 hidden md:block font-mono text-xs text-gray-600">
+                <p>T-MINUS: <span id="launch-countdown">00:00:00:00</span></p>
+                <p>TARGET: 0.72 AU</p>
+                <p>STATUS: SYSTEMS NOMINAL</p>
+            </div>
+        </section>
+
+        <!-- MISSION STATEMENT -->
+        <section id="mission" class="py-24 bg-void border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="text-venus font-mono text-sm uppercase tracking-widest mb-2">01 // The Objective</h2>
+                    <h3 class="text-4xl font-bold text-white mb-6">Cloudseeker: A Floating Laboratory</h3>
+                    <div class="space-y-6 text-gray-400 font-light leading-relaxed">
+                        <p>
+                            While Mars captures the imagination, Venus captures the data. At 50km altitude, Venus boasts Earth-like atmospheric pressure (1 bar) and temperatures (0-50°C). It is the most habitable environment in the solar system outside Earth.
+                        </p>
+                        <p>
+                            <strong class="text-white">Project AETHER</strong> deploys a super-pressure fluoropolymer balloon designed to ride the super-rotating winds of Venus, circling the planet every 4 days while streaming high-bandwidth telemetry via a 3U CubeSat relay.
+                        </p>
+                        
+                        <div class="grid grid-cols-2 gap-4 mt-8">
+                            <div class="p-4 border border-white/10 bg-white/5">
+                                <div class="text-2xl font-mono text-venus font-bold">30-90d</div>
+                                <div class="text-xs text-gray-500 uppercase tracking-wider mt-1">Operational Life</div>
+                            </div>
+                            <div class="p-4 border border-white/10 bg-white/5">
+                                <div class="text-2xl font-mono text-venus font-bold">52km</div>
+                                <div class="text-xs text-gray-500 uppercase tracking-wider mt-1">Target Altitude</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- SVG Diagram: Mission Profile -->
+                <div class="glass-panel p-6 rounded-sm hud-border relative">
+                    <div class="absolute top-4 right-4 text-xs font-mono text-venus animate-pulse">LIVE TELEMETRY SIM</div>
+                    <svg viewBox="0 0 500 400" class="w-full h-auto drop-shadow-2xl">
+                        <!-- Background -->
+                        <defs>
+                            <linearGradient id="atmoGradient" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="#FFD700" stop-opacity="0.1"/>
+                                <stop offset="50%" stop-color="#FF4500" stop-opacity="0.3"/>
+                                <stop offset="100%" stop-color="#330000" stop-opacity="0.8"/>
+                            </linearGradient>
+                        </defs>
+                        
+                        <!-- Atmosphere Layers -->
+                        <rect x="50" y="50" width="400" height="300" fill="url(#atmoGradient)" rx="4" />
+                        
+                        <!-- Grid Lines -->
+                        <line x1="50" y1="125" x2="450" y2="125" stroke="rgba(255,255,255,0.1)" stroke-dasharray="4"/>
+                        <line x1="50" y1="200" x2="450" y2="200" stroke="rgba(255,255,255,0.1)" stroke-dasharray="4"/>
+                        <line x1="50" y1="275" x2="450" y2="275" stroke="rgba(255,255,255,0.1)" stroke-dasharray="4"/>
+                        
+                        <!-- Labels -->
+                        <text x="60" y="120" font-family="monospace" font-size="10" fill="#aaa">70km (Haze)</text>
+                        <text x="60" y="195" font-family="monospace" font-size="10" fill="#fff" font-weight="bold">55km (Habitable Zone)</text>
+                        <text x="60" y="270" font-family="monospace" font-size="10" fill="#aaa">40km (Lower Cloud)</text>
+                        
+                        <!-- Probe Path Animation -->
+                        <path d="M 450 80 Q 300 150 250 200 T 50 210" fill="none" stroke="#00f0ff" stroke-width="2" stroke-dasharray="5,5">
+                            <animate attributeName="stroke-dashoffset" from="100" to="0" dur="3s" repeatCount="indefinite" />
+                        </path>
+                        
+                        <!-- Probe Icon -->
+                        <circle cx="250" cy="200" r="6" fill="#00f0ff">
+                             <animate attributeName="r" values="6;8;6" dur="2s" repeatCount="indefinite" />
+                        </circle>
+                        <text x="265" y="205" font-family="monospace" font-size="12" fill="#00f0ff">AETHER PROBE</text>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- ASTRODYNAMICS (Calculators) -->
+        <section id="astrodynamics" class="py-24 bg-void border-b border-white/10 relative overflow-hidden">
+            <!-- Background Grid -->
+            <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+            
+            <div class="max-w-7xl mx-auto px-4 relative z-10">
+                <div class="mb-12">
+                    <h2 class="text-venus font-mono text-sm uppercase tracking-widest mb-2">02 // Mission Control</h2>
+                    <h3 class="text-4xl font-bold text-white">Astrodynamics & Trajectory</h3>
+                    <p class="text-gray-400 mt-2 font-mono text-sm">Interactive Mission Planner. Assumptions: Isp=320s, Hohmann Transfer.</p>
+                </div>
+
+                <div class="grid lg:grid-cols-12 gap-8">
+                    <!-- Left: Controls -->
+                    <div class="lg:col-span-4 space-y-6">
+                        <!-- Card 1: Transfer Window -->
+                        <div class="glass-panel p-6 border-l-2 border-l-venus">
+                            <h4 class="font-mono text-venus text-lg mb-4 flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                Launch Phase
+                            </h4>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="text-xs font-mono text-gray-500 uppercase block mb-2">Launch Offset (Days)</label>
+                                    <input id="offset-slider" type="range" min="-30" max="30" value="0" class="w-full">
+                                    <div class="flex justify-between mt-1 font-mono text-xs text-tech">
+                                        <span>Early</span>
+                                        <span id="offset-val" class="text-white">0</span>
+                                        <span>Late</span>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <label class="text-xs font-mono text-gray-500 uppercase block mb-2">Mission Progress</label>
+                                    <input id="progress-slider" type="range" min="0" max="100" value="0" class="w-full">
+                                    <div class="flex justify-between mt-1 font-mono text-xs text-tech">
+                                        <span>LEO</span>
+                                        <span id="progress-val" class="text-white">0%</span>
+                                        <span>Venus Capture</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Rocket Eq -->
+                        <div class="glass-panel p-6 border-l-2 border-l-tech">
+                            <h4 class="font-mono text-tech text-lg mb-4">Delta-V Budget</h4>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="text-[10px] font-mono text-gray-500 uppercase">Wet Mass (kg)</label>
+                                    <input type="number" id="mass-wet" value="500" class="w-full bg-black border border-white/20 text-white font-mono text-sm p-1 focus:border-tech focus:outline-none">
+                                </div>
+                                <div>
+                                    <label class="text-[10px] font-mono text-gray-500 uppercase">Dry Mass (kg)</label>
+                                    <input type="number" id="mass-dry" value="280" class="w-full bg-black border border-white/20 text-white font-mono text-sm p-1 focus:border-tech focus:outline-none">
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-white/10">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-mono text-gray-400">Available Δv:</span>
+                                    <span id="dv-output" class="text-xl font-mono text-tech font-bold">1830 m/s</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Center/Right: Visualization -->
+                    <div class="lg:col-span-8">
+                        <div class="glass-panel w-full aspect-video relative flex items-center justify-center bg-black/80">
+                            <!-- Overlay UI -->
+                            <div class="absolute top-4 left-4 font-mono text-xs text-green-500">
+                                SYS: ACTIVE<br>
+                                TRK: HOHMANN<br>
+                                V_INF: 2.7 km/s
+                            </div>
+                            
+                            <canvas id="orbit-canvas" width="800" height="450" class="w-full h-full"></canvas>
+                        </div>
+                        <div class="mt-4 grid grid-cols-3 gap-4 font-mono text-xs text-center text-gray-500">
+                            <div>EARTH DISTANCE: <span class="text-white block text-sm" id="dist-earth">0 km</span></div>
+                            <div>VENUS DISTANCE: <span class="text-white block text-sm" id="dist-venus">41M km</span></div>
+                            <div>EST. ARRIVAL: <span class="text-white block text-sm">DEC 2027</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- THESIS: WHY VENUS? (Enhanced) -->
+        <section id="thesis" class="py-24 bg-void/50 border-b border-white/10">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-venus font-mono text-sm uppercase tracking-widest mb-2">03 // The Thesis</h2>
+                    <h3 class="text-4xl font-bold text-white">Why We Choose The Clouds</h3>
+                    <p class="mt-4 text-gray-400 max-w-2xl mx-auto">
+                        Venus isn't just a science target; it is the most logical industrial gateway to the inner solar system. We are building the infrastructure for a multi-planetary economy.
+                    </p>
+                </div>
+
+                <!-- NEW: The "Twin Sister" Vital Statistics Module -->
+                <div class="grid md:grid-cols-2 gap-12 mb-20 items-center">
+                    <div>
+                        <h4 class="text-3xl font-bold text-white mb-6">The Twin Paradox</h4>
+                        <div class="space-y-6 text-gray-400 leading-relaxed">
+                            <p>
+                                When we say "Twin Sister," we aren't being poetic. We are talking about the critical physical constants required for human physiology and long-term habitation.
+                            </p>
+                            <p>
+                                <strong class="text-white">Gravity is the key.</strong> Living on Mars (0.38g) causes significant bone density loss and visual impairment. Venus offers <strong class="text-venus">0.904g</strong>—nearly identical to Earth. It is the only place in the solar system where your body works the way it evolved to.
+                            </p>
+                            <p>
+                                <strong class="text-white">Atmospheric Shielding.</strong> The thick atmosphere (even at altitude) protects inhabitants from cosmic radiation that sterilizes the surface of Mars. In the clouds of Venus, you are shielded.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Stats Grid -->
+                    <div class="grid grid-cols-2 gap-4">
+                         <div class="glass-panel p-6 text-center border-t-2 border-venus">
+                            <div class="text-xs font-mono text-gray-500 uppercase tracking-widest mb-2">Gravity</div>
+                            <div class="text-3xl font-bold text-white">0.91 <span class="text-sm text-gray-600">g</span></div>
+                            <div class="text-xs text-venus mt-1">~90% Earth</div>
+                         </div>
+                         <div class="glass-panel p-6 text-center border-t-2 border-venus">
+                            <div class="text-xs font-mono text-gray-500 uppercase tracking-widest mb-2">Radius</div>
+                            <div class="text-3xl font-bold text-white">6,052 <span class="text-sm text-gray-600">km</span></div>
+                            <div class="text-xs text-venus mt-1">95% Earth</div>
+                         </div>
+                         <div class="glass-panel p-6 text-center border-t-2 border-venus">
+                            <div class="text-xs font-mono text-gray-500 uppercase tracking-widest mb-2">Solar Year</div>
+                            <div class="text-3xl font-bold text-white">225 <span class="text-sm text-gray-600">days</span></div>
+                            <div class="text-xs text-venus mt-1">Closest Planet</div>
+                         </div>
+                         <div class="glass-panel p-6 text-center border-t-2 border-venus">
+                            <div class="text-xs font-mono text-gray-500 uppercase tracking-widest mb-2">Travel Time</div>
+                            <div class="text-3xl font-bold text-white">140 <span class="text-sm text-gray-600">days</span></div>
+                            <div class="text-xs text-venus mt-1">vs 210+ for Mars</div>
+                         </div>
+                    </div>
+                </div>
+
+                <!-- Comparison Table -->
+                <div class="overflow-x-auto rounded-lg border border-white/10 mb-16 glass-panel">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-white/5 text-gray-400 font-mono text-xs uppercase tracking-wider">
+                                <th class="p-4 border-b border-white/10">Metric</th>
+                                <th class="p-4 border-b border-white/10 text-venus bg-venus/5">Venus (55km)</th>
+                                <th class="p-4 border-b border-white/10">Mars (Surface)</th>
+                                <th class="p-4 border-b border-white/10">Earth (Surface)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="font-mono text-sm text-gray-300 divide-y divide-white/10">
+                            <tr>
+                                <td class="p-4 font-bold text-white">Pressure</td>
+                                <td class="p-4 text-venus bg-venus/5 font-bold">~0.6 - 1.0 bar</td>
+                                <td class="p-4">0.006 bar</td>
+                                <td class="p-4">1.0 bar</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-bold text-white">Temperature</td>
+                                <td class="p-4 text-venus bg-venus/5 font-bold">27 - 50 °C</td>
+                                <td class="p-4">-63 °C (Avg)</td>
+                                <td class="p-4">15 °C</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-bold text-white">Solar Flux</td>
+                                <td class="p-4 text-venus bg-venus/5 font-bold">2600 W/m²</td>
+                                <td class="p-4">590 W/m²</td>
+                                <td class="p-4">1360 W/m²</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-bold text-white">Radiation</td>
+                                <td class="p-4 text-venus bg-venus/5 font-bold">Atmospheric Shielding</td>
+                                <td class="p-4">Unshielded</td>
+                                <td class="p-4">Shielded</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Strategic Pillars -->
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Column 1 -->
+                    <div class="p-6 border border-white/10 bg-black/40 hover:border-venus/50 transition-colors">
+                        <div class="h-10 w-10 bg-venus/10 text-venus flex items-center justify-center rounded-sm mb-4 font-bold">I</div>
+                        <h4 class="text-white font-bold text-lg mb-2">Habitation</h4>
+                        <p class="text-sm text-gray-400 leading-relaxed">
+                            At 50km, humans can live in breathable air habitats (21% O2, 79% N2) which act as lifting gas in the dense CO2 atmosphere. No pressurized suits required inside the habitat.
+                        </p>
+                    </div>
+                    <!-- Column 2 -->
+                    <div class="p-6 border border-white/10 bg-black/40 hover:border-venus/50 transition-colors">
+                        <div class="h-10 w-10 bg-venus/10 text-venus flex items-center justify-center rounded-sm mb-4 font-bold">II</div>
+                        <h4 class="text-white font-bold text-lg mb-2">Resources (ISRU)</h4>
+                        <p class="text-sm text-gray-400 leading-relaxed">
+                            The atmosphere is a chemical factory. We can extract Oxygen and Carbon from CO2, Sulfuric Acid for industrial processes, and Nitrogen for agriculture.
+                        </p>
+                    </div>
+                    <!-- Column 3 -->
+                    <div class="p-6 border border-white/10 bg-black/40 hover:border-venus/50 transition-colors">
+                        <div class="h-10 w-10 bg-venus/10 text-venus flex items-center justify-center rounded-sm mb-4 font-bold">III</div>
+                        <h4 class="text-white font-bold text-lg mb-2">Astrobiology</h4>
+                        <p class="text-sm text-gray-400 leading-relaxed">
+                            The cloud layer may host microbial life. Phosphine detection remains controversial but compelling. Cloudseeker carries sensors tuned to detect biological precursors.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MISSION HERITAGE (History) -->
+        <section id="heritage" class="py-24 bg-void border-b border-white/10">
+            <div class="max-w-5xl mx-auto px-4">
+                <div class="mb-12 flex items-end justify-between">
+                    <div>
+                        <h2 class="text-venus font-mono text-sm uppercase tracking-widest mb-2">04 // Mission Archive</h2>
+                        <h3 class="text-4xl font-bold text-white">Standing on Giants</h3>
+                        <p class="mt-2 text-gray-400">
+                            Comprehensive log of humanity's attempts to reach Venus.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- SCROLLABLE MISSION CONTAINER -->
+                <div class="glass-panel border border-white/10 rounded-sm overflow-hidden">
+                    <div class="bg-white/5 px-6 py-3 border-b border-white/10 grid grid-cols-12 text-xs font-mono text-gray-500 uppercase tracking-wider">
+                        <div class="col-span-2">Year</div>
+                        <div class="col-span-6">Mission / Agency</div>
+                        <div class="col-span-4 text-right">Type</div>
+                    </div>
+                    <div class="max-h-96 overflow-y-auto custom-scrollbar divide-y divide-white/5">
+                        
+                        <!-- 1961 -->
+                        <div class="grid grid-cols-12 px-6 py-4 hover:bg-white/5 text-sm items-center">
+                            <div class="col-span-2 font-mono text-gray-500">1961</div>
+                            <div class="col-span-6 text-gray-400">Venera 1 (USSR) <span class="text-xs text-red-500 ml-2">[LOST CONTACT]</span></div>
+                            <div class="col-span-4 text-right font-mono text-xs text-gray-600">FLYBY</div>
+                        </div>
+
+                        <!-- 1962: Mariner 2 -->
+                        <div class="grid grid-cols-12 px-6 py-4 hover:bg-white/5 text-sm items-center border-l-2 border-venus bg-venus/5">
+                            <div class="col-span-2 font-mono text-venus">1962</div>
+                            <div class="col-span-6 font-bold text-white">
+                                <a href="https://science.nasa.gov/mission/mariner-2/" target="_blank" class="hover:text-venus underline decoration-1 underline-offset-4">Mariner 2 (USA)</a>
+                            </div>
+                            <div class="col-span-4 text-right font-mono text-xs text-venus">SUCCESSFUL FLYBY</div>
+                        </div>
+
+                        <!-- 1964-65 Failures (Generic) -->
+                        <div class="grid grid-cols-12 px-6 py-4 hover:bg-white/5 text-sm items-center opacity-60">
+                            <div class="col-span-2 font-mono text-gray-500">1964-65</div>
+                            <div class="col-span-6 text-gray-400">Zond 1, Venera 2/3 (USSR)</div>
+                            <div class="col-span-4 text-right font-mono text-xs text-gray-600">FAILED/IMPACT</div>
+                        </div>
+
+                        <!-- 1967: Venera 4 -->
+                        <div class="grid grid-cols-12 px-6 py-4 hover:bg-white/5 text-sm items-center">
+                            <div class="col-span-2 font-mono text-gray-300">1967</div>
+                            <div class="col-span-6 text-gray-300">
+                                <a href="https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1967-058A" target="_blank" class="hover:text-venus">Venera 4 (USSR)</a>
+                            </div>
+                            <div class="col-span-4 text-right font-mono text-xs text-gray-400">ATMOSPHERIC PROBE</div>
+                        </div>
+
+                        <!-- 1967: Mariner 5 -->
+                        <div class="grid grid-cols-12 px-6 py-4 hover:bg-white/5 text-sm items-center">
+                            <div class="col-span-2 font-mono text-gray-300">1967</div>
+                            <div class="col-span-6 text-gray-300">
+                                <a href="https://science.nasa.gov/mission/mariner-5/" target="_blank" class="hover:text-venus">Mariner 5 (USA)</a>
+                            </div>
+                            <div class="col-span-4 text-right font-mono text-xs text-gray-400">FLYBY</div>
+                        </div>
+
+                        <!-- 1970: Venera 7 -->
+                        <div class="grid grid-cols-12 px-6 py-4 hover:bg-white/5 text-sm items-center border-l-2 border-white">
+                            <div class="col-span-2 font-mono text-white">1970</div>
+                            <div class="col-span-6 text-white font-bold">
+                                <a href="https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1970-060A" target="_blank" class="hover:text-venus underline decoration-1 underline-offset-4">Venera 7 (USSR)</a>
+                            </div>
+                            <div class="col-span-4 text-right font-mono text-xs text-white">FIRST LANDING</div>
+                        </div>
+
+                        <!-- 1972: Venera 8 -->
+                        <div class="grid grid-cols-12 px-6 py-4 hover:bg-white/5 text-sm items-center">
+                            <div class="col-span-2 font-mono text-gray-300">1972</div>
+                            <div class="col-span-6 text-gray-300">Venera 8 (USSR)</div>
+                            <div class="col-span-4 text-right font-mono text-xs text-gray-400">LANDER</div>
+                        </div>
+
+                        <!-- 1974: Mariner 10 -->
+                        <div class="grid grid-cols-12 px-6 py-4 hover:bg-white/5 text-sm items-center">
+                            <div class="col-span-2 font-mono text-gray-300">1974</div>
+                            <div class="col-span-6 text-gray-300">
+                                <a href="https://science.nasa.gov/mission/mariner-10/" target="_blank" class="hover:text-venus">Mariner 10 (USA)</a>
+                            </div>
+                            <div class="col-span-4 text-right font-mono text-xs text-gray-400">FLYBY</div>
+                        </div>
+
+                        <!-- 1975: Venera 9/10 -->
+                        <div class="grid grid-cols-12 px-6 py-4 hover:bg-white/5 text-sm items-center">
+                            <div class="col-span-2 font-mono text-gray-300">1975</div>
+                            <div class="col-span-6 text-gray-300">Venera 9 & 10 (USSR)</div>
+                            <div class="col-span-4 text-right font-mono text-xs text-gray-400">ORBITER/LANDER</div>
+                        </div>
+
+                        <!-- 1978: Pioneer Venus -->
+                        <div class="grid grid-cols-12 px-6 py-4 hover:bg-white/5 text-sm items-center border-l-2 border-white">
+                            <div class="col-span-2 font-mono text-white">1978</div>
+                            <div class="col-span-6 text-white font-bold">
+                                <a href="https://science.nasa.gov/mission/pioneer-venus/" target="_blank" class="hover:text-venus underline decoration-1 underline-offset-4">Pioneer Venus 1 & 2 (USA)</a>
+                            </div>
+                            <div class="col-span-4 text-right font-mono text-xs text-white">ORBITER/MULTIPROBE</div>
+                        </div>
+
+                        <!-- 1978: Venera 11/12 -->
+                        <div class="grid grid-cols-12 px-6 py-4 hover:bg-white/5 text-sm items-center">
+                            <div class="col-span-2 font-mono text-gray-300">1978</div>
+                            <div class="col-span-6 text-gray-300">Venera 11 & 12 (USSR)</div>
+                            <div class="col-span-4 text-right font-mono text-xs text-gray-400">LANDER</div>
+                        </div>
+
+                        <!-- 1981: Venera 13/14 -->
+                        <div class="grid grid-cols-12 px-6 py-4 hover:bg-white/5 text-sm items-center">
+                            <div class="col-span-2 font-mono text-gray-300">1981</div>
+                            <div class="col-span-6 text-gray-300">Venera 13 & 14 (USSR)</div>
+                            <div class="col-span-4 text-right font-mono text-xs text-gray-400">LANDER/COLOR IMG</div>
+                        </div>
+
+                        <!-- 1983: Venera 15/16 -->
+                        <div class="grid grid-cols-12 px-6 py-4 hover:bg-white/5 text-sm items-center">
+                            <div class="col-span-2 font-mono text-gray-300">1983</div>
+                            <div class="col-span-6 text-gray-300">Venera 15 & 16 (USSR)</div>
+                            <div class="col-span-4 text-right font-mono text-xs text-gray-400">ORBITER/RADAR</div>
+                        </div>
+
+                        <!-- 1985: VEGA -->
+                        <div class="grid grid-cols-12 px-6 py-4 hover:bg-white/5 text-sm items-center border-l-2 border-venus bg-venus/5">
+                            <div class="col-span-2 font-mono text-venus">1985</div>
+                            <div class="col-span-6 text-white font-bold">
+                                <a href="https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1984-125A" target="_blank" class="hover:text-venus underline decoration-1 underline-offset-4">Vega 1 & 2 (USSR)</a>
+                            </div>
+                            <div class="col-span-4 text-right font-mono text-xs text-venus">BALLOON AEROSTAT</div>
+                        </div>
+
+                        <!-- 1989: Magellan -->
+                        <div class="grid grid-cols-12 px-6 py-4 hover:bg-white/5 text-sm items-center border-l-2 border-white">
+                            <div class="col-span-2 font-mono text-white">1989</div>
+                            <div class="col-span-6 text-white font-bold">
+                                <a href="https://science.nasa.gov/mission/magellan/" target="_blank" class="hover:text-venus underline decoration-1 underline-offset-4">Magellan (USA)</a>
+                            </div>
+                            <div class="col-span-4 text-right font-mono text-xs text-white">RADAR MAPPING</div>
+                        </div>
+
+                        <!-- 1990: Galileo -->
+                        <div class="grid grid-cols-12 px-6 py-4 hover:bg-white/5 text-sm items-center">
+                            <div class="col-span-2 font-mono text-gray-500">1990</div>
+                            <div class="col-span-6 text-gray-400">Galileo (USA)</div>
+                            <div class="col-span-4 text-right font-mono text-xs text-gray-600">GRAVITY ASSIST</div>
+                        </div>
+
+                        <!-- 2005: Venus Express -->
+                        <div class="grid grid-cols-12 px-6 py-4 hover:bg-white/5 text-sm items-center">
+                            <div class="col-span-2 font-mono text-gray-300">2005</div>
+                            <div class="col-span-6 text-gray-300">
+                                <a href="https://www.esa.int/Science_Exploration/Space_Science/Venus_Express" target="_blank" class="hover:text-venus">Venus Express (ESA)</a>
+                            </div>
+                            <div class="col-span-4 text-right font-mono text-xs text-gray-400">ATMOSPHERIC ORBITER</div>
+                        </div>
+
+                        <!-- 2010: Akatsuki -->
+                        <div class="grid grid-cols-12 px-6 py-4 hover:bg-white/5 text-sm items-center">
+                            <div class="col-span-2 font-mono text-gray-300">2010</div>
+                            <div class="col-span-6 text-gray-300">
+                                <a href="https://global.jaxa.jp/projects/sas/akatsuki/" target="_blank" class="hover:text-venus">Akatsuki (JAXA)</a>
+                            </div>
+                            <div class="col-span-4 text-right font-mono text-xs text-gray-400">CLIMATE ORBITER</div>
+                        </div>
+                        
+                        <!-- Flybys -->
+                        <div class="grid grid-cols-12 px-6 py-4 hover:bg-white/5 text-sm items-center opacity-60">
+                            <div class="col-span-2 font-mono text-gray-500">2018+</div>
+                            <div class="col-span-6 text-gray-400">Parker Solar Probe, BepiColombo, Solar Orbiter</div>
+                            <div class="col-span-4 text-right font-mono text-xs text-gray-600">GRAVITY ASSISTS</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VISUALS -->
+        <section id="gallery" class="py-24 bg-void border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-4">
+                <h2 class="text-venus font-mono text-sm uppercase tracking-widest mb-8">05 // Visualization</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 h-96">
+                    <!-- Placeholder Images via CSS Gradients/Patterns since we can't load external heavy assets -->
+                    <div class="md:col-span-2 relative group overflow-hidden border border-white/10 bg-gray-900 rounded-sm">
+                        <div class="absolute inset-0 bg-[url('https://upload.wikimedia.org/wikipedia/commons/8/85/Venus_globe.jpg')] bg-cover bg-center transition-transform duration-700 group-hover:scale-110 opacity-60"></div>
+                        <div class="absolute bottom-0 left-0 p-6 bg-gradient-to-t from-black to-transparent w-full">
+                            <h4 class="text-white font-bold text-xl">Global Radar Map</h4>
+                            <p class="text-gray-400 text-sm font-mono">Magellan Data Processing</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-rows-2 gap-4">
+                        <div class="relative group overflow-hidden border border-white/10 bg-gray-900 rounded-sm">
+                             <div class="absolute inset-0 bg-gradient-to-br from-venus/20 to-purple-900/20"></div>
+                             <!-- Abstract geometric rep of probe -->
+                             <div class="absolute inset-0 flex items-center justify-center">
+                                 <div class="w-16 h-16 border-2 border-white/20 rounded-full flex items-center justify-center">
+                                     <div class="w-2 h-2 bg-venus rounded-full animate-ping"></div>
+                                 </div>
+                             </div>
+                             <div class="absolute bottom-4 left-4">
+                                <p class="text-white text-sm font-mono">Probe Schematic</p>
+                             </div>
+                        </div>
+                        <div class="relative group overflow-hidden border border-white/10 bg-gray-900 rounded-sm">
+                            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-yellow-600/30 to-black"></div>
+                            <div class="absolute bottom-4 left-4">
+                                <p class="text-white text-sm font-mono">Atmospheric Entry</p>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FUNDING & CTA -->
+        <section id="funding" class="py-24 relative overflow-hidden">
+            <div class="absolute inset-0 bg-venus/5"></div>
+            <div class="max-w-5xl mx-auto px-4 text-center relative z-10">
+                <h2 class="text-5xl font-black text-white mb-6 uppercase">Etch Your Name on History</h2>
+                <p class="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">
+                    We are crowd-sourcing a portion of the payload. Your name, your DNA, or your company logo can be part of the first private mission to Venus.
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-12">
+                    <!-- Option 1 -->
+                    <div class="glass-panel p-8 hover:border-venus transition-colors cursor-pointer group text-left">
+                        <div class="text-venus font-mono text-sm mb-4">TIER 1: THE LEGACY</div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Solar Panel Engraving</h3>
+                        <p class="text-gray-400 text-sm mb-6">Laser-etch your name onto the photovoltaic array powering Cloudseeker.</p>
+                        <div class="flex items-end justify-between">
+                            <span class="text-3xl font-bold text-white">$100</span>
+                            <button onclick="openModal('sponsor')" class="text-venus font-mono hover:underline group-hover:translate-x-2 transition-transform">Reserve →</button>
+                        </div>
+                        <!-- Progress Bar -->
+                        <div class="mt-6">
+                             <div class="flex justify-between text-xs font-mono text-gray-500 mb-1">
+                                <span>Allocated</span>
+                                <span>120/500</span>
+                             </div>
+                             <div class="w-full bg-gray-800 h-1 rounded-full overflow-hidden">
+                                 <div class="bg-venus h-full" style="width: 85%"></div>
+                             </div>
+                        </div>
+                    </div>
+
+                    <!-- Option 2 -->
+                    <div class="glass-panel p-8 hover:border-tech transition-colors cursor-pointer group text-left">
+                        <div class="text-tech font-mono text-sm mb-4">TIER 2: THE IMMORTAL</div>
+                        <h3 class="text-2xl font-bold text-white mb-2">DNA Capsule</h3>
+                        <p class="text-gray-400 text-sm mb-6">Send a biological sample (hair/nail) in our inert time capsule. Let a part of you make it to Venus</p>
+                        <div class="flex items-end justify-between">
+                            <span class="text-3xl font-bold text-white">$500</span>
+                            <button onclick="openModal('dna')" class="text-tech font-mono hover:underline group-hover:translate-x-2 transition-transform">Reserve →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-white/10 pt-12">
+                    <p class="text-gray-500 font-mono text-sm mb-8">BACKED BY VETERANS FROM</p>
+                    <!-- LOGO ROW -->
+                    <div class="flex flex-wrap justify-center gap-12 items-center opacity-50 hover:opacity-100 transition-opacity duration-500">
+                        <!-- SpaceX -->
+                        <div class="logo-container">
+                             <img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/SpaceX_logo_black.svg" alt="SpaceX" class="h-6 w-auto logo-filter-invert">
+                        </div>
+                        <!-- NASA -->
+                        <div class="logo-container">
+                             <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/NASA_logo.svg" alt="NASA JPL" class="h-10 w-auto logo-filter-standard">
+                        </div>
+                        <!-- DARPA -->
+                        <div class="logo-container">
+                             <!-- Used standard Blue logo but inverted heavily to make it pop on black -->
+                             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/DARPA_Logo.svg" alt="DARPA" class="h-10 w-auto logo-filter-invert">
+                        </div>
+                        <!-- McKinsey -->
+                        <div class="logo-container">
+                             <img src="https://upload.wikimedia.org/wikipedia/commons/4/47/McKinsey_%26_Company_Logo.svg" alt="McKinsey & Company" class="h-8 w-auto logo-filter-invert">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-black border-t border-white/10 py-12">
+            <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <span class="font-bold text-xl tracking-wider text-white uppercase">Nephelis Industries</span>
+                    <p class="text-xs text-gray-600 font-mono mt-1">EST. 2025 // SALT LAKE CITY</p>
+                </div>
+                <div class="flex space-x-6 text-sm font-mono text-gray-500">
+                    <a href="https://x.com" target="_blank" class="hover:text-venus">X (Twitter)</a>
+                    <a href="mailto:info@nephelisindustries.com" class="hover:text-venus">Contact</a>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- Modal (Shared) -->
+    <div id="modal-overlay" class="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-panel max-w-md w-full p-8 relative transform transition-all scale-100">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white">✕</button>
+            
+            <h3 id="modal-title" class="text-2xl font-bold text-white mb-2">Initiate Sequence</h3>
+            <p id="modal-desc" class="text-gray-400 text-sm mb-6">Enter your details to receive the payload integration kit.</p>
+            
+            <form class="space-y-4" onsubmit="event.preventDefault(); alert('Transmission Received. Stand by for contact.'); closeModal();">
+                <div>
+                    <label class="block text-xs font-mono text-venus uppercase mb-1">Callsign (Name)</label>
+                    <input type="text" class="w-full bg-black border border-white/20 p-2 text-white focus:border-venus focus:outline-none rounded-none" required>
+                </div>
+                <div>
+                    <label class="block text-xs font-mono text-venus uppercase mb-1">Comms (Email)</label>
+                    <input type="email" class="w-full bg-black border border-white/20 p-2 text-white focus:border-venus focus:outline-none rounded-none" required>
+                </div>
+                <button type="submit" class="w-full bg-venus text-black font-bold font-mono uppercase py-3 hover:bg-white transition-colors">
+                    Transmit Data
+                </button>
+            </form>
+        </div>
     </div>
-</div>
-<!-- ---------- Scripts ---------- -->
-<script>
-  /* CTA text ring */
-  (function(){ const el=document.querySelector('.circular-text'); if(!el) return;
-    const text=" • Join The Mission • Join The Mission", angle=360/text.length;
-    [...text].forEach((c,i)=>{ const s=document.createElement('span'); s.textContent=c; s.style.transform=`rotate(${angle*i}deg)`; el.appendChild(s); });
-  })();
- 
-  /* Mobile Menu Toggle */
-  (function() {
-      const menuBtn = document.getElementById('menu-btn');
-      const mobileMenu = document.getElementById('mobile-menu');
-      const mobileLinks = mobileMenu.querySelectorAll('.mobile-link');
-      if (!menuBtn || !mobileMenu) return;
-      const toggleMenu = () => {
-          mobileMenu.classList.toggle('menu-visible');
-          mobileMenu.classList.toggle('menu-hidden');
-      };
-     
-      menuBtn.addEventListener('click', toggleMenu);
-      mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
-  })();
-  /* Venus Fact of the Day */
-  (function(){
-    const facts = [
-      "A day on Venus is longer than a year on Venus. It takes 243 Earth days to rotate once, but only 225 Earth days to orbit the Sun.",
-      "Venus is the hottest planet in our solar system, with an average surface temperature of 462°C (864°F).",
-      "The atmospheric pressure on Venus is 92 times greater than Earth's at sea level.",
-      "Venus rotates on its axis backwards compared to most other planets in the solar system. This is known as retrograde rotation.",
-      "The clouds on Venus are made of sulfuric acid.",
-      "Venus is often called Earth's 'sister planet' due to their similar size, mass, proximity to the Sun, and bulk composition.",
-      "There are more volcanoes on Venus than on any other planet in our solar system.",
-      "The first spacecraft to successfully land on Venus and transmit data from the surface was the Soviet Venera 7 in 1970.",
-      "Despite its heat, scientists speculate about the possibility of microbial life existing in Venus's upper cloud layers, where temperatures are more Earth-like.",
-      "Venus has no moons or rings.",
-      "The thick, yellow-white clouds of Venus reflect about 75% of the sunlight that falls on them, making it one of the brightest objects in the sky.",
-      "Winds in Venus's upper atmosphere, in the 'habitable zone', can reach super-hurricane speeds of up to 360 km/h (224 mph).",
-      "Unlike Earth, Venus has no detectable magnetic field, likely due to its extremely slow rotation.",
-      "The surface of Venus is a dry desertscape interspersed with slab-like rocks and periodically resurfaced by volcanism.",
-      "If you could stand on Venus, the sky would appear to be a reddish-orange color due to the way the thick carbon dioxide atmosphere scatters sunlight."
-    ];
-    const today = new Date();
-    const start = new Date(today.getFullYear(), 0, 0);
-    const diff = today - start;
-    const oneDay = 1000 * 60 * 60 * 24;
-    const dayOfYear = Math.floor(diff / oneDay);
-    const factIndex = dayOfYear % facts.length;
-    const factElement = document.getElementById('venus-fact');
-    if(factElement) {
-      factElement.textContent = facts[factIndex];
-    }
-  })();
- 
-  /* Lightbox for gallery */
-  (function(){
-    const slides=[...document.querySelectorAll('#slideshow .slide')];
-    if (slides.length === 0) return;
-    const lb=document.getElementById('lightbox'), img=document.getElementById('lbImg');
-    const prev=document.getElementById('lbPrev'), next=document.getElementById('lbNext'), close=document.getElementById('lbClose');
-    let idx=0, lastFocus=null;
-    function open(i){ idx=i; img.src=slides[idx].dataset.full; lb.classList.add('open'); lastFocus=document.activeElement; close.focus(); document.body.style.overflow='hidden'; }
-    function nav(d){ idx=(idx+d+slides.length)%slides.length; img.src=slides[idx].dataset.full; }
-    function hide(){ lb.classList.remove('open'); document.body.style.overflow=''; if(lastFocus) lastFocus.focus(); }
-    slides.forEach((s,i)=> s.addEventListener('click',()=>open(i)));
-    prev.onclick=()=>nav(-1); next.onclick=()=>nav(1); close.onclick=hide;
-    lb.addEventListener('click',e=>{ if(e.target===lb) hide(); });
-    window.addEventListener('keydown',e=>{ if(!lb.classList.contains('open')) return;
-      if(e.key==='Escape') hide(); if(e.key==='ArrowLeft') nav(-1); if(e.key==='ArrowRight') nav(1); });
-  })();
-  /* Sponsorship Modal Logic */
-  (function() {
-      // --- General Modal Logic ---
-      const openTriggers = document.querySelectorAll('[data-modal-target]');
-      const closeTriggers = document.querySelectorAll('.close-btn[data-modal-close]');
-     
-      const openModal = (modalId) => {
-          const modal = document.getElementById(modalId);
-          if (modal) modal.classList.add('open');
-      };
-      const closeModal = (modal) => {
-          if (modal) modal.classList.remove('open');
-      };
-      openTriggers.forEach(trigger => {
-          trigger.addEventListener('click', (e) => {
-              e.preventDefault();
-              openModal(trigger.dataset.modalTarget);
-          });
-      });
-      closeTriggers.forEach(trigger => {
-          trigger.addEventListener('click', () => {
-              closeModal(trigger.closest('.modal'));
-          });
-      });
-      document.querySelectorAll('.modal').forEach(modal => {
-          modal.addEventListener('click', (e) => {
-              if (e.target === modal) closeModal(modal);
-          });
-      });
-      
-      // Add data-modal-target to the buttons
-      const sponsorBtns = document.querySelectorAll('.sponsor-btn');
-      if (sponsorBtns.length === 2) {
-          sponsorBtns[0].dataset.modalTarget = 'panel-modal';
-          sponsorBtns[1].dataset.modalTarget = 'dna-modal';
-      }
-  })();
-  /* Rocket equation */
-  const g0=9.80665, fmt=x=>(Math.round(x*100)/100).toLocaleString();
-  function calc(){
-    const dv=+document.getElementById('dv').value||0, isp=+document.getElementById('isp').value||0, mdry=+document.getElementById('mdry').value||0;
-    const out=document.getElementById('out'); if(dv<=0||isp<=0||mdry<=0){ out.textContent='—'; return; }
-    const mr=Math.exp(dv/(isp*g0)), m0=mdry*mr, prop=m0-mdry;
-    out.innerHTML=`Mass ratio <b>${fmt(mr)}</b> · Propellant <b>${fmt(prop)}</b> kg`;
-  }
- 
-  /* Atmosphere toy model */
-  (function(){
-    const alt=document.getElementById('alt'), v=document.getElementById('altVal'), out=document.getElementById('atmOut');
-    if (!alt) return;
-    function update(){ const z=+alt.value; v.textContent=z.toFixed(1);
-      const T=20-(z-55)*2.2, P=1.0-(z-50)*0.04, rho=1.2*P/((T+273)/293), ir=1000*(1.1-Math.abs(z-55)/25);
-      out.innerHTML=`Temp <b>${T.toFixed(1)}°C</b> · Pressure <b>${P.toFixed(2)} bar</b><br>Density <b>${rho.toFixed(2)} kg/m³</b> · Solar <b>${ir.toFixed(0)} W/m²</b>`; }
-    alt.addEventListener('input',update); update();
-  })();
- 
-  /* Comms/day toy */
-  (function(){
-    const r=document.getElementById('relay'), v=document.getElementById('relayVal'), out=document.getElementById('commsOut');
-    if (!r) return;
-    function update(){ const h=+r.value; v.textContent=h;
-      const passes=Math.round(12+(400-h)/40), minutes=Math.round(6+(h-200)/30), dl=Math.round(passes*minutes*2);
-      out.innerHTML=`Passes/day <b>${passes}</b> · Avg <b>${minutes} min</b> · Data/day <b>${(dl/1000).toFixed(2)} GB</b>`; }
-    r.addEventListener('input',update); update();
-  })();
- 
-  /* Budget pie + progress */
-  (function(){
-    const pieEl = document.getElementById('pie');
-    if (!pieEl) return;
-    const ctx=pieEl.getContext('2d');
-    const budgetData = [
-        { label: 'Hardware', value: 170, color: '#ff5a3d' },
-        { label: 'Testing & Facilities', value: 90, color: '#ff7a4b' },
-        { label: 'Launch/Kick-stage', value: 170, color: '#ff9864' },
-        { label: 'Ops/Comms', value: 40, color: '#ffb482' },
-        { label: 'Contingency', value: 30, color: '#ffd0a6' },
-    ];
-    const total=budgetData.reduce((a,b)=>a+b.value,0);
-    const legendEl = document.getElementById('budget-legend');
-    let startAngle=-Math.PI/2;
-    budgetData.forEach(item => {
-        const sliceAngle=2*Math.PI*(item.value/total);
-        ctx.beginPath();
-        ctx.moveTo(100,100);
-        ctx.arc(100,100,90,startAngle,startAngle+sliceAngle);
-        ctx.closePath();
-        ctx.fillStyle=item.color;
-        ctx.fill();
-        startAngle+=sliceAngle;
-       
-        const legendItem = document.createElement('li');
-        legendItem.innerHTML = `<span class="inline-block w-3 h-3 rounded-full mr-2" style="background-color:${item.color}; vertical-align: middle;"></span>${item.label}: <b>$${item.value}k</b>`;
-        legendEl.appendChild(legendItem);
-    });
-    const target=500000, raised=Number(localStorage.getItem('raised')||137500);
-    document.getElementById('raised').textContent=`$${raised.toLocaleString()}`;
-    document.getElementById('progress').style.width=Math.min(100,(raised/target)*100)+'%';
-  })();
- 
-  
-  /* Scroll Observer for Animations */
-  (function() {
-      const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                  entry.target.classList.add('is-visible');
-              }
-          });
-      }, { threshold: 0.1 });
-      document.querySelectorAll('.fade-in').forEach(el => {
-          observer.observe(el);
-      });
-  })();
- 
-  /* Earth→Venus planner (scrubbable, no autoplay) */
-  (function(){
-    const cvs=document.getElementById('evCanvas');
-    if (!cvs) return;
-    const dSlider=document.getElementById('dOffset'), prog=document.getElementById('progressPct');
-    const dVal=document.getElementById('dOffsetVal'), pVal=document.getElementById('progVal'), dayVal=document.getElementById('dayVal');
-    const phaseOut=document.getElementById('phaseOut'), tofOut=document.getElementById('tofOut'), dvOut=document.getElementById('dvOut');
-    const ctx=cvs.getContext('2d'), DPR=Math.max(1,Math.floor(window.devicePixelRatio||1));
-    const W=480,H=300; cvs.width=W*DPR; cvs.height=H*DPR; cvs.style.width=W+'px'; cvs.style.height=H+'px'; ctx.scale(DPR,DPR);
-    const cx=W/2, cy=H/2, rE=120, rV=0.723*rE, aT=(rE+rV)/2, eT=(rE-rV)/(rE+rV);
-    const Te=365.25, Tv=224.701, nE=-2*Math.PI/Te, nV=-2*Math.PI/Tv; // CW
-    const Tt=146.0;
-    const thAp=0, thPe=thAp - Math.PI;
-    const wrap=a=>(a%(2*Math.PI)+2*Math.PI)%(2*Math.PI);
-    const polar=(r,th)=>[cx+r*Math.cos(th), cy+r*Math.sin(th)];
-    function venusInitial(offsetDays){ return thPe - nV*Tt - nV*offsetDays; }
-    function craftOnTransfer(tDays){ const phi=Math.PI*(tDays/Tt); const r=(aT*(1-eT*eT))/(1-eT*Math.cos(phi)); const th=wrap(thAp-phi); return {r,th}; }
-    function orbit(r,color,lineWidth=1.2){ ctx.strokeStyle=color; ctx.lineWidth=lineWidth; ctx.beginPath(); for(let i=0;i<=360;i++){ const th=i*Math.PI/180; const [x,y]=polar(r,th); i?ctx.lineTo(x,y):ctx.moveTo(x,y); } ctx.stroke(); }
-    function draw(){
-      const off=+dSlider.value, prog01=(+prog.value)/100;
-      const t = prog01 * Tt;
-      dVal.textContent=off;
-      pVal.textContent=(prog01*100).toFixed(0);
-      dayVal.textContent = t.toFixed(0);
-      phaseOut.textContent=`${(44 + off*1.0).toFixed(0)}°`; tofOut.textContent=`${Tt.toFixed(1)} d`; dvOut.textContent=`${(3.50+Math.abs(off)*0.01).toFixed(2)} km/s`;
-      const thV0=venusInitial(off);
-      ctx.clearRect(0,0,W,H);
-      // Sun glow
-      const sunGrad = ctx.createRadialGradient(cx, cy, 1, cx, cy, 14);
-      sunGrad.addColorStop(0, "rgba(255,220,150,1)");
-      sunGrad.addColorStop(1, "rgba(255,180,80,0)");
-      ctx.fillStyle = sunGrad;
-      ctx.fillRect(cx-14, cy-14, 28, 28);
-      ctx.fillStyle='#ffb48f'; ctx.beginPath(); ctx.arc(cx,cy,7,0,2*Math.PI); ctx.fill();
-      orbit(rE,'rgba(106,180,255,.65)'); orbit(rV,'rgba(255,156,106,.65)');
-      // Transfer arc with glow
-      ctx.strokeStyle='rgba(255,69,0,1)'; ctx.lineWidth=2.5; ctx.shadowColor = 'rgba(255,69,0,0.7)'; ctx.shadowBlur = 10;
-      ctx.beginPath();
-      for(let i=0;i<=180;i++){ const phi=i*Math.PI/180; const r=(aT*(1-eT*eT))/(1-eT*Math.cos(phi)); const th=thAp-phi; const [x,y]=polar(r,th); i?ctx.lineTo(x,y):ctx.moveTo(x,y); }
-      ctx.stroke();
-      ctx.shadowBlur = 0;
-      const thE=wrap(thAp + nE*t); const [xE,yE]=polar(rE,thE);
-      ctx.fillStyle='#6ab4ff'; ctx.beginPath(); ctx.arc(xE,yE,5,0,2*Math.PI); ctx.fill();
-      ctx.fillStyle='#cfe3ff'; ctx.font='13px Inter, sans-serif'; ctx.fillText('Earth', xE+10, yE-10);
-      const thV=wrap(thV0 + nV*t); const [xV,yV]=polar(rV,thV);
-      ctx.fillStyle='#ff9c6a'; ctx.beginPath(); ctx.arc(xV,yV,5,0,2*Math.PI); ctx.fill();
-      ctx.fillStyle='#ffd7c1'; ctx.fillText('Venus', xV+10, yV-10);
-      const c=craftOnTransfer(t); const [xc,yc]=polar(c.r,c.th);
-      ctx.fillStyle='#fff'; ctx.shadowColor = '#fff'; ctx.shadowBlur = 8;
-      ctx.beginPath(); ctx.arc(xc,yc,4,0,2*Math.PI); ctx.fill();
-      ctx.shadowBlur = 0;
-    }
-    dSlider.addEventListener('input',draw); prog.addEventListener('input',draw); draw();
-  })();
-</script>
+
+    <!-- SCRIPTS -->
+    <script>
+        // --- Modal Logic ---
+        function openModal(type) {
+            const modal = document.getElementById('modal-overlay');
+            const title = document.getElementById('modal-title');
+            const desc = document.getElementById('modal-desc');
+            
+            modal.classList.remove('hidden');
+            
+            if(type === 'sponsor') {
+                title.innerText = "Reserve Panel Space";
+                desc.innerText = "Join the 427 others etching their name on the mission.";
+            } else {
+                title.innerText = "Request DNA Kit";
+                desc.innerText = "Secure your biological legacy in the Venusian clouds.";
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('modal-overlay').classList.add('hidden');
+        }
+
+        // --- Rocket Equation Calculator ---
+        const inputs = ['mass-wet', 'mass-dry'];
+        inputs.forEach(id => {
+            document.getElementById(id).addEventListener('input', calculateDeltaV);
+        });
+
+        function calculateDeltaV() {
+            const wet = parseFloat(document.getElementById('mass-wet').value);
+            const dry = parseFloat(document.getElementById('mass-dry').value);
+            const isp = 320; // Specific Impulse assumption
+            const g0 = 9.81;
+
+            if (wet > 0 && dry > 0 && wet > dry) {
+                const dv = isp * g0 * Math.log(wet / dry);
+                document.getElementById('dv-output').innerText = Math.round(dv) + " m/s";
+                document.getElementById('dv-output').style.color = dv > 1500 ? "#00f0ff" : "#ff4500"; // Blue if good, Red if low
+            } else {
+                document.getElementById('dv-output').innerText = "ERROR";
+            }
+        }
+
+        // --- Starfield Background ---
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        function initStars() {
+            stars = [];
+            for (let i = 0; i < 200; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 2,
+                    speed: Math.random() * 0.2
+                });
+            }
+        }
+
+        function animateStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "white";
+            stars.forEach(star => {
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                ctx.fill();
+                star.y -= star.speed;
+                if (star.y < 0) star.y = canvas.height;
+            });
+            requestAnimationFrame(animateStars);
+        }
+
+        window.addEventListener('resize', () => { resizeCanvas(); initStars(); });
+        resizeCanvas();
+        initStars();
+        animateStars();
+
+        // --- Orbit Visualization (Canvas) ---
+        const orbitCanvas = document.getElementById('orbit-canvas');
+        const oCtx = orbitCanvas.getContext('2d');
+        const sunX = orbitCanvas.width / 2;
+        const sunY = orbitCanvas.height / 2;
+        
+        // Scale factors
+        const earthDist = 140;
+        const venusDist = 100;
+        
+        let angleEarth = 0;
+        let angleVenus = 0;
+        let transferProgress = 0; // 0 to 1
+
+        function drawOrbit() {
+            // Get slider values
+            const sliderOffset = document.getElementById('offset-slider').value;
+            const sliderProgress = document.getElementById('progress-slider').value / 100;
+            
+            // Update UI text
+            document.getElementById('offset-val').innerText = sliderOffset + "d";
+            document.getElementById('progress-val').innerText = Math.round(sliderProgress * 100) + "%";
+
+            // Clear
+            oCtx.fillStyle = '#000000';
+            oCtx.fillRect(0, 0, orbitCanvas.width, orbitCanvas.height);
+            
+            // Draw Orbits (Trails)
+            oCtx.beginPath();
+            oCtx.strokeStyle = '#333';
+            oCtx.lineWidth = 1;
+            oCtx.arc(sunX, sunY, earthDist, 0, Math.PI*2); // Earth Orbit
+            oCtx.stroke();
+            
+            oCtx.beginPath();
+            oCtx.strokeStyle = '#333';
+            oCtx.arc(sunX, sunY, venusDist, 0, Math.PI*2); // Venus Orbit
+            oCtx.stroke();
+
+            // Sun
+            oCtx.beginPath();
+            oCtx.fillStyle = '#FFD700';
+            oCtx.shadowBlur = 20;
+            oCtx.shadowColor = '#FFD700';
+            oCtx.arc(sunX, sunY, 15, 0, Math.PI*2);
+            oCtx.fill();
+            oCtx.shadowBlur = 0;
+
+            // Calculate Positions based on simple circular model + slider manipulation
+            // Real physics is harder, this is for visualization
+            const earthSpeed = 0.002;
+            const venusSpeed = 0.0032; // Venus moves faster
+            
+            // Base time derived from Date + Slider
+            const time = Date.now() * 0.0005;
+            
+            // Current Earth Pos
+            const eX = sunX + Math.cos(time * earthSpeed) * earthDist;
+            const eY = sunY + Math.sin(time * earthSpeed) * earthDist;
+            
+            // Current Venus Pos
+            const vX = sunX + Math.cos(time * venusSpeed) * venusDist;
+            const vY = sunY + Math.sin(time * venusSpeed) * venusDist;
+
+            // Draw Planets
+            // Earth
+            oCtx.beginPath();
+            oCtx.fillStyle = '#00f0ff';
+            oCtx.arc(eX, eY, 6, 0, Math.PI*2);
+            oCtx.fill();
+            oCtx.fillStyle = 'white';
+            oCtx.font = "12px monospace";
+            oCtx.fillText("EARTH", eX + 10, eY);
+
+            // Venus
+            oCtx.beginPath();
+            oCtx.fillStyle = '#FF4500';
+            oCtx.arc(vX, vY, 6, 0, Math.PI*2);
+            oCtx.fill();
+            oCtx.fillText("VENUS", vX + 10, vY);
+
+            // Transfer Orbit (Hohmann-ish Visual)
+            // We draw an ellipse connecting Earth's current pos to Venus's future pos
+            if (sliderProgress > 0) {
+                // Calculate interpolated position for probe
+                // Simple lerp for visual effect (not physically accurate)
+                const probeX = eX + (vX - eX) * sliderProgress + (Math.sin(sliderProgress * Math.PI) * 20); // Curve it slightly
+                const probeY = eY + (vY - eY) * sliderProgress - (Math.sin(sliderProgress * Math.PI) * 20);
+
+                // Draw Path Line
+                oCtx.beginPath();
+                oCtx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+                oCtx.setLineDash([5, 5]);
+                oCtx.moveTo(eX, eY);
+                oCtx.quadraticCurveTo((eX+vX)/2 + 20, (eY+vY)/2 - 20, vX, vY);
+                oCtx.stroke();
+                oCtx.setLineDash([]);
+
+                // Draw Probe
+                oCtx.beginPath();
+                oCtx.fillStyle = '#FFFFFF';
+                oCtx.arc(probeX, probeY, 3, 0, Math.PI*2);
+                oCtx.fill();
+                
+                // Draw line to probe
+                oCtx.beginPath();
+                oCtx.strokeStyle = '#00f0ff';
+                oCtx.lineWidth = 2;
+                oCtx.moveTo(probeX, probeY);
+                oCtx.lineTo(probeX + 10, probeY - 10);
+                oCtx.stroke();
+                oCtx.fillText("CLOUDSEEKER", probeX + 15, probeY - 10);
+                
+                // Update text distances (Fake data for visual)
+                document.getElementById('dist-earth').innerText = Math.round(sliderProgress * 41000) + " km";
+                document.getElementById('dist-venus').innerText = Math.round((1-sliderProgress) * 41000) + " km";
+            }
+            
+            requestAnimationFrame(drawOrbit);
+        }
+        drawOrbit();
+
+        // --- Countdown Timer ---
+        const launchDate = new Date("2027-11-01T00:00:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const distance = launchDate - now;
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById("launch-countdown").innerText = 
+                `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }, 1000);
+        
+        // --- Mobile Menu Toggle ---
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+    </script>
 </body>
 </html>
